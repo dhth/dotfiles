@@ -26,6 +26,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
@@ -84,6 +86,9 @@ let g:netrw_liststyle=3     " tree view
 "let g:netrw_browse_split = 2
 let g:netrw_winsize = 25
 
+"show line numbers in netrw
+le g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+
 "end
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -117,6 +122,10 @@ nnoremap <Leader>ps :Rg<SPACE>
 "resize splits -> increase/decrease height
 nnoremap <silent> <Leader>+ :resize +5<CR>
 nnoremap <silent> <Leader>- :resize -5<CR>
+
+"resize splits -> increase/decrease width of left pane
+nnoremap <silent> <Leader>> :vertical resize +5<CR>
+nnoremap <silent> <Leader>< :vertical resize -5<CR>
 "
 
 vnoremap J :m '>+1<CR>gv=gv
