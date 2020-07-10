@@ -28,6 +28,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
 
 call plug#end()
 
@@ -52,7 +54,7 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set relativenumber
+set number relativenumber
 set wrap
 set linebreak
 set textwidth=0
@@ -94,8 +96,17 @@ le g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd! GUIEnter * set vb t_vb=
 
+"color scheme
 colorscheme gruvbox
 set background=dark
+
+"from https://www.youtube.com/watch?v=q7gr6s8skt0
+"let g:gruvbox_contrast_dark = 'hard'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+let g:gruvbox_invert_selection='0'
 
 "From CtrlP's installation instructions
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -116,7 +127,8 @@ nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <leader>pv :NERDTreeToggle %<CR>
 nnoremap <Leader>ps :Rg<SPACE>
 
 "resize splits -> increase/decrease height
@@ -140,3 +152,58 @@ nnoremap <C-p> :GFiles<CR>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 
+"maps for git fugitive, from https://www.youtube.com/watch?v=PO6DxfGPQvw
+nmap <leader>gs :G<CR>
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+
+"don't show tab line
+set showtabline=1
+
+"move to next tab
+noremap <leader>n gt
+noremap <leader>pp gT
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+"""""""""""""""""""
+"""""" folds """"""
+"""""""""""""""""""
+
+"folds on by default
+set foldmethod=indent
+"prevents { or } from opening up a fold
+set foldopen-=block
+
+" leader fi to toggle opening/closing all folds
+let $unrol=0
+function UnrolMe()
+if $unrol==0
+    :exe "normal zR"
+    " :exe "normal zA"
+    let $unrol=1
+else
+    :exe "normal zM"
+" :exe "normal zC"
+    let $unrol=0
+endif
+endfunction
+
+noremap <leader>fi :call UnrolMe()<CR>
+
+"leader op opens fold
+noremap <leader>op zA
+"leader cl closes folds
+noremap <leader>cl zC
+
+"""""""""""""""""""
+"""" folds end """"
+"""""""""""""""""""

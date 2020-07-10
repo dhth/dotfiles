@@ -104,12 +104,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-# alias dcm='docker-compose'
+
+alias dcm='docker-compose'
 
 # docker compose with dev config
 alias dcmd='dcm -f docker-compose.dev.yml'
-
 alias ls='ls -a'
 
 #alias ml='source activate ml'
@@ -151,6 +150,19 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias v="nvim"
-alias tx="tmux"
+alias tx="tmuxinator"
 
 alias cvim="nvim ~/.config/nvim/init.vim"
+
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gb="git branch"
+alias gco="git checkout"
+
+alias opa="cat /Users/dhruvthakur/Desktop/mas.txt | pbcopy"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export EDITOR="nvim"
