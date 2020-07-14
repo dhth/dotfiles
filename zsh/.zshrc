@@ -1,3 +1,4 @@
+USER=dhruvthakur
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -9,7 +10,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/dhruvthakur/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -71,8 +72,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
@@ -109,16 +110,17 @@ alias dcm='docker-compose'
 
 # docker compose with dev config
 alias dcmd='dcm -f docker-compose.dev.yml'
+
 alias ls='ls -a'
 
-#alias ml='source activate ml'
+alias ml='source activate ml'
 alias cat='bat'
 
 alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 alias jpn='jupyter notebook'
 
-. /Users/dhruvthakur/Soft/z/z.sh
+. /Users/$USER/Soft/z/z.sh
 alias yd='yarn develop'
 
 # enter vim mode
@@ -131,14 +133,14 @@ alias ..="cd .."
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/dhruvthakur/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/$USER/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/$USER/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/$USER/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/dhruvthakur/miniconda3/bin:$PATH"
+        export PATH="/Users/$USER/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -160,7 +162,7 @@ alias gc="git commit"
 alias gb="git branch"
 alias gco="git checkout"
 
-alias opa="cat /Users/dhruvthakur/Desktop/mas.txt | pbcopy"
+alias opa="cat /Users/$USER/Desktop/mas.txt | pbcopy"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
