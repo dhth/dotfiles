@@ -30,6 +30,7 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -130,6 +131,7 @@ nnoremap <leader>u :UndotreeShow<CR>
 "nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :NERDTreeToggle %<CR>
 nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <Leader>bs :Lines<CR>
 
 "resize splits -> increase/decrease height
 nnoremap <silent> <Leader>+ :resize +5<CR>
@@ -151,6 +153,7 @@ nnoremap <C-p> :GFiles<CR>
 "for coc, from https://www.youtube.com/watch?v=-I1b8BINyEw
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
+nmap <leader>dt :call CocAction('jumpDefinition', 'tabe')<CR>
 
 "maps for git fugitive, from https://www.youtube.com/watch?v=PO6DxfGPQvw
 nmap <leader>gs :G<CR>
@@ -207,3 +210,11 @@ noremap <leader>cl zC
 """""""""""""""""""
 """" folds end """"
 """""""""""""""""""
+set clipboard+=unnamedplus
+noremap <leader>fn :echo @%<CR>
+
+"shortcut to edit nvim config
+noremap <leader>evm : e ~/.config/nvim/init.vim<CR>
+
+"add a new line below with a breakpoint (python)
+nmap <leader>bp obreakpoint()<Esc>k
