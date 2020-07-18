@@ -26,7 +26,6 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -34,7 +33,6 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
-Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-unimpaired'
 
 call plug#end()
@@ -245,7 +243,7 @@ set foldmethod=indent
 "prevents { or } from opening up a fold
 set foldopen-=block
 
-" leader fi to toggle opening/closing all folds
+"leader fi to toggle opening/closing all folds
 let $unrol=0
 function UnrolMe()
 if $unrol==0
@@ -280,3 +278,19 @@ noremap <leader>evm : e ~/.config/nvim/init.vim<CR>
 nmap <leader>bp obreakpoint()<Esc>k
 
 noremap <leader>sf :source %<CR>
+
+"""""""""""""""""""
+"""text movement"""
+"""""""""""""""""""
+
+"create empty line(s) below/above
+nnoremap <silent> [l  :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
+nnoremap <silent> ]l  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
+
+"move line/block down/up, ∆ is opt+j, ˚ is opt+k
+nnoremap ∆ :m .+1<CR>
+nnoremap ˚ :m .-2<CR>
+inoremap ∆ <Esc>:m .+1<CR>gi
+inoremap ˚ <Esc>:m .-2<CR>gi
+vnoremap ∆ :m '>+1<CR>gv
+vnoremap ˚ :m '<-2<CR>gv
