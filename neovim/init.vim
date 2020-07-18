@@ -1,3 +1,7 @@
+"""""""""""""""""""
+""""""plugins""""""
+"""""""""""""""""""
+
 " vim-plug auto setup
 let plugpath = expand('<sfile>:p:h'). '/autoload/plug.vim'
 if !filereadable(plugpath)
@@ -31,6 +35,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-unimpaired'
 
 call plug#end()
 
@@ -38,7 +43,10 @@ let g:coc_global_extensions = ["coc-python",
             \ "coc-json"]
 
 
-" General Settings
+"""""""""""""""""""
+""""""general""""""
+"""""""""""""""""""
+
 syntax on
 
 "For vimwiki
@@ -80,48 +88,56 @@ set path+=**
 set wildmenu
 set wildignore+=**/node_modules/**
 
+let mapleader = " "
+
+"""""""""""""""""""
+"""""""netrw"""""""
+"""""""""""""""""""
+
 "file tree
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in current window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
+"let g:netrw_banner=0       " disable annoying banner
+"let g:netrw_browse_split=4 " open in current window
+"let g:netrw_altv=1         " open splits to the right
+"let g:netrw_liststyle=3    " tree view
 
 "let g:netrw_browse_split = 2
-let g:netrw_winsize = 25
+"let g:netrw_winsize = 25
 
 "show line numbers in netrw
-le g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+"let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 
 "end
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd! GUIEnter * set vb t_vb=
 
+
+"""""""""""""""""""
+"""color scheme""""
+"""""""""""""""""""
+
 "color scheme
+let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_light = 'medium'
+
 colorscheme gruvbox
 set background=dark
 
 "from https://www.youtube.com/watch?v=q7gr6s8skt0
-"let g:gruvbox_contrast_dark = 'hard'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 let g:gruvbox_invert_selection='0'
 
-"From CtrlP's installation instructions
-"set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 if executable('rg')
     let g:rg_derive_root='true'
 endif
 
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-let mapleader = " "
-
-
-"let g:ctrlp_use_caching = 0
+"""""""""""""""""""
+""""""windows""""""
+"""""""""""""""""""
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -147,21 +163,58 @@ vnoremap K :m '<-2<CR>gv=gv
 inoremap jj <Esc>
 
 
+"""""""""""""""""""
+""""""""fzf""""""""
+"""""""""""""""""""
+
 "for fzf, from https://www.youtube.com/watch?v=-I1b8BINyEw
 nnoremap <C-p> :GFiles<CR>
+
+"for FZF files
+nnoremap <C-f> :Files<CR>
+
+
+"""""""""""""""""""
+""""""""coc""""""""
+"""""""""""""""""""
 
 "for coc, from https://www.youtube.com/watch?v=-I1b8BINyEw
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>dt :call CocAction('jumpDefinition', 'tabe')<CR>
 
+""Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <silent> gy <Plug>(coc-type-definition)
+
+"""""""""""""""""""
+"""""fugitive""""""
+"""""""""""""""""""
+
 "maps for git fugitive, from https://www.youtube.com/watch?v=PO6DxfGPQvw
 nmap <leader>gs :G<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 
+"""""""""""""""""""
+"""""""tabs"""""""
+"""""""""""""""""""
+
+noremap <leader>tt :tabnew<CR>
+noremap <leader>te :tabedit<space>
+noremap <leader>tc :tabclose<CR>
+
 "don't show tab line
-set showtabline=1
+"set showtabline=1
 
 "move to next tab
 noremap <leader>n gt
@@ -177,8 +230,14 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
+"show airline tab line
+let g:airline#extensions#tabline#enabled = 1
+"don't show buffers in airline tab bar
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
 """""""""""""""""""
-"""""" folds """"""
+"""""""folds"""""""
 """""""""""""""""""
 
 "folds on by default
@@ -208,8 +267,9 @@ noremap <leader>op zA
 noremap <leader>cl zC
 
 """""""""""""""""""
-"""" folds end """"
+"""miscellaneous"""
 """""""""""""""""""
+
 set clipboard+=unnamedplus
 noremap <leader>fn :echo @%<CR>
 
@@ -218,3 +278,5 @@ noremap <leader>evm : e ~/.config/nvim/init.vim<CR>
 
 "add a new line below with a breakpoint (python)
 nmap <leader>bp obreakpoint()<Esc>k
+
+noremap <leader>sf :source %<CR>
