@@ -179,3 +179,9 @@ export PATH="$PATH:/Users/dhruvthakur/.local/bin"
 # since .git is a hidden directory,
 # ~/.fdignore includes .git to exclude it from search
 export FZF_DEFAULT_COMMAND='fd -iH'
+
+# Change iterm2 profile. Usage it2prof ProfileName (case sensitive)
+it2prof() { echo -e "\033]50;SetProfile=$1\a" }
+
+alias termdark="it2prof gruvbox-morhetz-dark"
+alias termlight="it2prof gruvbox-morhetz-light"

@@ -24,16 +24,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
-Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/rainbow_parentheses.vim'
 
 call plug#end()
 
@@ -66,14 +66,14 @@ set wrap
 set linebreak
 set textwidth=0
 set wrapmargin=0
-set tw=80
+set tw=120
 set smartcase
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set colorcolumn=80
+set colorcolumn=120
 
 set showcmd
 set ruler
@@ -82,11 +82,14 @@ set ruler
 "https://www.youtube.com/watch?v=XA2WjJbmmoM
 
 "file finding
-set path+=**
+" set path+=**
+" disabled after reading https://github.com/neovim/neovim/issues/3209
 set wildmenu
 set wildignore+=**/node_modules/**
 
 let mapleader = " "
+
+nnoremap <leader>q :q<CR>
 
 """""""""""""""""""
 """""""netrw"""""""
@@ -109,14 +112,26 @@ let mapleader = " "
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 autocmd! GUIEnter * set vb t_vb=
 
+"""""""""""""""""""
+""""""nerdtree"""""
+"""""""""""""""""""
+
+" enable line numbers in nerdtree
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+" make sure relative line numbers are used
+
+let NERDTreeIgnore=['\.git$', '\.idea$', '\.vscode$', '\.history$']
+autocmd FileType nerdtree setlocal relativenumber
 
 """""""""""""""""""
 """color scheme""""
 """""""""""""""""""
 
 "color scheme
+set termguicolors
 let g:gruvbox_contrast_dark = 'hard'
-"let g:gruvbox_contrast_light = 'medium'
+let g:gruvbox_contrast_light = 'medium'
 
 colorscheme gruvbox
 set background=dark
@@ -128,10 +143,9 @@ if exists('+termguicolors')
 endif
 let g:gruvbox_invert_selection='0'
 
-
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
+"custom commands
+:command Light set background=light
+:command Dark set background=dark
 
 """""""""""""""""""
 """"""windows""""""
@@ -144,8 +158,6 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>u :UndotreeShow<CR>
 "nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>pv :NERDTreeToggle %<CR>
-nnoremap <Leader>ps :Rg<SPACE>
-nnoremap <Leader>bs :Lines<CR>
 
 "resize splits -> increase/decrease height
 nnoremap <silent> <Leader>+ :resize +5<CR>
@@ -171,6 +183,17 @@ nnoremap <C-p> :GFiles<CR>
 "for FZF files
 nnoremap <C-f> :Files<CR>
 
+nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <Leader>bs :Lines<CR>
+nnoremap <Leader>fh :History<CR>
+
+"repeat same mappings for new tab
+nnoremap <Leader><C-p> :tabnew<CR>:GFiles<CR>
+nnoremap <Leader><C-f> :tabnew<CR>:Files<CR>
+
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
 
 """""""""""""""""""
 """"""""coc""""""""
@@ -215,8 +238,8 @@ noremap <leader>tc :tabclose<CR>
 "set showtabline=1
 
 "move to next tab
-noremap <leader>n gt
-noremap <leader>pp gT
+noremap <leader>m gt
+noremap <leader>n gT
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -228,11 +251,24 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
+"""""""""""""""""""
+""""""airline""""""
+"""""""""""""""""""
+
 "show airline tab line
 let g:airline#extensions#tabline#enabled = 1
+
 "don't show buffers in airline tab bar
 let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+"shorter tab names
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"don't display tab count on the right side
+let g:airline#extensions#tabline#show_tab_count = 0
+
+"show tab number
+let g:airline#extensions#tabline#tab_nr_type = 1
 
 """""""""""""""""""
 """""""folds"""""""
@@ -294,3 +330,17 @@ inoremap ∆ <Esc>:m .+1<CR>gi
 inoremap ˚ <Esc>:m .-2<CR>gi
 vnoremap ∆ :m '>+1<CR>gv
 vnoremap ˚ :m '<-2<CR>gv
+
+
+"""""""""""""""""""
+""goyo & limelight"
+"""""""""""""""""""
+
+nnoremap <C-g> :Goyo<CR>
+nnoremap <C-l> :Limelight!!<CR>
+
+"goyo and limelight integrated
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
+
+" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
