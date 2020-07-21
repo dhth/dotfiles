@@ -75,7 +75,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -185,3 +185,10 @@ it2prof() { echo -e "\033]50;SetProfile=$1\a" }
 
 alias termdark="it2prof gruvbox-morhetz-dark"
 alias termlight="it2prof gruvbox-morhetz-light"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# ZSH AUTOCOMPLETIONS
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d79921,abold,underline"
+# `completes suggestions
+bindkey '`' autosuggest-accept
