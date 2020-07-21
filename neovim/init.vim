@@ -33,6 +33,7 @@ Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'tpope/vim-unimpaired'
 " Plug 'junegunn/rainbow_parentheses.vim'
 
 call plug#end()
@@ -121,7 +122,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 " make sure relative line numbers are used
 
-let NERDTreeIgnore=['\.git$', '\.idea$', '\.vscode$', '\.history$']
+let NERDTreeIgnore=['\.git$', '\.idea$', '\.vscode$', '\.history$', 'node_modules']
 autocmd FileType nerdtree setlocal relativenumber
 
 """""""""""""""""""
@@ -320,8 +321,8 @@ noremap <leader>sf :source %<CR>
 """""""""""""""""""
 
 "create empty line(s) below/above
-nnoremap <silent> [l  :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
-nnoremap <silent> ]l  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
+nnoremap <silent> <leader>[ :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
+nnoremap <silent> <leader>] :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
 "move line/block down/up, ∆ is opt+j, ˚ is opt+k
 nnoremap ∆ :m .+1<CR>
@@ -342,5 +343,9 @@ nnoremap <C-l> :Limelight!!<CR>
 "goyo and limelight integrated
 " autocmd! User GoyoEnter Limelight
 " autocmd! User GoyoLeave Limelight!
+
+"""""""""""""""""""""
+"rainbow parenthesis"
+"""""""""""""""""""""
 
 " let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
