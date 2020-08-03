@@ -45,7 +45,7 @@ set inccommand=split                    " Show live highlighting during substitu
 " set path+=**
 " disabled after reading https://github.com/neovim/neovim/issues/3209
 
-autocmd! GUIEnter * set vb t_vb=
+" autocmd! GUIEnter * set vb t_vb=
 
 "custom commands
 " :command Light set background=light
@@ -62,3 +62,7 @@ augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 5000)
 augroup END
+
+" gf if file does not exist, relative to current dir
+noremap <leader>grf :tabe %:h/<cfile><CR>
+noremap <leader>gcf :tabe <cfile><CR>

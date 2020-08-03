@@ -30,18 +30,18 @@ Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'tpope/vim-unimpaired'
-" Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/gv.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'mhinz/vim-signify'
+"Plug 'vimwiki/vimwiki'
 " Plug 'unblevable/quick-scope'
-
 " Plug 'junegunn/rainbow_parentheses.vim'
 
 call plug#end()
 
 let g:coc_global_extensions = ["coc-python",
-            \ "coc-json"]
+            \ "coc-json",
+            \ "coc-snippets"]

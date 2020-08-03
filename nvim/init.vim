@@ -1,6 +1,5 @@
 source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/general/settings.vim
-" source $HOME/.config/nvim/general/netrw.vim
 source $HOME/.config/nvim/general/tabs.vim
 source $HOME/.config/nvim/general/folds.vim
 source $HOME/.config/nvim/keys/mappings.vim
