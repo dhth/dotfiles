@@ -1,4 +1,0 @@
-{
-    "python.jediEnabled": false,
-    "snippets.userSnippetsDirectory": "~/.config/nvim/snips"
-}
