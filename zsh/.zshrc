@@ -90,8 +90,6 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -109,7 +107,7 @@ alias dcm='docker-compose'
 
 # docker compose with dev config
 alias dcmd='dcm -f docker-compose.dev.yml'
-alias ls='ls -AG'
+alias ls='ls -aG'
 
 #alias ml='source activate ml'
 alias cat='bat'
@@ -147,23 +145,6 @@ alias gco="git checkout"
 
 alias opa="cat /Users/dhruvthakur/Desktop/mas.txt | pbcopy"
 #
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/dhruvthakur/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/dhruvthakur/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-export PATH="/Users/dhruvthakur/miniconda3/bin:$PATH"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -179,16 +160,47 @@ export PATH="$PATH:/Users/dhruvthakur/.local/bin"
 # since .git is a hidden directory,
 # ~/.fdignore includes .git to exclude it from search
 export FZF_DEFAULT_COMMAND='fd -iH'
+# export FZF_DEFAULT_COMMAND='rg'
 
 # Change iterm2 profile. Usage it2prof ProfileName (case sensitive)
 it2prof() { echo -e "\033]50;SetProfile=$1\a" }
 
-alias termdark="it2prof gruvbox-morhetz-dark"
-alias termlight="it2prof gruvbox-morhetz-light"
+alias DT="it2prof gruvbox-morhetz-dark"
+alias LT="it2prof gruvbox-morhetz-light"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ZSH AUTOCOMPLETIONS
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d79921,abold,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=208"
 # `completes suggestions
 bindkey '`' autosuggest-accept
+
+alias colorscheme=~/colorscheme.sh 
+
+VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/dhruvthakur/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/dhruvthakur/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+export WORKON_HOME=~/.virtualenvs
+mkdir -p $WORKON_HOME
+. ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+
+export TERM="xterm-256color"
+
+export DOT_FILES_DIR='/Users/dhruvthakur/code/pers/dotfiles'

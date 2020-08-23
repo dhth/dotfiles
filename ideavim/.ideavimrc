@@ -1,16 +1,10 @@
-set relativenumber
-imap jj <Esc>
-set timeoutlen=1000
+let mapleader = " "
 
-"""""""""""""""""""
-""""""general""""""
-"""""""""""""""""""
-
-syntax on
-
-"splits open to right and down
-set splitbelow splitright
-
+syntax enable
+set nocompatible
+filetype plugin on
+set splitbelow
+set splitright
 set noerrorbells
 set belloff=all
 set tabstop=4 softtabstop=4
@@ -22,25 +16,28 @@ set wrap
 set linebreak
 set textwidth=0
 set wrapmargin=0
-set tw=80
+set tw=120
 set smartcase
 set noswapfile
 set nobackup
+set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set colorcolumn=80
-
+set colorcolumn=120
 set showcmd
 set ruler
-
-"from How to do 90% of what plugins do
-"https://www.youtube.com/watch?v=XA2WjJbmmoM
-
-"file finding
-set path+=**
+set cursorline                          " enable highlighting of the current line
+set conceallevel=0                      " to be able to see `` in markdown files
+set updatetime=300                      " faster completion
+set timeoutlen=500                      " default is 1000 ms
+set nobackup                            " This is recommended by coc
+set nowritebackup                       " This is recommended by coc
 set wildmenu
-
-let mapleader = " "
+set wildignore+=**/node_modules/**
+set termguicolors
+set clipboard+=unnamedplus
+set inccommand=nosplit                    " Show live highlighting during substitute in a split window
+set noshowmode
 
 "move to next tab
 noremap <leader>n gt
@@ -64,7 +61,7 @@ set clipboard+=unnamedplus
 noremap <leader>fn :echo @%<CR>
 
 "add a new line below with a breakpoint (python)
-nmap <leader>bp obreakpoint()<Esc>k
+nnoremap <leader>bp obreakpoint()<Esc>k
 
 noremap <leader>sf :source %<CR>
 
@@ -86,17 +83,31 @@ vnoremap ˚ :m '<-2<CR>gv
 
 "ideavim specific
 set commentary
+nnoremap <silent> <TAB> :action NextTab<CR>
+nnoremap <silent> <S-TAB> :action PreviousTab<CR>
+nnoremap <leader>h :action RecentFiles<CR>
 
-nmap <leader>gd :action GotoImplementation<CR>
-nmap <leader>fh :action RecentFiles<CR>
-nmap <C-f> :action SearchEverywhere<CR>
-nmap <leader>cl :action CollapseRegion<CR>
-nmap <leader>op :action ExpandRegion<CR>
-nmap <leader>tc :action CloseEditor<CR>
-nmap <C-o> :action Back<CR>
-nmap <C-i> :action Forward<CR>
+nnoremap <leader>gd :action GotoImplementation<CR>
+" nnoremap <leader>fh :action RecentFiles<CR>
+nnoremap <C-f> :action SearchEverywhere<CR>
+" nnoremap <leader>cl :action CollapseRegion<CR>
+" nnoremap <leader>op :action ExpandRegion<CR>
+nnoremap <leader>bp :action ToggleLineBreakpoint<CR>
+nnoremap za :action ExpandRegionRecursively<CR>
+nnoremap zc :action CollapseRegionRecursively<CR>
+nnoremap <leader>tc :action CloseEditor<CR>
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
 nnoremap K : action QuickJavaDoc<CR>
-nmap <leader>r :action RunClass<CR>
-nmap <leader>db :action DebugClass<CR>
-nmap <leader>pv :action ActivateProjectToolWindow<CR>
-nmap <leader>fs :action ToggleFullScreen<CR>
+nnoremap <leader>r :action RunClass<CR>
+nnoremap <leader>db :action DebugClass<CR>
+nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
+nnoremap <leader>fs :action ToggleFullScreen<CR>
+" nnoremap <C-s> :action FileStructurePopup<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap [[ :action MethodUp<CR>
+
+" Other Intellij shortcuts
+" cmd + 4 : open/close run tool window
+" cmd + 5 : open/close debug tool window
+" ctrl + s: file structure (sorta like fzf's BLines)
