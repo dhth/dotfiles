@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/dhruvthakur/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -116,7 +116,7 @@ alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(
 
 alias jpn='jupyter notebook'
 
-. /Users/dhruvthakur/Soft/z/z.sh
+. $HOME/Soft/z/z.sh
 alias yd='yarn develop'
 
 # enter vim mode
@@ -143,7 +143,7 @@ alias gc="git commit"
 alias gb="git branch"
 alias gco="git checkout"
 
-alias opa="cat /Users/dhruvthakur/Desktop/mas.txt | pbcopy"
+alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
 #
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -152,7 +152,7 @@ export EDITOR="nvim"
 
 
 # Created by `userpath` on 2020-07-18 08:27:23
-export PATH="$PATH:/Users/dhruvthakur/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # default command for fzf
 # -i is to ignore case
@@ -181,14 +181,14 @@ VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/dhruvthakur/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/dhruvthakur/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/dhruvthakur/miniconda3/bin:$PATH"
+        export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -203,4 +203,4 @@ mkdir -p $WORKON_HOME
 
 export TERM="xterm-256color"
 
-export DOT_FILES_DIR='/Users/dhruvthakur/code/pers/dotfiles'
+export DOT_FILES_DIR="$HOME/code/pers/dotfiles"
