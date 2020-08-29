@@ -204,5 +204,5 @@ mkdir -p $WORKON_HOME
 
 export TERM="xterm-256color"
 
-alias wthr=~/weather.sh
-alias weather=~/weather.sh
+alias wthr=$HOME/weather.sh
+alias weather=$HOME/weather.sh
