@@ -24,7 +24,6 @@ for f in staged_files:
 res_files_unique = list(set(res_files))
 
 res_files_unique_str = " ".join(res_files_unique)
-breakpoint()
 res_files_unique_str = res_files_unique_str.strip()
 
 import platform
