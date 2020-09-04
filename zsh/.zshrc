@@ -202,7 +202,8 @@ export WORKON_HOME=~/.virtualenvs
 mkdir -p $WORKON_HOME
 . ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
 
-export TERM="xterm-256color"
-
 alias wthr=$HOME/weather.sh
 alias weather=$HOME/weather.sh
+
+alias t="tmux"
+alias tls="tmux ls"
