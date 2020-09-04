@@ -207,3 +207,5 @@ alias weather=$HOME/weather.sh
 
 alias t="tmux"
 alias tls="tmux ls"
+
+alias theme='$DOT_FILES_DIR/set_theme.sh $($DOT_FILES_DIR/themes_list.sh | fzf)'
