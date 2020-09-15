@@ -1,0 +1,53 @@
+;; main contains multiple manipulators
+;; each manipulator has a description and multiple rules
+
+;; main                -> {:main [{:des "..." :rules [rule1 rule2 ...]}]}
+;; manipulator         -> {:des "..." :rules [rule1 rule2 ...]}
+;; manipulator's rules -> [rule1 rule2 ...]
+;; define application identifiers
+{
+   :layers {
+          :opt_mode{
+                    :key :left_command :alone {:key :left_option}
+                    }
+          ; :caps_mode{
+          ;           :key :caps_lock :alone {:key :left_control}
+          ;           }
+          }
+   :main [ 
+          {:des "caps lock to left control"
+           :rules [
+                   [:##caps_lock :left_control nil {:alone :escape}]
+                   ]
+           }
+          {:des "left control to caps lock"
+           :rules [
+                   [:##left_control :caps_lock]
+                   ]
+           }
+          {:des "left command to left option"
+           :rules [
+                   [:##left_command :left_option ]
+                   ]
+           }
+          {:des "left option to left command"
+           :rules [
+                   [:##left_option :left_command]
+                   ]
+           }
+          {:des "shift space to equals"
+           :rules [
+                   [{:key :spacebar :modi :left_shift} [:spacebar :equal_sign :spacebar]]
+                   ]
+           }
+          {:des "opt mode"
+           :rules [
+                   :opt_mode
+                   [:##h :left_arrow]
+                   [:##j :down_arrow]
+                   [:##k :up_arrow]
+                   [:##l :right_arrow]
+                   ]
+           }
+          ]
+ }
