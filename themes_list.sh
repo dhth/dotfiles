@@ -1,6 +1,6 @@
 #!/bin/sh
 
-themes=(gruvbox-dark gruvbox-light neodark) 
+themes=(gruvbox-dark gruvbox-light neodark github nightfly) 
 
 for theme in ${themes[@]}
 do
