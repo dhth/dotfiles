@@ -160,7 +160,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # -H includes hidden files/directories in search
 # since .git is a hidden directory,
 # ~/.fdignore includes .git to exclude it from search
-export FZF_DEFAULT_COMMAND='fd -iH'
+export FZF_DEFAULT_COMMAND='fd -ipH -t f'
 # export FZF_DEFAULT_COMMAND='rg'
 
 # Change iterm2 profile. Usage it2prof ProfileName (case sensitive)
@@ -208,4 +208,52 @@ alias weather=$HOME/weather.sh
 alias t="tmux"
 alias tls="tmux ls"
 
+alias e='exit'
+
 alias theme='$DOT_FILES_DIR/set_theme.sh $($DOT_FILES_DIR/themes_list.sh | fzf)'
+
+alias ff='cd $(echo $DOT_FILES_DIR\\n$NVIM_DIR\\n$PROJECTS_DIR | fzf)'
+
+alias mks='mkdocs serve --dirtyreload'
+
+alias cdw='cd ${WORKDIR}'
+
+alias gcd1='git clone --depth=1'
+
+# alias py='workon "$(workon|fzf)"'
+
+export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+
+alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
+
+alias opa="cat $HOME/opa.txt | pbcopy"
+
+alias cl='clear'
+
+# https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
+function py() {
+  local selected_env
+  selected_env=$(workon | fzf --height=10 --layout=reverse)
+
+  if [ -n "$selected_env" ]; then
+    workon $selected_env
+    echo "activated $selected_env"
+  fi
+}
+
+function delete-branches() {
+  git branch |
+    grep --invert-match '\*' |
+    cut -c 3- |
+    fzf --multi --preview="git log {}" |
+    xargs --no-run-if-empty git branch --delete --force
+}
+
+function dl() {
+  local selected_file
+  selected_file=$(ls ~/Downloads | fzf --height=10 --layout=reverse)
+
+  if [ -n "$selected_file" ]; then
+    echo ~/Downloads/$selected_file
+  fi
+}

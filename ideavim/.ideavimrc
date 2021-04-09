@@ -1,6 +1,8 @@
 let mapleader = " "
 inoremap jj <Esc>
 
+set sneak 
+
 syntax enable
 set nocompatible
 filetype plugin on
@@ -18,6 +20,7 @@ set linebreak
 set textwidth=0
 set wrapmargin=0
 set tw=120
+set ignorecase
 set smartcase
 set noswapfile
 set nobackup
@@ -55,9 +58,8 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
-"""""""""""""""""""
-"""miscellaneous"""
-"""""""""""""""""""
+""" nvim/keys/mappings.vim
+nnoremap <leader>y yyp
 
 set clipboard+=unnamedplus
 noremap <leader>fn :echo @%<CR>
@@ -89,9 +91,11 @@ nnoremap <silent> <TAB> :action NextTab<CR>
 nnoremap <silent> <S-TAB> :action PreviousTab<CR>
 nnoremap <leader>h :action RecentFiles<CR>
 
-nnoremap <leader>ff :action GotoImplementation<CR>
+nnoremap <leader>jj :action GotoImplementation<CR>
+nnoremap <leader>ff :action GotoDeclaration<CR>
 " nnoremap <leader>fh :action RecentFiles<CR>
-nnoremap <C-f> :action SearchEverywhere<CR>
+" nnoremap <C-f> :action SearchEverywhere<CR>
+nnoremap <C-f> :action GotoFile<CR>
 " nnoremap <leader>cl :action CollapseRegion<CR>
 " nnoremap <leader>op :action ExpandRegion<CR>
 nnoremap <leader>bp :action ToggleLineBreakpoint<CR>
@@ -103,7 +107,7 @@ nnoremap <leader>tc :action CloseEditor<CR>
 nnoremap <C-[> :action Back<CR>
 nnoremap <C-]> :action Forward<CR>
 nnoremap K : action QuickJavaDoc<CR>
-nnoremap <leader>r :action RunClass<CR>
+nnoremap <leader>rr :action RunClass<CR>
 nnoremap <leader>db :action DebugClass<CR>
 nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
 nnoremap <leader>fs :action ToggleFullScreen<CR>
@@ -111,7 +115,15 @@ nnoremap <leader>fs :action ToggleFullScreen<CR>
 nnoremap ]] :action MethodDown<CR>
 nnoremap [[ :action MethodUp<CR>
 
+nnoremap <leader>df :action ToggleDistractionFreeMode<CR>
+nnoremap <leader>q :action CloseEditor<CR>
+nnoremap <C-e> :action ShowErrorDescription<CR>
+nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
+
 " Other Intellij shortcuts
 " cmd + 4 : open/close run tool window
 " cmd + 5 : open/close debug tool window
 " ctrl + s: file structure (sorta like fzf's BLines)
+nnoremap <leader>ff :action ReformatCode<CR>
+
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
