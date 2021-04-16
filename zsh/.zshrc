@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,7 +113,6 @@ alias ls='ls -aG'
 #alias ml='source activate ml'
 alias cat='bat'
 
-alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 alias jpn='jupyter notebook'
 
@@ -140,9 +139,9 @@ alias cvim="nvim ~/.config/nvim/init.vim"
 
 alias gs="git status"
 alias ga="git add"
-alias gc="git commit"
+# alias gc="git commit"
 alias gb="git branch"
-alias gco="git checkout"
+# alias gco="git checkout"
 
 alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
 #
@@ -230,6 +229,7 @@ alias opa="cat $HOME/opa.txt | pbcopy"
 
 alias cl='clear'
 
+# select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
 function py() {
   local selected_env
@@ -241,19 +241,127 @@ function py() {
   fi
 }
 
+# delete git branches using fzf
 function delete-branches() {
   git branch |
     grep --invert-match '\*' |
     cut -c 3- |
     fzf --multi --preview="git log {}" |
-    xargs --no-run-if-empty git branch --delete --force
+    xargs git branch --delete --force
 }
 
+# echo file in ~/Downloads using fzf
 function dl() {
   local selected_file
   selected_file=$(ls ~/Downloads | fzf --height=10 --layout=reverse)
 
   if [ -n "$selected_file" ]; then
     echo ~/Downloads/$selected_file
+  fi
+}
+
+# cd to project root in a git repo
+# https://twitter.com/fatih/status/1381555413083168769
+alias cdr='cd $(git rev-parse --show-toplevel)'
+
+# cd to subdirectory using fzf
+function c() {
+  local selected_directory
+  selected_directory=$(fd -t d | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_directory" ]; then
+    # echo "cd $selected_directory"
+    cd $selected_directory
+  fi
+}
+
+# ls subdirectory using fzf
+function lss() {
+  local selected_directory
+  selected_directory=$(fd -t d | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_directory" ]; then
+    # echo "ls -aG $selected_directory"
+    command ls -aG $selected_directory
+  fi
+}
+
+# docker exec /bin/bash using fzf
+function dex() {
+  local selected_container
+  selected_container=$(docker ps --format "table {{ .ID }}\t{{.Names}}\t{{.Status}}" --last=5 | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_container" ]; then
+    echo "docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash"
+    docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash
+  fi
+}
+
+# git checkout using fzf
+function gco() {
+  local selected_branch
+  selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
+
+  if [ -n "$selected_branch" ]; then
+      git checkout $selected_branch
+  fi
+}
+
+# git log for all branches
+alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
+
+# git log for current branch
+alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit staging..$(git branch --show-current)'
+
+# git log for a specific branch
+function glbo() {
+  local selected_branch
+  selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
+
+  if [ -n "$selected_branch" ]; then
+      git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit staging..$selected_branch
+  fi
+}
+
+# utility function
+function echo_array(){
+    arr=("$@")
+    for el in $arr
+    do
+        echo "$el"
+    done
+}
+
+# quickly cd to important directories
+function jj(){
+  local selected_dir
+  selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=6 --layout=reverse | xargs)
+
+  if [ -n "$selected_dir" ]; then
+      cd $selected_dir
+  fi
+}
+
+# quickly cd to important directories in $PROJECTS_DIR
+function pp(){
+  local selected_dir
+  selected_dir=$(command ls $PROJECTS_DIR | fzf --height=15 --layout=reverse | xargs)
+
+  if [ -n "$selected_dir" ]; then
+      cd $PROJECTS_DIR/$selected_dir
+  fi
+}
+
+# quickly change vim colors with fzf
+function vc(){
+  local selected_colorscheme
+  local selected_background
+  selected_colorscheme=$(echo_array $NVIM_COLORSCHEMES | fzf --height=5 --layout=reverse | xargs)
+  selected_background=$(echo_array $NVIM_BACKGROUNDS | fzf --height=5 --layout=reverse | xargs)
+
+  if [ -n "$selected_colorscheme" ] && [ -n "$selected_background" ]; then
+      echo $selected_colorscheme
+      echo $selected_background
+      python $HOME/utils/change_vim_colors.py $selected_colorscheme $selected_background
   fi
 }
