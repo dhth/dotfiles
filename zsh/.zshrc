@@ -105,9 +105,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias dcm='docker-compose'
+alias lzd='lazydocker'
 
-# docker compose with dev config
-alias dcmd='dcm -f docker-compose.dev.yml'
 alias ls='ls -aG'
 
 #alias ml='source activate ml'
@@ -141,9 +140,10 @@ alias gs="git status"
 alias ga="git add"
 # alias gc="git commit"
 alias gb="git branch"
+alias gcd1="git clone --depth=1"
 # alias gco="git checkout"
 
-alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
+# alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
 #
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -211,8 +211,6 @@ alias e='exit'
 
 alias theme='$DOT_FILES_DIR/set_theme.sh $($DOT_FILES_DIR/themes_list.sh | fzf)'
 
-alias ff='cd $(echo $DOT_FILES_DIR\\n$NVIM_DIR\\n$PROJECTS_DIR | fzf)'
-
 alias mks='mkdocs serve --dirtyreload'
 
 alias cdw='cd ${WORKDIR}'
@@ -225,7 +223,8 @@ export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
 alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
 
-alias opa="cat $HOME/opa.txt | pbcopy"
+# alias opa="cat $HOME/opa.txt | pbcopy"
+alias opa='cat $HOME/$(echo "opa\nbw" | fzf --height=3 --layout=reverse).txt | pbcopy'
 
 alias cl='clear'
 
@@ -267,7 +266,7 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 # cd to subdirectory using fzf
 function c() {
   local selected_directory
-  selected_directory=$(fd -t d | fzf --height=6 --layout=reverse)
+  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
 
   if [ -n "$selected_directory" ]; then
     # echo "cd $selected_directory"
@@ -278,7 +277,7 @@ function c() {
 # ls subdirectory using fzf
 function lss() {
   local selected_directory
-  selected_directory=$(fd -t d | fzf --height=6 --layout=reverse)
+  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
 
   if [ -n "$selected_directory" ]; then
     # echo "ls -aG $selected_directory"
@@ -363,5 +362,71 @@ function vc(){
       echo $selected_colorscheme
       echo $selected_background
       python $HOME/utils/change_vim_colors.py $selected_colorscheme $selected_background
+  fi
+}
+
+# quickly run docker-compose exec
+function dce(){
+  local selected_service
+  selected_service=$(docker-compose ps --services | fzf --height=5 --layout=reverse | xargs)
+
+  if [ -n "$selected_service" ]; then
+      read command_to_run
+      if [ -n "$command_to_run" ]; then
+          echo docker-compose exec $selected_service bash -c $command_to_run
+          docker-compose exec $selected_service bash -c $command_to_run
+      fi
+  fi
+}
+
+function ff() {
+  local selected_file
+  selected_file=$(fd -H -t f | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_file" ]; then
+      echo $selected_file
+  fi
+}
+
+function ddd() {
+  local selected_directory
+  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_directory" ]; then
+      echo $selected_directory
+  fi
+}
+
+function dcf() {
+  local selected_docker_compose_file
+  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_docker_compose_file" ]; then
+      echo docker-compose -f $selected_docker_compose_file "$@"
+      docker-compose -f $selected_docker_compose_file "$@"
+  fi
+}
+
+function dcef(){
+  local selected_docker_compose_file
+  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+  local selected_service
+  selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
+
+  if [ -n "$selected_docker_compose_file" ]; then
+      if [ -n "$selected_service" ]; then
+          echo docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
+          docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
+      fi
+  fi
+}
+
+function lzdf() {
+  local selected_docker_compose_file
+  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+
+  if [ -n "$selected_docker_compose_file" ]; then
+      echo lazydocker -f $selected_docker_compose_file
+      lazydocker -f $selected_docker_compose_file
   fi
 }
