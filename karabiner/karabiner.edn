@@ -34,6 +34,7 @@
                  [:s [:open "/Applications/Slack.app"]]
                  [:c [:open "/Applications/Google Chrome.app"]]
                  [:m [:open "/Applications/Spotify.app"]]
+                 [:p [:open "https://github.com/pulls"]]
                  ]}
         {:des "caps lock to left control"
          :rules [

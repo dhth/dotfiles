@@ -1,9 +1,10 @@
 source $HOME/.zsh_env_vars.sh
+source $HOME/.env_vars_secret.sh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -17,6 +18,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -80,6 +82,10 @@ plugins=(zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+# fpath+=$HOME/.zsh/pure
+# autoload -U promptinit; promptinit
+# prompt pure
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -104,8 +110,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias dcm='docker-compose'
-alias lzd='lazydocker'
+black=$'\033[30m'
+red=$'\033[31m'
+GREEN=$'\033[32m'
+yellow=$'\033[33m'
+blue=$'\033[34m'
+magenta=$'\033[35m'
+cyan=$'\033[36m'
+white=$'\033[37m'
+NOCOLOR="\033[0m"
 
 alias ls='ls -aG'
 
@@ -136,12 +149,17 @@ alias tx="tmuxinator"
 
 alias cvim="nvim ~/.config/nvim/init.vim"
 
-alias gs="git status"
+alias gs="git status -sb"
 alias ga="git add"
 # alias gc="git commit"
 alias gb="git branch"
 alias gcd1="git clone --depth=1"
 # alias gco="git checkout"
+
+# alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
+function t(){
+    python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks "$@"
+}
 
 # alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
 #
@@ -195,7 +213,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 export WORKON_HOME=~/.virtualenvs
 mkdir -p $WORKON_HOME
@@ -204,7 +222,6 @@ mkdir -p $WORKON_HOME
 alias wthr=$HOME/weather.sh
 alias weather=$HOME/weather.sh
 
-alias t="tmux"
 alias tls="tmux ls"
 
 alias e='exit'
@@ -231,32 +248,32 @@ alias cl='clear'
 # select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
 function py() {
-  local selected_env
-  selected_env=$(workon | fzf --height=10 --layout=reverse)
+    local selected_env
+    selected_env=$(workon | fzf --height=10 --layout=reverse)
 
-  if [ -n "$selected_env" ]; then
-    workon $selected_env
-    echo "activated $selected_env"
-  fi
+    if [ -n "$selected_env" ]; then
+        workon $selected_env
+        echo "activated $selected_env"
+    fi
 }
 
 # delete git branches using fzf
 function delete-branches() {
-  git branch |
-    grep --invert-match '\*' |
-    cut -c 3- |
-    fzf --multi --preview="git log {}" |
-    xargs git branch --delete --force
-}
+    git branch |
+        grep --invert-match '\*' |
+        cut -c 3- |
+        fzf --multi --preview="git log {}" |
+        xargs git branch --delete --force
+    }
 
 # echo file in ~/Downloads using fzf
 function dl() {
-  local selected_file
-  selected_file=$(ls ~/Downloads | fzf --height=10 --layout=reverse)
+    local selected_file
+    selected_file=$(ls ~/Downloads | fzf --height=10 --layout=reverse)
 
-  if [ -n "$selected_file" ]; then
-    echo ~/Downloads/$selected_file
-  fi
+    if [ -n "$selected_file" ]; then
+        echo ~/Downloads/$selected_file
+    fi
 }
 
 # cd to project root in a git repo
@@ -265,45 +282,50 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # cd to subdirectory using fzf
 function c() {
-  local selected_directory
-  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+    local selected_directory
+    if (($# == 1))
+    then
+        selected_directory=$(fd -H -t d $1 | fzf --height=6 --layout=reverse)
+    else
+        selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+    fi
 
-  if [ -n "$selected_directory" ]; then
-    # echo "cd $selected_directory"
-    cd $selected_directory
-  fi
+    if [ -n "$selected_directory" ]; then
+        # echo "cd $selected_directory"
+        cd $selected_directory
+    fi
 }
 
 # ls subdirectory using fzf
 function lss() {
-  local selected_directory
-  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+    local selected_directory
+    selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
 
-  if [ -n "$selected_directory" ]; then
-    # echo "ls -aG $selected_directory"
-    command ls -aG $selected_directory
-  fi
+    if [ -n "$selected_directory" ]; then
+        # echo "ls -aG $selected_directory"
+        command ls -aG $selected_directory
+    fi
 }
 
 # docker exec /bin/bash using fzf
 function dex() {
-  local selected_container
-  selected_container=$(docker ps --format "table {{ .ID }}\t{{.Names}}\t{{.Status}}" --last=5 | fzf --height=6 --layout=reverse)
+    local selected_container
+    selected_container=$(docker ps --format "table {{ .ID }}\t{{.Names}}\t{{.Status}}" --last=5 | fzf --height=6 --layout=reverse)
 
-  if [ -n "$selected_container" ]; then
-    echo "docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash"
-    docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash
-  fi
+    if [ -n "$selected_container" ]; then
+        echo "docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash"
+        docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash
+    fi
 }
 
 # git checkout using fzf
 function gco() {
-  local selected_branch
-  selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
+    local selected_branch
+    selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
 
-  if [ -n "$selected_branch" ]; then
-      git checkout $selected_branch
-  fi
+    if [ -n "$selected_branch" ]; then
+        git checkout $selected_branch
+    fi
 }
 
 # git log for all branches
@@ -314,12 +336,12 @@ alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yello
 
 # git log for a specific branch
 function glbo() {
-  local selected_branch
-  selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
+    local selected_branch
+    selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
 
-  if [ -n "$selected_branch" ]; then
-      git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit staging..$selected_branch
-  fi
+    if [ -n "$selected_branch" ]; then
+        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit staging..$selected_branch
+    fi
 }
 
 # utility function
@@ -333,100 +355,190 @@ function echo_array(){
 
 # quickly cd to important directories
 function jj(){
-  local selected_dir
-  selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=6 --layout=reverse | xargs)
+    local selected_dir
+    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=6 --layout=reverse | xargs)
 
-  if [ -n "$selected_dir" ]; then
-      cd $selected_dir
-  fi
+    if [ -n "$selected_dir" ]; then
+        cd $selected_dir
+    fi
 }
 
 # quickly cd to important directories in $PROJECTS_DIR
 function pp(){
-  local selected_dir
-  selected_dir=$(command ls $PROJECTS_DIR | fzf --height=15 --layout=reverse | xargs)
+    local selected_dir
+    selected_dir=$(command ls $PROJECTS_DIR | fzf --height=15 --layout=reverse | xargs)
 
-  if [ -n "$selected_dir" ]; then
-      cd $PROJECTS_DIR/$selected_dir
-  fi
+    if [ -n "$selected_dir" ]; then
+        cd $PROJECTS_DIR/$selected_dir
+    fi
 }
 
 # quickly change vim colors with fzf
 function vc(){
-  local selected_colorscheme
-  local selected_background
-  selected_colorscheme=$(echo_array $NVIM_COLORSCHEMES | fzf --height=5 --layout=reverse | xargs)
-  selected_background=$(echo_array $NVIM_BACKGROUNDS | fzf --height=5 --layout=reverse | xargs)
+    local selected_colorscheme
+    local selected_background
+    selected_colorscheme=$(echo_array $NVIM_COLORSCHEMES | fzf --height=5 --layout=reverse | xargs)
+    selected_background=$(echo_array $NVIM_BACKGROUNDS | fzf --height=5 --layout=reverse | xargs)
 
-  if [ -n "$selected_colorscheme" ] && [ -n "$selected_background" ]; then
-      echo $selected_colorscheme
-      echo $selected_background
-      python $HOME/utils/change_vim_colors.py $selected_colorscheme $selected_background
-  fi
+    if [ -n "$selected_colorscheme" ] && [ -n "$selected_background" ]; then
+        echo $selected_colorscheme
+        echo $selected_background
+        python $HOME/utils/change_vim_colors.py $selected_colorscheme $selected_background
+    fi
 }
 
 # quickly run docker-compose exec
 function dce(){
-  local selected_service
-  selected_service=$(docker-compose ps --services | fzf --height=5 --layout=reverse | xargs)
+    local selected_service
+    selected_service=$(docker-compose ps --services | fzf --height=5 --layout=reverse | xargs)
 
-  if [ -n "$selected_service" ]; then
-      read command_to_run
-      if [ -n "$command_to_run" ]; then
-          echo docker-compose exec $selected_service bash -c $command_to_run
-          docker-compose exec $selected_service bash -c $command_to_run
-      fi
-  fi
+    if [ -n "$selected_service" ]; then
+        read command_to_run
+        if [ -n "$command_to_run" ]; then
+            echo docker-compose exec $selected_service bash -c $command_to_run
+            docker-compose exec $selected_service bash -c $command_to_run
+        fi
+    fi
 }
 
 function ff() {
-  local selected_file
-  selected_file=$(fd -H -t f | fzf --height=6 --layout=reverse)
+    local selected_file
+    selected_file=$(fd -H -t f | fzf --height=6 --layout=reverse)
 
-  if [ -n "$selected_file" ]; then
-      echo $selected_file
-  fi
+    if [ -n "$selected_file" ]; then
+        echo $selected_file
+    fi
 }
 
 function ddd() {
-  local selected_directory
-  selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+    local selected_directory
+    selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
 
-  if [ -n "$selected_directory" ]; then
-      echo $selected_directory
-  fi
+    if [ -n "$selected_directory" ]; then
+        echo $selected_directory
+    fi
 }
 
-function dcf() {
-  local selected_docker_compose_file
-  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
-
-  if [ -n "$selected_docker_compose_file" ]; then
-      echo docker-compose -f $selected_docker_compose_file "$@"
-      docker-compose -f $selected_docker_compose_file "$@"
-  fi
+function _number_of_docker_compose_files(){
+    echo $(ls | grep docker-compose | wc -l)
 }
 
-function dcef(){
-  local selected_docker_compose_file
-  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
-  local selected_service
-  selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
+function dcm() {
+    if (( $(_number_of_docker_compose_files) <= 1 )); then
+        echo -e "${GREEN}docker-compose "$@"${NOCOLOR}"
+        docker-compose "$@"
+    else
+        local selected_docker_compose_file
+        selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
 
-  if [ -n "$selected_docker_compose_file" ]; then
-      if [ -n "$selected_service" ]; then
-          echo docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
-          docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
-      fi
-  fi
+        if [ -n "$selected_docker_compose_file" ]; then
+            echo -e "${GREEN}docker-compose -f $selected_docker_compose_file "$@"${NOCOLOR}"
+            docker-compose -f $selected_docker_compose_file "$@"
+        fi
+    fi
 }
 
-function lzdf() {
-  local selected_docker_compose_file
-  selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+function dcme(){
+    if (( $(_number_of_docker_compose_files) <= 1 )); then
+        echo docker-compose "$@"
+        docker-compose "$@"
+    else
+        local selected_docker_compose_file
+        selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
 
-  if [ -n "$selected_docker_compose_file" ]; then
-      echo lazydocker -f $selected_docker_compose_file
-      lazydocker -f $selected_docker_compose_file
-  fi
+        if [ -n "$selected_docker_compose_file" ]; then
+            if [ -n "$selected_service" ]; then
+                echo docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
+                docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
+            fi
+        fi
+    fi
 }
+
+function lzd() {
+    if (( $(_number_of_docker_compose_files) <= 1 )); then
+        echo docker-compose "$@"
+        docker-compose "$@"
+    else
+        local selected_docker_compose_file
+        selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+
+        if [ -n "$selected_docker_compose_file" ]; then
+            echo lazydocker -f $selected_docker_compose_file
+            lazydocker -f $selected_docker_compose_file
+        fi
+    fi
+}
+
+function kk(){
+    local selected_entry
+    selected_entry=$( cat ~/clipboard.txt | fzf --height=6 --layout=reverse --preview 'echo {}| cut -d"|" -f3')
+
+    if [ -n "$selected_entry" ]; then
+        echo $selected_entry | cut -d'|' -f2 | xargs | pbcopy
+    fi
+}
+
+function ws(){
+    # wiki search
+    local selected_entry
+ selected_entry=$(rg $1 $WIKI_DIR/docs | sed -e "s|$WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        local stripped
+        stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" |xargs)
+        open "http://127.0.0.1:8000/$stripped/"
+    fi
+}
+
+function wf(){
+    # wiki file
+    local selected_entry
+    if (($# == 1))
+    then
+         selected_entry=$(fd -p -t f --base-directory=$WIKI_DIR/docs $1 | fzf --height=10 --layout=reverse)
+    else
+         selected_entry=$(fd -p -t f --base-directory=$WIKI_DIR/docs | fzf --height=10 --layout=reverse)
+    fi
+    if [ -n "$selected_entry" ]; then
+        local stripped
+        stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" | xargs)
+        open "http://127.0.0.1:8000/$stripped/"
+    fi
+}
+
+
+function wws(){
+    # work wiki search
+    local selected_entry
+ selected_entry=$(rg $1 $WORK_WIKI_DIR/docs | sed -e "s|$WORK_WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        local stripped
+        stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" |xargs)
+        open "http://127.0.0.1:8001/$stripped/"
+    fi
+}
+
+function wwf(){
+    # work wiki file
+    local selected_entry
+    if (($# == 1))
+    then
+         selected_entry=$(fd -p -t f --base-directory=$WORK_WIKI_DIR/docs $1 | fzf --height=10 --layout=reverse)
+    else
+         selected_entry=$(fd -p -t f --base-directory=$WORK_WIKI_DIR/docs | fzf --height=10 --layout=reverse)
+    fi
+    if [ -n "$selected_entry" ]; then
+        local stripped
+        stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" | xargs)
+        open "http://127.0.0.1:8001/$stripped/"
+    fi
+}
+
+# https://github.com/junegunn/fzf/wiki/Color-schemes
+
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+ --color=fg:#cbccc6,hl:#707a8c
+ --color=fg+:#5fff87,hl+:#ffcc66
+ --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
+ --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+# highlighted line green, with entered word yellow

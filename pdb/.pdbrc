@@ -9,3 +9,9 @@ alias rp from rich import print as _print; _print(%1)
 alias pl from rich import print as _print; _print(locals(), style="red")
 
 alias cls import shutil; print("\n" * shutil.get_terminal_size().lines)
+
+import termios, sys
+termios_fd = sys.stdin.fileno()
+termios_echo = termios.tcgetattr(termios_fd)
+termios_echo[3] = termios_echo[3] | termios.ECHO
+termios_result = termios.tcsetattr(termios_fd, termios.TCSADRAIN, termios_echo)
