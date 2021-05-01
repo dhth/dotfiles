@@ -13,31 +13,96 @@
          :held    50 ; 
          :delay   50 ; basically it means time after which the key press is count delayed
          :sim     100}} ; simultaneous key press threshold
- :templates {:open "open \"%s\""}
+ :templates {:open "open \"%s\""
+             :alfred "osascript -e 'tell application \"Alfred 4\"
+                        run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
+                     end tell'"
+             :km "osascript -e 'tell application \"Keyboard Maestro Engine\"
+                        do script \"%s\"
+                 end tell'"
+             :spotify "osascript -e 'tell application \"Spotify\"
+                        %s
+                      end tell'"
+             }
  :layers {
           :opt_mode{
                     :key :left_command :alone {:key :left_option}
                     }
           ; :caps_mode{
-          ;           :key :caps_lock :alone {:key :left_control}
+          ;           :key :caps_lock :alone {:key :escape}
           ;           }
           }
  :simlayers {;; make w key a simlayer key
              ;; layers works too, but only recommended for none typing keys
              ;; like . , tab
              ;; or keys like z, which used less often
-             :launch-mode {:key :w}}
+             :open-mode {:key :1}
+             :search-mode {:key :s}
+             :open-url-mode {:key :2}
+             :start-mode {:key :3}
+             :work-mode {:key :4}
+             :launch-application-mode {:key :5}
+             :mouse-mode {:key :grave_accent_and_tilde}
+             :other-mode {:key :hyphen}
+             }
  :main [ 
-        {:des   "launch mode"
-         :rules [:launch-mode
+        {:des "shift one shot to backspace"
+         :rules [
+                 [:left_shift :left_shift nil {
+                                               :alone :delete_or_backspace}]
+                 ]
+         }
+        {:des   "open stuff that get opened frequently"
+         :rules [:open-mode
+                 [:s [:alfred "slack_status"  "dhth.slack.status"]]
+                 [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
+                 ]}
+        {:des   "search stuff"
+         :rules [:search-mode
+                 [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
+                 [:w [:alfred "wiki_search"  "dhth.wiki.search"]]
+                 [:o [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
+                 ]}
+        {:des   "open urls"
+         :rules [:open-url-mode
+                 [:n [:km "open: nikitas karabiner"]]
+                 [:w [:open "http://127.0.0.1:8000"]]
+                 [:e [:open "http://127.0.0.1:8001"]]
+                 [:g [:open "https://github.com"]]
+                 [:p [:open "https://github.com/pulls"]]
+                 ]}
+        {:des   "open stuff that get opened less frequently"
+         :rules [:start-mode
+                 [:t [:km "open: tmux_wiki"]]
+                 [:p [:km "open: chrome_personal"]]
+                 [:w [:km "open: chrome_work"]]
+                 ]}
+        {:des   "work mode"
+         :rules [:work-mode
+                 [:c [:km "open: work_chrome"]]
+                 [:s [:km "open: work_setup"]]
+                 ]}
+        {:des   "launch/switch to applications"
+         :rules [:launch-application-mode
                  [:i [:open "/Applications/iTerm.app"]]
                  [:s [:open "/Applications/Slack.app"]]
                  [:c [:open "/Applications/Google Chrome.app"]]
                  [:m [:open "/Applications/Spotify.app"]]
                  [:p [:open "https://github.com/pulls"]]
+                 [:k [:open "/Applications/Keyboard Maestro.app"]]
                  ]}
-        {:des "caps lock to left control"
-         :rules [
+        {:des   "mouse mode"
+         :rules [:mouse-mode
+                 [:h [:km "mouse: move_left"]]
+                 [:l [:km "mouse: move_right"]]
+                 ]}
+        {:des   "other stuff"
+         :rules [:other-mode
+                 [:p [:spotify "playpause"]]
+                 [:open_bracket [:spotify "previous track"]]
+                 [:close_bracket [:spotify "next track"]]
+                 ]}
+        {:des "caps lock to left control" :rules [
                  [:##caps_lock :left_control nil {:alone :escape}]
                  ]
          }
@@ -46,14 +111,14 @@
                  [:##left_control :caps_lock]
                  ]
          }
-        {:des "left command to left option"
+        {:des "right option to chrome"
          :rules [
-                 [:##left_command :left_option ]
+                 [:##right_option :right_option nil {:alone [:open "/Applications/Google Chrome.app"]}]
                  ]
          }
         {:des "left option to left command"
          :rules [
-                 [:##left_option :left_command]
+                 [:##left_option :left_command nil {:alone [:open "/Applications/iTerm.app"]}]
                  ]
          }
         {:des "shift space to equals"
