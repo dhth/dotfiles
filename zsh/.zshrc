@@ -120,6 +120,14 @@ cyan=$'\033[36m'
 white=$'\033[37m'
 NOCOLOR="\033[0m"
 
+# https://github.com/junegunn/fzf/wiki/Color-schemes
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+ --color=fg:#cbccc6,hl:#707a8c
+ --color=fg+:#5fff87,hl+:#ffcc66
+ --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
+ --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+# highlighted line green, with entered word yellow
+
 alias ls='ls -aG'
 
 #alias ml='source activate ml'
@@ -157,8 +165,13 @@ alias gcd1="git clone --depth=1"
 # alias gco="git checkout"
 
 # alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
+# function t(){
+#     python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks "$@"
+# }
 function t(){
-    python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks "$@"
+    last_num=$(tail -n 1 $POMODORO_TASK_LIST_FILE_LOC | cut -d':' -f1)
+    new_num=`expr $last_num + 1`
+    echo "$new_num: $@" >> $POMODORO_TASK_LIST_FILE_LOC
 }
 
 # alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
@@ -356,7 +369,7 @@ function echo_array(){
 # quickly cd to important directories
 function jj(){
     local selected_dir
-    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=6 --layout=reverse | xargs)
+    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=8 --layout=reverse | xargs)
 
     if [ -n "$selected_dir" ]; then
         cd $selected_dir
@@ -482,7 +495,7 @@ function kk(){
 function ws(){
     # wiki search
     local selected_entry
- selected_entry=$(rg $1 $WIKI_DIR/docs | sed -e "s|$WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
+ selected_entry=$(rg --smart-case $1 $WIKI_DIR/docs | sed -e "s|$WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
     if [ -n "$selected_entry" ]; then
         local stripped
         stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" |xargs)
@@ -510,7 +523,7 @@ function wf(){
 function wws(){
     # work wiki search
     local selected_entry
- selected_entry=$(rg $1 $WORK_WIKI_DIR/docs | sed -e "s|$WORK_WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
+ selected_entry=$(rg --smart-case $1 $WORK_WIKI_DIR/docs | sed -e "s|$WORK_WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
     if [ -n "$selected_entry" ]; then
         local stripped
         stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" |xargs)
@@ -534,11 +547,27 @@ function wwf(){
     fi
 }
 
-# https://github.com/junegunn/fzf/wiki/Color-schemes
 
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#cbccc6,hl:#707a8c
- --color=fg+:#5fff87,hl+:#ffcc66
- --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
-# highlighted line green, with entered word yellow
+function awscf(){
+    # aws CF user guide search
+    local selected_entry
+ selected_entry=$(cat $ALFRED_DIR/aws/cloudformation_user_guide/aws_cloudformation_list.txt | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        open "https://github.com/awsdocs/aws-cloudformation-user-guide/blob/main/doc_source/$selected_entry"
+    fi
+}
+
+
+function gsd(){
+    # git split diff helper
+    local selected_from
+ selected_from=$(git branch --all | fzf --height=8 --layout=reverse | xargs)
+    if [ -n "$selected_from" ]; then
+        local selected_to
+        selected_to=$(git branch --all | fzf --height=8 --layout=reverse | xargs)
+        if [ -n "$selected_from" ]; then
+            # git diff $selected_from..$selected_to | git-split-diffs --color | less -RFX
+            git diff $selected_from..$selected_to
+        fi
+    fi
+}
