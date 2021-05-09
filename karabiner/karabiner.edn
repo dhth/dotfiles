@@ -12,19 +12,20 @@
          :alone   200 ; hold for .. ms to register single tap
          :held    50 ; 
          :delay   50 ; basically it means time after which the key press is count delayed
-         :sim     30}} ; simultaneous key press threshold
+         :sim     30}
+  }
  :templates {:open "open \"%s\""
              :alfred "osascript -e 'tell application \"Alfred 4\"
-                        run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
+                     run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
                      end tell'"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\"
-                        do script \"%s\"
+                 do script \"%s\"
                  end tell'"
              :application "osascript -e 'tell application \"%s\"
                           try
-                                %s
+                          %s
                           end try
-                      end tell'"
+                          end tell'"
              }
  ; :layers {
  ;          :opt_mode{
@@ -38,19 +39,23 @@
              ;; layers works too, but only recommended for none typing keys
              ;; like . , tab
              ;; or keys like z, which used less often
-             :a-mode {:key :a}
-             :n-mode {:key :n}
-             :s-mode {:key :s}
-             :two-mode {:key :2}
-             :three-mode {:key :3}
-             :four-mode {:key :4}
-             :five-mode {:key :5}
-             :tilde-mode {:key :grave_accent_and_tilde}
-             :hyphen-mode {:key :hyphen}
-             :equal-mode {:key :equal_sign}
-             :semicolon-mode {:key :semicolon}
              :0-mode {:key :0}
+             :a-mode {:key :a}
+             :equal-mode {:key :equal_sign}
+             :f-mode {:key :f}
+             :five-mode {:key :5}
+             :four-mode {:key :4}
+             :g-mode {:key :g}
+             :hyphen-mode {:key :hyphen}
+             :n-mode {:key :n}
              :quote-mode {:key :quote}
+             :r-mode {:key :r}
+             :s-mode {:key :s}
+             :semicolon-mode {:key :semicolon}
+             :three-mode {:key :3}
+             :tilde-mode {:key :grave_accent_and_tilde}
+             :two-mode {:key :2}
+             :w-mode {:key :w}
              }
  :main [ 
         {:des "shift one shot to backspace"
@@ -74,13 +79,17 @@
          :rules [:s-mode
                  [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
                  [:d [:alfred "wiki_search"  "dhth.wiki.search"]]
-                 [:o [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                  [:t [:alfred "search_tools"  "dhth.tools.search"]]
                  [:p [:alfred "pomodoro"  "dhth.pomodoro"]]
+                 [:o [:!Ssemicolon :s :o :spacebar :!S5]]
                  [:##h :left_arrow]
                  [:##j :down_arrow]
                  [:##k :up_arrow]
                  [:##l :right_arrow]
+                 ]}
+        {:des   "g mode"
+         :rules [:g-mode
+                 [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                  ]}
         {:des   "open urls"
          :rules [:two-mode
@@ -93,14 +102,18 @@
         {:des   "open stuff that get opened less frequently"
          :rules [:three-mode
                  [:t [:km "open: tmux_wiki"]]
-                 [:p [:km "open: chrome_personal"]]
-                 [:w [:km "open: chrome_work"]]
+                 [:c [:km "open: chrome_personal"]]
+                 [:s [:km "open: setup_personal"]]
                  ]}
-        {:des   "work mode"
+        {:des   "four mode"
          :rules [:four-mode
                  [:c [:km "open: chrome_work"]]
                  [:s [:km "open: setup_work"]]
                  [:j [:alfred "jira_search"  "dhth.jira"]]
+                 ]}
+        {:des   "w mode"
+         :rules [:w-mode
+                 [:e [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                  ]}
         {:des   "launch/switch to applications"
          :rules [:five-mode
@@ -116,6 +129,8 @@
          :rules [:quote-mode
                  [:l [:alfred "system_lock" "dhth.system"]]
                  [:s [:alfred "system_sleep" "dhth.system"]]
+                 [:d [:alfred "dark_mode" "dhth.system"]]
+                 [:a [:alfred "switch_audio" "dhth.system"]]
                  ]}
         {:des   "other stuff"
          :rules [:hyphen-mode
@@ -130,6 +145,19 @@
                  [:1 [:application "Google Chrome" "set the clipboard to title of active tab of first window as text"]]
                  [:2 [:application "Google Chrome" "set the clipboard to title of active tab of second window as text"]]
                  ]}
+        {:des   "r mode"
+         :rules [:r-mode
+                 [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
+                 [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
+                 ]}
+        {:des   "f mode"
+         :rules [:f-mode
+                 [:n [:!Ta :n]] ;; tmux prefix + n
+                 [:p [:!Ta :p]] ;; tmux prefix + p
+                 [:9 [:!Ta :!S9]] ;; tmux prefix + (
+                 [:0 [:!Ta :!S0]] ;; tmux prefix + )
+                 ]
+         }
         {:des   "semicolon mode"
          :rules [:semicolon-mode
                  [:1 [:!Ta :1]] ;; tmux prefix + 1
@@ -137,13 +165,11 @@
                  [:3 [:!Ta :3]]
                  [:4 [:!Ta :4]]
                  [:5 [:!Ta :5]]
-                 [:n [:!Ta :n]] ;; tmux prefix + n
-                 [:p [:!Ta :p]] ;; tmux prefix + p
                  [:c [:!Ta :c]] ;; tmux prefix + c
                  ]}
         {:des "caps lock to left control" :rules [
-                 [:##caps_lock :##left_control nil {:alone :escape}]
-                 ]
+                                                  [:##caps_lock :##left_control nil {:alone :escape}]
+                                                  ]
          }
         {:des "left control to caps lock"
          :rules [
@@ -165,18 +191,18 @@
                  [:##left_command :left_option nil {:alone [:open "/Applications/Google Chrome.app"]}]
                  ]
          }
-        {:des "right shift opens spotify"
+        {:des "right control opens spotify"
          :rules [
-                 [:##right_shift :right_shift nil {:alone [:open "/Applications/Spotify.app"]}]
+                 [:##right_control :right_control nil {:alone [:open "/Applications/Spotify.app"]}]
                  ]
          }
         {:des "shift space to equals"
          :rules [
                  [{:key :spacebar :modi :left_shift} [:spacebar :equal_sign :spacebar]]
-                ; [:!Tj :down_arrow]
-                ; [:!Tk :up_arrow]
-                ; [:!Th :left_arrow]
-                ; [:!Tl :right_arrow]
+                 ; [:!Tj :down_arrow]
+                 ; [:!Tk :up_arrow]
+                 ; [:!Th :left_arrow]
+                 ; [:!Tl :right_arrow]
                  ]
          }
         ; {:des "opt mode"

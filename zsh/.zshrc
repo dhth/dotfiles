@@ -78,7 +78,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -251,12 +251,16 @@ alias gcd1='git clone --depth=1'
 
 export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 
+export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
+
 alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
 
 # alias opa="cat $HOME/opa.txt | pbcopy"
 alias opa='cat $HOME/$(echo "opa\nbw" | fzf --height=3 --layout=reverse).txt | pbcopy'
 
 alias cl='clear'
+
+alias g='git'
 
 # select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
@@ -346,6 +350,8 @@ alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(
 
 # git log for current branch
 alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit staging..$(git branch --show-current)'
+
+alias b='buku --np'
 
 # git log for a specific branch
 function glbo() {
@@ -569,5 +575,27 @@ function gsd(){
             # git diff $selected_from..$selected_to | git-split-diffs --color | less -RFX
             git diff $selected_from..$selected_to
         fi
+    fi
+}
+
+function cdks(){
+    # aws cdk search
+    local selected_entry
+ selected_entry=$(cat $AWS_HELPERS_DIR/cdk/api_reference/lists/cdk_api_reference.txt | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        local url
+        url=$(echo $selected_entry | cut -d',' -f2 | xargs)
+        open "https://docs.aws.amazon.com$url"
+    fi
+}
+
+function cdkps(){
+    # aws cdk python library search
+    local selected_entry
+ selected_entry=$(cat $AWS_HELPERS_DIR/cdk/api_reference/lists/cdk_py_api_reference.txt | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        local url
+        url=$(echo $selected_entry | cut -d',' -f2 | xargs)
+        open "https://docs.aws.amazon.com/cdk/api/latest/python/$url"
     fi
 }

@@ -1,0 +1,105 @@
+[user]
+	name = Dhruv Thakur
+	email = dhruvt93@gmail.com
+[push]
+	default = simple
+[pull]
+	ff = only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+
+[alias]
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+    la = log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit
+
+    l = !git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit staging..$(git branch --show-current)
+
+	# View the current working tree status using the short format
+	s = status -s
+
+	# Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+	# Pull in remote changes for the current repository and all its submodules
+	p = !"git pull"
+
+	# Clone a repository including all submodules
+	c = clone --recursive
+
+	# Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	# Color graph log view
+	graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+[core]
+	editor = nvim
+	pager = git-split-diffs --color | less -RFX
+    ; pager = delta
+
+[color]
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = true
+
+; [color "branch"]
+; 	current = yellow reverse
+; 	local = yellow
+; 	remote = green
+
+; [color "diff"]
+; 	meta = 11
+; 	frag = magenta bold
+; 	old = red bold
+; 	new = green bold
+; 	func = 146 bold
+; 	commit = yellow bold
+; 	whitespace = red reverse
+
+; [color "status"]
+; 	added = yellow
+; 	changed = green
+; 	untracked = cyan
+
+[diff]
+	# Detect copies as well as renames
+	renames = copies
+
+[help]
+	# Automatically correct and execute mistyped commands
+	autocorrect = 1
+
+[merge]
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
+
+
+; [interactive]
+;     diffFilter = delta --color-only
+
+; [delta]
+;     features = side-by-side unobtrusive-line-numbers decorations
+;     whitespace-error-style = 22 reverse
+;     syntax-theme = gruvbox-dark
+;     whitespace-error-style = 22 reverse
+
+; [delta "decorations"]
+;     commit-decoration-style = bold yellow box ul
+;     file-style = bold yellow ul
+;     file-decoration-style = none
+;     hunk-header-decoration-style = yellow box
+
+; [delta "unobtrusive-line-numbers"]
+;     line-numbers = true
+;     line-numbers-minus-style = "#444444"
+;     line-numbers-zero-style = "#444444"
+;     line-numbers-plus-style = "#444444"
+;     line-numbers-left-style = blue
+;     line-numbers-right-style = blue
+[split-diffs]
+	min-line-width = 0
