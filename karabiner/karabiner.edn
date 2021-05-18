@@ -46,6 +46,9 @@
              :five-mode {:key :5}
              :four-mode {:key :4}
              :g-mode {:key :g}
+             :q-mode {:key :q}
+             :t-mode {:key :t}
+             :b-mode {:key :b}
              :hyphen-mode {:key :hyphen}
              :n-mode {:key :n}
              :quote-mode {:key :quote}
@@ -56,8 +59,20 @@
              :tilde-mode {:key :grave_accent_and_tilde}
              :two-mode {:key :2}
              :w-mode {:key :w}
+             :caps-lock-mode {:key :caps_lock}
              }
  :main [ 
+        {:des   "caps_lock mode"
+         :rules [:caps-lock-mode
+                 [:##h :left_arrow]
+                 [:##l :right_arrow]
+                 [:##j :down_arrow]
+                 [:##k :up_arrow]
+                        ]}
+        {:des   "b-mode"
+         :rules [:b-mode
+                 [:m [:alfred "search_bookmarks"  "dhth.bookmarks"]]
+                        ]}
         {:des "shift one shot to backspace"
          :rules [
                  [:left_shift :left_shift nil {
@@ -73,19 +88,30 @@
          :rules [:a-mode
                  [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
-                 [:t [:alfred "tasks"  "dhth.tasks"]]
                  ]}
-        {:des   "search stuff"
+        {:des   "t mode"
+         :rules [:t-mode
+                 [:a [:alfred "task_add"  "dhth.tasks"]]
+                 [:l [:alfred "tasks_list"  "dhth.tasks"]]
+                        ]}
+        {:des   "q mode"
+         :rules [:q-mode
+                 [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
+                 [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
+                        ]}
+        {:des   "s mode"
          :rules [:s-mode
                  [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
                  [:d [:alfred "wiki_search"  "dhth.wiki.search"]]
                  [:t [:alfred "search_tools"  "dhth.tools.search"]]
-                 [:p [:alfred "pomodoro"  "dhth.pomodoro"]]
+                 [:p [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
+                 [:w [:alfred "pomodoro_work"  "dhth.pomodoro"]]
+                 [:c [:alfred "search_chrome_tabs"  "com.epilande.browser-tabs"]]
                  [:o [:!Ssemicolon :s :o :spacebar :!S5]]
-                 [:##h :left_arrow]
-                 [:##j :down_arrow]
-                 [:##k :up_arrow]
-                 [:##l :right_arrow]
+                 [:##h :!TOleft_arrow]
+                 [:##j :!TOdown_arrow]
+                 [:##k :!TOup_arrow]
+                 [:##l :!TOright_arrow]
                  ]}
         {:des   "g mode"
          :rules [:g-mode
@@ -140,6 +166,11 @@
                  [:1 [:application "Google Chrome" "set the clipboard to URL of active tab of first window as text"]]
                  [:2 [:application "Google Chrome" "set the clipboard to URL of active tab of second window as text"]]
                  ]}
+        {:des   "0-mode"
+         :rules [:0-mode
+                 [:hyphen [:application "spotify" "set sound volume to sound volume - 5"]]
+                 [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
+                        ]}
         {:des   "other stuff"
          :rules [:equal-mode
                  [:1 [:application "Google Chrome" "set the clipboard to title of active tab of first window as text"]]

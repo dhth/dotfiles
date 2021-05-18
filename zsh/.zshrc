@@ -353,6 +353,9 @@ alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yello
 
 alias b='buku --np'
 
+alias :q='exit'
+alias :qa='exit'
+
 # git log for a specific branch
 function glbo() {
     local selected_branch
@@ -597,5 +600,19 @@ function cdkps(){
         local url
         url=$(echo $selected_entry | cut -d',' -f2 | xargs)
         open "https://docs.aws.amazon.com/cdk/api/latest/python/$url"
+    fi
+}
+
+
+function lc(){
+    # run local commands
+    if [ -f local_commands.txt ]; then
+        echo "exists"
+        local selected_entry
+     selected_entry=$(cat local_commands.txt | fzf --height=8 --layout=reverse)
+        if [ -n "$selected_entry" ]; then
+            echo "$selected_entry"
+            eval "$selected_entry"
+        fi
     fi
 }
