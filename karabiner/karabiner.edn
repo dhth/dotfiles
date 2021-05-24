@@ -72,6 +72,7 @@
         {:des   "b-mode"
          :rules [:b-mode
                  [:m [:alfred "search_bookmarks"  "dhth.bookmarks"]]
+                 [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period]]
                         ]}
         {:des "shift one shot to backspace"
          :rules [
@@ -106,7 +107,7 @@
                  [:t [:alfred "search_tools"  "dhth.tools.search"]]
                  [:p [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
                  [:w [:alfred "pomodoro_work"  "dhth.pomodoro"]]
-                 [:c [:alfred "search_chrome_tabs"  "com.epilande.browser-tabs"]]
+                 [:c [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                  [:o [:!Ssemicolon :s :o :spacebar :!S5]]
                  [:##h :!TOleft_arrow]
                  [:##j :!TOdown_arrow]
@@ -116,6 +117,7 @@
         {:des   "g mode"
          :rules [:g-mode
                  [:k [:!Ssemicolon :!S1 :g :o :k :u]]
+                 [:h [:alfred "github_repo_search"  "dhth.github"]]
                  ]}
         {:des   "open urls"
          :rules [:two-mode
@@ -163,8 +165,8 @@
                  [:p [:application "spotify" "playpause"]]
                  [:open_bracket [:application "spotify" "previous track"]]
                  [:close_bracket [:application "spotify" "next track"]]
-                 [:1 [:application "Google Chrome" "set the clipboard to URL of active tab of first window as text"]]
-                 [:2 [:application "Google Chrome" "set the clipboard to URL of active tab of second window as text"]]
+                 [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
+                 [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
                  ]}
         {:des   "0-mode"
          :rules [:0-mode
@@ -173,8 +175,8 @@
                         ]}
         {:des   "other stuff"
          :rules [:equal-mode
-                 [:1 [:application "Google Chrome" "set the clipboard to title of active tab of first window as text"]]
-                 [:2 [:application "Google Chrome" "set the clipboard to title of active tab of second window as text"]]
+                 [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
+                 [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
                  ]}
         {:des   "r mode"
          :rules [:r-mode
@@ -219,7 +221,7 @@
          }
         {:des "left command to left option"
          :rules [
-                 [:##left_command :left_option nil {:alone [:open "/Applications/Google Chrome.app"]}]
+                 [:##left_command :left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
                  ]
          }
         {:des "right control opens spotify"

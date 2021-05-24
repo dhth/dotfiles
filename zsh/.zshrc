@@ -1,4 +1,4 @@
-source $HOME/.zsh_env_vars.sh
+source $HOME/.zsh_env_vars
 source $HOME/.env_vars_secret.sh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -230,7 +230,8 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 export WORKON_HOME=~/.virtualenvs
 mkdir -p $WORKON_HOME
-. ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+# . ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+source $HOMEBREW_DIR/virtualenvwrapper.sh
 
 alias wthr=$HOME/weather.sh
 alias weather=$HOME/weather.sh
@@ -349,7 +350,7 @@ function gco() {
 alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 # git log for current branch
-alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit staging..$(git branch --show-current)'
+alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit origin/develop..$(git branch --show-current)'
 
 alias b='buku --np'
 
@@ -378,7 +379,7 @@ function echo_array(){
 # quickly cd to important directories
 function jj(){
     local selected_dir
-    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=8 --layout=reverse | xargs)
+    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=10 --layout=reverse | xargs)
 
     if [ -n "$selected_dir" ]; then
         cd $selected_dir
@@ -451,7 +452,7 @@ function dcm() {
         docker-compose "$@"
     else
         local selected_docker_compose_file
-        selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+        selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
 
         if [ -n "$selected_docker_compose_file" ]; then
             echo -e "${GREEN}docker-compose -f $selected_docker_compose_file "$@"${NOCOLOR}"
@@ -466,6 +467,7 @@ function dcme(){
         docker-compose "$@"
     else
         local selected_docker_compose_file
+        selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
         selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
 
         if [ -n "$selected_docker_compose_file" ]; then
@@ -479,14 +481,12 @@ function dcme(){
 
 function lzd() {
     if (( $(_number_of_docker_compose_files) <= 1 )); then
-        echo docker-compose "$@"
-        docker-compose "$@"
+        lazydocker
     else
         local selected_docker_compose_file
         selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
 
         if [ -n "$selected_docker_compose_file" ]; then
-            echo lazydocker -f $selected_docker_compose_file
             lazydocker -f $selected_docker_compose_file
         fi
     fi
@@ -614,5 +614,27 @@ function lc(){
             echo "$selected_entry"
             eval "$selected_entry"
         fi
+    fi
+}
+
+
+function txw(){
+    # open tmuxinator in a specific work directory
+    local selected_entry
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
+        tmuxinator work
+    fi
+}
+
+
+function txd(){
+    # open tmuxinator in a specific directory
+    local selected_entry
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        local session_name=$(echo $selected_entry | rev | cut -d'/' -f 1 | rev)
+        tmux new-session -s $session_name "cd $selected_entry && nvim ."
     fi
 }
