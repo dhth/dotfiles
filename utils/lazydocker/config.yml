@@ -1,5 +1,4 @@
 gui:
-  scrollHeight: 2
   theme:
     activeBorderColor:
     - green
@@ -9,4 +8,3 @@ gui:
     optionsTextColor:
     - blue
   returnImmediately: true
-reporting: "off"

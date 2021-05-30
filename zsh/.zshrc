@@ -180,6 +180,7 @@ function t(){
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export EDITOR="nvim"
+export VISUAL="nvim"
 
 
 # Created by `userpath` on 2020-07-18 08:27:23
@@ -357,6 +358,9 @@ alias b='buku --np'
 alias :q='exit'
 alias :qa='exit'
 
+# alias n='nnn'
+# alias ls='nnn -e'
+
 # git log for a specific branch
 function glbo() {
     local selected_branch
@@ -377,7 +381,7 @@ function echo_array(){
 }
 
 # quickly cd to important directories
-function jj(){
+function j(){
     local selected_dir
     selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=10 --layout=reverse | xargs)
 
@@ -448,8 +452,8 @@ function _number_of_docker_compose_files(){
 
 function dcm() {
     if (( $(_number_of_docker_compose_files) <= 1 )); then
-        echo -e "${GREEN}docker-compose "$@"${NOCOLOR}"
-        docker-compose "$@"
+        echo -e "${GREEN}docker-compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
+        docker-compose -f $(ls | grep docker-compose | xargs) "$@"
     else
         local selected_docker_compose_file
         selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
@@ -462,19 +466,17 @@ function dcm() {
 }
 
 function dcme(){
+    local selected_docker_compose_file
     if (( $(_number_of_docker_compose_files) <= 1 )); then
-        echo docker-compose "$@"
-        docker-compose "$@"
+        selected_docker_compose_file=$(ls | grep docker-compose | xargs)
     else
-        local selected_docker_compose_file
         selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
+    fi
+    if [ -n "$selected_docker_compose_file" ]; then
         selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
-
-        if [ -n "$selected_docker_compose_file" ]; then
-            if [ -n "$selected_service" ]; then
-                echo docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
-                docker-compose -f $selected_docker_compose_file exec $selected_service "$@"
-            fi
+        if [ -n "$selected_service" ]; then
+            echo docker-compose -f $selected_docker_compose_file exec $selected_service bash -c \'"$@"\'
+            docker-compose -f $selected_docker_compose_file exec $selected_service bash -c "$@"
         fi
     fi
 }
@@ -629,6 +631,28 @@ function txw(){
 }
 
 
+function jw(){
+    # open tmuxinator in a specific work directory
+    local selected_entry
+    selected_entry=$(fd . --max-depth=1 $WORK_DIR | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        echo "cd $selected_entry"
+        cd $selected_entry
+    fi
+}
+
+function jd(){
+    # open tmuxinator in a specific projects directory
+    local selected_entry
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_entry" ]; then
+        echo "cd $selected_entry"
+        cd $selected_entry
+    fi
+}
+
+
+
 function txd(){
     # open tmuxinator in a specific directory
     local selected_entry
@@ -638,3 +662,24 @@ function txd(){
         tmux new-session -s $session_name "cd $selected_entry && nvim ."
     fi
 }
+
+# https://github.com/jarun/nnn/wiki/Basic-use-cases#configure-cd-on-quit
+function n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+export NNN_OPTS="H"

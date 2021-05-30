@@ -14,6 +14,11 @@
          :delay   50 ; basically it means time after which the key press is count delayed
          :sim     30}
   }
+ :devices {
+           :apple [
+                   {:vendor_id 1452}
+                   ]
+           }
  :templates {:open "open \"%s\""
              :alfred "osascript -e 'tell application \"Alfred 4\"
                      run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
@@ -50,16 +55,21 @@
              :t-mode {:key :t}
              :b-mode {:key :b}
              :hyphen-mode {:key :hyphen}
+             :m-mode {:key :m}
              :n-mode {:key :n}
              :quote-mode {:key :quote}
              :r-mode {:key :r}
              :s-mode {:key :s}
+             :v-mode {:key :v}
+             :p-mode {:key :p}
              :semicolon-mode {:key :semicolon}
              :three-mode {:key :3}
              :tilde-mode {:key :grave_accent_and_tilde}
              :two-mode {:key :2}
              :w-mode {:key :w}
              :caps-lock-mode {:key :caps_lock}
+             :tab-mode {:key :tab}
+             :open-bracket-mode {:key :open_bracket}
              }
  :main [ 
         {:des   "caps_lock mode"
@@ -68,7 +78,7 @@
                  [:##l :right_arrow]
                  [:##j :down_arrow]
                  [:##k :up_arrow]
-                        ]}
+                 ]}
         {:des   "b-mode"
          :rules [:b-mode
                  [:m [:alfred "search_bookmarks"  "dhth.bookmarks"]]
@@ -82,37 +92,61 @@
          }
         {:des   "open stuff that get opened frequently"
          :rules [:n-mode
-                 [:s [:alfred "slack_status"  "dhth.slack.status"]]
-                 [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
+                 [:s [:alfred "slack_status" "dhth.slack.status"]]
+                 [:v [:alfred "vim_plugins" "dhth.vim.plugins"]]
+                 [:c [:alfred "control" "dhth.spotify"]]
+                 [:2 [:alfred "albums" "dhth.spotify"]]
+                 [:5 [:alfred "playlists" "dhth.spotify"]]
+                 [:6 [:alfred "recently_played" "dhth.spotify"]]
+                 [:d [:alfred "devices" "dhth.spotify"]]
+                 [:a [:alfred "add_track_to_playlist" "dhth.spotify"]]
                  ]}
         {:des   "a mode"
          :rules [:a-mode
                  [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
+                 [:p [:open "/Applications/Postman.app"]]
                  ]}
         {:des   "t mode"
          :rules [:t-mode
                  [:a [:alfred "task_add"  "dhth.tasks"]]
                  [:l [:alfred "tasks_list"  "dhth.tasks"]]
-                        ]}
+                 [:0 [:alfred "get_current_track"  "dhth.spotify"]]
+                 ]}
         {:des   "q mode"
          :rules [:q-mode
                  [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
                  [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
-                        ]}
+                 ]}
+        {:des   "p mode"
+         :rules [:p-mode
+                 [:1 [:alfred "pomodoro_work"  "dhth.pomodoro"]]
+                 [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
+                 ]}
+        {:des   "v mode"
+         :rules [:v-mode
+                 [:p [:alfred "vim_plugins"  "dhth.vim.plugins"]]
+                 ]}
+        {:des   "m mode"
+         :rules [:m-mode
+                 [:1 [:alfred "search_tracks"  "dhth.spotify"]]
+                 [:2 [:alfred "search_albums"  "dhth.spotify"]]
+                 [:3 [:alfred "search_artists"  "dhth.spotify"]]
+                 [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
+                 [:5 [:alfred "search_playlists"  "dhth.spotify"]]
+                 [:s [:alfred "search"  "dhth.spotify"]]
+                 ]}
         {:des   "s mode"
          :rules [:s-mode
-                 [:v [:alfred "vim_plugins"  "dhth.vim.plugins"]]
                  [:d [:alfred "wiki_search"  "dhth.wiki.search"]]
                  [:t [:alfred "search_tools"  "dhth.tools.search"]]
-                 [:p [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
-                 [:w [:alfred "pomodoro_work"  "dhth.pomodoro"]]
-                 [:c [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
+                 [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
+                 [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                  [:o [:!Ssemicolon :s :o :spacebar :!S5]]
-                 [:##h :!TOleft_arrow]
-                 [:##j :!TOdown_arrow]
-                 [:##k :!TOup_arrow]
-                 [:##l :!TOright_arrow]
+                 ; [:##h :!TOleft_arrow]
+                 ; [:##j :!TOdown_arrow]
+                 ; [:##k :!TOup_arrow]
+                 ; [:##l :!TOright_arrow]
                  ]}
         {:des   "g mode"
          :rules [:g-mode
@@ -148,13 +182,15 @@
                  [:p [:open "https://github.com/pulls"]]
                  [:k [:open "/Applications/Keyboard Maestro.app"]]
                  ]}
-        {:des   "mouse mode"
+        {:des   "tilde mode"
          :rules [:tilde-mode
                  [:h [:km "mouse: move_left"]]
                  [:l [:km "mouse: move_right"]]
+                 [:hyphen [:alfred "pause" "dhth.spotify"]]
+                 [:equal_sign [:alfred "play" "dhth.spotify"]]
                  ]}
-        {:des   "caps-lock mode"
-         :rules [:quote-mode
+        {:des   "tab mode"
+         :rules [:tab-mode
                  [:l [:alfred "system_lock" "dhth.system"]]
                  [:s [:alfred "system_sleep" "dhth.system"]]
                  [:d [:alfred "dark_mode" "dhth.system"]]
@@ -162,9 +198,9 @@
                  ]}
         {:des   "other stuff"
          :rules [:hyphen-mode
-                 [:p [:application "spotify" "playpause"]]
-                 [:open_bracket [:application "spotify" "previous track"]]
-                 [:close_bracket [:application "spotify" "next track"]]
+                 ; [:p [:application "spotify" "playpause"]]
+                 ; [:open_bracket [:application "spotify" "previous track"]]
+                 ; [:close_bracket [:application "spotify" "next track"]]
                  [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
                  [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
                  ]}
@@ -172,7 +208,7 @@
          :rules [:0-mode
                  [:hyphen [:application "spotify" "set sound volume to sound volume - 5"]]
                  [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
-                        ]}
+                 ]}
         {:des   "other stuff"
          :rules [:equal-mode
                  [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
@@ -209,6 +245,26 @@
                  [:##left_control :caps_lock]
                  ]
          }
+        {:des "internal keyboard -> left option to chrome"
+         :rules [:apple
+                 [:##left_option :left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
+                 ]
+         }
+        {:des "internal keyboard -> left command to chrome"
+         :rules [:apple
+                 [:##left_command :left_command nil {:alone [:open "/Applications/iTerm.app"]}]
+                 ]
+         }
+        {:des "internal keyboard -> right option to spotify"
+         :rules [:apple
+                 [:##right_option :right_option nil {:alone [:open "/Applications/Spotify.app"]}]
+                 ]
+         }
+        {:des "internal keyboard -> right command to slack"
+         :rules [:apple
+                 [:##right_command :right_command nil {:alone [:open "/Applications/Slack.app"]}]
+                 ]
+         }
         {:des "right option to chrome"
          :rules [
                  [:##right_option :right_option nil {:alone [:open "/Applications/Slack.app"]}]
@@ -229,23 +285,15 @@
                  [:##right_control :right_control nil {:alone [:open "/Applications/Spotify.app"]}]
                  ]
          }
+        {:des "internal keyboard -> right shift to sonos"
+         :rules [
+                 [:##right_shift :right_shift nil {:alone [:open "/Applications/Sonos.app"]}]
+                 ]
+         }
         {:des "shift space to equals"
          :rules [
                  [{:key :spacebar :modi :left_shift} [:spacebar :equal_sign :spacebar]]
-                 ; [:!Tj :down_arrow]
-                 ; [:!Tk :up_arrow]
-                 ; [:!Th :left_arrow]
-                 ; [:!Tl :right_arrow]
                  ]
          }
-        ; {:des "opt mode"
-        ;  :rules [
-        ;          :opt_mode
-        ;          [:##h :left_arrow]
-        ;          [:##j :down_arrow]
-        ;          [:##k :up_arrow]
-        ;          [:##l :right_arrow]
-        ;          ]
-        ;  }
         ]
  }
