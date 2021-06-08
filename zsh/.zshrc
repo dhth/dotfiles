@@ -211,27 +211,15 @@ alias colorscheme=~/colorscheme.sh
 
 VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
+eval "$(pyenv init -)"
 export WORKON_HOME=~/.virtualenvs
 mkdir -p $WORKON_HOME
-# . ~/.pyenv/versions/3.8.5/bin/virtualenvwrapper.sh
+
+# . ~/.pyenv/versions/3.9.4/bin/virtualenvwrapper.sh
 source $HOMEBREW_DIR/virtualenvwrapper.sh
 
 alias wthr=$HOME/weather.sh
@@ -348,10 +336,10 @@ function gco() {
 }
 
 # git log for all branches
-alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
+alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="1 month ago"'
 
 # git log for current branch
-alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit origin/develop..$(git branch --show-current)'
+alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit $(git branch --show-current) --since="1 month ago"'
 
 alias b='buku --np'
 
@@ -367,7 +355,7 @@ function glbo() {
     selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
 
     if [ -n "$selected_branch" ]; then
-        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit staging..$selected_branch
+        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit $selected_branch
     fi
 }
 
@@ -506,7 +494,7 @@ function kk(){
 function ws(){
     # wiki search
     local selected_entry
- selected_entry=$(rg --smart-case $1 $WIKI_DIR/docs | sed -e "s|$WIKI_DIR/docs/||" | fzf --height=10 --layout=reverse)
+ selected_entry=$(rg --smart-case --type=md $1 $WIKI_DIR/docs | sed -e "s|$WIKI_DIR/docs/||" | sed -e "s|:fontawesome-.*: ||" | fzf --height=10 --layout=reverse)
     if [ -n "$selected_entry" ]; then
         local stripped
         stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" |xargs)
@@ -626,7 +614,9 @@ function txw(){
     selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse)
     if [ -n "$selected_entry" ]; then
         echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
-        tmuxinator work
+        local num_sessions=$(tmux ls | grep work | wc -l | xargs)
+        local new_session_num=`expr $num_sessions + 1`
+        tmuxinator "work-$new_session_num"
     fi
 }
 

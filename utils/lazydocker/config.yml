@@ -8,3 +8,4 @@ gui:
     optionsTextColor:
     - blue
   returnImmediately: true
+reporting: "off"
