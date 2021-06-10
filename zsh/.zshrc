@@ -174,8 +174,6 @@ function t(){
     echo "$new_num: $@" >> $POMODORO_TASK_LIST_FILE_LOC
 }
 
-# alias opa="cat $HOME/Desktop/mas.txt | pbcopy"
-#
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -244,9 +242,6 @@ export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
 alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
-
-# alias opa="cat $HOME/opa.txt | pbcopy"
-alias opa='cat $HOME/$(echo "opa\nbw" | fzf --height=3 --layout=reverse).txt | pbcopy'
 
 alias cl='clear'
 
@@ -325,6 +320,17 @@ function dex() {
     fi
 }
 
+# docker stop
+function ds() {
+    local selected_container
+    selected_container=$(docker ps --format "table {{ .ID }}\t{{.Names}}\t{{.Status}}" --last=5 | fzf --height=6 --layout=reverse)
+
+    if [ -n "$selected_container" ]; then
+        echo "docker stop $(echo $selected_container | head -n1| awk '{print$1;}')"
+        docker stop $(echo $selected_container | head -n1| awk '{print$1;}')
+    fi
+}
+
 # git checkout using fzf
 function gco() {
     local selected_branch
@@ -345,6 +351,8 @@ alias b='buku --np'
 
 alias :q='exit'
 alias :qa='exit'
+
+alias dps='docker ps'
 
 # alias n='nnn'
 # alias ls='nnn -e'
@@ -474,7 +482,7 @@ function lzd() {
         lazydocker
     else
         local selected_docker_compose_file
-        selected_docker_compose_file=$(fd -t f docker-compose | fzf --height=6 --layout=reverse)
+        selected_docker_compose_file=$(fd --max-depth=1 -t f docker-compose | fzf --height=6 --layout=reverse)
 
         if [ -n "$selected_docker_compose_file" ]; then
             lazydocker -f $selected_docker_compose_file
