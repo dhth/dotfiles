@@ -22,7 +22,7 @@
              :co [:command :option]
              ; :cs [:command :shift]
              :ct [:command :control]
-             ; :to [:control :option]
+             :to [:control :option]
              ; :ts [:control :shift]
              ; :os [:option :shift]
              ;
@@ -64,7 +64,7 @@
                            '"
              }
  :tos {;
-       :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
+       :emoji_picker {:key :spacebar :modi :to} ;!CTspacebar
        :open_dev_tools {:key :i :modi :co}
        ;
        }
@@ -171,8 +171,8 @@
                  [:c [:!Ta :c] :iterm] ;; tmux prefix + c
                  [:z [:!Ta :z] :iterm] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :iterm] ;; tmux prefix + [
-                 [:h :!SOopen_bracket :browser] ;; chrome previous tab
-                 [:l :!SOclose_bracket :browser] ;; chrome next tab
+                 [:h :!SCopen_bracket :browser] ;; chrome previous tab
+                 [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
                  ;          [:9 [:!Ta :!S9]] ;; tmux prefix + (
                  ;          [:0 [:!Ta :!S0]] ;; tmux prefix + )
@@ -280,7 +280,8 @@
                  [:o [:!Ssemicolon :s :o :spacebar :!S5]]
                  [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
                  [:c [:launch "Screenshot"]]
-                 [:l :!Ts :iterm]
+                 ; [:l :!Ts :iterm]
+                 [:l :slash :iterm]
                  [:f :!Tf :iterm]
                  ; [:##h :!TOleft_arrow]
                  ; [:##j :!TOdown_arrow]
@@ -309,8 +310,8 @@
          :rules [:w-mode
                  [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
                  [:c [:alfred "webcam"  "dhth.system"]]
-                 ; [:h :!TOh] ;; magnet
-                 ; [:l :!TOl] ;; magnet
+                 [:h :!SOCh] ;; magnet previous display
+                 [:l :!SOCl] ;; magnet next display
                  [:h [:!Tw :h] :iterm]
                  [:l [:!Tw :l] :iterm]
                  [:j [:!Tw :j] :iterm]
@@ -319,32 +320,10 @@
 
         {:des "emoji"
          :rules [:z-mode
-                 [:a [:paste ""]] ;
-                 [:b [:paste "😊"]] ;blush
-                 ; [:c [:type "👏"]] ;clap
-                 ; [:d [:type "🧐"]] ;dignified
                  [:e :emoji_picker]
-                 ; [:e :!TCspacebar]
-                 ; [:f [:type "🔥"]] ;facepalm
-                 ; [:g [:type "😬"]] ;grimace
-                 ; [:h [:type "😍"]] ;heart-eyes
-                 ; [:i [:type "👀"]] ;I
-                 ; [:j [:type "😂"]] ;joking
-                 ; [:k [:type ""]] ;
                  [:t [:km "emoji: thunder"] ]
-                 ; [:m [:type "🤯"]] ;mind blown
-                 ; [:p [:type "🎉"]] ;party
-                 ; [:q [:type "🤫"]] ;quiet
-                 ; [:r [:type "🏎"]] ;racecar
-                 ; [:s [:type "😢"]] ;sad
-                 ; [:t [:type "🤔"]] ;thinking
-                 ; [:u [:type "🤷"]] ;shrUg
-                 ; [:v [:type "😎"]] ;very cool
-                 ; [:w [:type "😉"]] ;wink:
-                 ; [:x [:type "😵"]] ;x-eyes
-                 ; [:y [:type "😅"]] ;sweatY
                  [:x [:km "emoji: thumbs up"] ]
-                 ; [:left_option [:type "👎"]]
+                 [:c [:km "emoji: check mark"] ]
                  ;
                  ]}
 
@@ -431,77 +410,46 @@
                  ]
          }
 
-        {:des "internal keyboard -> left option to browser"
-         :rules [:apple
-                 [:##left_option :left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
-                 ]
-         }
-
-        {:des "internal keyboard -> left command to iterm"
-         :rules [:apple
-                 [:##left_command :left_command nil {:alone [:open "/Applications/iTerm.app"]}]
-                 ]
-         }
-
-        {:des "internal keyboard -> right option to spotify"
-         :rules [:apple
-                 [:##right_option :right_option nil {:alone [:open "/Applications/Slack.app"]}]
-                 ]
-         }
-
-        ; {:des "internal keyboard -> right command to slack"
-        ;  :rules [:apple
-        ;          [:##right_command :right_command nil {:alone [:open "/Applications/Slack.app"]}]
-        ;          ]
-        ;  }
-
-        {:des "not slack"
-         :rules [:!slack
-                 [:##right_option :right_option nil {:alone [:open "/Applications/Slack.app"]}]
-                 ]
-         }
-
-        {:des "slack"
-         :rules [:slack
-                 [:##right_option :right_option nil {:alone [:!Ok]}] ;; slack context switcher
-                 ]
-         }
-
         {:des "not iterm"
          :rules [:!iterm
-                 [:##left_option :##left_option nil {:alone [:open "/Applications/iTerm.app"]}]
+                 ; [:##left_command :##left_command :apple {:alone [:open "/Applications/iTerm.app"]}]
+                 ; [:##left_option :##left_command :!apple {:alone [:open "/Applications/iTerm.app"]}]
+                 [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
                  [:left_shift :left_shift nil {
                                                :alone :delete_or_backspace}]
                  ]}
 
         {:des "iterm"
          :rules [:iterm
-                 [:##left_option :##left_option nil {:alone [:!Ts]}]
-                 [:left_shift :left_shift nil {
-                                               :alone :!Tf}]
+                 ; [:##left_command :##left_command :apple {:alone [:!Ts] }]
+                 ; [:##left_option :##left_command :!apple {:alone [:!Ts]}]
+                 [:##left_option :##left_command nil {:alone [:!Ts]}]
+                 [:##left_shift :##left_shift nil {
+                                               :alone :!Tf}]         ;; fzf :Buffers
+                 ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+                 ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+                 [:##right_option :##right_option nil {:alone [:spacebar :w :n]}] ;; fzf :Windows
                  ]}
 
         {:des "not browser"
          :rules [:!browser
-                 [:##left_command :left_command nil {:alone [:open "/Applications/Brave Browser.app"]}]
+                 ; [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
+                 ; [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
+                 [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
                  ]
          }
 
         {:des "browser"
          :rules [:browser
-                 [:##left_command :left_command nil {:alone [:!St]}] ;; vimium show open tabs
-                 ]
-         }
-
-        {:des "internal keyboard -> right shift to sonos"
-         :rules [
-                 [:##right_shift :right_shift nil {:alone [:open "/Applications/Sonos.app"]}]
+                 ; [:##left_option :##left_option :apple {:alone [:!St]}] ;; vimium show open tabs
+                 ; [:##left_command :##left_option :!apple {:alone [:!St]}] ;; vimium show open tabs
+                 [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
                  ]
          }
 
         {:des "spotify"
          :rules [
-                 [:##right_control :right_control nil {:alone [:open "/Applications/Spotify.app"]}]
+                 [:##right_control :right_control nil {:alone [:open "/Applications/Slack.app"]}]
                  ]
          }
 
