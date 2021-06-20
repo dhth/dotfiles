@@ -43,38 +43,38 @@
              :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :paste "osascript -e 'set the clipboard to \"%s\"
-                    tell application \"System Events\"
-                    keystroke \"v\" using command down
-                    end tell'"
+             tell application \"System Events\"
+             keystroke \"v\" using command down
+             end tell'"
              :alfred "osascript -e 'tell application \"Alfred 4\"
-                     run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
-                     end tell'"
+             run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
+             end tell'"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\"
-                 do script \"%s\"
-                 end tell'"
+             do script \"%s\"
+             end tell'"
              :application "osascript -e 'tell application \"%s\"
-                          try
-                          %s
-                          end try
-                          end tell'"
+             try
+             %s
+             end try
+             end tell'"
              :type-secret "osascript -e '
-                           set out to do shell script \"security find-generic-password -a $USER -s %s -w\"
-                           
-                           tell application \"System Events\" to keystroke out
-                           '"
+             set out to do shell script \"security find-generic-password -a $USER -s %s -w\"
+
+             tell application \"System Events\" to keystroke out
+             '"
              }
  :tos {;
-       :emoji_picker {:key :spacebar :modi :to} ;!CTspacebar
+       :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
        :open_dev_tools {:key :i :modi :co}
        ;
        }
  :layers {
           ;          :opt_mode{
-          ;                    :key :left_command :alone {:key :left_option}
-          ;                    }
+                               ;                    :key :left_command :alone {:key :left_option}
+                               ;                    }
           ;          ; :caps_mode{
-          ;          ;           :key :caps_lock :alone {:key :escape}
-          ;          ;           }
+                                  ;          ;           :key :caps_lock :alone {:key :escape}
+                                  ;          ;           }
           }
  :simlayers {;; make w key a simlayer key
              ;; layers works too, but only recommended for none typing keys
@@ -114,6 +114,11 @@
              :i-mode {:key :i}
              :spacebar-mode {:key :spacebar}
              :c-mode {:key :c}
+             :u-mode {:key :u}
+             :left-shift-mode {:key :left_shift}
+             :left-option-mode-non-apple {:key :left_command}
+             :left-command-mode-non-apple {:key :left_option}
+             :js-mode {:key :period :condi ["in-js" 1]}
              }
  :main [
 
@@ -138,6 +143,7 @@
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
+                 [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
                  ]}
 
         {:des   "open stuff that get opened less frequently"
@@ -164,313 +170,362 @@
          :rules [:a-mode
                  [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
-                 [:p [:open "/Applications/Postman.app"]]
                  [:l [:!Ta :n] :iterm] ;; tmux prefix + n
                  [:h [:!Ta :p] :iterm] ;; tmux prefix + p
                  [:n [:!Ta :n] :iterm] ;; tmux prefix + n
                  [:c [:!Ta :c] :iterm] ;; tmux prefix + c
                  [:z [:!Ta :z] :iterm] ;; tmux prefix + z
-                 [:open_bracket [:!Ta :open_bracket] :iterm] ;; tmux prefix + [
+                 [:open_bracket [:!Ta :open_bracket] :iterm]
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
-                 ;          [:9 [:!Ta :!S9]] ;; tmux prefix + (
-                 ;          [:0 [:!Ta :!S0]] ;; tmux prefix + )
+                 [:right_option [:open "/Applications/Slack.app"]]
                  ]}
 
-        {:des   "b-mode"
-         :rules [:b-mode
-                 [:m [:alfred "search_bookmarks"  "dhth.bookmarks"]]
-                 [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
-                 [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period]]
-                 [:o [:spacebar :b :o ] :iterm ]
-                 ]}
+                 {:des   "b-mode"
+                  :rules [:b-mode
+                          [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
+                          [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period]]
+                          [:o [:spacebar :b :o ] :iterm ]
+                          ]}
 
-        {:des   "c-mode"
-         :rules [:c-mode
-                 [:p [:spacebar :p :p] :iterm] ;; vim: change project
-                 ]}
+                 {:des   "c-mode"
+                  :rules [:c-mode
+                          [:p [:spacebar :p :p] :iterm] ;; vim: change project
+                          [:a [:spacebar :c :a] :iterm] ;; vim: fugitive: commit --amend
+                          [:h :!Sopen_bracket]
+                          [:l :!Sclose_bracket]
+                          [:j :open_bracket]
+                          [:k :close_bracket]
+                          ]}
 
-        {:des   "d mode"
-         :rules [:d-mode
-                 [:t :open_dev_tools :browser]
-                 [:m :!SCd :browser] ;; dark reader
-                 [:j :!Td :iterm] ;; vim <c-d>
-                 [:k :!Tu :iterm] ;; vim <c-d>
-                 [:o :!TOCd ] ;; toggle dato
-                 [:f [:f :!Tf ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
-                 [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
-                 ]
-         }
+                 {:des   "d mode"
+                  :rules [:d-mode
+                          [:t :open_dev_tools :browser]
+                          [:m :!SCd :browser] ;; dark reader
+                          [:j :!Td :iterm] ;; vim <c-d>
+                          [:k :!Tu :iterm] ;; vim <c-d>
+                          [:o :!TOCd ] ;; toggle dato
+                          [:f [:f :!Tf ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
+                          ;; option + arrow keys
+                          [:##h :!Oleft_arrow]
+                          [:##j :!Odown_arrow]
+                          [:##k :!Oup_arrow]
+                          [:##l :!Oright_arrow]
+                          ]
+                  }
 
-        {:des   "e mode"
-         :rules [:e-mode
-                 [:r [:t :!Tt ] :iterm ] ;; nvim/keys/mappings.vim > helpers#Helpers()
-                 [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
-                 [:d [:alfred "karabiner_edn"  "dhth.tools"]]
-                 ]
-         }
+                 {:des   "e mode"
+                  :rules [:e-mode
+                          [:r [:t :!Tt ] :iterm ] ;; nvim/keys/mappings.vim > helpers#Helpers()
+                          [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
+                          [:d [:alfred "karabiner_edn"  "dhth.tools"]]
+                          [:h :hyphen]
+                          [:u :!Shyphen]
+                          ]
+                  }
 
-        {:des   "f mode"
-         :rules [:f-mode
-                 [:##h :left_arrow]
-                 [:##l :right_arrow]
-                 [:##j :down_arrow]
-                 [:##k :up_arrow]
-                 ; [:##h :left_arrow :iterm]
-                 ; [:##l :right_arrow :iterm]
-                 ; [:##j :down_arrow :iterm]
-                 ; [:##k :up_arrow :iterm]
-                 ]}
+                 {:des   "f mode"
+                  :rules [:f-mode
+                          [:##h :left_arrow]
+                          [:##l :right_arrow]
+                          [:##j :down_arrow]
+                          [:##k :up_arrow]
+                          [:s :!SCf :browser]  ;; full screen
+                          ; [:##h :left_arrow :iterm]
+                          ; [:##l :right_arrow :iterm]
+                          ; [:##j :down_arrow :iterm]
+                          ; [:##k :up_arrow :iterm]
+                          ]}
 
-        {:des   "g mode"
-         :rules [:g-mode
-                 [:k [:!Ssemicolon :!S1 :g :o :k :u]]
-                 [:h [:alfred "github_repo_search"  "dhth.github"]]
-                 [:quote [:g :r :i :!Squote]]   ;; gri(
-                 [:9 [:g :r :i :!S9]]  ;;gri(
-                 [:open_bracket [:g :r :i :open_bracket]]   ;;gri[
-                 [:s [:spacebar :g :s ] :iterm ]
-                 [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :iterm ]
-                 ]}
+                 {:des   "g mode"
+                  :rules [:g-mode
+                          [:k [:!Ssemicolon :!S1 :g :o :k :u]]
+                          [:h [:alfred "github_repo_search"  "dhth.github"]]
+                          [:quote [:g :r :i :!Squote]]
+                          [:9 [:g :r :i :!S9]]
+                          [:open_bracket [:g :r :i :open_bracket]]
+                          [:s [:spacebar :g :s ] :iterm ]
+                          [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :iterm ]
+                          [:b [:spacebar :g :b] :iterm ] ;; vim: telescope: git branches
+                          ]}
 
-        {:des   "m mode"
-         :rules [:m-mode
-                 [:1 [:alfred "search_tracks"  "dhth.spotify"]]
-                 [:2 [:alfred "search_albums"  "dhth.spotify"]]
-                 [:3 [:alfred "search_artists"  "dhth.spotify"]]
-                 [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
-                 [:5 [:alfred "search_playlists"  "dhth.spotify"]]
-                 [:s [:alfred "search"  "dhth.spotify"]]
-                 [:j :!TOCj ] ;; dato join meeting
-                 ]}
+                 {:des "js-mode"
+                  :rules [:js-mode
+                          [:a [:c :o :n :s :o :l :e :period :l :o :g :!S9 :!S0 :left_arrow]] ; -> console.log()
+                          ]}
 
-        {:des   "n mode"
-         :rules [:n-mode
-                 [:a [:alfred "notion_omm_add"  "dhth.notion"]]
-                 [:l [:alfred "notion_omm_list"  "dhth.notion"]]
-                 ]}
+                 {:des "left-shift mode"
+                  :rules [:left-shift-mode
+                          ]}
 
-        {:des   "q mode"
-         :rules [:q-mode
-                 [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
-                 [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
-                 ]}
+                 {:des   "m mode"
+                  :rules [:m-mode
+                          [:1 [:alfred "search_tracks"  "dhth.spotify"]]
+                          [:2 [:alfred "search_albums"  "dhth.spotify"]]
+                          [:3 [:alfred "search_artists"  "dhth.spotify"]]
+                          [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
+                          [:5 [:alfred "search_playlists"  "dhth.spotify"]]
+                          [:s [:alfred "search"  "dhth.spotify"]]
+                          [:j :!TOCj ] ;; dato join meeting
+                          [:l [:alfred "means_like"  "dhth.vocabulary"]]
+                          ]}
+
+                 {:des   "n mode"
+                  :rules [:n-mode
+                          [:a [:alfred "notion_omm_add"  "dhth.notion"]]
+                          [:l [:alfred "notion_omm_list"  "dhth.notion"]]
+                          ]}
+
+                 {:des   "q mode"
+                  :rules [:q-mode
+                          [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
+                          [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
+                          [:s :!CS4] ;; quick screenshot
+                          ]}
 
 
-        {:des   "p mode"
-         :rules [:p-mode
-                 [:1 [:alfred "pomodoro_work"  "dhth.pomodoro"]]
-                 [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
-                 [:l [:alfred "search"  "dhth.pocket"]]
-                 [:a [:alfred "add"  "dhth.pocket"]]
-                 ]}
+                 {:des   "p mode"
+                  :rules [:p-mode
+                          [:1 [:alfred "pomodoro_work"  "dhth.pomodoro"]]
+                          [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
+                          [:l [:alfred "search"  "dhth.pocket"]]
+                          [:a [:alfred "add"  "dhth.pocket"]]
+                          [:o [:open "/Applications/Postman.app"]]
+                          ]}
 
-        {:des   "r mode"
-         :rules [:r-mode
-                 [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
-                 [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
-                 ]}
+                 {:des   "r mode"
+                  :rules [:r-mode
+                          [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
+                          [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
+                          ]}
 
-        {:des   "s mode"
-         :rules [:s-mode
-                 [:t [:alfred "search_tools"  "dhth.tools"]]
-                 [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
-                 [:0 [:alfred "save_current_track"  "dhth.spotify"]]
-                 [:o [:!Ssemicolon :s :o :spacebar :!S5]]
-                 [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
-                 [:c [:launch "Screenshot"]]
-                 ; [:l :!Ts :iterm]
-                 [:l :slash :iterm]
-                 [:f :!Tf :iterm]
-                 ; [:##h :!TOleft_arrow]
-                 ; [:##j :!TOdown_arrow]
-                 ; [:##k :!TOup_arrow]
-                 ; [:##l :!TOright_arrow]
-                 ]}
+                 {:des   "s mode"
+                  :rules [:s-mode
+                          [:t [:alfred "search_tools"  "dhth.tools"]]
+                          [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
+                          [:0 [:alfred "save_current_track"  "dhth.spotify"]]
+                          [:o [:!Ssemicolon :s :o :spacebar :!S5]]
+                          [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
+                          [:c [:launch "Screenshot"]]
+                          ; [:l :!Ts :iterm]
+                          [:l :slash :iterm]
+                          [:f :!Tf :iterm]
+                          [:q [:y :s :i :w :!Squote] :iterm]
+                          [:p [:open "/Applications/Spotify.app"]]
+                          [:y [:alfred "synonyms"  "dhth.vocabulary"]]
+                          ;; shift + option + arrow keys
+                          [:##h :!SOleft_arrow]
+                          [:##j :!SOdown_arrow]
+                          [:##k :!SOup_arrow]
+                          [:##l :!SOright_arrow]
+                          ]}
 
-        {:des   "t mode"
-         :rules [:t-mode
-                 [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
-                 [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
-                 [:0 [:alfred "get_current_track"  "dhth.spotify"]]
-                 [:m [:alfred "time"  "dhth.system"]]
-                 ]}
+                 {:des   "t mode"
+                  :rules [:t-mode
+                          [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
+                          [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
+                          [:0 [:alfred "get_current_track"  "dhth.spotify"]]
+                          [:m [:alfred "time"  "dhth.system"]]
+                          ]}
 
-        {:des   "v mode"
-         :rules [:v-mode
-                 [:p [:alfred "vim_plugins"  "dhth.vim.plugins"]]
-                 [:h [:!Ta :h] :iterm] ;; tmux prefix + h
-                 [:l [:!Ta :l] :iterm] ;; tmux prefix + l
-                 [:j [:!Ta :j] :iterm] ;; tmux prefix + j
-                 [:k [:!Ta :k] :iterm] ;; tmux prefix + k
-                 ]}
+                 {:des   "v mode"
+                  :rules [:v-mode
+                          [:p [:alfred "vim_plugins"  "dhth.vim.plugins"]]
+                          [:h [:!Ta :h] :iterm] ;; tmux prefix + h
+                          [:l [:!Ta :l] :iterm] ;; tmux prefix + l
+                          [:j [:!Ta :j] :iterm] ;; tmux prefix + j
+                          [:k [:!Ta :k] :iterm] ;; tmux prefix + k
+                          [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
+                          ]}
 
-        {:des   "w mode"
-         :rules [:w-mode
-                 [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
-                 [:c [:alfred "webcam"  "dhth.system"]]
-                 [:h :!SOCh] ;; magnet previous display
-                 [:l :!SOCl] ;; magnet next display
-                 [:h [:!Tw :h] :iterm]
-                 [:l [:!Tw :l] :iterm]
-                 [:j [:!Tw :j] :iterm]
-                 [:k [:!Tw :k] :iterm]
-                 ]}
+                 {:des   "w mode"
+                  :rules [:w-mode
+                          [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
+                          [:c [:alfred "webcam"  "dhth.system"]]
+                          [:h :!SOCh] ;; magnet previous display
+                          [:l :!SOCl] ;; magnet next display
+                          [:h [:!Tw :h] :iterm]
+                          [:l [:!Tw :l] :iterm]
+                          [:j [:!Tw :j] :iterm]
+                          [:k [:!Tw :k] :iterm]
+                          [:q [:!Ssemicolon :w :q] :iterm]
+                          ]}
 
-        {:des "emoji"
-         :rules [:z-mode
-                 [:e :emoji_picker]
-                 [:t [:km "emoji: thunder"] ]
-                 [:x [:km "emoji: thumbs up"] ]
-                 [:c [:km "emoji: check mark"] ]
-                 ;
-                 ]}
+                 {:des "z-mode"
+                  :rules [:z-mode
+                          [:e :emoji_picker]
+                          [:t [:km "emoji: thunder"] ]
+                          [:x [:km "emoji: thumbs up"] ]
+                          [:c [:km "emoji: check mark"] ]
+                          [:s [:alfred "zshrc"  "dhth.tools"]]
+                          ;
+                          ]}
 
-        {:des   "other stuff"
-         :rules [:equal-mode
-                 [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
-                 [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
-                 ]}
+                 {:des   "other stuff"
+                  :rules [:equal-mode
+                          [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
+                          [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
+                          ]}
 
-        {:des   "comma mode"
-         :rules [:comma-mode
-                 [:s [:alfred "slack_status" "dhth.slack.status"]]
-                 [:v [:alfred "vim_plugins" "dhth.vim.plugins"]]
-                 [:c [:alfred "control" "dhth.spotify"]]
-                 [:2 [:alfred "albums" "dhth.spotify"]]
-                 [:5 [:alfred "playlists" "dhth.spotify"]]
-                 [:6 [:alfred "recently_played" "dhth.spotify"]]
-                 [:d [:alfred "devices" "dhth.spotify"]]
-                 [:a [:alfred "add_track_to_playlist" "dhth.spotify"]]
-                 ]}
+                 {:des   "comma mode"
+                  :rules [:comma-mode
+                          [:s [:alfred "slack_status" "dhth.slack.status"]]
+                          [:v [:alfred "vim_plugins" "dhth.vim.plugins"]]
+                          [:c [:alfred "control" "dhth.spotify"]]
+                          [:2 [:alfred "albums" "dhth.spotify"]]
+                          [:5 [:alfred "playlists" "dhth.spotify"]]
+                          [:6 [:alfred "recently_played" "dhth.spotify"]]
+                          [:d [:alfred "devices" "dhth.spotify"]]
+                          [:a [:alfred "add_track_to_playlist" "dhth.spotify"]]
+                          ]}
 
-        {:des "spacebar"
-         :rules [:spacebar-mode
-                 [:##h :!TOCleft_arrow]
-                 [:##l :!TOCright_arrow]
-                 [:##j :!TOCdown_arrow]
-                 [:##k :!TOCup_arrow]
-                 [:g [:spacebar :g :s] :iterm]
-                 ]}
+                 {:des "spacebar"
+                  :rules [:spacebar-mode
+                          [:##h :!TOCleft_arrow]
+                          [:##l :!TOCright_arrow]
+                          [:##j :!TOCdown_arrow]
+                          [:##k :!TOCup_arrow]
+                          [:g [:spacebar :g :s] :iterm]
+                          ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
+                          [:left_shift [:spacebar :equal_sign :spacebar]]
+                          ]}
 
-        {:des   "caps_lock mode"
-         :rules [:caps-lock-mode
-                 [:##h :left_arrow]
-                 [:##l :right_arrow]
-                 [:##j :down_arrow]
-                 [:##k :up_arrow]
-                 ]}
+                 {:des   "caps_lock mode"
+                  :rules [:caps-lock-mode
+                          [:##h :left_arrow]
+                          [:##l :right_arrow]
+                          [:##j :down_arrow]
+                          [:##k :up_arrow]
+                          ]}
 
-        {:des   "tilde mode"
-         :rules [:tilde-mode
-                 [:h [:km "mouse: move_left"]]
-                 [:l [:km "mouse: move_right"]]
-                 [:hyphen [:alfred "pause" "dhth.spotify"]]
-                 [:equal_sign [:alfred "play" "dhth.spotify"]]
-                 [:1 [:type-secret "praline-jingle"]]
-                 [:2 [:type-secret "haven-barnyard"]]
-                 ]}
+                 {:des   "tilde mode"
+                  :rules [:tilde-mode
+                          [:h [:km "mouse: move_left"]]
+                          [:l [:km "mouse: move_right"]]
+                          [:hyphen [:alfred "pause" "dhth.spotify"]]
+                          [:equal_sign [:alfred "play" "dhth.spotify"]]
+                          [:1 [:type-secret "praline-jingle"]]
+                          [:2 [:type-secret "haven-barnyard"]]
+                          [:j ["in-js" 1]]
+                          ]}
 
-        {:des   "tab mode"
-         :rules [:tab-mode
-                 [:l [:alfred "system_lock" "dhth.system"]]
-                 [:s [:alfred "system_sleep" "dhth.system"]]
-                 [:d [:alfred "dark_mode" "dhth.system"]]
-                 [:a [:alfred "switch_audio" "dhth.system"]]
-                 ]}
+                 {:des   "tab mode"
+                  :rules [:tab-mode
+                          [:l [:alfred "system_lock" "dhth.system"]]
+                          [:s [:alfred "system_sleep" "dhth.system"]]
+                          [:d [:alfred "dark_mode" "dhth.system"]]
+                          [:a [:alfred "switch_audio" "dhth.system"]]
+                          ]}
 
-        {:des   "other stuff"
-         :rules [:hyphen-mode
-                 ; [:p [:application "spotify" "playpause"]]
-                 ; [:open_bracket [:application "spotify" "previous track"]]
-                 ; [:close_bracket [:application "spotify" "next track"]]
-                 [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
-                 [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
-                 ]}
+                 {:des   "other stuff"
+                  :rules [:hyphen-mode
+                          ; [:p [:application "spotify" "playpause"]]
+                          ; [:open_bracket [:application "spotify" "previous track"]]
+                          ; [:close_bracket [:application "spotify" "next track"]]
+                          [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
+                          [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
+                          ]}
 
-        {:des   "semicolon mode"
-         :rules [:semicolon-mode
-                 [:1 [:!Ta :1]] ;; tmux prefix + 1
-                 [:2 [:!Ta :2]]
-                 [:3 [:!Ta :3]]
-                 [:4 [:!Ta :4]]
-                 [:5 [:!Ta :5]]
-                 [:c [:!Ta :c]] ;; tmux prefix + c
-                 ]}
+{:des   "semicolon mode"
+ :rules [:semicolon-mode
+         [:1 [:!Ta :1]] ;; tmux prefix + 1
+         [:2 [:!Ta :2]]
+         [:3 [:!Ta :3]]
+         [:4 [:!Ta :4]]
+         [:5 [:!Ta :5]]
+         [:c [:!Ta :c]] ;; tmux prefix + c
+         ]}
 
-        {:des "caps lock to left control" :rules [
-                                                  [:##caps_lock :##left_control nil {:alone :escape}]
-                                                  ]
-         }
+{:des "left_option mode non apple"
+ :rules [:left-option-mode-non-apple
+         [:h :!SCopen_bracket :browser]
+         [:l :!SCclose_bracket :browser]
+         ]}
 
-        {:des "left control to caps lock"
-         :rules [
-                 [:##left_control :caps_lock]
-                 ]
-         }
+{:des "left_command mode non apple"
+ :rules [:left-command-mode-non-apple
+         [:h [:!Ta :p] :iterm]
+         [:l [:!Ta :n] :iterm]
+         ]}
 
-        {:des "not iterm"
-         :rules [:!iterm
-                 ; [:##left_command :##left_command :apple {:alone [:open "/Applications/iTerm.app"]}]
-                 ; [:##left_option :##left_command :!apple {:alone [:open "/Applications/iTerm.app"]}]
-                 [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
-                 [:left_shift :left_shift nil {
-                                               :alone :delete_or_backspace}]
-                 ]}
+{:des "caps lock to left control" :rules [
+                                          [:##caps_lock :##left_control nil {:alone :escape}]
+                                          ]
+ }
 
-        {:des "iterm"
-         :rules [:iterm
-                 ; [:##left_command :##left_command :apple {:alone [:!Ts] }]
-                 ; [:##left_option :##left_command :!apple {:alone [:!Ts]}]
-                 [:##left_option :##left_command nil {:alone [:!Ts]}]
-                 [:##left_shift :##left_shift nil {
-                                               :alone :!Tf}]         ;; fzf :Buffers
-                 ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
-                 ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
-                 [:##right_option :##right_option nil {:alone [:spacebar :w :n]}] ;; fzf :Windows
-                 ]}
+{:des "left control to caps lock"
+ :rules [
+         ; [:##left_control :caps_lock]
+         [:left_control [:alfred "search"  "dhth.bookmarks"]]
+         ]
+ }
 
-        {:des "not browser"
-         :rules [:!browser
-                 ; [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
-                 ; [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
-                 [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
-                 ]
-         }
+{:des "not iterm"
+ :rules [:!iterm
+         [:##left_command :##left_command :apple {:alone [:open "/Applications/iTerm.app"]}]
+         [:##left_option :##left_command :!apple {:alone [:open "/Applications/iTerm.app"]}]
+         ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
+         [:left_shift :left_shift nil {
+                                       :alone :delete_or_backspace}]
+         ]}
 
-        {:des "browser"
-         :rules [:browser
-                 ; [:##left_option :##left_option :apple {:alone [:!St]}] ;; vimium show open tabs
-                 ; [:##left_command :##left_option :!apple {:alone [:!St]}] ;; vimium show open tabs
-                 [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
-                 ]
-         }
+{:des "iterm"
+ :rules [:iterm
+         [:##left_command :##left_command :apple {:alone [:!Ts] }]
+         [:##left_option :##left_command :!apple {:alone [:!Ts]}]
+         ; [:##left_option :##left_command nil {:alone [:!Ts]}]
+         [:##left_shift :##left_shift nil {
+                                           :alone :!Tf}]         ;; fzf :Buffers
+         ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         ]}
 
-        {:des "spotify"
-         :rules [
-                 [:##right_control :right_control nil {:alone [:open "/Applications/Slack.app"]}]
-                 ]
-         }
+{:des "not browser"
+ :rules [:!browser
+         [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
+         ; [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
+         ]
+ }
 
-        ]
-        }
-        ;; rule [:period ["media-mode" 1] nil {:afterup ["media-mode" 0] :alone :period}]
-        ;;       |_____| |_______________| |_| |_________________________________________|
-        ;;        <from>    <to>      <conditions>         <other options>
+{:des "browser"
+ :rules [:browser
+         [:##left_option :##left_option :apple {:alone [:t]}] ;; vimium show open tabs
+         [:##left_command :##left_option :!apple {:alone [:t]}] ;; vimium show open tabs
+         ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
+         [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
+         ]
+ }
 
-        ;; !  | means mandatory
-        ;; #  | means optional
-        ;; C  | left_command
-        ;; T  | left_control
-        ;; O  | left_option
-        ;; S  | left_shift
-        ;; F  | fn
-        ;; Q  | right_command
-        ;; W  | right_control
-        ;; E  | right_option
-        ;; R  | right_shift
-        ;;
-        ;; !! | mandatory command + control + optional + shift (hyper)
-        ;; ## | optional any
-        ;;
+{:des "spotify"
+ :rules [
+         [:##right_control :right_control :!apple {:alone [:open "/Applications/Slack.app"]}]
+         [:##right_option :right_option :apple {:alone [:open "/Applications/Slack.app"]}]
+         ]
+ }
+
+]
+}
+;; rule [:period ["media-mode" 1] nil {:afterup ["media-mode" 0] :alone :period}]
+;;       |_____| |_______________| |_| |_________________________________________|
+;;        <from>    <to>      <conditions>         <other options>
+
+;; !  | means mandatory
+;; #  | means optional
+;; C  | left_command
+;; T  | left_control
+;; O  | left_option
+;; S  | left_shift
+;; F  | fn
+;; Q  | right_command
+;; W  | right_control
+;; E  | right_option
+;; R  | right_shift
+;;
+;; !! | mandatory command + control + optional + shift (hyper)
+;; ## | optional any
+;;

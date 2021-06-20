@@ -153,6 +153,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias v="nvim"
+alias vim="nvim"
 alias tx="tmuxinator"
 
 alias cvim="nvim ~/.config/nvim/init.vim"
@@ -180,6 +181,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+export GOPATH="$HOME/go"
 
 # Created by `userpath` on 2020-07-18 08:27:23
 export PATH="$PATH:$HOME/.local/bin"
@@ -356,6 +358,12 @@ alias dps='docker ps'
 
 # alias n='nnn'
 # alias ls='nnn -e'
+
+function bback(){
+    local backup_file="$BUKU_BACKUP_DIR/backup-$(date '+%Y-%m-%d').db"
+    echo -e "backing up to ${GREEN}$backup_file...${NOCOLOR}"
+    buku --np -e $backup_file
+}
 
 # git log for a specific branch
 function glbo() {
