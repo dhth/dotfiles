@@ -16,7 +16,7 @@
   }
  :modifiers {
              ; :super-hyper [:command :shift :control :option :fn]
-             ; :hyper [:command :shift :control :option]
+             :hyper [:command :shift :control :option]
              ; :cos [:command :shift :option]
              ; :cst [:command :shift :control]
              :co [:command :option]
@@ -32,6 +32,8 @@
                 :slack ["com.tinyspeck.slackmacgap"]
                 :iterm ["com.googlecode.iterm2"]
                 :spotify ["com.spotify.client"]
+                :code ["com.microsoft.VSCode"]
+                :jetbrains ["com.jetbrains.*"]
                 ;
                 }
  :devices {
@@ -40,6 +42,7 @@
                    ]
            }
  :templates {:open "open \"%s\""
+             :open-a "open -a \"%s\""
              :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -104,11 +107,12 @@
              :three-mode {:key :3}
              :tilde-mode {:key :grave_accent_and_tilde}
              :2-mode {:key :2}
+             :8-mode {:key :8}
              :w-mode {:key :w}
              :caps-lock-mode {:key :caps_lock}
              :tab-mode {:key :tab}
              :open-bracket-mode {:key :open_bracket}
-             :z-mode {:key :z}
+             :emoji-mode {:key :z}
              :d-mode {:key :d}
              :e-mode {:key :e}
              :i-mode {:key :i}
@@ -127,6 +131,7 @@
                  [:hyphen [:application "spotify" "set sound volume to sound volume - 5"]]
                  [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
                  [:a [:alfred "tasks_work_add"  "dhth.tasks"]]
+                 [:s [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
                  ]}
 
         {:des   "work stuff"
@@ -145,6 +150,12 @@
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
                  ]}
+
+        {:des "8 mode"
+         :rules [:8-mode
+                 [:t [:alfred "timestamp_convert" "dhth.utils"]]
+                 ]
+         }
 
         {:des   "open stuff that get opened less frequently"
          :rules [:three-mode
@@ -178,36 +189,53 @@
                  [:open_bracket [:!Ta :open_bracket] :iterm]
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
+                 [:h :!SCopen_bracket :code]
+                 [:l :!SCclose_bracket :code]
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
                  [:right_option [:open "/Applications/Slack.app"]]
+                 [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
                  ]}
 
                  {:des   "b-mode"
                   :rules [:b-mode
                           [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
-                          [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period]]
+                          ; [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period] :iterm]
                           [:o [:spacebar :b :o ] :iterm ]
+                          [:o [:spacebar :b :o ] :code ]
+                          [:o [:spacebar :b :o ] :jetbrains ]
+                          [:l [:!SOCb :!Sl] :code ] ;; vscode: foam: backlinks
+                          [:l [:spacebar :b :l] :iterm ] ;; vim: wiki: backlinks
                           ]}
 
                  {:des   "c-mode"
                   :rules [:c-mode
                           [:p [:spacebar :p :p] :iterm] ;; vim: change project
+                          [:p :!SOCj :browser] ;; jupyter: command palette
                           [:a [:spacebar :c :a] :iterm] ;; vim: fugitive: commit --amend
-                          [:h :!Sopen_bracket]
-                          [:l :!Sclose_bracket]
+                          ; [:h :!Sopen_bracket]
+                          [:l [:spacebar :c :l]] ;; vim: wiki: create link
                           [:j :open_bracket]
                           [:k :close_bracket]
+                          [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :iterm] ;; vim: coc restart
                           ]}
 
                  {:des   "d mode"
                   :rules [:d-mode
+                          [:c [:d :c :m :spacebar :u :p :spacebar :hyphen :d] :iterm]
                           [:t :open_dev_tools :browser]
-                          [:m :!SCd :browser] ;; dark reader
-                          [:j :!Td :iterm] ;; vim <c-d>
-                          [:k :!Tu :iterm] ;; vim <c-d>
+                          [:m :!SOd :browser] ;; dark reader
+                          [:j :!Td :iterm ] ;; vim <c-d>
+                          [:k :!Tu :iterm ] ;; vim <c-d>
+                          [:j :!Td :jetbrains ]
+                          [:k :!Tu :jetbrains ]
+                          [:j :!Td :code ] ;; vim <c-d>
+                          [:k :!Tu :code ] ;; vim <c-d>
                           [:o :!TOCd ] ;; toggle dato
                           [:f [:f :!Tf ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
+                          [:f :!TOCn :jetbrains ] ;; new
                           [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
+                          [:b [:alfred "db_tables_search"  "dhth.dl"]]
                           ;; option + arrow keys
                           [:##h :!Oleft_arrow]
                           [:##j :!Odown_arrow]
@@ -219,6 +247,7 @@
                  {:des   "e mode"
                   :rules [:e-mode
                           [:r [:t :!Tt ] :iterm ] ;; nvim/keys/mappings.vim > helpers#Helpers()
+                          [:r [:!TOCp :v ] :jetbrains ] ;; jetbrains: project view popup menu
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:d [:alfred "karabiner_edn"  "dhth.tools"]]
                           [:h :hyphen]
@@ -233,10 +262,13 @@
                           [:##j :down_arrow]
                           [:##k :up_arrow]
                           [:s :!SCf :browser]  ;; full screen
+                          [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
+                          [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           ; [:##h :left_arrow :iterm]
                           ; [:##l :right_arrow :iterm]
                           ; [:##j :down_arrow :iterm]
                           ; [:##k :up_arrow :iterm]
+                          [:a :!SCa :jetbrains] ;; find action
                           ]}
 
                  {:des   "g mode"
@@ -244,6 +276,7 @@
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
+                          [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
                           [:s [:spacebar :g :s ] :iterm ]
@@ -258,6 +291,7 @@
 
                  {:des "left-shift mode"
                   :rules [:left-shift-mode
+                         [:right_shift [:open-a "Screen Sharing"]]
                           ]}
 
                  {:des   "m mode"
@@ -270,12 +304,14 @@
                           [:s [:alfred "search"  "dhth.spotify"]]
                           [:j :!TOCj ] ;; dato join meeting
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
+                          [:k [:open "/Applications/Keyboard Maestro.app"]]
                           ]}
 
                  {:des   "n mode"
                   :rules [:n-mode
                           [:a [:alfred "notion_omm_add"  "dhth.notion"]]
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
+                          [:s [:open "https://notion.so"]]
                           ]}
 
                  {:des   "q mode"
@@ -292,13 +328,15 @@
                           [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
                           [:l [:alfred "search"  "dhth.pocket"]]
                           [:a [:alfred "add"  "dhth.pocket"]]
-                          [:o [:open "/Applications/Postman.app"]]
+                          [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
+                          ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
                  {:des   "r mode"
                   :rules [:r-mode
                           [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
                           [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
+                          [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
                           ]}
 
                  {:des   "s mode"
@@ -306,11 +344,14 @@
                           [:t [:alfred "search_tools"  "dhth.tools"]]
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
-                          [:o [:!Ssemicolon :s :o :spacebar :!S5]]
+                          [:o [:!Ssemicolon :s :o :spacebar :!S5] :iterm]
+                          [:o :!SCi :jetbrains] ;; jetbrains: reload
                           [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
                           [:c [:launch "Screenshot"]]
                           ; [:l :!Ts :iterm]
-                          [:l :slash :iterm]
+                          ; [:l :slash :iterm]
+                          [:h :!SCopen_bracket :iterm]
+                          [:l :!SCclose_bracket :iterm]
                           [:f :!Tf :iterm]
                           [:q [:y :s :i :w :!Squote] :iterm]
                           [:p [:open "/Applications/Spotify.app"]]
@@ -328,6 +369,8 @@
                           [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
+                          [:b :!SCf :browser] ;; browser: toolbar visibility
+                          [:y [:open "https://monkeytype.com"]]
                           ]}
 
                  {:des   "v mode"
@@ -337,15 +380,18 @@
                           [:l [:!Ta :l] :iterm] ;; tmux prefix + l
                           [:j [:!Ta :j] :iterm] ;; tmux prefix + j
                           [:k [:!Ta :k] :iterm] ;; tmux prefix + k
+                          [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           ]}
 
                  {:des   "w mode"
                   :rules [:w-mode
                           [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
-                          [:c [:alfred "webcam"  "dhth.system"]]
+                          ; [:c [:alfred "webcam"  "dhth.system"]]
                           [:h :!SOCh] ;; magnet previous display
                           [:l :!SOCl] ;; magnet next display
+                          [:open_bracket :!TOh] ;; magnet left side
+                          [:close_bracket :!TOl] ;; magnet left side
                           [:h [:!Tw :h] :iterm]
                           [:l [:!Tw :l] :iterm]
                           [:j [:!Tw :j] :iterm]
@@ -353,12 +399,13 @@
                           [:q [:!Ssemicolon :w :q] :iterm]
                           ]}
 
-                 {:des "z-mode"
-                  :rules [:z-mode
+                 {:des "emoji-mode"
+                  :rules [:emoji-mode
                           [:e :emoji_picker]
                           [:t [:km "emoji: thunder"] ]
                           [:x [:km "emoji: thumbs up"] ]
                           [:c [:km "emoji: check mark"] ]
+                          [:0 [:km "emoji: smile"] ]
                           [:s [:alfred "zshrc"  "dhth.tools"]]
                           ;
                           ]}
@@ -409,6 +456,7 @@
                           [:1 [:type-secret "praline-jingle"]]
                           [:2 [:type-secret "haven-barnyard"]]
                           [:j ["in-js" 1]]
+                          [:m {:key :m :modi :hyper}]
                           ]}
 
                  {:des   "tab mode"
@@ -426,6 +474,7 @@
                           ; [:close_bracket [:application "spotify" "next track"]]
                           [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
                           [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
+                          [:s [:alfred "search_drive_file" "dhth.files"]]
                           ]}
 
 {:des   "semicolon mode"
@@ -462,13 +511,26 @@
          ]
  }
 
+{:des "code"
+ :rules [:code
+         ; [:##left_shift :!Cp]
+         [:##left_shift :##left_shift nil {
+                                           :alone :!Cp}]         ;; vscode: file search
+         ]}
+
+{:des "jetbrains"
+ :rules [:jetbrains
+         [:##left_shift :##left_shift nil {
+                                           :alone :!CSo}]         ;; jetbrains: file search
+         ; [:##right_option :##right_option :!apple {
+         ;                                   :alone :!Ce}]         ;; jetbrains: recent files
+         ]}
+
 {:des "not iterm"
  :rules [:!iterm
          [:##left_command :##left_command :apple {:alone [:open "/Applications/iTerm.app"]}]
          [:##left_option :##left_command :!apple {:alone [:open "/Applications/iTerm.app"]}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
-         [:left_shift :left_shift nil {
-                                       :alone :delete_or_backspace}]
          ]}
 
 {:des "iterm"
@@ -480,8 +542,8 @@
                                            :alone :!Tf}]         ;; fzf :Buffers
          ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
-         [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
-         [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
+         ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ]}
 
 {:des "not browser"
@@ -497,7 +559,7 @@
          [:##left_option :##left_option :apple {:alone [:t]}] ;; vimium show open tabs
          [:##left_command :##left_option :!apple {:alone [:t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
-         [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
+         ; [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
          ]
  }
 
@@ -505,6 +567,27 @@
  :rules [
          [:##right_control :right_control :!apple {:alone [:open "/Applications/Slack.app"]}]
          [:##right_option :right_option :apple {:alone [:open "/Applications/Slack.app"]}]
+         ]
+ }
+
+{:des "vscode"
+ :rules [:code
+         ; [:##right_shift :##right_shift nil {:alone [:!SCp]}] ;; vscode command palette
+         [:##right_option :##right_option nil {:alone [:!SCp]}] ;; vscode command palette
+         [:##right_command :##right_command :apple {:alone [:!SCp]}] ;; vscode command palette
+         ]
+ }
+
+{:des "shifts"
+ :rules [
+         [:##left_shift :left_shift nil {:alone :!Oleft_arrow}]
+         ]
+ }
+
+{:des "vs code"
+ :rules [
+         [:##right_option :##right_option nil {:alone [:open "/Applications/Visual Studio Code.app"]}]
+         [:##right_command :##right_command :apple {:alone [:open "/Applications/Visual Studio Code.app"]}]
          ]
  }
 

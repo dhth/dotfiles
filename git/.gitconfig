@@ -2,9 +2,10 @@
 	name = Dhruv Thakur
 	email = dhruvt93@gmail.com
 [push]
-	default = simple
+	default = current
 [pull]
 	ff = only
+	default = current
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

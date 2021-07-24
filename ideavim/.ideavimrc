@@ -1,7 +1,8 @@
 let mapleader = " "
-inoremap jj <Esc>
 
 set sneak 
+set commentary
+set NERDTree
 
 syntax enable
 set nocompatible
@@ -10,6 +11,7 @@ set splitbelow
 set splitright
 set noerrorbells
 set belloff=all
+set visualbell    " turns off all audible beeps
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -32,8 +34,8 @@ set showcmd
 set ruler
 set cursorline                          " enable highlighting of the current line
 set conceallevel=0                      " to be able to see `` in markdown files
-set updatetime=300                      " faster completion
-set timeoutlen=300                      " default is 1000 ms
+set updatetime=200                      " faster completion
+set timeoutlen=200                      " default is 1000 ms
 set nobackup                            " This is recommended by coc
 set nowritebackup                       " This is recommended by coc
 set wildmenu
@@ -86,7 +88,6 @@ vnoremap ∆ :m '>+1<CR>gv
 vnoremap ˚ :m '<-2<CR>gv
 
 "ideavim specific
-set commentary
 nnoremap <silent> <TAB> :action NextTab<CR>
 nnoremap <silent> <S-TAB> :action PreviousTab<CR>
 nnoremap <leader>h :action RecentFiles<CR>
@@ -124,6 +125,10 @@ nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
 " cmd + 4 : open/close run tool window
 " cmd + 5 : open/close debug tool window
 " ctrl + s: file structure (sorta like fzf's BLines)
-nnoremap <leader>ff :action ReformatCode<CR>
+" nnoremap <leader>ff :action ReformatCode<CR>
 
 nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+
+nnoremap <leader>mm :action HideAllWindows<CR>
+
+nnoremap <leader>vv :e ~/.ideavimrc<CR>
