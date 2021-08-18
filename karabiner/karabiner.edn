@@ -39,6 +39,7 @@
  :devices {
            :apple [
                    {:vendor_id 1452}
+                   {:vendor_id 2652}
                    ]
            }
  :templates {:open "open \"%s\""
