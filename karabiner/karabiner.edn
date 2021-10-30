@@ -9,7 +9,7 @@
  ;; https://github.com/yqrashawn/GokuRakuJoudo/blob/master/examples.org#profiles
  :profiles
  {:goku {:default true ;
-         :alone   200 ; hold for .. ms to register single tap
+         :alone   300 ; hold for .. ms to register single tap
          :held    50 ;
          :delay   50 ; basically it means time after which the key press is count delayed
          :sim     30}
@@ -28,7 +28,7 @@
              ;
              }
  :applications {;
-                :browser ["com.brave.Browser"]
+                :browser ["com.brave.Browser", "com.google.Chrome"]
                 :slack ["com.tinyspeck.slackmacgap"]
                 :iterm ["com.googlecode.iterm2"]
                 :spotify ["com.spotify.client"]
@@ -92,6 +92,7 @@
              :five-mode {:key :5}
              :four-mode {:key :4}
              :g-mode {:key :g}
+             :l-mode {:key :l}
              :q-mode {:key :q}
              :t-mode {:key :t}
              :b-mode {:key :b}
@@ -109,6 +110,7 @@
              :tilde-mode {:key :grave_accent_and_tilde}
              :2-mode {:key :2}
              :8-mode {:key :8}
+             :9-mode {:key :9}
              :w-mode {:key :w}
              :caps-lock-mode {:key :caps_lock}
              :tab-mode {:key :tab}
@@ -137,7 +139,8 @@
 
         {:des   "work stuff"
          :rules [:1-mode
-                 [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
+                 ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
+                 [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
                  ]}
 
@@ -155,8 +158,15 @@
         {:des "8 mode"
          :rules [:8-mode
                  [:t [:alfred "timestamp_convert" "dhth.utils"]]
+                 [:a [:alfred "aws_apigateway_list_apis"  "dhth.aws"]]
                  ]
          }
+
+        {:des   "9-mode"
+         :rules [:9-mode
+                 [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
+                 [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
+                 ]}
 
         {:des   "open stuff that get opened less frequently"
          :rules [:three-mode
@@ -170,6 +180,8 @@
                  [:c [:km "open: chrome_work"]]
                  [:s [:km "open: setup_work"]]
                  [:j [:alfred "jira_search"  "dhth.jira"]]
+                 [:b [:alfred "jira_sprint_board" "dhth.jira"]]
+                 ; [:j [:alfred "jira_manager"  "dhth.tools"]]
                  ]}
 
         {:des   "launch/switch to applications"
@@ -184,10 +196,13 @@
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:l [:!Ta :n] :iterm] ;; tmux prefix + n
                  [:h [:!Ta :p] :iterm] ;; tmux prefix + p
+                 [:j [:!Ta :j] :iterm] ;; tmux prefix + j
+                 [:k [:!Ta :k] :iterm] ;; tmux prefix + k
                  [:n [:!Ta :n] :iterm] ;; tmux prefix + n
                  [:c [:!Ta :c] :iterm] ;; tmux prefix + c
                  [:z [:!Ta :z] :iterm] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :iterm]
+                 [:semicolon [:spacebar :t :c] :iterm] ;; vim: close tab
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :code]
@@ -200,8 +215,10 @@
                  {:des   "b-mode"
                   :rules [:b-mode
                           [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
+                          [:k [:alfred "search_books"  "dhth.files"]]
                           ; [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period] :iterm]
                           [:o [:spacebar :b :o ] :iterm ]
+                          [:c [:spacebar :b :c ] :iterm ] ;; vim: Telescope: buffer commits
                           [:o [:spacebar :b :o ] :code ]
                           [:o [:spacebar :b :o ] :jetbrains ]
                           [:l [:!SOCb :!Sl] :code ] ;; vscode: foam: backlinks
@@ -211,6 +228,7 @@
                  {:des   "c-mode"
                   :rules [:c-mode
                           [:p [:spacebar :p :p] :iterm] ;; vim: change project
+                          [:b [:spacebar :c :b] :iterm] ;; vim: check key binding: verbose nmap <leader>
                           [:p :!SOCj :browser] ;; jupyter: command palette
                           [:a [:spacebar :c :a] :iterm] ;; vim: fugitive: commit --amend
                           ; [:h :!Sopen_bracket]
@@ -218,11 +236,11 @@
                           [:j :open_bracket]
                           [:k :close_bracket]
                           [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :iterm] ;; vim: coc restart
+                          [:m [:g :c :i :p] :iterm] ;; vim: commentary: inner paragraph
                           ]}
 
                  {:des   "d mode"
                   :rules [:d-mode
-                          [:c [:d :c :m :spacebar :u :p :spacebar :hyphen :d] :iterm]
                           [:t :open_dev_tools :browser]
                           [:m :!SOd :browser] ;; dark reader
                           [:j :!Td :iterm ] ;; vim <c-d>
@@ -233,6 +251,7 @@
                           [:k :!Tu :code ] ;; vim <c-d>
                           [:o :!TOCd ] ;; toggle dato
                           [:f [:f :!Tf ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:c [:spacebar :d :c] :iterm ] ;; nvim: helpers: diff with commit
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
                           [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
@@ -258,23 +277,20 @@
 
                  {:des   "f mode"
                   :rules [:f-mode
-                          [:##h :left_arrow]
-                          [:##l :right_arrow]
-                          [:##j :down_arrow]
-                          [:##k :up_arrow]
+                          [:h :!SCopen_bracket :iterm]
+                          [:l :!SCclose_bracket :iterm]
                           [:s :!SCf :browser]  ;; full screen
                           [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
-                          ; [:##h :left_arrow :iterm]
-                          ; [:##l :right_arrow :iterm]
-                          ; [:##j :down_arrow :iterm]
-                          ; [:##k :up_arrow :iterm]
                           [:a :!SCa :jetbrains] ;; find action
+                          [:j [:spacebar :j :f ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:k [:!Ta :z] :iterm ] ;; tmux: prefix z
                           ]}
 
                  {:des   "g mode"
                   :rules [:g-mode
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
+                          [:f [:!Ssemicolon :!Sg :i :t :spacebar :f :e :t :c :h] :iterm] ;; vim: Git fetch
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
@@ -283,6 +299,12 @@
                           [:s [:spacebar :g :s ] :iterm ]
                           [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :iterm ]
                           [:b [:spacebar :g :b] :iterm ] ;; vim: telescope: git branches
+                          [:quote [:g :r :i :quote] :iterm ] ;; vim: replace with regiser: gri"
+                          ]}
+
+                 {:des   "l mode"
+                  :rules [:l-mode
+                          [:t [:!CSt] :browser] ;; browser: re-open last tab
                           ]}
 
                  {:des "js-mode"
@@ -313,6 +335,7 @@
                           [:a [:alfred "notion_omm_add"  "dhth.notion"]]
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           [:s [:open "https://notion.so"]]
+                          [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
                           ]}
 
                  {:des   "q mode"
@@ -338,6 +361,7 @@
                           [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
                           [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
                           [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
+                          [:e [:spacebar :r :e] :iterm] ;; vim: telescope: resume
                           ]}
 
                  {:des   "s mode"
@@ -351,12 +375,13 @@
                           [:c [:launch "Screenshot"]]
                           ; [:l :!Ts :iterm]
                           ; [:l :slash :iterm]
-                          [:h :!SCopen_bracket :iterm]
-                          [:l :!SCclose_bracket :iterm]
                           [:f :!Tf :iterm]
                           [:q [:y :s :i :w :!Squote] :iterm]
-                          [:p [:open "/Applications/Spotify.app"]]
+                          [:m [:spacebar :s :m] :iterm] ;; vim: telescope: coc: document_symbols
+                          ; [:p [:open "/Applications/Spotify.app"]]
+                          [:p [:spacebar :s :p] :iterm] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
+                          [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
                           ;; shift + option + arrow keys
                           [:##h :!SOleft_arrow]
                           [:##j :!SOdown_arrow]
@@ -407,6 +432,8 @@
                           [:x [:km "emoji: thumbs up"] ]
                           [:c [:km "emoji: check mark"] ]
                           [:0 [:km "emoji: smile"] ]
+                          [:j [:km "emoji: point down"] ]
+                          [:k [:km "emoji: point up"] ]
                           [:s [:alfred "zshrc"  "dhth.tools"]]
                           ;
                           ]}
@@ -466,6 +493,15 @@
                           [:s [:alfred "system_sleep" "dhth.system"]]
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]
+                          ]}
+
+                 {:des   "open bracket mode"
+                  :rules [:open-bracket-mode
+                          [:d [:spacebar :s :y] :iterm] ;; vim: SearchDockerComposeFiles
+                          [:t [:spacebar :t :f] :iterm] ;; vim: Search test files
+                          [:f [:spacebar :d :k :f] :iterm] ;; vim: SearchDockerFiles
+                          [:l [:spacebar :l :o] :iterm] ;; vim: search local only files
+                          [:g [:spacebar :g :h] :iterm] ;; vim: git helpers
                           ]}
 
                  {:des   "other stuff"
@@ -541,6 +577,8 @@
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
          [:##left_shift :##left_shift nil {
                                            :alone :!Tf}]         ;; fzf :Buffers
+         [:##right_shift :##right_shift nil {
+                                           :alone [:spacebar :w :n]}]         ;; fzf :Buffers
          ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
@@ -557,8 +595,8 @@
 
 {:des "browser"
  :rules [:browser
-         [:##left_option :##left_option :apple {:alone [:t]}] ;; vimium show open tabs
-         [:##left_command :##left_option :!apple {:alone [:t]}] ;; vimium show open tabs
+         [:##left_option :##left_option :apple {:alone [:s :t]}] ;; vimium show open tabs
+         [:##left_command :##left_option :!apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
          ; [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
          ]

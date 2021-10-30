@@ -2,8 +2,14 @@ let mapleader = " "
 
 set sneak 
 set commentary
+set ideajoin
 set NERDTree
 
+let g:NERDTreeTreeMapActivateNode='l'
+let g:NERDTreeTreeMapJumpParent='h'
+nnoremap <C-e> :NERDTreeToggle<CR>
+
+set idearefactormode=keep
 syntax enable
 set nocompatible
 filetype plugin on
@@ -108,7 +114,7 @@ nnoremap <leader>tc :action CloseEditor<CR>
 nnoremap <C-[> :action Back<CR>
 nnoremap <C-]> :action Forward<CR>
 nnoremap K : action QuickJavaDoc<CR>
-nnoremap <leader>rr :action RunClass<CR>
+nnoremap t<c-t> :action RunClass<CR>
 nnoremap <leader>db :action DebugClass<CR>
 nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
 nnoremap <leader>fs :action ToggleFullScreen<CR>
@@ -118,7 +124,7 @@ nnoremap [[ :action MethodUp<CR>
 
 nnoremap <leader>df :action ToggleDistractionFreeMode<CR>
 nnoremap <leader>q :action CloseEditor<CR>
-nnoremap <C-e> :action ShowErrorDescription<CR>
+" nnoremap <C-e> :action ShowErrorDescription<CR>
 nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
 
 " Other Intellij shortcuts
@@ -130,5 +136,9 @@ nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
 
 nnoremap <leader>mm :action HideAllWindows<CR>
+nnoremap <c-w>o :action HideAllWindows<CR>
 
 nnoremap <leader>vv :e ~/.ideavimrc<CR>
+
+nmap <leader>e <action>(ShowErrorDescription)
+nmap ]e <action>(GotoNextError)

@@ -1,0 +1,5 @@
+dcm up -d
+dcm logs -f
+dcm down
+dcm ps
+dcm up -d --build

@@ -129,6 +129,8 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 # highlighted line green, with entered word yellow
 
 alias ls='ls -aG'
+alias j='just --justfile ~/.global.justfile --working-directory .'
+export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 
 #alias ml='source activate ml'
 # alias cat='bat'
@@ -192,6 +194,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # since .git is a hidden directory,
 # ~/.fdignore includes .git to exclude it from search
 export FZF_DEFAULT_COMMAND='fd -ipH -t f'
+export FZF_CTRL_T_COMMAND='fd -ipH -t f'
 # export FZF_DEFAULT_COMMAND='rg'
 
 # Change iterm2 profile. Usage it2prof ProfileName (case sensitive)
@@ -239,7 +242,7 @@ alias gcd1='git clone --depth=1'
 
 # alias py='workon "$(workon|fzf)"'
 
-export ICLOUD_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+alias icloud='cd $ICLOUD_DIR'
 
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
@@ -353,11 +356,25 @@ alias b='buku --np'
 
 alias :q='exit'
 alias :qa='exit'
+alias :Qa='exit'
 
 alias dps='docker ps'
+alias chime='python -c "import chime;chime.theme(\"mario\");chime.success()"'
+alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
+
+alias tt='python -c "import time;print(int(time.time()))"'
+
+
+alias jira='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
+
 
 # alias n='nnn'
 # alias ls='nnn -e'
+
+function get_ip(){
+    ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
+}
+
 
 function bback(){
     local backup_file="$BUKU_BACKUP_DIR/backup-$(date '+%Y-%m-%d').db"
@@ -375,6 +392,58 @@ function glbo() {
     fi
 }
 
+# git log commit difference
+function glbd_() {
+    local source_branch
+    source_branch=$(git branch --all | fzf --height=6 --layout=reverse | xargs | sed 's|* ||')
+    if [ -n "$source_branch" ]; then
+        local target_branch
+        target_branch=$(git branch --all | fzf --height=6 --layout=reverse | xargs | sed 's|* ||')
+        if [ -n "$target_branch" ]; then
+            echo -e "${GREEN}$source_branch..$target_branch${NOCOLOR}"
+            echo -e "${GREEN}Commits in $target_branch that are not in $source_branch 👇${NOCOLOR}"
+            git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit --date=relative $source_branch..$target_branch
+        fi
+    fi
+}
+
+# git delete branch locally and on remote
+function gdb() {
+    local branches
+    branches=$(git branch | fzf --height=10 --layout=reverse | xargs | sed 's|* ||')
+    if [ -n "$branches" ]; then
+        echo -e "About to delete ${GREEN}$branches${NOCOLOR}"
+        local confirmation
+        confirmation=$(echo "yes\nno" | fzf --height=2 --layout=reverse --prompt="You sure?" | xargs)
+        if [ "$confirmation" = "yes" ]; then
+            git branch -d "$branches"
+            git branch --delete --remotes "origin/$branches"
+        fi
+    fi
+}
+
+# git log commit difference
+function glbd() {
+    local target_branch
+    target_branch=$(git branch --all | fzf --height=6 --layout=reverse --prompt="commits that are in: " | xargs | sed 's|* ||')
+    if [ -n "$target_branch" ]; then
+        local source_branch
+        source_branch=$(git branch --all | fzf --height=6 --layout=reverse --prompt="but not in: " | xargs | sed 's|* ||')
+        if [ -n "$source_branch" ]; then
+            echo -e "${GREEN}Commits that are in $target_branch, but not in $source_branch 👇${NOCOLOR}"
+            git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit --date=relative $source_branch..$target_branch
+        fi
+    fi
+}
+
+# docker helpers
+function d() {
+    docker_command=$(cat ~/docker_commands.txt | fzf --height=6 --layout=reverse)
+    if [ -n "$docker_command" ]; then
+        eval $docker_command
+    fi
+}
+
 # utility function
 function echo_array(){
     arr=("$@")
@@ -385,7 +454,7 @@ function echo_array(){
 }
 
 # quickly cd to important directories
-function j(){
+function jj(){
     local selected_dir
     selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=10 --layout=reverse | xargs)
 
@@ -441,7 +510,7 @@ function ff() {
     fi
 }
 
-function ddd() {
+function ddd_old() {
     local selected_directory
     selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
 
@@ -459,12 +528,12 @@ function dcm() {
         echo -e "${GREEN}docker-compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
         docker-compose -f $(ls | grep docker-compose | xargs) "$@"
     else
-        local selected_docker_compose_file
-        selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
+        local selected_docker_compose_files
+        selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=6 --layout=reverse --multi | xargs)
 
-        if [ -n "$selected_docker_compose_file" ]; then
-            echo -e "${GREEN}docker-compose -f $selected_docker_compose_file "$@"${NOCOLOR}"
-            docker-compose -f $selected_docker_compose_file "$@"
+        if [ -n "$selected_docker_compose_files" ]; then
+            echo -e "${GREEN}docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
+            docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
         fi
     fi
 }
@@ -627,12 +696,18 @@ function lc(){
 function txw(){
     # open tmuxinator in a specific work directory
     local selected_entry
-    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse)
+    local selected_py_env
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse --header="project?")
     if [ -n "$selected_entry" ]; then
         echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
-        local num_sessions=$(tmux ls | grep work | wc -l | xargs)
-        local new_session_num=`expr $num_sessions + 1`
-        tmuxinator "work-$new_session_num"
+        selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python?")
+        if [ -n "$selected_py_env" ]; then
+            echo "export CHOSEN_PYENV=$selected_py_env" >> ~/chosen_work_dir
+            local num_sessions=$(tmux ls | grep work | wc -l | xargs)
+            local new_session_num=`expr $num_sessions + 1`
+            echo "tmuxinator work-$new_session_num $@"
+            tmuxinator "work-$new_session_num" "$@"
+        fi
     fi
 }
 
@@ -650,7 +725,7 @@ function jw(){
 function jd(){
     # open tmuxinator in a specific projects directory
     local selected_entry
-    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR | fzf --height=8 --layout=reverse)
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR | fzf --height=8 --layout=reverse)
     if [ -n "$selected_entry" ]; then
         echo "cd $selected_entry"
         cd $selected_entry
@@ -685,6 +760,15 @@ function n ()
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
             rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+
+function books(){
+    local selected_book
+    selected_book=$(fd -t=f -e=pdf --max-depth=1 --base-directory=$BOOKS_DIR | fzf --height=8 --layout=reverse)
+    if [ -n "$selected_book" ]; then
+        open $BOOKS_DIR/$selected_book
     fi
 }
 
