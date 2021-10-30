@@ -14,11 +14,14 @@ formatting:
 black:
     black .
 
+pytest:
+    time sh run_pytest.sh
+
 tests:
-    sh run_tests.sh
+    time sh run_tests.sh
 
 tests_staged:
-    sh run_tests.sh staged
+    time sh run_tests.sh staged
 
 ###############
 ##### CDK ##### 

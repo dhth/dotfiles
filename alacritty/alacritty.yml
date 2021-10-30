@@ -1,4 +1,4 @@
-env:
+# env:
   # TERM env customization.
   #
   # If this property is not set, alacritty will set it to xterm-256color.
@@ -6,7 +6,7 @@ env:
   # Note that some xterm terminfo databases don't declare support for italics.
   # You can verify this by checking for the presence of `smso` and `sitm` in
   # `infocmp xterm-256color`.
-  TERM: xterm-256color
+  # TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -67,6 +67,9 @@ font:
     family: MesloLGS NF
     # Style can be specified to pick a specific face.
     # style: Italic
+  offset:
+    x: 0
+    y: 0
   size : 20.0
   use_thin_strokes: true
   scale_with_dpi: true

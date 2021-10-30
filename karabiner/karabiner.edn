@@ -30,7 +30,7 @@
  :applications {;
                 :browser ["com.brave.Browser", "com.google.Chrome"]
                 :slack ["com.tinyspeck.slackmacgap"]
-                :iterm ["com.googlecode.iterm2"]
+                :iterm ["com.googlecode.iterm2", "io.alacritty"]
                 :spotify ["com.spotify.client"]
                 :code ["com.microsoft.VSCode"]
                 :jetbrains ["com.jetbrains.*"]
@@ -132,8 +132,10 @@
          :rules [:0-mode
                  [:hyphen [:application "spotify" "set sound volume to sound volume - 5"]]
                  [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
+                 [:9 [:alfred "shuffle" "dhth.spotify"]] ;; spotify: turn shuffle on or off
                  [:a [:alfred "tasks_work_add"  "dhth.tasks"]]
                  [:s [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
+                 [:p [:open "/Applications/Spotify.app"]]
                  ]}
 
         {:des   "work stuff"
@@ -154,6 +156,14 @@
                  [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
                  ]}
 
+        {:des   "3-mode"
+         :rules [:three-mode
+                 [:t [:km "open: tmux_wiki"]]
+                 [:c [:km "open: chrome_personal"]]
+                 [:s [:km "open: setup_personal"]]
+                 [:m [:open "/Applications/Spotify.app"]]
+                 ]}
+
         {:des "8 mode"
          :rules [:8-mode
                  [:t [:alfred "timestamp_convert" "dhth.utils"]]
@@ -165,13 +175,6 @@
          :rules [:9-mode
                  [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
                  [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
-                 ]}
-
-        {:des   "open stuff that get opened less frequently"
-         :rules [:three-mode
-                 [:t [:km "open: tmux_wiki"]]
-                 [:c [:km "open: chrome_personal"]]
-                 [:s [:km "open: setup_personal"]]
                  ]}
 
         {:des   "four mode"
@@ -193,6 +196,7 @@
          :rules [:a-mode
                  [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
+                 [:f [:!Ta :z] :iterm] ;; tmux prefix + z
                  [:l [:!Ta :n] :iterm] ;; tmux prefix + n
                  [:h [:!Ta :p] :iterm] ;; tmux prefix + p
                  [:j [:!Ta :j] :iterm] ;; tmux prefix + j
@@ -215,6 +219,7 @@
                   :rules [:b-mode
                           [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
                           [:k [:alfred "search_books"  "dhth.files"]]
+                          [:g [:alfred "blog_post"  "dhth.blog"]]
                           ; [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period] :iterm]
                           [:o [:spacebar :b :o ] :iterm ]
                           [:c [:spacebar :b :c ] :iterm ] ;; vim: Telescope: buffer commits
@@ -326,6 +331,7 @@
                           [:s [:alfred "search"  "dhth.spotify"]]
                           [:j :!TOCj ] ;; dato join meeting
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
+                          [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           ]}
 
@@ -335,6 +341,16 @@
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           [:s [:open "https://notion.so"]]
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
+                          [:1 [:spacebar :t :1] :iterm] ;; vim: tab 1
+                          [:2 [:spacebar :t :2] :iterm] ;; vim: tab 2
+                          [:3 [:spacebar :t :3] :iterm] ;; vim: tab 3
+                          [:4 [:spacebar :t :4] :iterm] ;; vim: tab 4
+                          [:5 [:spacebar :t :5] :iterm] ;; vim: tab 5
+                          [:6 [:spacebar :t :6] :iterm] ;; vim: tab 6
+                          [:7 [:spacebar :t :7] :iterm] ;; vim: tab 7
+                          [:8 [:spacebar :t :8] :iterm] ;; vim: tab 8
+                          [:9 [:spacebar :t :9] :iterm] ;; vim: tab 9
+                          [:0 [:spacebar :t :0] :iterm] ;; vim: tab last
                           ]}
 
                  {:des   "q mode"
@@ -351,7 +367,9 @@
                           [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
                           [:l [:alfred "search"  "dhth.pocket"]]
                           [:a [:alfred "add"  "dhth.pocket"]]
-                          [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
+                          ; [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
+                          [:r [:alfred "pull_requests" "dhth.bookmarks"]] ;; bookmarks: pull requests
+                          [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :iterm] ;; vim: PlugInstall
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -361,6 +379,8 @@
                           [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
                           [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
                           [:e [:spacebar :r :e] :iterm] ;; vim: telescope: resume
+                          [:t [:spacebar :r :t] :iterm] ;; vim: run tests
+                          [:o [:alfred "karabiner_switch" "dhth.system"]] ;; alfred: switch right opt
                           ]}
 
                  {:des   "s mode"
@@ -395,6 +415,7 @@
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
                           [:b :!SCf :browser] ;; browser: toolbar visibility
+                          [:r [:spacebar :t :r] :iterm] ;; vim: test results
                           [:y [:open "https://monkeytype.com"]]
                           ]}
 
@@ -405,6 +426,8 @@
                           [:l [:!Ta :l] :iterm] ;; tmux prefix + l
                           [:j [:!Ta :j] :iterm] ;; tmux prefix + j
                           [:k [:!Ta :k] :iterm] ;; tmux prefix + k
+                          [:n [:spacebar :v :n] :iterm] ;; vim: vnew
+                          [:s [:spacebar :v :s] :iterm] ;; vim: vsplit
                           [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           ]}
@@ -445,7 +468,7 @@
 
                  {:des   "comma mode"
                   :rules [:comma-mode
-                          [:s [:alfred "slack_status" "dhth.slack.status"]]
+                          [:s [:alfred "slack_status" "dhth.slack.status"]] ;; slack: change slack status
                           [:v [:alfred "vim_plugins" "dhth.vim.plugins"]]
                           [:c [:alfred "control" "dhth.spotify"]]
                           [:2 [:alfred "albums" "dhth.spotify"]]
