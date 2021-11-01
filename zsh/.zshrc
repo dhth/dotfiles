@@ -365,8 +365,14 @@ alias dps='docker ps'
 alias chime='python -c "import chime;chime.theme(\"mario\");chime.success()"'
 alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
 
-alias tt='python -c "import time;print(int(time.time()))"'
+alias tm='python -c "import time;print(int(time.time()))"'
 
+# inspiration from:
+# https://waylonwalker.com/tmux-fzf-session-jump/
+# https://qmacro.org/autodidactics/2021/08/06/tmux-output-formatting/
+function tt(){
+    tmux list-windows -a -F '#S:#W' | fzf --height=10 --layout=reverse | xargs tmux switch -t
+}
 
 alias jira='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
 
@@ -519,7 +525,7 @@ function echo_array(){
 # quickly cd to important directories
 function jj(){
     local selected_dir
-    selected_dir=$(echo_array $IMPORTANT_DIRS | fzf --height=10 --layout=reverse | xargs)
+    selected_dir=$(fd . --max-depth=1 $(echo_array $DIRS_TO_SEARCH) | fzf --height=10 --layout=reverse | xargs)
 
     if [ -n "$selected_dir" ]; then
         cd $selected_dir

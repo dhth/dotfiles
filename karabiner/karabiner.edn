@@ -209,7 +209,7 @@
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
                  [:j [:!Ta :j] :termemul] ;; tmux prefix + j
                  [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                 [:n [:!Ta :n] :termemul] ;; tmux prefix + n
+                 [:n [:!Ta :!Tn] :termemul] ;; tmux: window picker
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
@@ -293,6 +293,8 @@
                           ; [:l :!SCclose_bracket :termemul] ;; for iterm
                           [:h [:!Ta :!S9] :termemul] ;; tmux: previous session
                           [:l [:!Ta :!S0] :termemul] ;; tmux: next session
+                          [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
+                          [:n [:!Ta :!Tm] :termemul] ;; tmux: session menu
                           [:s :!SCf :browser]  ;; full screen
                           [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
@@ -424,6 +426,8 @@
                           [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
+                          [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
+                          [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
                           [:b :!SCf :browser] ;; browser: toolbar visibility
                           [:r [:spacebar :t :r] :termemul] ;; vim: test results
                           [:y [:open "https://monkeytype.com"]]
