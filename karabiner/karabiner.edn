@@ -30,7 +30,7 @@
  :applications {;
                 :browser ["com.brave.Browser", "com.google.Chrome"]
                 :slack ["com.tinyspeck.slackmacgap"]
-                :iterm ["com.googlecode.iterm2", "io.alacritty"]
+                :termemul ["io.alacritty"]
                 :spotify ["com.spotify.client"]
                 :code ["com.microsoft.VSCode"]
                 :jetbrains ["com.jetbrains.*"]
@@ -204,16 +204,16 @@
          :rules [:a-mode
                  [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
-                 [:f [:!Ta :z] :iterm] ;; tmux prefix + z
-                 [:l [:!Ta :n] :iterm] ;; tmux prefix + n
-                 [:h [:!Ta :p] :iterm] ;; tmux prefix + p
-                 [:j [:!Ta :j] :iterm] ;; tmux prefix + j
-                 [:k [:!Ta :k] :iterm] ;; tmux prefix + k
-                 [:n [:!Ta :n] :iterm] ;; tmux prefix + n
-                 [:c [:!Ta :c] :iterm] ;; tmux prefix + c
-                 [:z [:!Ta :z] :iterm] ;; tmux prefix + z
-                 [:open_bracket [:!Ta :open_bracket] :iterm]
-                 [:semicolon [:spacebar :t :c] :iterm] ;; vim: close tab
+                 [:f [:!Ta :z] :termemul] ;; tmux prefix + z
+                 [:l [:!Ta :n] :termemul] ;; tmux prefix + n
+                 [:h [:!Ta :p] :termemul] ;; tmux prefix + p
+                 [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                 [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                 [:n [:!Ta :n] :termemul] ;; tmux prefix + n
+                 [:c [:!Ta :c] :termemul] ;; tmux prefix + c
+                 [:z [:!Ta :z] :termemul] ;; tmux prefix + z
+                 [:open_bracket [:!Ta :open_bracket] :termemul]
+                 [:semicolon [:spacebar :t :c] :termemul] ;; vim: close tab
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :code]
@@ -228,42 +228,42 @@
                           [:t [:alfred "bookmark_tag_search"  "dhth.bookmarks"]]
                           [:k [:alfred "search_books"  "dhth.files"]]
                           [:g [:alfred "blog_post"  "dhth.blog"]]
-                          ; [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period] :iterm]
-                          [:o [:spacebar :b :o ] :iterm ]
-                          [:c [:spacebar :b :c ] :iterm ] ;; vim: Telescope: buffer commits
+                          ; [:l [:!Ssemicolon :!S1 :b :l :a :c :k :spacebar :period] :termemul]
+                          [:o [:spacebar :b :o ] :termemul ]
+                          [:c [:spacebar :b :c ] :termemul ] ;; vim: Telescope: buffer commits
                           [:o [:spacebar :b :o ] :code ]
                           [:o [:spacebar :b :o ] :jetbrains ]
                           [:l [:!SOCb :!Sl] :code ] ;; vscode: foam: backlinks
-                          [:l [:spacebar :b :l] :iterm ] ;; vim: wiki: backlinks
+                          [:l [:spacebar :b :l] :termemul ] ;; vim: wiki: backlinks
                           ]}
 
                  {:des   "c-mode"
                   :rules [:c-mode
-                          [:p [:spacebar :p :p] :iterm] ;; vim: change project
-                          [:b [:spacebar :c :b] :iterm] ;; vim: check key binding: verbose nmap <leader>
+                          [:p [:spacebar :p :p] :termemul] ;; vim: change project
+                          [:b [:spacebar :c :b] :termemul] ;; vim: check key binding: verbose nmap <leader>
                           [:p :!SOCj :browser] ;; jupyter: command palette
-                          [:a [:spacebar :c :a] :iterm] ;; vim: fugitive: commit --amend
+                          [:a [:spacebar :c :a] :termemul] ;; vim: fugitive: commit --amend
                           ; [:h :!Sopen_bracket]
                           [:l [:spacebar :c :l]] ;; vim: wiki: create link
                           [:j :open_bracket]
                           [:k :close_bracket]
-                          [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :iterm] ;; vim: coc restart
-                          [:m [:g :c :i :p] :iterm] ;; vim: commentary: inner paragraph
+                          [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :termemul] ;; vim: coc restart
+                          [:m [:g :c :i :p] :termemul] ;; vim: commentary: inner paragraph
                           ]}
 
                  {:des   "d mode"
                   :rules [:d-mode
                           [:t :open_dev_tools :browser]
                           [:m :!SOd :browser] ;; dark reader
-                          [:j :!Td :iterm ] ;; vim <c-d>
-                          [:k :!Tu :iterm ] ;; vim <c-d>
+                          [:j :!Td :termemul ] ;; vim <c-d>
+                          [:k :!Tu :termemul ] ;; vim <c-d>
                           [:j :!Td :jetbrains ]
                           [:k :!Tu :jetbrains ]
                           [:j :!Td :code ] ;; vim <c-d>
                           [:k :!Tu :code ] ;; vim <c-d>
                           [:o :!TOCd ] ;; toggle dato
-                          [:f [:f :!Tf ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
-                          [:c [:spacebar :d :c] :iterm ] ;; nvim: helpers: diff with commit
+                          [:f [:f :!Tf ] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:c [:spacebar :d :c] :termemul ] ;; nvim: helpers: diff with commit
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
                           [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
@@ -278,7 +278,7 @@
 
                  {:des   "e mode"
                   :rules [:e-mode
-                          [:r [:t :!Tt ] :iterm ] ;; nvim/keys/mappings.vim > helpers#Helpers()
+                          [:r [:t :!Tt ] :termemul ] ;; nvim/keys/mappings.vim > helpers#Helpers()
                           [:r [:!TOCp :v ] :jetbrains ] ;; jetbrains: project view popup menu
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:d [:alfred "karabiner_edn"  "dhth.tools"]]
@@ -289,29 +289,31 @@
 
                  {:des   "f mode"
                   :rules [:f-mode
-                          [:h :!SCopen_bracket :iterm]
-                          [:l :!SCclose_bracket :iterm]
+                          ; [:h :!SCopen_bracket :termemul] ;; for iterm
+                          ; [:l :!SCclose_bracket :termemul] ;; for iterm
+                          [:h [:!Ta :!S9] :termemul] ;; tmux: previous session
+                          [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           [:s :!SCf :browser]  ;; full screen
                           [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
-                          [:j [:spacebar :j :f ] :iterm ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
-                          [:k [:!Ta :z] :iterm ] ;; tmux: prefix z
+                          [:j [:spacebar :j :f ] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:k [:!Ta :z] :termemul ] ;; tmux: prefix z
                           ]}
 
                  {:des   "g mode"
                   :rules [:g-mode
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
-                          [:f [:!Ssemicolon :!Sg :i :t :spacebar :f :e :t :c :h] :iterm] ;; vim: Git fetch
+                          [:f [:!Ssemicolon :!Sg :i :t :spacebar :f :e :t :c :h] :termemul] ;; vim: Git fetch
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
-                          [:s [:spacebar :g :s ] :iterm ]
-                          [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :iterm ]
-                          [:b [:spacebar :g :b] :iterm ] ;; vim: telescope: git branches
-                          [:quote [:g :r :i :quote] :iterm ] ;; vim: replace with regiser: gri"
+                          [:s [:spacebar :g :s ] :termemul ]
+                          [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :termemul ]
+                          [:b [:spacebar :g :b] :termemul ] ;; vim: telescope: git branches
+                          [:quote [:g :r :i :quote] :termemul ] ;; vim: replace with regiser: gri"
                           ]}
 
                  {:des   "l mode"
@@ -349,16 +351,16 @@
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           [:s [:open "https://notion.so"]]
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
-                          [:1 [:spacebar :t :1] :iterm] ;; vim: tab 1
-                          [:2 [:spacebar :t :2] :iterm] ;; vim: tab 2
-                          [:3 [:spacebar :t :3] :iterm] ;; vim: tab 3
-                          [:4 [:spacebar :t :4] :iterm] ;; vim: tab 4
-                          [:5 [:spacebar :t :5] :iterm] ;; vim: tab 5
-                          [:6 [:spacebar :t :6] :iterm] ;; vim: tab 6
-                          [:7 [:spacebar :t :7] :iterm] ;; vim: tab 7
-                          [:8 [:spacebar :t :8] :iterm] ;; vim: tab 8
-                          [:9 [:spacebar :t :9] :iterm] ;; vim: tab 9
-                          [:0 [:spacebar :t :0] :iterm] ;; vim: tab last
+                          [:1 [:spacebar :t :1] :termemul] ;; vim: tab 1
+                          [:2 [:spacebar :t :2] :termemul] ;; vim: tab 2
+                          [:3 [:spacebar :t :3] :termemul] ;; vim: tab 3
+                          [:4 [:spacebar :t :4] :termemul] ;; vim: tab 4
+                          [:5 [:spacebar :t :5] :termemul] ;; vim: tab 5
+                          [:6 [:spacebar :t :6] :termemul] ;; vim: tab 6
+                          [:7 [:spacebar :t :7] :termemul] ;; vim: tab 7
+                          [:8 [:spacebar :t :8] :termemul] ;; vim: tab 8
+                          [:9 [:spacebar :t :9] :termemul] ;; vim: tab 9
+                          [:0 [:spacebar :t :0] :termemul] ;; vim: tab last
                           ]}
 
                  {:des   "q mode"
@@ -377,7 +379,7 @@
                           [:a [:alfred "add"  "dhth.pocket"]]
                           ; [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
                           [:r [:alfred "pull_requests" "dhth.bookmarks"]] ;; bookmarks: pull requests
-                          [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :iterm] ;; vim: PlugInstall
+                          [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :termemul] ;; vim: PlugInstall
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -386,8 +388,8 @@
                           [:a [:alfred "add" "me.westerlind.alfred.raindrop-search"]]
                           [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
                           [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
-                          [:e [:spacebar :r :e] :iterm] ;; vim: telescope: resume
-                          [:t [:spacebar :r :t] :iterm] ;; vim: run tests
+                          [:e [:spacebar :r :e] :termemul] ;; vim: telescope: resume
+                          [:t [:spacebar :r :t] :termemul] ;; vim: run tests
                           [:o [:alfred "karabiner_switch" "dhth.system"]] ;; alfred: switch right opt
                           ]}
 
@@ -396,17 +398,17 @@
                           [:t [:alfred "search_tools"  "dhth.tools"]]
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
-                          [:o [:!Ssemicolon :s :o :spacebar :!S5] :iterm]
+                          [:o [:!Ssemicolon :s :o :spacebar :!S5] :termemul]
                           [:o :!SCi :jetbrains] ;; jetbrains: reload
                           [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
                           [:c [:launch "Screenshot"]]
-                          ; [:l :!Ts :iterm]
-                          ; [:l :slash :iterm]
-                          [:f :!Tf :iterm]
-                          [:q [:y :s :i :w :!Squote] :iterm]
-                          [:m [:spacebar :s :m] :iterm] ;; vim: telescope: coc: document_symbols
+                          ; [:l :!Ts :termemul]
+                          ; [:l :slash :termemul]
+                          [:f :!Tf :termemul]
+                          [:q [:y :s :i :w :!Squote] :termemul]
+                          [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
                           ; [:p [:open "/Applications/Spotify.app"]]
-                          [:p [:spacebar :s :p] :iterm] ;; vim: search projects
+                          [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                           [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
                           ;; shift + option + arrow keys
@@ -423,19 +425,19 @@
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
                           [:b :!SCf :browser] ;; browser: toolbar visibility
-                          [:r [:spacebar :t :r] :iterm] ;; vim: test results
+                          [:r [:spacebar :t :r] :termemul] ;; vim: test results
                           [:y [:open "https://monkeytype.com"]]
                           ]}
 
                  {:des   "v mode"
                   :rules [:v-mode
                           [:p [:alfred "vim_plugins"  "dhth.vim.plugins"]]
-                          [:h [:!Ta :h] :iterm] ;; tmux prefix + h
-                          [:l [:!Ta :l] :iterm] ;; tmux prefix + l
-                          [:j [:!Ta :j] :iterm] ;; tmux prefix + j
-                          [:k [:!Ta :k] :iterm] ;; tmux prefix + k
-                          [:n [:spacebar :v :n] :iterm] ;; vim: vnew
-                          [:s [:spacebar :v :s] :iterm] ;; vim: vsplit
+                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          [:n [:spacebar :v :n] :termemul] ;; vim: vnew
+                          [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
                           [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           ]}
@@ -448,11 +450,11 @@
                           [:l :!SOCl] ;; magnet next display
                           [:open_bracket :!TOh] ;; magnet left side
                           [:close_bracket :!TOl] ;; magnet left side
-                          [:h [:!Tw :h] :iterm]
-                          [:l [:!Tw :l] :iterm]
-                          [:j [:!Tw :j] :iterm]
-                          [:k [:!Tw :k] :iterm]
-                          [:q [:!Ssemicolon :w :q] :iterm]
+                          [:h [:!Tw :h] :termemul]
+                          [:l [:!Tw :l] :termemul]
+                          [:j [:!Tw :j] :termemul]
+                          [:k [:!Tw :k] :termemul]
+                          [:q [:!Ssemicolon :w :q] :termemul]
                           ]}
 
                  {:des "emoji-mode"
@@ -492,7 +494,7 @@
                           [:##l :!TOCright_arrow]
                           [:##j :!TOCdown_arrow]
                           [:##k :!TOCup_arrow]
-                          [:g [:spacebar :g :s] :iterm]
+                          [:g [:spacebar :g :s] :termemul]
                           ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
                           [:left_shift [:spacebar :equal_sign :spacebar]]
                           ]}
@@ -527,11 +529,11 @@
 
                  {:des   "open bracket mode"
                   :rules [:open-bracket-mode
-                          [:d [:spacebar :s :y] :iterm] ;; vim: SearchDockerComposeFiles
-                          [:t [:spacebar :t :f] :iterm] ;; vim: Search test files
-                          [:f [:spacebar :d :k :f] :iterm] ;; vim: SearchDockerFiles
-                          [:l [:spacebar :l :o] :iterm] ;; vim: search local only files
-                          [:g [:spacebar :g :h] :iterm] ;; vim: git helpers
+                          [:d [:spacebar :s :y] :termemul] ;; vim: SearchDockerComposeFiles
+                          [:t [:spacebar :t :f] :termemul] ;; vim: Search test files
+                          [:f [:spacebar :d :k :f] :termemul] ;; vim: SearchDockerFiles
+                          [:l [:spacebar :l :o] :termemul] ;; vim: search local only files
+                          [:g [:spacebar :g :h] :termemul] ;; vim: git helpers
                           ]}
 
                  {:des   "other stuff"
@@ -562,8 +564,8 @@
 
 {:des "left_command mode non apple"
  :rules [:left-command-mode-non-apple
-         [:h [:!Ta :p] :iterm]
-         [:l [:!Ta :n] :iterm]
+         [:h [:!Ta :p] :termemul]
+         [:l [:!Ta :n] :termemul]
          ]}
 
 {:des "caps lock to left control" :rules [
@@ -593,15 +595,15 @@
          ;                                   :alone :!Ce}]         ;; jetbrains: recent files
          ]}
 
-{:des "not iterm"
- :rules [:!iterm
-         [:##left_command :##left_command :apple {:alone [:open "/Applications/iTerm.app"]}]
-         [:##left_option :##left_command :!apple {:alone [:open "/Applications/iTerm.app"]}]
+{:des "not terminal"
+ :rules [:!termemul
+         [:##left_command :##left_command :apple {:alone [:open "/Applications/Alacritty.app"]}]
+         [:##left_option :##left_command :!apple {:alone [:open "/Applications/Alacritty.app"]}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
          ]}
 
-{:des "iterm"
- :rules [:iterm
+{:des "terminal"
+ :rules [:termemul
          [:##left_command :##left_command :apple {:alone [:!Ts] }]
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
