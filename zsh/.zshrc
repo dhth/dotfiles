@@ -135,8 +135,7 @@ export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 export PIP_REQUIRE_VIRTUALENV=true
 
 #alias ml='source activate ml'
-# alias cat='bat'
-
+alias jp="cd $PROJECTS_DIR"
 
 alias jpn='jupyter notebook'
 
@@ -167,6 +166,7 @@ alias ga="git add"
 # alias gc="git commit"
 alias gb="git branch"
 alias gcd1="git clone --depth=1"
+alias gcb='git checkout -b'
 # alias gco="git checkout"
 
 # alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
@@ -250,7 +250,7 @@ export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
 alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
 
-alias cl='clear'
+alias c='clear'
 
 alias g='git'
 alias gf='git fetch'
@@ -291,20 +291,20 @@ function dl() {
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # cd to subdirectory using fzf
-function c() {
-    local selected_directory
-    if (($# == 1))
-    then
-        selected_directory=$(fd -H -t d $1 | fzf --height=6 --layout=reverse)
-    else
-        selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
-    fi
+# function c() {
+#     local selected_directory
+#     if (($# == 1))
+#     then
+#         selected_directory=$(fd -H -t d $1 | fzf --height=6 --layout=reverse)
+#     else
+#         selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
+#     fi
 
-    if [ -n "$selected_directory" ]; then
-        # echo "cd $selected_directory"
-        cd $selected_directory
-    fi
-}
+#     if [ -n "$selected_directory" ]; then
+#         # echo "cd $selected_directory"
+#         cd $selected_directory
+#     fi
+# }
 
 # ls subdirectory using fzf
 function lss() {
@@ -366,6 +366,7 @@ alias chime='python -c "import chime;chime.theme(\"mario\");chime.success()"'
 alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
 
 alias tm='python -c "import time;print(int(time.time()))"'
+alias ta='tmux attach'
 
 # inspiration from:
 # https://waylonwalker.com/tmux-fzf-session-jump/
@@ -374,7 +375,8 @@ function tt(){
     tmux list-windows -a -F '#S:#W' | fzf --height=10 --layout=reverse | xargs tmux switch -t
 }
 
-alias jira='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
+alias jirah='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
+alias jr='jira'
 
 
 # alias n='nnn'
@@ -486,6 +488,36 @@ _gs() {
   git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
   cut -d: -f1
 }
+
+
+# create a PR from HEAD with the commit message as the PR title
+prr() {
+    is_in_git_repo || return
+    local base_branch
+    local label
+    base_branches=$(echo "develop\nmaster"| fzf --height=6 --layout=reverse --multi --prompt="base branch?" | xargs )
+    local commit_message=$(git log --format=%B -n 1 HEAD | head -n 1)
+    # local current_branch=$(git rev-parse --abbrev-ref HEAD | xargs)
+    if [ -n "$base_branches" ]; then
+        for base_branch in $(echo $base_branches); do
+        labels=$(cat ~/.github_labels | fzf --height=10 --layout=reverse --multi --prompt="labels for $base_branch" | paste -sd "," -)
+        reviewers=$(cat ~/.github_handles | fzf --height=10 --layout=reverse --multi --prompt="reviewers for $base_branch" | paste -sd "," -)
+        echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+        gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+        done
+    fi
+}
+
+
+prc() {
+    is_in_git_repo || return
+    local pr_num
+    pr_num=$(gh pr list | fzf --height=6 --layout=reverse --prompt="pull request?" | awk -F  " " '// {print $1}' | xargs)
+    if [ -n "$pr_num" ]; then
+        gh pr checkout $pr_num
+    fi
+}
+
 
 join-lines() {
   local item
@@ -602,6 +634,7 @@ function dcm() {
 
         if [ -n "$selected_docker_compose_files" ]; then
             echo -e "${GREEN}docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
+            echo "docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"" | pbcopy
             docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
         fi
     fi
@@ -768,14 +801,15 @@ function txw(){
     local selected_py_env
     selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse --header="project?")
     if [ -n "$selected_entry" ]; then
-        echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
+        # echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
         selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python?")
         if [ -n "$selected_py_env" ]; then
             echo "export CHOSEN_PYENV=$selected_py_env" >> ~/chosen_work_dir
-            local num_sessions=$(tmux ls | grep work | wc -l | xargs)
-            local new_session_num=`expr $num_sessions + 1`
-            echo "tmuxinator work-$new_session_num $@"
-            tmuxinator "work-$new_session_num" "$@"
+            # local num_sessions=$(tmux ls | grep work | wc -l | xargs)
+            # local new_session_num=`expr $num_sessions + 1`
+            # echo "tmuxinator work-$new_session_num $@"
+            # tmuxinator "work-$new_session_num" "$@"
+            tmuxinator two-windows $selected_entry
         fi
     fi
 }
