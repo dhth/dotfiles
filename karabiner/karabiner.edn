@@ -158,7 +158,6 @@
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
-                 ; [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
                  [:h :!TOh] ;; magnet: left
                  [:l :!TOl] ;; magnet: right
                  ]}
@@ -177,7 +176,14 @@
 
         {:des   "4-mode"
          :rules [:four-mode
-                 [:l [:alfred "system_lock" "dhth.system"]]
+                [:l [:alfred "system_lock" "dhth.system"]]
+                 ]}
+
+        {:des   "5-mode"
+         :rules [:five-mode
+                 [:p [:open "https://github.com/pulls"]]
+                 [:k [:open "/Applications/Keyboard Maestro.app"]]
+                 [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
                  ]}
 
         {:des "8 mode"
@@ -203,16 +209,9 @@
         {:des   "four mode"
          :rules [:four-mode
                  [:c [:km "open: chrome_work"]]
-                 [:s [:km "open: setup_work"]]
                  [:j [:alfred "jira_search"  "dhth.jira"]]
                  [:b [:alfred "jira_sprint_board" "dhth.jira"]]
                  ; [:j [:alfred "jira_manager"  "dhth.tools"]]
-                 ]}
-
-        {:des   "launch/switch to applications"
-         :rules [:five-mode
-                 [:p [:open "https://github.com/pulls"]]
-                 [:k [:open "/Applications/Keyboard Maestro.app"]]
                  ]}
 
         {:des   "a mode"
@@ -321,7 +320,9 @@
 
                  {:des   "g mode"
                   :rules [:g-mode
+                          [:i [:alfred "github_issues" "dhth.bookmarks"]] ;; bookmarks: github issues
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
+                          [:d [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files (git diff)
                           [:f [:!Ssemicolon :!Sg :i :t :spacebar :f :e :t :c :h] :termemul] ;; vim: Git fetch
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
@@ -420,6 +421,7 @@
                   :rules [:s-mode
                           ; [:t [:alfred "search_tools"  "dhth.tools"]]
                           [:t :!S6 :browser] ;; browser: switch to last tab (via vimium -> ^)
+                          [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           ; [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
@@ -509,6 +511,7 @@
                   :rules [:equal-mode
                           [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
                           [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
+                          [:w [:km "open: setup_work"]]
                           ]}
 
                  {:des   "comma mode"
@@ -563,7 +566,6 @@
                           [:s [:alfred "system_sleep" "dhth.system"]]
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]
-                          ; [:l [:alfred "system_lock" "dhth.system"]]
                           [:i :!TOC8]
                           [:c :!OCf5]
                           ]}

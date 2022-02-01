@@ -167,6 +167,7 @@ alias ga="git add"
 alias gb="git branch"
 alias gcd1="git clone --depth=1"
 alias gcb='git checkout -b'
+alias sprint='jira sprint list --current -a $(jira me)'
 # alias gco="git checkout"
 
 # alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
@@ -283,6 +284,13 @@ function dl() {
 
     if [ -n "$selected_file" ]; then
         echo ~/Downloads/$selected_file
+    fi
+}
+
+function down(){
+    selected_file=$(ls -a ~/Downloads | fzf --height=15 --layout=reverse )
+    if [ -n "$selected_file" ]; then
+        open ~/Downloads/$selected_file
     fi
 }
 
@@ -403,6 +411,20 @@ function glbo() {
     fi
 }
 
+# git log for a branch filtered by author(s)
+function glba() {
+    local selected_authors
+    selected_authors=$(git shortlog -s | cut -c8- | fzf --height=10 --layout=reverse --multi --prompt="Author?" | /usr/bin/python3 -c "import fileinput;lines=[f'--author=\'{line.strip()}\'' for line in fileinput.input()];print(' '.join(lines))")
+    # selected_authors=$(git log --pretty="%ae" | sort | uniq | fzf --height=10 --layout=reverse --multi --prompt="Author?" | awk '{print "--author "$0""}' | xargs )
+
+    if [ -n "$selected_authors" ]; then
+        print -s "glb $selected_authors"
+        eval "glb $selected_authors"
+        # git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since='1 month ago' $selected_authors $(git branch --show-current) 
+        # echo git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="1 month ago" $selected_authors $(git branch --show-current) 
+    fi
+}
+
 # git log commit difference
 function glbd_() {
     local source_branch
@@ -502,9 +524,29 @@ prr() {
         for base_branch in $(echo $base_branches); do
         labels=$(cat ~/.github_labels | fzf --height=10 --layout=reverse --multi --prompt="labels for $base_branch" | paste -sd "," -)
         reviewers=$(cat ~/.github_handles | fzf --height=10 --layout=reverse --multi --prompt="reviewers for $base_branch" | paste -sd "," -)
-        echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
-        gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+        git log -n 1 HEAD | tail -n 5 | pbcopy
+        if [ -n "$reviewers" ]; then
+            echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+            gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+        else
+            echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\"
+            gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\"
+        fi
         done
+    fi
+}
+
+
+prl() {
+    is_in_git_repo || return
+    local author=$(cat ~/.github_handles | fzf --height=10 --layout=reverse --multi --prompt="author?")
+    if [ -n "$author" ]; then
+        print -s "gh pr list --author $author --state=closed --limit=300 | fzf --height=15 --layout=reverse | awk -F  ' ' '// {print \$1}' | xargs"
+        local pr_chosen=$(gh pr list --author $author --state=closed --limit=300 | fzf --height=20 --layout=reverse | awk -F  ' ' '// {print $1}' | xargs)
+        echo $pr_chosen
+        if [ -n "$pr_chosen" ]; then
+            gh pr view $pr_chosen --web
+        fi
     fi
 }
 
@@ -539,8 +581,9 @@ unset -f bind-git-helper
 
 # docker helpers
 function d() {
-    docker_command=$(cat ~/docker_commands.txt | fzf --height=6 --layout=reverse)
+    docker_command=$(cat $BACKUP_DIR/zsh/docker_commands.txt | fzf --height=10 --layout=reverse)
     if [ -n "$docker_command" ]; then
+        print -s $docker_command
         eval $docker_command
     fi
 }
@@ -630,11 +673,11 @@ function dcm() {
         docker-compose -f $(ls | grep docker-compose | xargs) "$@"
     else
         local selected_docker_compose_files
-        selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=6 --layout=reverse --multi | xargs)
+        selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=10 --layout=reverse --multi | xargs)
 
         if [ -n "$selected_docker_compose_files" ]; then
             echo -e "${GREEN}docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
-            echo "docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"" | pbcopy
+            print -s "docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@""
             docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
         fi
     fi
@@ -804,7 +847,7 @@ function txw(){
         # echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
         selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python?")
         if [ -n "$selected_py_env" ]; then
-            echo "export CHOSEN_PYENV=$selected_py_env" >> ~/chosen_work_dir
+            echo "export CHOSEN_PYENV=$selected_py_env" > ~/chosen_work_dir
             # local num_sessions=$(tmux ls | grep work | wc -l | xargs)
             # local new_session_num=`expr $num_sessions + 1`
             # echo "tmuxinator work-$new_session_num $@"
