@@ -3,4 +3,5 @@ dcm logs -f
 dcm down
 dcm down -v
 dcm ps
+dcm restart
 dcm up -d --build

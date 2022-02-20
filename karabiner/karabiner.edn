@@ -120,6 +120,7 @@
              :d-mode {:key :d}
              :e-mode {:key :e}
              :i-mode {:key :i}
+             :slash-mode {:key :slash}
              :spacebar-mode {:key :spacebar}
              :c-mode {:key :c}
              :u-mode {:key :u}
@@ -310,7 +311,6 @@
                           [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
                           [:n [:!Ta :!Tm] :termemul] ;; tmux: session menu
-                          [:s :!SCf :browser]  ;; full screen
                           [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
@@ -399,7 +399,8 @@
                           [:l [:alfred "search"  "dhth.pocket"]]
                           [:a [:alfred "add"  "dhth.pocket"]]
                           ; [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
-                          [:r [:alfred "pull_requests" "dhth.bookmarks"]] ;; bookmarks: pull requests
+                          ; [:r [:alfred "pull_requests" "dhth.bookmarks"]] ;; bookmarks: pull requests
+                          [:r [:alfred "last_modified_pr" "dhth.bookmarks"]] ;; bookmarks: last modified_pr
                           [:g [:spacebar :p :g] :termemul] ;; vim: edit plugins file
                           [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :termemul] ;; vim: PlugInstall
                           [:u [:!Ssemicolon :!Sp :l :u :g :!Su :p :d :a :t :e] :termemul] ;; vim: PlugUpdate
@@ -524,6 +525,12 @@
                           [:6 [:alfred "recently_played" "dhth.spotify"]]
                           [:d [:alfred "devices" "dhth.spotify"]]
                           [:a [:alfred "add_track_to_playlist" "dhth.spotify"]]
+                          ]}
+
+                 {:des "slash mode"
+                  :rules [:slash-mode
+                          [:f [:g :c :a :f] :termemul] ;; vim: comment function
+                          [:c [:g :c :a :f] :termemul] ;; vim: comment class
                           ]}
 
                  {:des "spacebar"
@@ -655,8 +662,8 @@
 
 {:des "not terminal"
  :rules [:!termemul
-         [:##left_command :##left_command :apple {:alone [:open "/Applications/Alacritty.app"]}]
-         [:##left_option :##left_command :!apple {:alone [:open "/Applications/Alacritty.app"]}]
+         [:##left_command :##left_command :apple {:alone [:open-a "Alacritty"]}]
+         [:##left_option :##left_command :!apple {:alone [:open-a "Alacritty"]}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
          ]}
 
@@ -677,8 +684,8 @@
 
 {:des "not browser"
  :rules [:!browser
-         [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}]
+         [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}]
          ; [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
          ]
  }
@@ -694,8 +701,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open "/Applications/Slack.app"]}]
-         [:##right_option :right_option :apple {:alone [:open "/Applications/Slack.app"]}]
+         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
          ]
  }
 

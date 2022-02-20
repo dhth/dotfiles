@@ -255,6 +255,8 @@ alias c='clear'
 
 alias g='git'
 alias gf='git fetch'
+alias gp='git pull'
+alias gsl='git stash list'
 
 # select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
@@ -522,15 +524,15 @@ prr() {
     # local current_branch=$(git rev-parse --abbrev-ref HEAD | xargs)
     if [ -n "$base_branches" ]; then
         for base_branch in $(echo $base_branches); do
-        labels=$(cat ~/.github_labels | fzf --height=10 --layout=reverse --multi --prompt="labels for $base_branch" | paste -sd "," -)
+        labels=$(cat ~/.github_labels | fzf --height=10 --layout=reverse --multi --prompt="labels for $base_branch" | sed -e 's/\(.*\)/--label \\""\1"\\"/g' | xargs )
         reviewers=$(cat ~/.github_handles | fzf --height=10 --layout=reverse --multi --prompt="reviewers for $base_branch" | paste -sd "," -)
         git log -n 1 HEAD | tail -n 5 | pbcopy
         if [ -n "$reviewers" ]; then
-            echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
-            gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\" --reviewer \""$reviewers"\"
+            print -s gh pr create --title \""$commit_message"\" --base "$base_branch" $labels --reviewer \""$reviewers"\"
+            # gh pr create --title "$commit_message" --base "$base_branch" $labels --reviewer \""$reviewers"\"
         else
-            echo gh pr create --title \""$commit_message"\" --base "$base_branch" --label \""$labels"\"
-            gh pr create --title "$commit_message" --base "$base_branch" --label \""$labels"\"
+            print -s gh pr create --title \""$commit_message"\" --base "$base_branch" $labels
+            # gh pr create --title "$commit_message" --base "$base_branch" $labels
         fi
         done
     fi
@@ -842,7 +844,7 @@ function txw(){
     # open tmuxinator in a specific work directory
     local selected_entry
     local selected_py_env
-    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse --header="project?")
+    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
     if [ -n "$selected_entry" ]; then
         # echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
         selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python?")
