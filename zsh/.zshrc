@@ -139,7 +139,7 @@ alias jp="cd $PROJECTS_DIR"
 
 alias jpn='jupyter notebook'
 
-. $HOME/Soft/z/z.sh
+# . $HOME/Soft/z/z.sh
 alias yd='yarn develop'
 
 # enter vim mode
@@ -216,17 +216,6 @@ bindkey '`' autosuggest-accept
 alias colorscheme=~/colorscheme.sh 
 
 VIRTUAL_ENV_DISABLE_PROMPT=1
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-eval "$(pyenv init -)"
-export WORKON_HOME=~/.virtualenvs
-mkdir -p $WORKON_HOME
-
-# . ~/.pyenv/versions/3.9.4/bin/virtualenvwrapper.sh
-source $HOMEBREW_DIR/virtualenvwrapper.sh
 
 alias wthr=$HOME/weather.sh
 alias weather=$HOME/weather.sh
@@ -922,19 +911,16 @@ function books(){
 
 export NNN_OPTS="H"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/dht93/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/dht93/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/dht93/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/dht93/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+fi
+
+export WORKON_HOME=~/.virtualenvs
+mkdir -p $WORKON_HOME
+
+. ~/.pyenv/versions/3.10.2/bin/virtualenvwrapper.sh

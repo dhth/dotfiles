@@ -205,6 +205,7 @@
                  [:t [:km "open: tmux_wiki"]]
                  [:c [:km "open: chrome_personal"]]
                  [:s [:km "open: setup_personal"]]
+                 [:4 [:alfred "redditp"  "dhth.reddit"]]
                  ]}
 
         {:des   "four mode"
@@ -212,6 +213,7 @@
                  [:c [:km "open: chrome_work"]]
                  [:j [:alfred "jira_search"  "dhth.jira"]]
                  [:b [:alfred "jira_sprint_board" "dhth.jira"]]
+                 [:3 [:alfred "reddit_save"  "dhth.reddit"]]
                  ; [:j [:alfred "jira_manager"  "dhth.tools"]]
                  ]}
 
@@ -297,6 +299,7 @@
                           [:r [:t :!Tt ] :termemul ] ;; nvim/keys/mappings.vim > helpers#Helpers()
                           [:r [:!TOCp :v ] :jetbrains ] ;; jetbrains: project view popup menu
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
+                          [:r [:alfred "reddit_search"  "dhth.reddit"]]
                           [:d [:alfred "karabiner_edn"  "dhth.tools"]]
                           [:h :hyphen]
                           [:u :!Shyphen]
@@ -459,8 +462,9 @@
                           [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
-                          [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
-                          [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
+                          ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
+                          ; [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
+                          [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                           [:b :!SCf :browser] ;; browser: toolbar visibility
                           [:r [:spacebar :t :r] :termemul] ;; vim: test results
                           [:y [:open "https://monkeytype.com"]]

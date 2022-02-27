@@ -49,27 +49,36 @@ windows:
       panes:
           - vim:
             - cd $WIKI_DIR
-            - nvim .
+            - nvim
   - wdocs:
       panes:
           - mkdocs:
-            - cd $WIKI_DIR
+            - cd $WIKI_DIR/_layouts
             - workon wiki
             <%- if args[0] == "up" %>
-            - mkdocs serve --dirtyreload --dev-addr=localhost:8000
             <%- end %>
   <%- if args[1] == "work" %>
   - ww:
       panes:
           - vim:
             - cd $WORK_WIKI_DIR
-            - nvim .
+            - nvim
   - wwdocs:
       panes:
           - mkdocs:
-            - cd $WORK_WIKI_DIR
+            - cd $WORK_WIKI_DIR/_layouts
             - workon wiki
             <%- if args[0] == "up" %>
-            - mkdocs serve --dirtyreload --dev-addr=localhost:8001
             <%- end %>
+  <%- end %>
+  <%- if args[2] == "blog" %>
+  - blog:
+      panes:
+          - vim:
+            - cd $BLOG_DIR
+            - nvim
+  - bserver:
+      panes:
+          - gatsby:
+            - cd $BLOG_DIR
   <%- end %>
