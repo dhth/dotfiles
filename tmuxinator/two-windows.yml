@@ -1,0 +1,23 @@
+# inpiration from https://dev.to/qmenoret/dynamic-templates-with-tmuxinator-4mkh
+
+<% if @args[0] %>
+<% WDIR=@args[0] %> 
+<% else %>
+<% WDIR=ENV["PWD"] %>
+<% end %>
+
+name: <%= WDIR.split('/').last.downcase  %>
+root: <%= @args[0] %>
+
+windows:
+  - editor:
+      panes:
+        - editor:
+          - source ~/chosen_work_dir
+          - workon $CHOSEN_PYENV
+          - nvim
+  - sh:
+      panes:
+        - sh:
+          - source ~/chosen_work_dir
+          - workon $CHOSEN_PYENV
