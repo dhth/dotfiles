@@ -848,6 +848,10 @@ function txw(){
     fi
 }
 
+function gitinit() {
+    is_in_git_repo || git init
+}
+
 
 function jw(){
     # open tmuxinator in a specific work directory
@@ -879,6 +883,12 @@ function txd(){
         local session_name=$(echo $selected_entry | rev | cut -d'/' -f 1 | rev)
         tmux new-session -s $session_name "cd $selected_entry && nvim ."
     fi
+}
+
+function work(){
+     osascript -e 'tell application "Keyboard Maestro Engine"' \
+         -e 'do script "open: setup_work"' \
+        -e 'end tell'
 }
 
 # https://github.com/jarun/nnn/wiki/Basic-use-cases#configure-cd-on-quit

@@ -228,7 +228,7 @@
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
-                 [:semicolon [:spacebar :t :c] :termemul] ;; vim: close tab
+                 [:semicolon [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :code]
@@ -312,9 +312,10 @@
                           ; [:l :!SCclose_bracket :termemul] ;; for iterm
                           [:h [:!Ta :!S9] :termemul] ;; tmux: previous session
                           [:l [:!Ta :!S0] :termemul] ;; tmux: next session
-                          [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
                           [:n [:!Ta :!Tm] :termemul] ;; tmux: session menu
+                          [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
                           [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
+                          [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
                           [:j [:spacebar :j :f ] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
@@ -390,8 +391,10 @@
                  {:des   "q mode"
                   :rules [:q-mode
                           [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
-                          [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
+                          ; [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
                           [:s :!CS4] ;; quick screenshot
+                          [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
+                          [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
                           ]}
 
 
@@ -588,6 +591,7 @@
                           [:f [:spacebar :d :k :f] :termemul] ;; vim: SearchDockerFiles
                           [:l [:spacebar :l :o] :termemul] ;; vim: search local only files
                           [:g [:spacebar :g :h] :termemul] ;; vim: git helpers
+                          [:close_bracket [:open "https://gitmind.com/app/doc/b0dad8012d6c42e7a8d7d59aba1662ae"]]
                           ]}
 
                  {:des   "other stuff"
@@ -717,6 +721,8 @@
          [:j :down_arrow ]
          [:k :up_arrow ]
          [:l :right_arrow ]
+         [:hyphen :!Chyphen ]
+         [:equal_sign :!Cequal_sign ]
          [:##left_shift :##left_shift nil {
                                            :alone [:!OC1]}]         ;; pdfviewer: show side bar
          ]
