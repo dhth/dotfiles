@@ -54,7 +54,7 @@ windows:
       panes:
           - mkdocs:
             - cd $WIKI_DIR/_layouts
-            - workon wiki
+            - workon $WIKI_PYTHON
             <%- if args[0] == "up" %>
             <%- end %>
   <%- if args[1] == "work" %>
@@ -67,7 +67,7 @@ windows:
       panes:
           - mkdocs:
             - cd $WORK_WIKI_DIR/_layouts
-            - workon wiki
+            - workon $WIKI_PYTHON
             <%- if args[0] == "up" %>
             <%- end %>
   <%- end %>
