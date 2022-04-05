@@ -114,7 +114,8 @@ nnoremap <leader>tc :action CloseEditor<CR>
 nnoremap <C-[> :action Back<CR>
 nnoremap <C-]> :action Forward<CR>
 nnoremap K : action QuickJavaDoc<CR>
-nnoremap t<c-t> :action RunClass<CR>
+map t<c-t> :action RunClass<CR>
+map <leader>rr :action RunClass<CR>
 nnoremap <leader>db :action DebugClass<CR>
 nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
 nnoremap <leader>fs :action ToggleFullScreen<CR>
@@ -142,3 +143,5 @@ nnoremap <leader>vv :e ~/.ideavimrc<CR>
 
 nmap <leader>e <action>(ShowErrorDescription)
 nmap ]e <action>(GotoNextError)
+
+nmap <leader>sm <action>(GotoSymbol)

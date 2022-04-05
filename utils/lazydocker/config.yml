@@ -1,5 +1,6 @@
 gui:
   scrollHeight: 2
+  returnImmediately: true
   language: 'auto' # one of 'auto' | 'en' | 'pl' | 'nl' | 'de' | 'tr'
   theme:
     activeBorderColor:
@@ -9,4 +10,3 @@ gui:
     - white
     optionsTextColor:
     - blue
-  returnImmediately: false

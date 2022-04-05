@@ -132,7 +132,7 @@ alias ls='ls -aG'
 alias j='just --justfile ~/.global.justfile --working-directory .'
 export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 
-export PIP_REQUIRE_VIRTUALENV=true
+export PIP_REQUIRE_VIRTUALENV=false
 
 #alias ml='source activate ml'
 alias jp="cd $PROJECTS_DIR"
@@ -923,6 +923,8 @@ export NNN_OPTS="H"
 
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 
+# export PATH=/Users/dht93/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.rvm/bin:/Users/dht93/.local/bin:/opt/homebrew/bin
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bin:/opt/homebrew/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
@@ -931,6 +933,10 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 export WORKON_HOME=~/.virtualenvs
-mkdir -p $WORKON_HOME
 
+mkdir -p $WORKON_HOME
+#
 . ~/.pyenv/versions/3.10.2/bin/virtualenvwrapper.sh
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit ; compinit

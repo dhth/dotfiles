@@ -146,6 +146,7 @@
          :rules [:1-mode
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
+                 [:o [:alfred "add_on_my_mind_entry"  "dhth.onmymind"]] ;; on my mind: add entry
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
                  [:h :!SOCh] ;; magnet: previous display
                  [:l :!SOCl] ;; magnet: next display
@@ -158,15 +159,18 @@
                  [:e [:open "http://127.0.0.1:8001"]]
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
+                 [:o [:alfred "open_list"  "dhth.onmymind"]] ;; on my mind: open list
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  [:h :!TOh] ;; magnet: left
                  [:l :!TOl] ;; magnet: right
+                 [:m :!TOm] ;; magnet: maximise
                  ]}
 
         {:des   "3-mode"
          :rules [:three-mode
                  [:t [:km "open: tmux_wiki"]]
                  [:c [:km "open: chrome_personal"]]
+                 [:o [:alfred "open_list_alfred"  "dhth.onmymind"]] ;; on my mind: open list in alfred
                  [:s [:km "open: setup_personal"]]
                  [:m [:open "/Applications/Spotify.app"]]
                  [:h [:km "mouse: move_left_small"]]
@@ -314,7 +318,6 @@
                           [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           [:n [:!Ta :!Tm] :termemul] ;; tmux: session menu
                           [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
-                          [:s :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
@@ -422,6 +425,7 @@
                           [:t [:spacebar :r :t] :termemul] ;; vim: run tests
                           [:o [:alfred "karabiner_switch" "dhth.system"]] ;; alfred: switch right opt
                           [:f :!OCl :jetbrains] ;; jetbrains: reformat code
+                          [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
                           ]}
 
                  {:des   "s mode"
@@ -444,6 +448,7 @@
                           [:f :!Tf :termemul]
                           [:q [:y :s :i :w :!Squote] :termemul]
                           [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
+                          [:m :!Cf12 :jetbrains]  ;; jetbrains: file structure
                           ; [:p [:open "/Applications/Spotify.app"]]
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
@@ -561,6 +566,7 @@
 
                  {:des   "tilde mode"
                   :rules [:tilde-mode
+                          [:q [:km "quicktime: movie"]]
                           [:h [:km "mouse: move_left"]]
                           [:l [:km "mouse: move_right"]]
                           [:hyphen [:alfred "pause" "dhth.spotify"]]
@@ -709,8 +715,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
          ]
  }
 
