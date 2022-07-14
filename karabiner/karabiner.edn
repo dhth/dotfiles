@@ -34,7 +34,9 @@
                 :spotify ["com.spotify.client"]
                 :code ["com.microsoft.VSCode"]
                 :jetbrains ["com.jetbrains.*"]
+                :intellij ["com.jetbrains.intellij"]
                 :pdfviewer ["com.apple.Preview"]
+                :fakeapp ["fake.app"]
                 ;
                 }
  :devices {
@@ -138,7 +140,6 @@
                  [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
                  [:9 [:alfred "shuffle" "dhth.spotify"]] ;; spotify: turn shuffle on or off
                  [:a [:alfred "tasks_work_add"  "dhth.tasks"]]
-                 [:s [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
                  [:p [:open "/Applications/Spotify.app"]]
                  ]}
 
@@ -179,9 +180,14 @@
                  [:l [:km "mouse: move_right_small"]]
                  ]}
 
-        {:des   "4-mode"
+        {:des   "four mode"
          :rules [:four-mode
-                [:l [:alfred "system_lock" "dhth.system"]]
+                 [:5 [:alfred "system_lock" "dhth.system"]]
+                 [:c [:km "open: chrome_work"]]
+                 [:j [:alfred "jira_search"  "dhth.jira"]]
+                 [:b [:alfred "jira_sprint_board" "dhth.jira"]]
+                 [:3 [:alfred "reddit_save"  "dhth.reddit"]]
+                 ; [:j [:alfred "jira_manager"  "dhth.tools"]]
                  ]}
 
         {:des   "5-mode"
@@ -201,7 +207,9 @@
         {:des   "9-mode"
          :rules [:9-mode
                  [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
-                 [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
+                 [:s [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
+                 [:0 [:alfred "spt"  "dhth.spotify"]]
+                 ; [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
                  ]}
 
         {:des   "open stuff that get opened less frequently"
@@ -212,14 +220,6 @@
                  [:4 [:alfred "redditp"  "dhth.reddit"]]
                  ]}
 
-        {:des   "four mode"
-         :rules [:four-mode
-                 [:c [:km "open: chrome_work"]]
-                 [:j [:alfred "jira_search"  "dhth.jira"]]
-                 [:b [:alfred "jira_sprint_board" "dhth.jira"]]
-                 [:3 [:alfred "reddit_save"  "dhth.reddit"]]
-                 ; [:j [:alfred "jira_manager"  "dhth.tools"]]
-                 ]}
 
         {:des   "a mode"
          :rules [:a-mode
@@ -232,7 +232,7 @@
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
-                 [:semicolon [:!Ta :z] :termemul] ;; tmux prefix + z
+                 [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + z
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :code]
@@ -300,7 +300,7 @@
 
                  {:des   "e mode"
                   :rules [:e-mode
-                          [:r [:t :!Tt ] :termemul ] ;; nvim/keys/mappings.vim > helpers#Helpers()
+                          [:r [:spacebar :e :r] :termemul ] ;; nvim/keys/mappings.vim > helpers#Helpers()
                           [:r [:!TOCp :v ] :jetbrains ] ;; jetbrains: project view popup menu
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:r [:alfred "reddit_search"  "dhth.reddit"]]
@@ -316,8 +316,7 @@
                           ; [:l :!SCclose_bracket :termemul] ;; for iterm
                           [:h [:!Ta :!S9] :termemul] ;; tmux: previous session
                           [:l [:!Ta :!S0] :termemul] ;; tmux: next session
-                          [:n [:!Ta :!Tm] :termemul] ;; tmux: session menu
-                          [:s [:!Ta :!Tl] :termemul] ;; tmux: last session
+                          [:s [:!Ta :!Tm] :termemul] ;; tmux: session menu
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
@@ -354,7 +353,11 @@
 
                  {:des "left-shift mode"
                   :rules [:left-shift-mode
-                         [:right_shift [:open-a "Screen Sharing"]]
+                         ; [:right_shift [:open-a "Intellij Idea"]]
+                         [:right_shift :!SOs :termemul]  ;; vim: quick language snippet
+                         [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
+                         ; [:delete_or_backspace [:open-a "Preview"]]
+                         ; [:return_or_enter [:open-a "Preview"]]
                           ]}
 
                  {:des   "m mode"
@@ -369,7 +372,8 @@
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
-                          [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
+                          ; [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
+                          [:c [:spacebar :m :c] :termemul] ;; vim: close tab
                           ]}
 
                  {:des   "n mode"
@@ -378,6 +382,7 @@
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           [:s [:open "https://notion.so"]]
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
+                          [:t [:spacebar :n :t] :termemul] ;; vim: go to next test
                           [:1 [:spacebar :t :1] :termemul] ;; vim: tab 1
                           [:2 [:spacebar :t :2] :termemul] ;; vim: tab 2
                           [:3 [:spacebar :t :3] :termemul] ;; vim: tab 3
@@ -388,7 +393,7 @@
                           [:8 [:spacebar :t :8] :termemul] ;; vim: tab 8
                           [:9 [:spacebar :t :9] :termemul] ;; vim: tab 9
                           [:0 [:spacebar :t :0] :termemul] ;; vim: tab last
-                          ; [:f [:spacebar :n :f] :termemul] ;; vim: search nearby files
+                          [:f [:spacebar :n :f] :termemul] ;; vim: new file at location
                           ]}
 
                  {:des   "q mode"
@@ -409,10 +414,11 @@
                           [:a [:alfred "add"  "dhth.pocket"]]
                           ; [:r [:!Ck :v] :code] ;; vscode: markdown: open md preview to the side
                           ; [:r [:alfred "pull_requests" "dhth.bookmarks"]] ;; bookmarks: pull requests
-                          [:r [:alfred "last_modified_pr" "dhth.bookmarks"]] ;; bookmarks: last modified_pr
+                          [:r [:alfred "open_prs" "dhth.bookmarks"]] ;; bookmarks: open pull requests
                           [:g [:spacebar :p :g] :termemul] ;; vim: edit plugins file
                           [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :termemul] ;; vim: PlugInstall
                           [:u [:!Ssemicolon :!Sp :l :u :g :!Su :p :d :a :t :e] :termemul] ;; vim: PlugUpdate
+                          [:s [:alfred "add_pushups" "dhth.pushups"]] ;; pushups: add pushups
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -423,9 +429,11 @@
                           [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
                           [:e [:spacebar :r :e] :termemul] ;; vim: telescope: resume
                           [:t [:spacebar :r :t] :termemul] ;; vim: run tests
-                          [:o [:alfred "karabiner_switch" "dhth.system"]] ;; alfred: switch right opt
+                          [:o [:alfred "right_option" "dhth.karabiner"]] ;; alfred: switch right opt
+                          [:f [:spacebar :r :f] :termemul] ;; vim: telescope: search related files
                           [:f :!OCl :jetbrains] ;; jetbrains: reformat code
                           [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
+                          [:w [:alfred "random_word" "dhth.vocabulary"]] ;; alfred: random word
                           ]}
 
                  {:des   "s mode"
@@ -467,6 +475,7 @@
                  {:des   "t mode"
                   :rules [:t-mode
                           [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
+                          [:e [:spacebar :t :e] :termemul] ;; vim: markdown: add task entry
                           [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
@@ -475,6 +484,7 @@
                           [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                           [:b :!SCf :browser] ;; browser: toolbar visibility
                           [:r [:spacebar :t :r] :termemul] ;; vim: test results
+                          [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                           [:y [:open "https://monkeytype.com"]]
                           [:o :!OC3 :pdfviewer ] ;; pdfviewer: table of contents
                           ]}
@@ -525,6 +535,7 @@
                           [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
                           [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
                           [:w [:km "open: setup_work"]]
+                          [:a [:slash :a :w :a :y] :slack] ;; slack: type /away
                           ]}
 
                  {:des   "comma mode"
@@ -631,6 +642,10 @@
          [:3 :!SOC3]
          [:4 :!SOC4]
          [:5 :!SOC5]
+         [:return_or_enter [:open-a "Preview"]]
+
+         ; turn this off when switching back to mapping opt to browser
+         ; [:return_or_enter [:open-a "Brave Browser"]]
          ]}
 
 {:des "left_option mode apple"
@@ -686,10 +701,10 @@
          [:##left_command :##left_command :apple {:alone [:!Ts] }]
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
-         [:##left_shift :##left_shift nil {
-                                           :alone [:spacebar :s :f]}]         ;; fzf :Buffers
-         [:##right_shift :##right_shift nil {
-                                           :alone [:spacebar :w :n]}]         ;; fzf :Buffers
+         [:##left_shift :##left_shift nil { :alone [:spacebar :s :f]}]         ;; fzf :Buffers
+         [:##right_shift :##right_shift nil {:alone [:!Ta :!Tl]}] ;; termemul: tmux: switch to last session
+         ; [:##right_shift :##right_shift nil {
+         ;                                   :alone [:spacebar :w :n]}]         ;; fzf :Buffers
          ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ; [:##right_option :##right_option :!apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
@@ -704,10 +719,17 @@
          ]
  }
 
+; {:des "hack to map left opt to multiple apps"
+;  :rules [:!fakeapp
+;          [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}] ;; replaceable-left-option-app-apple
+;          [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}] ;; replaceable-left-option-app-non-apple
+;          ]
+;  }
+
 {:des "browser"
  :rules [:browser
-         [:##left_option :##left_option :apple {:alone [:s :t]}] ;; vimium show open tabs
-         [:##left_command :##left_option :!apple {:alone [:s :t]}] ;; vimium show open tabs
+         ; [:##left_option :##left_option :apple {:alone [:s :t]}] ;; vimium show open tabs
+         ; [:##left_command :##left_option :!apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
          ; [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
          ]
@@ -715,8 +737,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
          ]
  }
 
@@ -750,8 +772,8 @@
 
 {:des "vs code"
  :rules [
-         [:##right_option :##right_option nil {:alone [:open "/Applications/Visual Studio Code.app"]}]
-         [:##right_command :##right_command :apple {:alone [:open "/Applications/Visual Studio Code.app"]}]
+         [:##right_option :##right_option nil {:alone [:open-a "Intellij Idea"]}]
+         [:##right_command :##right_command :apple {:alone [:open-a "Intellij Idea"]}]
          ]
  }
 

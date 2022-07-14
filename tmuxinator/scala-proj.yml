@@ -13,12 +13,21 @@ root: <%= @args[0] %>
 
 windows:
   - editor:
+      # layout: main-horizontal
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
+          - tmux resize-pane -Z
           - nvim
+        - sbt:
+          <%- if args[2] == "sbt" %>
+          - sbt
+          <%- else %>
+          - echo "sbt"
+          <%- end %>
   - sh:
       panes:
         - sh:

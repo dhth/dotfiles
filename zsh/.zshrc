@@ -833,6 +833,30 @@ function txw(){
     # open tmuxinator in a specific work directory
     local selected_entry
     local selected_py_env
+
+    local project_type
+    project_type=$(echo "scala\npy" | fzf --height=8 --layout=reverse --header="type?")
+
+    if [ -n "$project_type" ]; then
+        if [[ "$project_type" == "py" ]]; then
+            selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
+            if [ -n "$selected_entry" ]; then
+                tmuxinator two-windows $selected_entry $GENERAL_PYTHON_ENV_NAME
+            fi
+        elif [[ "$project_type" == "scala" ]]; then
+            selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
+            if [ -n "$selected_entry" ]; then
+                tmuxinator scala-proj $selected_entry $GENERAL_PYTHON_ENV_NAME sbt
+            fi
+        fi
+    fi
+}
+
+
+function txwp(){
+    # open tmuxinator in a specific work directory
+    local selected_entry
+    local selected_py_env
     selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
     if [ -n "$selected_entry" ]; then
         # echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
@@ -936,7 +960,11 @@ export WORKON_HOME=~/.virtualenvs
 
 mkdir -p $WORKON_HOME
 #
-. ~/.pyenv/versions/3.10.2/bin/virtualenvwrapper.sh
+. ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit ; compinit
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

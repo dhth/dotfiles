@@ -81,4 +81,8 @@ windows:
       panes:
           - gatsby:
             - cd $BLOG_DIR
+  - spt:
+      panes:
+          - spt:
+            - spt
   <%- end %>
