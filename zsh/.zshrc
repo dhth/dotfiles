@@ -125,7 +125,8 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
  --color=fg:#cbccc6,hl:#707a8c
  --color=fg+:#5fff87,hl+:#ffcc66
  --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
+ --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff
+ --bind ctrl-a:select-all'
 # highlighted line green, with entered word yellow
 
 alias ls='ls -aG'
@@ -164,7 +165,7 @@ alias cvim="nvim ~/.config/nvim/init.vim"
 alias gs="git status -sb"
 alias ga="git add"
 # alias gc="git commit"
-alias gb="git branch"
+alias gb="git branch --all | fzf | sed 's/remotes\///' | xargs | pbcopy"
 alias gcd1="git clone --depth=1"
 alias gcb='git checkout -b'
 alias sprint='jira sprint list --current -a $(jira me)'
@@ -246,6 +247,7 @@ alias g='git'
 alias gf='git fetch'
 alias gp='git pull'
 alias gsl='git stash list'
+alias gsdd='git-split-diffs --color | less -RFX'
 
 # select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
@@ -353,6 +355,7 @@ alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(
 
 # git log for current branch
 alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit $(git branch --show-current) --since="1 month ago"'
+alias gll='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 alias b='buku --np'
 
@@ -642,6 +645,16 @@ function ff() {
 
     if [ -n "$selected_file" ]; then
         echo $selected_file
+    fi
+}
+
+
+# work commands
+function ww() {
+    work_command=$(cat $DROPBOX_DIR/work/work_commands.txt | grep '^[^#]' | fzf --height=10 --layout=reverse)
+    if [ -n "$work_command" ]; then
+        print -s $work_command
+        eval $work_command
     fi
 }
 

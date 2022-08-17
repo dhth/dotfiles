@@ -37,6 +37,7 @@
                 :intellij ["com.jetbrains.intellij"]
                 :pdfviewer ["com.apple.Preview"]
                 :fakeapp ["fake.app"]
+                :dbeaver ["org.jkiss.dbeaver.core.product"]
                 ;
                 }
  :devices {
@@ -53,7 +54,7 @@
              tell application \"System Events\"
              keystroke \"v\" using command down
              end tell'"
-             :alfred "osascript -e 'tell application \"Alfred 4\"
+             :alfred "osascript -e 'tell application \"Alfred 5\"
              run trigger \"%s\" in workflow \"%s\" with argument \"%s\"
              end tell'"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\"
@@ -118,7 +119,8 @@
              :caps-lock-mode {:key :caps_lock}
              :tab-mode {:key :tab}
              :open-bracket-mode {:key :open_bracket}
-             :emoji-mode {:key :z}
+             :close-bracket-mode {:key :close_bracket}
+             :z-mode {:key :z}
              :d-mode {:key :d}
              :e-mode {:key :e}
              :i-mode {:key :i}
@@ -127,6 +129,7 @@
              :c-mode {:key :c}
              :u-mode {:key :u}
              :left-shift-mode {:key :left_shift}
+             :right-shift-mode {:key :right_shift}
              :left-option-mode-non-apple {:key :left_command}
              :left-option-mode-apple {:key :left_option}
              :left-command-mode-non-apple {:key :left_option}
@@ -240,6 +243,7 @@
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
+                 [:v [:alfred "add_word_to_records"  "dhth.vocabulary"]] ;; alfred: vocab: add word to records
                  ]}
 
                  {:des   "b-mode"
@@ -289,7 +293,8 @@
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
                           [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
-                          [:b [:alfred "db_tables_search"  "dhth.dl"]]
+                          ; [:b [:alfred "db_tables_search"  "dhth.dl"]]
+                          [:b [:spacebar :d :b] :termemul] ;; vim: add println
                           ;; option + arrow keys
                           [:##h :!Oleft_arrow]
                           [:##j :!Odown_arrow]
@@ -354,17 +359,22 @@
                  {:des "left-shift mode"
                   :rules [:left-shift-mode
                          ; [:right_shift [:open-a "Intellij Idea"]]
-                         [:right_shift :!SOs :termemul]  ;; vim: quick language snippet
+                         [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
                          [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
                          ; [:delete_or_backspace [:open-a "Preview"]]
                          ; [:return_or_enter [:open-a "Preview"]]
                           ]}
 
+                 {:des "right-shift mode"
+                  :rules [:right-shift-mode
+                         [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
+                          ]}
+
                  {:des   "m mode"
                   :rules [:m-mode
-                          [:1 [:alfred "search_tracks"  "dhth.spotify"]]
-                          [:2 [:alfred "search_albums"  "dhth.spotify"]]
-                          [:3 [:alfred "search_artists"  "dhth.spotify"]]
+                          ; [:1 [:alfred "search_tracks"  "dhth.spotify"]]
+                          ; [:2 [:alfred "search_albums"  "dhth.spotify"]]
+                          ; [:3 [:alfred "search_artists"  "dhth.spotify"]]
                           [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
                           [:5 [:alfred "search_playlists"  "dhth.spotify"]]
                           [:s [:alfred "search"  "dhth.spotify"]]
@@ -374,13 +384,17 @@
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           ; [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
+                          [:1 [:km "window: move to display 1"]] ;; km: move to display 1
+                          [:2 [:km "window: move to display 2"]] ;; km: move to display 2
+                          [:3 [:km "window: move to display 3"]] ;; km: move to display 3
                           ]}
 
                  {:des   "n mode"
                   :rules [:n-mode
                           [:a [:alfred "notion_omm_add"  "dhth.notion"]]
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
-                          [:s [:open "https://notion.so"]]
+                          ; [:s [:open "https://notion.so"]]
+                          [:s [:alfred "search" "com.wrjlewis.notion-search"]] ;; alfred: notion search
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
                           [:t [:spacebar :n :t] :termemul] ;; vim: go to next test
                           [:1 [:spacebar :t :1] :termemul] ;; vim: tab 1
@@ -428,12 +442,15 @@
                           [:s [:alfred "search" "me.westerlind.alfred.raindrop-search"]]
                           [:j [:!SCf :!Cj] :code] ;; vscode: foam: run janitor
                           [:e [:spacebar :r :e] :termemul] ;; vim: telescope: resume
+                          [:m [:spacebar :r :m] :termemul] ;; vim: scala: runMain
                           [:t [:spacebar :r :t] :termemul] ;; vim: run tests
                           [:o [:alfred "right_option" "dhth.karabiner"]] ;; alfred: switch right opt
                           [:f [:spacebar :r :f] :termemul] ;; vim: telescope: search related files
                           [:f :!OCl :jetbrains] ;; jetbrains: reformat code
+                          [:f :!TSf :dbeaver] ;; dbeaver: reformat code
                           [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
                           [:w [:alfred "random_word" "dhth.vocabulary"]] ;; alfred: random word
+                          ; [:spacebar [:alfred "replaceable_spacebar" "dhth.karabiner"]] ;; replaceable spacebar
                           ]}
 
                  {:des   "s mode"
@@ -476,7 +493,8 @@
                   :rules [:t-mode
                           [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
                           [:e [:spacebar :t :e] :termemul] ;; vim: markdown: add task entry
-                          [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
+                          ; [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
+                          [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:m [:alfred "time"  "dhth.system"]]
                           ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
@@ -500,11 +518,13 @@
                           [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
                           [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
+                          [:r [:alfred "vocab_records"  "dhth.vocabulary"]]
                           ]}
 
                  {:des   "w mode"
                   :rules [:w-mode
                           [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
+                          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
                           ; [:c [:alfred "webcam"  "dhth.system"]]
                           ; [:h :!SOCh] ;; magnet previous display
                           ; [:l :!SOCl] ;; magnet next display
@@ -518,7 +538,7 @@
                           ]}
 
                  {:des "emoji-mode"
-                  :rules [:emoji-mode
+                  :rules [:z-mode
                           [:e :emoji_picker]
                           [:t [:km "emoji: thunder"] ]
                           [:x [:km "emoji: thumbs up"] ]
@@ -526,6 +546,7 @@
                           [:0 [:km "emoji: smile"] ]
                           [:j [:km "emoji: point down"] ]
                           [:k [:km "emoji: point up"] ]
+                          [:a [:!SOCm]] ;; zoom: toggle audio
                           [:s [:alfred "zshrc"  "dhth.tools"]]
                           ;
                           ]}
@@ -547,7 +568,7 @@
                           [:5 [:alfred "playlists" "dhth.spotify"]]
                           [:6 [:alfred "recently_played" "dhth.spotify"]]
                           [:d [:alfred "devices" "dhth.spotify"]]
-                          [:a [:alfred "add_track_to_playlist" "dhth.spotify"]]
+                          [:a [:alfred "add_track_to_playlist" "dhth.spotify"]] ;; spotify: add track to playlist
                           ]}
 
                  {:des "slash mode"
@@ -565,6 +586,9 @@
                           [:g [:spacebar :g :s] :termemul]
                           ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
                           [:left_shift [:spacebar :equal_sign :spacebar]]
+                          [:1 [:open "/Applications/DBeaver.app"]] ;; replaceable-spacebar-1
+                          [:2 [:open "/Applications/Postman.app"]] ;; replaceable-spacebar-2
+                          [:3 [:open "/Applications/zoom.us.app"]] ;; replaceable-spacebar-3
                           ]}
 
                  {:des   "caps_lock mode"
@@ -577,6 +601,7 @@
 
                  {:des   "tilde mode"
                   :rules [:tilde-mode
+                          [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
                           [:q [:km "quicktime: movie"]]
                           [:h [:km "mouse: move_left"]]
                           [:l [:km "mouse: move_right"]]
@@ -585,7 +610,12 @@
                           [:1 [:type-secret "praline-jingle"]]
                           [:2 [:type-secret "haven-barnyard"]]
                           [:j ["in-js" 1]]
-                          [:m {:key :m :modi :hyper}]
+                          ; [:m {:key :m :modi :hyper}]
+                          [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
+                          [:c [:alfred "work_calendar" "dhth.bookmarks"]] ;; alfred: open work calendar
+                          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
+                          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
+                          [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
                           ]}
 
                  {:des   "tab mode"
@@ -611,6 +641,11 @@
                           [:close_bracket [:alfred "quick_open_url" "dhth.bookmarks"]]
                           ]}
 
+                 {:des   "close bracket mode"
+                  :rules [:close-bracket-mode
+                          [:open_bracket [:alfred "quick_open_url_2" "dhth.bookmarks"]]
+                          ]}
+
                  {:des   "other stuff"
                   :rules [:hyphen-mode
                           ; [:p [:application "spotify" "playpause"]]
@@ -629,6 +664,7 @@
          [:4 [:!Ta :4]]
          [:5 [:!Ta :5]]
          [:c [:!Ta :c]] ;; tmux prefix + c
+         [:a [:alfred "add_url_to_log"  "dhth.logs"]]
          ]}
 
 {:des "left_option mode non apple"
@@ -642,7 +678,7 @@
          [:3 :!SOC3]
          [:4 :!SOC4]
          [:5 :!SOC5]
-         [:return_or_enter [:open-a "Preview"]]
+         [:return_or_enter [:open "/System/Applications/Preview.app"]]
 
          ; turn this off when switching back to mapping opt to browser
          ; [:return_or_enter [:open-a "Brave Browser"]]
@@ -691,8 +727,10 @@
 
 {:des "not terminal"
  :rules [:!termemul
-         [:##left_command :##left_command :apple {:alone [:open-a "Alacritty"]}]
-         [:##left_option :##left_command :!apple {:alone [:open-a "Alacritty"]}]
+         ; [:##left_command :##left_command :apple {:alone [:open-a "Alacritty"]}]
+         ; [:##left_option :##left_command :!apple {:alone [:open-a "Alacritty"]}]
+         [:##left_command :##left_command :apple {:alone [:open "/Applications/Alacritty.app"]}]
+         [:##left_option :##left_command :!apple {:alone [:open "/Applications/Alacritty.app"]}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
          ]}
 
@@ -713,8 +751,10 @@
 
 {:des "not browser"
  :rules [:!browser
-         [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}]
-         [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}]
+         ; [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}]
+         ; [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}]
+         [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
          ; [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
          ]
  }
@@ -737,8 +777,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open "/Applications/Slack.app"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open "/Applications/Slack.app"]}] ;; replaceable-right-option-app-apple
          ]
  }
 
@@ -772,8 +812,8 @@
 
 {:des "vs code"
  :rules [
-         [:##right_option :##right_option nil {:alone [:open-a "Intellij Idea"]}]
-         [:##right_command :##right_command :apple {:alone [:open-a "Intellij Idea"]}]
+         [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         [:##right_command :##right_command :apple {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
          ]
  }
 
