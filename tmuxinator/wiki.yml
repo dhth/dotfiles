@@ -48,7 +48,7 @@ windows:
   - w:
       panes:
           - vim:
-            - tmux set status off
+            # - tmux set status off
             - cd $WIKI_DIR
             - nvim
   - wdocs:
@@ -88,7 +88,7 @@ windows:
           - vim:
             - cd $LOGS_DIR
             - nvim
-  - spt:
-      panes:
-          - spt:
-            - spt
+  # - spt:
+  #     panes:
+  #         - spt:
+  #           - spt

@@ -380,6 +380,7 @@ function tt(){
 alias jirah='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
 alias jr='jira'
 
+alias pomo='$GOPATH/bin/openpomodoro-cli'
 
 # alias n='nnn'
 # alias ls='nnn -e'
@@ -460,6 +461,19 @@ function glbd() {
             echo -e "${GREEN}Commits that are in $target_branch, but not in $source_branch 👇${NOCOLOR}"
             git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit --date=relative $source_branch..$target_branch
         fi
+    fi
+}
+
+# git checkout branch with prefix
+function gcbw() {
+    is_in_git_repo || return
+    echo "branch name?"
+    read branch_name
+    if [ -n "$branch_name" ]; then
+        local branch_prefix="WEBENG-"
+        local branch_name_formatted=$(echo $branch_name | tr '[:upper:]' '[:lower:]' | sed "s/ /-/g")
+        print -s "git checkout -b $branch_prefix$branch_name_formatted"
+        git checkout -b $branch_prefix$branch_name_formatted
     fi
 }
 
@@ -852,9 +866,12 @@ function txw(){
 
     if [ -n "$project_type" ]; then
         if [[ "$project_type" == "py" ]]; then
-            selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
-            if [ -n "$selected_entry" ]; then
-                tmuxinator two-windows $selected_entry $GENERAL_PYTHON_ENV_NAME
+            selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python env?")
+            if [ -n "$selected_py_env" ]; then
+                selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
+                if [ -n "$selected_entry" ]; then
+                    tmuxinator two-windows $selected_entry $GENERAL_PYTHON_ENV_NAME
+                fi
             fi
         elif [[ "$project_type" == "scala" ]]; then
             selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")

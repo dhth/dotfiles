@@ -38,6 +38,7 @@
                 :pdfviewer ["com.apple.Preview"]
                 :fakeapp ["fake.app"]
                 :dbeaver ["org.jkiss.dbeaver.core.product"]
+                :zoom ["us.zoom.xos"]
                 ;
                 }
  :devices {
@@ -131,9 +132,12 @@
              :left-shift-mode {:key :left_shift}
              :right-shift-mode {:key :right_shift}
              :left-option-mode-non-apple {:key :left_command}
+             :right-option-mode-non-apple {:key :right_option}
+             :right-command-mode-apple {:key :right_command}
              :left-option-mode-apple {:key :left_option}
              :left-command-mode-non-apple {:key :left_option}
-             :js-mode {:key :period :condi ["in-js" 1]}
+             ; :ro-intellij-mode {:key :period :condi ["ro-intellij" 1]}
+             ; :ro-preview-mode {:key :period :condi ["ro-preview" 1]}
              }
  :main [
 
@@ -226,24 +230,28 @@
 
         {:des   "a mode"
          :rules [:a-mode
-                 [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
+                 ; [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
+                 [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:f [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
                  [:n [:!Ta :!Tn] :termemul] ;; tmux: window picker
+                 [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
                  [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + z
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
+                 [:h :!SCopen_bracket :dbeaver] ;; dbeaver: previous tab
+                 [:l :!SCclose_bracket :dbeaver] ;; dbeaver: next tab
                  [:h :!SCopen_bracket :code]
                  [:l :!SCclose_bracket :code]
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
-                 [:v [:alfred "add_word_to_records"  "dhth.vocabulary"]] ;; alfred: vocab: add word to records
+                 [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
                  ]}
 
                  {:des   "b-mode"
@@ -269,15 +277,20 @@
                           [:a [:spacebar :c :a] :termemul] ;; vim: fugitive: commit --amend
                           ; [:h :!Sopen_bracket]
                           [:l [:spacebar :c :l]] ;; vim: wiki: create link
+                          [:o [:spacebar :c :o]] ;; vim: copen
                           [:j :open_bracket]
                           [:k :close_bracket]
                           [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :termemul] ;; vim: coc restart
-                          [:m [:g :c :i :p] :termemul] ;; vim: commentary: inner paragraph
+                          ; [:m [:g :c :i :p] :termemul] ;; vim: commentary: inner paragraph
+                          [:m [:spacebar :c :m] :termemul] ;; vim: code helpers
+                          [:s [:km "alfred: search clipboard"]] ;; km: alfred: search clipboard
+                          [:n [:alfred "clear_notifications" "dhth.system"]] ;; alfred: system: clear notifications
                           ]}
 
                  {:des   "d mode"
                   :rules [:d-mode
                           [:t :open_dev_tools :browser]
+                          [:t [:spacebar :d :t] :termemul] ;; vim: windo diffthis
                           [:m :!SOd :browser] ;; dark reader
                           [:j :!Td :termemul ] ;; vim <c-d>
                           [:j :!Odown_arrow :pdfviewer ] ;; pdfviewer: page down
@@ -307,6 +320,7 @@
                   :rules [:e-mode
                           [:r [:spacebar :e :r] :termemul ] ;; nvim/keys/mappings.vim > helpers#Helpers()
                           [:r [:!TOCp :v ] :jetbrains ] ;; jetbrains: project view popup menu
+                          [:r :!T9 :dbeaver ] ;; dbeaver: change active connection
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:r [:alfred "reddit_search"  "dhth.reddit"]]
                           [:d [:alfred "karabiner_edn"  "dhth.tools"]]
@@ -432,7 +446,9 @@
                           [:g [:spacebar :p :g] :termemul] ;; vim: edit plugins file
                           [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :termemul] ;; vim: PlugInstall
                           [:u [:!Ssemicolon :!Sp :l :u :g :!Su :p :d :a :t :e] :termemul] ;; vim: PlugUpdate
-                          [:s [:alfred "add_pushups" "dhth.pushups"]] ;; pushups: add pushups
+                          ; [:s [:alfred "add_pushups" "dhth.pushups"]] ;; pushups: add pushups
+                          [:s [:alfred "pomodoro_start" "dhth.pomodoro"]] ;; pomodoro: start pomodoro
+                          [:b [:alfred "pomodoro_break_start" "dhth.pomodoro"]] ;; pomodoro: start break
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -458,6 +474,7 @@
                           ; [:t [:alfred "search_tools"  "dhth.tools"]]
                           [:t :!S6 :browser] ;; browser: switch to last tab (via vimium -> ^)
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
+                          [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           ; [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
@@ -517,14 +534,14 @@
                           [:n [:spacebar :v :n] :termemul] ;; vim: vnew
                           [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
                           [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
-                          [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
+                          ; [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
+                          [:c [:spacebar :v :c] :termemul] ;; vim: gitsigns: preview hunk
                           [:r [:alfred "vocab_records"  "dhth.vocabulary"]]
                           ]}
 
                  {:des   "w mode"
                   :rules [:w-mode
                           [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
-                          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
                           ; [:c [:alfred "webcam"  "dhth.system"]]
                           ; [:h :!SOCh] ;; magnet previous display
                           ; [:l :!SOCl] ;; magnet next display
@@ -547,6 +564,7 @@
                           [:j [:km "emoji: point down"] ]
                           [:k [:km "emoji: point up"] ]
                           [:a [:!SOCm]] ;; zoom: toggle audio
+                          [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:alfred "zshrc"  "dhth.tools"]]
                           ;
                           ]}
@@ -557,6 +575,7 @@
                           [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
                           [:w [:km "open: setup_work"]]
                           [:a [:slash :a :w :a :y] :slack] ;; slack: type /away
+                          [:f [:open "https://fast.com"]] ;; browser: open fast.com
                           ]}
 
                  {:des   "comma mode"
@@ -586,9 +605,11 @@
                           [:g [:spacebar :g :s] :termemul]
                           ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
                           [:left_shift [:spacebar :equal_sign :spacebar]]
-                          [:1 [:open "/Applications/DBeaver.app"]] ;; replaceable-spacebar-1
-                          [:2 [:open "/Applications/Postman.app"]] ;; replaceable-spacebar-2
-                          [:3 [:open "/Applications/zoom.us.app"]] ;; replaceable-spacebar-3
+                          [:1 [:open "/Applications/IntelliJ IDEA.app"]] ;; custom-app-1
+                          [:2 [:open "/Applications/Postman.app"]] ;; custom-app-2
+                          [:3 [:open "/Applications/zoom.us.app"]] ;; custom-app-3
+                          [:4 [:open "/Applications/DBeaver.app"]] ;; custom-app-4
+                          [:5 [:open "/System/Applications/Preview.app"]] ;; custom-app-5
                           ]}
 
                  {:des   "caps_lock mode"
@@ -597,6 +618,7 @@
                           [:##l :right_arrow]
                           [:##j :down_arrow]
                           [:##k :up_arrow]
+                          [:semicolon [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files
                           ]}
 
                  {:des   "tilde mode"
@@ -609,12 +631,8 @@
                           [:equal_sign [:alfred "play" "dhth.spotify"]]
                           [:1 [:type-secret "praline-jingle"]]
                           [:2 [:type-secret "haven-barnyard"]]
-                          [:j ["in-js" 1]]
-                          ; [:m {:key :m :modi :hyper}]
                           [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
                           [:c [:alfred "work_calendar" "dhth.bookmarks"]] ;; alfred: open work calendar
-                          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
-                          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
                           [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
                           ]}
 
@@ -624,9 +642,11 @@
                           [:##j :!SOdown_arrow ]
                           [:##k :!SOup_arrow ]
                           [:##l :!SOright_arrow ]
-                          [:s [:alfred "system_sleep" "dhth.system"]]
+                          [:s :!TSOCs]
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]
+                          [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
+                          [:z [:alfred "system_sleep" "dhth.system"]]
                           [:i :!TOC8]
                           [:c :!OCf5]
                           ]}
@@ -664,7 +684,10 @@
          [:4 [:!Ta :4]]
          [:5 [:!Ta :5]]
          [:c [:!Ta :c]] ;; tmux prefix + c
-         [:a [:alfred "add_url_to_log"  "dhth.logs"]]
+         [:l [:alfred "add_url_to_log"  "dhth.logs"]]
+         [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
+         [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
+         [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          ]}
 
 {:des "left_option mode non apple"
@@ -678,7 +701,7 @@
          [:3 :!SOC3]
          [:4 :!SOC4]
          [:5 :!SOC5]
-         [:return_or_enter [:open "/System/Applications/Preview.app"]]
+         ; [:return_or_enter [:open "/System/Applications/Preview.app"]]
 
          ; turn this off when switching back to mapping opt to browser
          ; [:return_or_enter [:open-a "Brave Browser"]]
@@ -690,6 +713,17 @@
          [:##j :!Odown_arrow :apple]
          [:##k :!Oup_arrow :apple]
          [:##l :!Oright_arrow :apple]
+         ]}
+
+
+{:des "right option mode non apple"
+ :rules [:right-option-mode-non-apple
+         [:c [:alfred "ro_flag"  "dhth.karabiner"]]
+         ]}
+
+{:des "right command mode apple"
+ :rules [:right-command-mode-apple
+         [:c [:alfred "ro_flag"  "dhth.karabiner"]]
          ]}
 
 {:des "left_command mode non apple"
@@ -768,10 +802,18 @@
 
 {:des "browser"
  :rules [:browser
+         [:##left_shift :##left_shift nil { :alone :!St}]         ;; browser: vimium: search open tabs
+         [:##right_shift :##right_shift nil { :alone :!So}]         ;; browser: vimium: search everything
          ; [:##left_option :##left_option :apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option :!apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs
          ; [:##right_option :##right_option :!apple {:alone :!Ct}] ;; new tab
+         ]
+ }
+
+{:des "jetbrains"
+ :rules [:jetbrains
+         [:##right_shift :##right_shift nil { :alone :!TSCm}]  ;; jetbrains: open context menu
          ]
  }
 
@@ -810,12 +852,26 @@
          ]
  }
 
-{:des "vs code"
+{:des "right command/option"
  :rules [
-         [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         [:##right_command :##right_command :apple {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         ; [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         [:##right_option :##right_option [:!apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         [:##right_command :##right_command [:apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+
+         [:##right_option :##right_option [:!apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         [:##right_command :##right_command [:apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+
+         [:##right_option :##right_option [:!apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
+         [:##right_command :##right_command [:apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
          ]
  }
+
+    ; try to get this working
+    ; https://johnlindquist.com/combine-layer-and-simlayer-in-karabiner/
+    ; {:des "combo"
+    ;  :rules [[:condi :d-mode :r-mode]
+    ;          [:k [:b :o :t :h]];
+    ;          ]}
 
 ]
 }

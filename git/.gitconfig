@@ -40,6 +40,7 @@
 
 [core]
 	editor = nvim
+	excludesfile = /Users/dhruvthakur/.gitignore
 	; pager = git-split-diffs --color | less -RFX
     ; pager = delta
 

@@ -1,0 +1,7 @@
+.fdignore
+.DS_Store
+*.pyc
+.bloop
+.bsp
+.metals
+metals.sbt
