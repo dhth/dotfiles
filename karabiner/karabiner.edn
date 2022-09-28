@@ -162,6 +162,7 @@
 
         {:des   "open urls"
          :rules [:2-mode
+                 [:3 [:alfred "app_switch"  "dhth.system"]] ;; alfred: system: app switch
                  [:n [:km "open: nikitas karabiner"]]
                  [:w [:open "http://127.0.0.1:8000"]]
                  [:e [:open "http://127.0.0.1:8001"]]
@@ -177,7 +178,7 @@
         {:des   "3-mode"
          :rules [:three-mode
                  [:t [:km "open: tmux_wiki"]]
-                 [:c [:km "open: chrome_personal"]]
+                 ; [:c [:km "open: chrome_personal"]]
                  [:o [:alfred "open_list_alfred"  "dhth.onmymind"]] ;; on my mind: open list in alfred
                  [:s [:km "open: setup_personal"]]
                  [:m [:open "/Applications/Spotify.app"]]
@@ -185,6 +186,7 @@
                  [:j [:km "mouse: move_down_small"]]
                  [:k [:km "mouse: move_up_small"]]
                  [:l [:km "mouse: move_right_small"]]
+                 [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
                  ]}
 
         {:des   "four mode"
@@ -208,13 +210,13 @@
          :rules [:8-mode
                  [:t [:alfred "timestamp_convert" "dhth.utils"]]
                  [:a [:alfred "aws_apigateway_list_apis"  "dhth.aws"]]
+                 [:9 [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
                  ]
          }
 
         {:des   "9-mode"
          :rules [:9-mode
                  [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
-                 [:s [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
                  [:0 [:alfred "spt"  "dhth.spotify"]]
                  ; [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
                  ]}
@@ -355,7 +357,7 @@
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
                           [:s [:spacebar :g :s ] :termemul ]
-                          [:p [:!Ssemicolon :!Sg :i :t :spacebar :p :u :s :h] :termemul ]
+                          [:p [:spacebar :g :p] :termemul ] ;; vim: fugitive: git push
                           [:b [:spacebar :g :b] :termemul ] ;; vim: telescope: git branches
                           [:quote [:g :r :i :quote] :termemul ] ;; vim: replace with regiser: gri"
                           ]}
@@ -396,7 +398,6 @@
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
-                          ; [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
                           [:1 [:km "window: move to display 1"]] ;; km: move to display 1
                           [:2 [:km "window: move to display 2"]] ;; km: move to display 2
@@ -466,6 +467,7 @@
                           [:f :!TSf :dbeaver] ;; dbeaver: reformat code
                           [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
                           [:w [:alfred "random_word" "dhth.vocabulary"]] ;; alfred: random word
+                          [:v [:km "system: restart vim"] ] ;; karabiner: system: restart vim
                           ; [:spacebar [:alfred "replaceable_spacebar" "dhth.karabiner"]] ;; replaceable spacebar
                           ]}
 
@@ -476,7 +478,7 @@
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
-                          ; [:0 [:alfred "save_current_track"  "dhth.spotify"]]
+                          [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
                           [:9 [:spacebar :s :9] :termemul] ;; vim :treesitter: swap next function
                           [:7 [:spacebar :s :7] :termemul] ;; vim :treesitter: swap previous parameter
@@ -532,7 +534,9 @@
                           [:j [:!Ta :j] :termemul] ;; tmux prefix + j
                           [:k [:!Ta :k] :termemul] ;; tmux prefix + k
                           [:n [:spacebar :v :n] :termemul] ;; vim: vnew
-                          [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
+                          [:m :!TSOCv ] ;; vimac: activate hint mode
+                          [:s :!TSCs ] ;; vimac: activate scroll mode
+                          ; [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
                           [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           ; [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           [:c [:spacebar :v :c] :termemul] ;; vim: gitsigns: preview hunk
@@ -552,6 +556,7 @@
                           [:j [:!Tw :j] :termemul]
                           [:k [:!Tw :k] :termemul]
                           [:q [:!Ssemicolon :w :q] :termemul]
+                          [:o [:alfred "workout_log_url"  "dhth.bookmarks"]]
                           ]}
 
                  {:des "emoji-mode"
@@ -588,6 +593,7 @@
                           [:6 [:alfred "recently_played" "dhth.spotify"]]
                           [:d [:alfred "devices" "dhth.spotify"]]
                           [:a [:alfred "add_track_to_playlist" "dhth.spotify"]] ;; spotify: add track to playlist
+                          [:r :!TOSr] ;; hammerspoon: reload config
                           ]}
 
                  {:des "slash mode"
@@ -642,7 +648,7 @@
                           [:##j :!SOdown_arrow ]
                           [:##k :!SOup_arrow ]
                           [:##l :!SOright_arrow ]
-                          [:s :!TSOCs]
+                          [:s :!TSOCs] ;; mac: siri
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]
                           [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
@@ -684,7 +690,7 @@
          [:4 [:!Ta :4]]
          [:5 [:!Ta :5]]
          [:c [:!Ta :c]] ;; tmux prefix + c
-         [:l [:alfred "add_url_to_log"  "dhth.logs"]]
+         [:l [:alfred "add_url_to_log"  "dhth.logs"]] ;; dhth.logs: add url to log
          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
@@ -773,7 +779,7 @@
          [:##left_command :##left_command :apple {:alone [:!Ts] }]
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
-         [:##left_shift :##left_shift nil { :alone [:spacebar :s :f]}]         ;; fzf :Buffers
+         [:##left_shift :##left_shift nil { :alone :!Tf}]         ;; fzf :Buffers
          [:##right_shift :##right_shift nil {:alone [:!Ta :!Tl]}] ;; termemul: tmux: switch to last session
          ; [:##right_shift :##right_shift nil {
          ;                                   :alone [:spacebar :w :n]}]         ;; fzf :Buffers
@@ -854,15 +860,20 @@
 
 {:des "right command/option"
  :rules [
+         [:##right_option :##right_option :!apple {:alone [:alfred "quick_switch_app" "dhth.system"]}] ;; alfred: system: quick switch app
+
          ; [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         [:##right_option :##right_option [:!apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         [:##right_command :##right_command [:apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-
-         [:##right_option :##right_option [:!apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         [:##right_command :##right_command [:apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-
-         [:##right_option :##right_option [:!apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
-         [:##right_command :##right_command [:apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
+         ; [:##right_option :##right_option [:!apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         ; [:##right_command :##right_command [:apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         ;
+         ; [:##right_option :##right_option [:!apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         ; [:##right_command :##right_command [:apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         ;
+         ; [:##right_option :##right_option [:!apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
+         ; [:##right_command :##right_command [:apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
+         ;
+         ; [:##right_option :##right_option [:!apple ["ro-postman" 1]] {:alone [:open "/Applications/Postman.app"]}]
+         ; [:##right_command :##right_command [:apple ["ro-postman" 1]] {:alone [:open "/Applications/Postman.app"]}]
          ]
  }
 

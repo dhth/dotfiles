@@ -351,10 +351,10 @@ function gco() {
 }
 
 # git log for all branches
-alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="1 month ago"'
+alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="3 months ago"'
 
 # git log for current branch
-alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit $(git branch --show-current) --since="1 month ago"'
+alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit $(git branch --show-current) --since="3 months ago"'
 alias gll='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 alias b='buku --np'
@@ -471,7 +471,7 @@ function gcbw() {
     read branch_name
     if [ -n "$branch_name" ]; then
         local branch_prefix="WEBENG-"
-        local branch_name_formatted=$(echo $branch_name | tr '[:upper:]' '[:lower:]' | sed "s/ /-/g")
+        local branch_name_formatted=$(echo $branch_name | tr '[:upper:]' '[:lower:]' | sed "s/ /-/g" | sed "s/_/-/g")
         print -s "git checkout -b $branch_prefix$branch_name_formatted"
         git checkout -b $branch_prefix$branch_name_formatted
     fi
@@ -517,6 +517,18 @@ _gs() {
   is_in_git_repo || return
   git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
   cut -d: -f1
+}
+
+
+# https://github.com/junegunn/fzf#custom-fuzzy-completion
+
+_fzf_complete_doge() {
+  _fzf_complete --multi --reverse --prompt="doge> " -- "$@" < <(
+    echo very
+    echo wow
+    echo such
+    echo doge
+  )
 }
 
 
@@ -998,3 +1010,4 @@ autoload -Uz compinit ; compinit
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH=$PATH:/Users/dhruvthakur/.spicetify
