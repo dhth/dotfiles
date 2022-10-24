@@ -218,6 +218,7 @@
          :rules [:9-mode
                  [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
                  [:0 [:alfred "spt"  "dhth.spotify"]]
+                 [:8 [:alfred "logs_search"  "dhth.logs"]]
                  ; [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
                  ]}
 
@@ -399,9 +400,9 @@
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
-                          [:1 [:km "window: move to display 1"]] ;; km: move to display 1
-                          [:2 [:km "window: move to display 2"]] ;; km: move to display 2
-                          [:3 [:km "window: move to display 3"]] ;; km: move to display 3
+                          [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
+                          [:2 [:km "window: fs: move to display 2"]] ;; km: move to display 2
+                          [:3 [:km "window: fs: move to display 3"]] ;; km: move to display 3
                           ]}
 
                  {:des   "n mode"
@@ -474,7 +475,6 @@
                  {:des   "s mode"
                   :rules [:s-mode
                           ; [:t [:alfred "search_tools"  "dhth.tools"]]
-                          [:t :!S6 :browser] ;; browser: switch to last tab (via vimium -> ^)
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
@@ -578,7 +578,7 @@
                   :rules [:equal-mode
                           [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
                           [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
-                          [:w [:km "open: setup_work"]]
+                          [:w [:km "setup: office"]]
                           [:a [:slash :a :w :a :y] :slack] ;; slack: type /away
                           [:f [:open "https://fast.com"]] ;; browser: open fast.com
                           ]}
@@ -809,7 +809,7 @@
 {:des "browser"
  :rules [:browser
          [:##left_shift :##left_shift nil { :alone :!St}]         ;; browser: vimium: search open tabs
-         [:##right_shift :##right_shift nil { :alone :!So}]         ;; browser: vimium: search everything
+         [:##right_shift :##right_shift nil { :alone :!S6}]         ;; browser: vimium: switch to last tab
          ; [:##left_option :##left_option :apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option :!apple {:alone [:s :t]}] ;; vimium show open tabs
          ; [:##left_command :##left_option nil {:alone [:!St]}] ;; vimium show open tabs

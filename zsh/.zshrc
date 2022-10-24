@@ -224,6 +224,8 @@ alias weather=$HOME/weather.sh
 alias tls="tmux ls"
 
 alias e='exit'
+alias ee='exit'
+alias eee='exit'
 
 alias theme='$DOT_FILES_DIR/set_theme.sh $($DOT_FILES_DIR/themes_list.sh | fzf)'
 
@@ -236,6 +238,8 @@ alias gcd1='git clone --depth=1'
 # alias py='workon "$(workon|fzf)"'
 
 alias icloud='cd $ICLOUD_DIR'
+
+alias opentabs='sh $DOT_FILES_DIR/utils/get_open_tabs.sh "Brave Browser"'
 
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
@@ -387,6 +391,21 @@ alias pomo='$GOPATH/bin/openpomodoro-cli'
 
 function get_ip(){
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
+}
+
+# open urls from txt file
+function openurls() {
+    if [ $# -ne 1 ]
+    then
+        echo "Usage: openurls <FILE_PATH>"
+        return
+    fi
+    local selected_urls
+    selected_urls=$(cat $1 | fzf --layout=reverse  --multi --prompt="which ones?")
+
+    if [ -n "$selected_urls" ]; then
+        echo $selected_urls | xargs open
+    fi
 }
 
 
