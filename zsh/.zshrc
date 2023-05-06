@@ -245,7 +245,7 @@ export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
 alias ic2wiki='cp "$ICLOUD_DIR/export/$(ls $ICLOUD_DIR/export |fzf)" $(fd -t d -I assets '$WIKI_DIR' | fzf)'
 
-alias c='clear'
+# alias c='clear'
 
 alias g='git'
 alias gf='git fetch'
@@ -296,20 +296,22 @@ function down(){
 alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # cd to subdirectory using fzf
-# function c() {
-#     local selected_directory
-#     if (($# == 1))
-#     then
-#         selected_directory=$(fd -H -t d $1 | fzf --height=6 --layout=reverse)
-#     else
-#         selected_directory=$(fd -H -t d | fzf --height=6 --layout=reverse)
-#     fi
+function c() {
+    is_in_git_repo || return
+    local selected_directory
+    local base_directory=$(git rev-parse --show-toplevel)
+    if (($# == 1))
+    then
+        selected_directory=$(fd --base-directory=$base_directory -H -t d $1 | fzf --height=12 --layout=reverse)
+    else
+        selected_directory=$(fd --base-directory=$base_directory -H -t d | fzf --height=12 --layout=reverse)
+    fi
 
-#     if [ -n "$selected_directory" ]; then
-#         # echo "cd $selected_directory"
-#         cd $selected_directory
-#     fi
-# }
+    if [ -n "$selected_directory" ]; then
+        cd $(git rev-parse --show-toplevel)
+        cd $selected_directory
+    fi
+}
 
 # ls subdirectory using fzf
 function lss() {

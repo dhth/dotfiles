@@ -30,7 +30,7 @@
  :applications {;
                 :browser ["com.brave.Browser", "com.google.Chrome"]
                 :slack ["com.tinyspeck.slackmacgap"]
-                :termemul ["io.alacritty"]
+                :termemul ["org.alacritty"]
                 :spotify ["com.spotify.client"]
                 :code ["com.microsoft.VSCode"]
                 :jetbrains ["com.jetbrains.*"]
@@ -147,6 +147,8 @@
                  [:equal_sign [:application "spotify" "set sound volume to sound volume + 5"]]
                  [:9 [:alfred "shuffle" "dhth.spotify"]] ;; spotify: turn shuffle on or off
                  [:a [:alfred "tasks_work_add"  "dhth.tasks"]]
+                 [:1 [:alfred "get_pass_1"  "dhth.system"]]
+                 [:2 [:alfred "get_pass_2"  "dhth.system"]]
                  [:p [:open "/Applications/Spotify.app"]]
                  ]}
 
@@ -571,6 +573,7 @@
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:alfred "zshrc"  "dhth.tools"]]
+                          [:p [:km "psss"] ]
                           ;
                           ]}
 

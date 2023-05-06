@@ -13,7 +13,7 @@ function txw(){
 
     if [ -n "$project_type" ]; then
         if [[ "$project_type" == "py" ]]; then
-            selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F  "/" '// {print $2}' | fzf --height=8 --layout=reverse --header="python env?")
+            selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F  "/" '// {print $1}' | fzf --height=8 --layout=reverse --header="python env?")
             if [ -n "$selected_py_env" ]; then
                 selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
                 if [ -n "$selected_entry" ]; then
