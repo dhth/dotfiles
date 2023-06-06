@@ -154,6 +154,7 @@
 
         {:des   "work stuff"
          :rules [:1-mode
+                 [:2 [:km "mouse: left_click"]] ;; km: mouse: left_click
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
                  [:o [:alfred "add_on_my_mind_entry"  "dhth.onmymind"]] ;; on my mind: add entry
@@ -188,7 +189,6 @@
                  [:j [:km "mouse: move_down_small"]]
                  [:k [:km "mouse: move_up_small"]]
                  [:l [:km "mouse: move_right_small"]]
-                 [:c [:km "mouse: left_click"]] ;; km: mouse: left_click
                  ]}
 
         {:des   "four mode"
@@ -246,7 +246,7 @@
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
-                 [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + z
+                 [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + ;
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :dbeaver] ;; dbeaver: previous tab
@@ -257,6 +257,7 @@
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
                  [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
+                 [:i [:alfred "quick_help_link" "dhth.bookmarks"]] ;; alfred: bookmarks: quick help link
                  ]}
 
                  {:des   "b-mode"
@@ -402,6 +403,7 @@
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
+                          [:e :!SCm :slack] ;; slack: mentions
                           [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
                           [:2 [:km "window: fs: move to display 2"]] ;; km: move to display 2
                           [:3 [:km "window: fs: move to display 3"]] ;; km: move to display 3
@@ -479,6 +481,7 @@
                           ; [:t [:alfred "search_tools"  "dhth.tools"]]
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
+                          [:t [:!SCy] :slack] ;; slack: set status
                           [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
@@ -517,6 +520,7 @@
                           ; [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
+                          [:h :!SCt :slack] ;; slack: threads
                           [:m [:alfred "time"  "dhth.system"]]
                           ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
                           ; [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
@@ -526,6 +530,11 @@
                           [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                           [:y [:open "https://monkeytype.com"]]
                           [:o :!OC3 :pdfviewer ] ;; pdfviewer: table of contents
+                          ]}
+
+                 {:des "u mode"
+                  :rules [:u-mode
+                          [:r :!SCa :slack] ;; slack: unread messages
                           ]}
 
                  {:des   "v mode"
@@ -782,8 +791,10 @@
          [:##left_command :##left_command :apple {:alone [:!Ts] }]
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
-         [:##left_shift :##left_shift nil { :alone :!Tf}]         ;; fzf :Buffers
+         [:##left_shift :##left_shift nil { :alone [:!Tf]}]         ;; fzf :Buffers
          [:##right_shift :##right_shift nil {:alone [:!Ta :!Tl]}] ;; termemul: tmux: switch to last session
+         [:##right_command :##right_command :apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
+         [:##right_option :##right_option :!apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
          ; [:##right_shift :##right_shift nil {
          ;                                   :alone [:spacebar :w :n]}]         ;; fzf :Buffers
          ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
@@ -833,6 +844,13 @@
          ]
  }
 
+{:des "slack"
+ :rules [:slack
+         [:##left_shift :##left_shift nil { :alone [:km "slack: messages sent to me"]}] ;; slack: message sent to me
+         [:##right_shift :##right_shift nil { :alone [:km "slack: messages sent by me"]}] ;; slack: message sent by me
+         ]
+ }
+
 
 {:des "pdf viewer"
  :rules [:pdfviewer
@@ -863,7 +881,7 @@
 
 {:des "right command/option"
  :rules [
-         [:##right_option :##right_option :!apple {:alone [:alfred "quick_switch_app" "dhth.system"]}] ;; alfred: system: quick switch app
+         ; [:##right_option :##right_option :!apple {:alone [:alfred "quick_switch_app" "dhth.system"]}] ;; alfred: system: quick switch app
 
          ; [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
          ; [:##right_option :##right_option [:!apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]

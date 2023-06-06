@@ -151,6 +151,8 @@ bindkey -v
 
 alias ..="cd .."
 
+alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -179,6 +181,11 @@ function t(){
     last_num=$(tail -n 1 $POMODORO_TASK_LIST_FILE_LOC | cut -d':' -f1)
     new_num=`expr $last_num + 1`
     echo "$new_num: $@" >> $POMODORO_TASK_LIST_FILE_LOC
+}
+
+function crl(){
+    response=$(curl -s $1)
+    echo $response | jq
 }
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
