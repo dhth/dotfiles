@@ -114,6 +114,7 @@
              :five-mode {:key :5}
              :tilde-mode {:key :grave_accent_and_tilde}
              :2-mode {:key :2}
+             :7-mode {:key :7}
              :8-mode {:key :8}
              :9-mode {:key :9}
              :w-mode {:key :w}
@@ -161,6 +162,7 @@
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
                  [:h :!SOCh] ;; magnet: previous display
                  [:l :!SOCl] ;; magnet: next display
+                 [:k [:alfred "work_kb_file"  "dhth.workwiki.search"]] ;; alfred: work: work kb seaRch
                  ]}
 
         {:des   "open urls"
@@ -195,7 +197,8 @@
          :rules [:four-mode
                  [:5 [:alfred "system_lock" "dhth.system"]]
                  [:c [:km "open: chrome_work"]]
-                 [:j [:alfred "jira_search"  "dhth.jira"]]
+                 ; [:j [:alfred "jira_search"  "dhth.jira"]]
+                 [:j [:alfred "open_jira_ticket"  "dhth.workutils"]] ;; workutils: open jira ticket
                  [:b [:alfred "jira_sprint_board" "dhth.jira"]]
                  [:3 [:alfred "reddit_save"  "dhth.reddit"]]
                  ; [:j [:alfred "jira_manager"  "dhth.tools"]]
@@ -205,14 +208,21 @@
          :rules [:five-mode
                  [:p [:open "https://github.com/pulls"]]
                  [:k [:open "/Applications/Keyboard Maestro.app"]]
-                 [:l [:alfred "work_wiki_log"  "dhth.workwiki.search"]]
+                 [:l [:alfred "todays_log"  "dhth.brain"]]
                  ]}
 
-        {:des "8 mode"
+        {:des "7-mode"
+         :rules [:7-mode
+                 [:6 [:alfred "quick_open_url_4" "dhth.bookmarks"]] ;; bookmarks: quick_open_url_4
+                 ]
+         }
+
+        {:des "8-mode"
          :rules [:8-mode
                  [:t [:alfred "timestamp_convert" "dhth.utils"]]
                  [:a [:alfred "aws_apigateway_list_apis"  "dhth.aws"]]
-                 [:9 [:alfred "work_wiki_logs_search"  "dhth.workwiki.search"]]
+                 [:9 [:alfred "logs_search"  "dhth.brain"]]
+                 [:7 [:alfred "quick_open_url_3" "dhth.bookmarks"]]
                  ]
          }
 
@@ -220,7 +230,7 @@
          :rules [:9-mode
                  [:a [:alfred "add_url_to_work_wiki"  "dhth.bookmarks"]]
                  [:0 [:alfred "spt"  "dhth.spotify"]]
-                 [:8 [:alfred "logs_search"  "dhth.logs"]]
+                 ; [:8 [:alfred "logs_search"  "dhth.logs"]]
                  ; [:s [:alfred "aws_s3_list_buckets"  "dhth.aws"]]
                  ]}
 
@@ -236,6 +246,7 @@
         {:des   "a mode"
          :rules [:a-mode
                  ; [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
+                 [:b [:alfred "add_url_to_log"  "dhth.brain"]] ;; dhth.brain: add url to log
                  [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:f [:!Ta :z] :termemul] ;; tmux prefix + z
@@ -471,6 +482,7 @@
                           [:f :!OCl :jetbrains] ;; jetbrains: reformat code
                           [:f :!TSf :dbeaver] ;; dbeaver: reformat code
                           [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
+                          [:u [:spacebar :r :u] :termemul] ;; vim: run line as command
                           [:w [:alfred "random_word" "dhth.vocabulary"]] ;; alfred: random word
                           [:v [:km "system: restart vim"] ] ;; karabiner: system: restart vim
                           ; [:spacebar [:alfred "replaceable_spacebar" "dhth.karabiner"]] ;; replaceable spacebar
@@ -664,7 +676,8 @@
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]
                           [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
-                          [:z [:alfred "system_sleep" "dhth.system"]]
+                          [:z [:alfred "system_sleep" "dhth.system"]] ;; 1password: quick access
+                          [:spacebar :!TSOCo]
                           [:i :!TOC8]
                           [:c :!OCf5]
                           ]}
@@ -696,14 +709,19 @@
 
 {:des   "semicolon mode"
  :rules [:semicolon-mode
-         [:1 [:!Ta :1]] ;; tmux prefix + 1
-         [:2 [:!Ta :2]]
-         [:3 [:!Ta :3]]
-         [:4 [:!Ta :4]]
-         [:5 [:!Ta :5]]
+         [:1 [:!Ta :1] :termemul] ;; tmux prefix + 1
+         [:2 [:!Ta :2] :termemul]
+         [:3 [:!Ta :3] :termemul]
+         [:4 [:!Ta :4] :termemul]
+         [:5 [:!Ta :5] :termemul]
+         [:1 [:alfred "browser_modheader_switch_profile_1" "dhth.workutils"] :browser] ;; browser: modheader: profile 1
+         [:2 [:alfred "browser_modheader_switch_profile_2" "dhth.workutils"] :browser] ;; browser: modheader: profile 2
+         [:3 [:alfred "browser_modheader_switch_profile_3" "dhth.workutils"] :browser] ;; browser: modheader: profile 3
+         [:4 [:alfred "browser_modheader_switch_profile_4" "dhth.workutils"] :browser] ;; browser: modheader: profile 4
+         [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
          [:c [:!Ta :c]] ;; tmux prefix + c
-         [:l [:alfred "add_url_to_log"  "dhth.logs"]] ;; dhth.logs: add url to log
          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
+         [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          ]}

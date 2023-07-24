@@ -82,8 +82,8 @@ font:
    x: 0
    # Keeping this as half of offset to vertically align the text in cursor
    y: 5
-   # home monitor size: 14, work monitor size: 21
-  size : 20
+   # home monitor size: 15, work monitor size: 21
+  size : 15
   # use_thin_strokes: true
   scale_with_dpi: true
 

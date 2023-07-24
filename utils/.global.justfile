@@ -1,9 +1,6 @@
 alias f := formatting
 alias t := tests
 
-default:
-  @just --list
-
 ###############
 #### TESTS #### 
 ###############

@@ -1,93 +1,60 @@
-# /Users/dht93/.config/tmuxinator/wiki.yml
-
 name: wiki
 root: ~/
 
-# Optional tmux socket
-# socket_name: foo
-
-# Note that the pre and post options have been deprecated and will be replaced by
-# project hooks.
-
-# Project hooks
-
-# Runs on project start, always
-# on_project_start: command
-
-# Run on project start, the first time
-# on_project_first_start: command
-
-# Run on project start, after the first time
-# on_project_restart: command
-
-# Run on project exit ( detaching from tmux session )
-# on_project_exit: command
-
-# Run on project stop
-# on_project_stop: command
-
-# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
-
-# Pass command line options to tmux. Useful for specifying a different tmux.conf.
-# tmux_options: -f ~/.tmux.mac.conf
-
-# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
-# tmux_command: byobu
-
-# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: editor
-
-# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
-
-# Controls whether the tmux session should be attached to automatically. Defaults to true.
-# attach: false
-
 windows:
   - w:
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
-          - vim:
-            # - tmux set status off
-            - cd $WIKI_DIR
-            - nvim
-  - wdocs:
-      panes:
-          - mkdocs:
-            - cd $WIKI_DIR/_layouts
-            - workon $WIKI_PYTHON
-            <%- if args[0] == "up" %>
-            <%- end %>
-  <%- if args[1] == "work" %>
+        - editor:
+          # - tmux set status off
+          - cd $WIKI_DIR
+          - tmux resize-pane -Z
+          - nvim
+        - docs:
+          - cd $WIKI_DIR/_layouts
+          - workon $WIKI_PYTHON
+<%- if args[1] == "work" %>
   - ww:
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
-          - vim:
-            - cd $WORK_WIKI_DIR
-            - nvim
-  - wwdocs:
+        - editor:
+          - cd $WORK_WIKI_DIR
+          - tmux resize-pane -Z
+          - nvim
+        - docs:
+          - cd $WORK_WIKI_DIR/_layouts
+          - workon $WIKI_PYTHON
+  - wkb:
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
-          - mkdocs:
-            - cd $WORK_WIKI_DIR/_layouts
-            - workon $WIKI_PYTHON
-            <%- if args[0] == "up" %>
-            <%- end %>
-  <%- end %>
-  <%- if args[2] == "blog" %>
+        - editor:
+          - cd $WORK_KB_DIR
+          - tmux resize-pane -Z
+          - nvim
+        - docs:
+          - cd $WORK_KB_DIR
+          - workon $WIKI_PYTHON
+<%- end %>
   - blog:
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
-          - vim:
-            - cd $BLOG_DIR
-            - nvim
-  - bserver:
+        - editor:
+          - cd $BLOG_DIR
+          - tmux resize-pane -Z
+          - nvim
+        - docs:
+          - cd $BLOG_DIR
+  - brain:
+      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
-          - gatsby:
-            - cd $BLOG_DIR
-  <%- end %>
-  - l:
-      panes:
-          - vim:
-            - cd $LOGS_DIR
-            - nvim
+        - editor:
+          - cd $BRAIN_DIR
+          - tmux resize-pane -Z
+          - nvim
+        - docs:
+          - cd $BRAIN_DIR/_layouts
+          - workon $WIKI_PYTHON
+          - yarn dev --port 8003
   # - spt:
   #     panes:
   #         - spt:

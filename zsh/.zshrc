@@ -130,7 +130,8 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 # highlighted line green, with entered word yellow
 
 alias ls='ls -aG'
-alias j='just --justfile ~/.global.justfile --working-directory .'
+# alias j='just --justfile ~/.global.justfile --working-directory .'
+alias j='just'
 export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 
 export PIP_REQUIRE_VIRTUALENV=false
