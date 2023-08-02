@@ -156,6 +156,7 @@
         {:des   "work stuff"
          :rules [:1-mode
                  [:2 [:km "mouse: left_click"]] ;; km: mouse: left_click
+                 [:b [:alfred "todays_brain"  "dhth.brain"]] ;; alfred: dhth.brain: today's brain
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
                  [:o [:alfred "add_on_my_mind_entry"  "dhth.onmymind"]] ;; on my mind: add entry
@@ -168,6 +169,7 @@
         {:des   "open urls"
          :rules [:2-mode
                  [:3 [:alfred "app_switch"  "dhth.system"]] ;; alfred: system: app switch
+                 [:b [:alfred "tomorrows_brain"  "dhth.brain"]] ;; alfred: dhth.brain: tomorrows's brain
                  [:n [:km "open: nikitas karabiner"]]
                  [:w [:open "http://127.0.0.1:8000"]]
                  [:e [:open "http://127.0.0.1:8001"]]
@@ -184,7 +186,7 @@
          :rules [:three-mode
                  [:t [:km "open: tmux_wiki"]]
                  ; [:c [:km "open: chrome_personal"]]
-                 [:o [:alfred "open_list_alfred"  "dhth.onmymind"]] ;; on my mind: open list in alfred
+                 [:o [:alfred "open_list_alfred"  "dhth.brain"]] ;; dhth.brain: open list in alfred
                  [:s [:km "open: setup_personal"]]
                  [:m [:open "/Applications/Spotify.app"]]
                  [:h [:km "mouse: move_left_small"]]
@@ -208,7 +210,6 @@
          :rules [:five-mode
                  [:p [:open "https://github.com/pulls"]]
                  [:k [:open "/Applications/Keyboard Maestro.app"]]
-                 [:l [:alfred "todays_log"  "dhth.brain"]]
                  ]}
 
         {:des "7-mode"
@@ -265,6 +266,8 @@
                  [:h :!SCopen_bracket :code]
                  [:l :!SCclose_bracket :code]
                  [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
+                 [:r [:alfred "add_url_to_reading" "dhth.brain"]] ;; alfred: dhth.brain: add url to reading
+                 [:m [:alfred "add_url_to_on_my_mind" "dhth.brain"]] ;; alfred: dhth.brain: add url to "on my mind"
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
                  [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
@@ -390,7 +393,8 @@
                  {:des "left-shift mode"
                   :rules [:left-shift-mode
                          ; [:right_shift [:open-a "Intellij Idea"]]
-                         [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
+                         ; [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
+                         [:right_shift [:!Ta :!Tw] :termemul]  ;; tmux: go to last window
                          [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
                          ; [:delete_or_backspace [:open-a "Preview"]]
                          ; [:return_or_enter [:open-a "Preview"]]
@@ -494,7 +498,7 @@
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:t [:!SCy] :slack] ;; slack: set status
-                          [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
+                          ; [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
                           [:9 [:spacebar :s :9] :termemul] ;; vim :treesitter: swap next function
@@ -502,6 +506,7 @@
                           [:8 [:spacebar :s :8] :termemul] ;; vim :treesitter: swap next parameter
                           [:o [:!Ssemicolon :s :o :spacebar :!S5] :termemul]
                           [:o :!SCi :jetbrains] ;; jetbrains: reload
+                          [:b [:alfred "search_brain"  "dhth.brain"]] ;; alfred: dhth.brain: search brain
                           [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
                           [:c [:launch "Screenshot"]]
                           ; [:l :!Ts :termemul]
@@ -515,10 +520,11 @@
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                           [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
                           ;; shift + option + arrow keys
-                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
-                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
-                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          ; [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          ; [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
                           ; [:##h :!SOleft_arrow]
                           ; [:##j :!SOdown_arrow]
                           ; [:##k :!SOup_arrow]
@@ -528,6 +534,7 @@
                  {:des   "t mode"
                   :rules [:t-mode
                           [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
+                          [:b [:alfred "todays_brain_webpage"  "dhth.brain"]] ;; alfred: dhth.brain : todays brain webpage
                           [:e [:spacebar :t :e] :termemul] ;; vim: markdown: add task entry
                           ; [:l [:alfred "tasks_personal_list"  "dhth.tasks"]]
                           [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
@@ -857,8 +864,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open "/Applications/Slack.app"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open "/Applications/Slack.app"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
          ]
  }
 

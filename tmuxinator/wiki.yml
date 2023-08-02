@@ -13,7 +13,7 @@ windows:
         - docs:
           - cd $WIKI_DIR/_layouts
           - workon $WIKI_PYTHON
-<%- if args[1] == "work" %>
+<%- if args[0] == "work" %>
   - ww:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
