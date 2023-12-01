@@ -12,7 +12,7 @@ windows:
           - nvim
         - docs:
           - cd $WIKI_DIR/_layouts
-          - workon $WIKI_PYTHON
+          - print -s "yarn dev --port 8001"
 <%- if args[0] == "work" %>
   - ww:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
@@ -23,7 +23,7 @@ windows:
           - nvim
         - docs:
           - cd $WORK_WIKI_DIR/_layouts
-          - workon $WIKI_PYTHON
+          - print -s "yarn dev --port 8002"
   - wkb:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
@@ -34,6 +34,7 @@ windows:
         - docs:
           - cd $WORK_KB_DIR
           - workon $WIKI_PYTHON
+          - print -s "mkdocs serve --dev-addr=127.0.0.1:8005"
 <%- end %>
   - blog:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
@@ -44,6 +45,7 @@ windows:
           - nvim
         - docs:
           - cd $BLOG_DIR
+          - print -s "yarn dev --port 8004"
   - brain:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
@@ -52,9 +54,9 @@ windows:
           - tmux resize-pane -Z
           - nvim
         - docs:
-          - cd $BRAIN_DIR/_layouts
+          - cd $BRAIN_DIR
           - workon $WIKI_PYTHON
-          - yarn dev --port 8003
+          - mkdocs serve --dev-addr=127.0.0.1:8003
   # - spt:
   #     panes:
   #         - spt:

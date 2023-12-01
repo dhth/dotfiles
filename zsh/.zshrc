@@ -172,6 +172,7 @@ alias gb="git branch --all | fzf | sed 's/remotes\///' | xargs | pbcopy"
 alias gcd1="git clone --depth=1"
 alias gcb='git checkout -b'
 alias sprint='jira sprint list --current -a $(jira me)'
+alias chash="git show --oneline | head -1 | awk '{ print \$1 }' | pbcopy"
 # alias gco="git checkout"
 
 # alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
@@ -248,6 +249,7 @@ alias gcd1='git clone --depth=1'
 alias icloud='cd $ICLOUD_DIR'
 
 alias opentabs='sh $DOT_FILES_DIR/utils/get_open_tabs.sh "Brave Browser"'
+alias oo='$DOT_FILES_DIR/utils/get_multi.sh'
 
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
@@ -399,6 +401,8 @@ alias pomo='$GOPATH/bin/openpomodoro-cli'
 # alias n='nnn'
 # alias ls='nnn -e'
 
+source $DOT_FILES_DIR/utils/open_encoded_url.sh
+
 function get_ip(){
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
 }
@@ -427,11 +431,11 @@ function bback(){
 
 # git log for a specific branch
 function glbo() {
-    local selected_branch
-    selected_branch=$(git branch | fzf --height=6 --layout=reverse | xargs)
+    local selected_branches
+    selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi| xargs)
 
-    if [ -n "$selected_branch" ]; then
-        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit $selected_branch
+    if [ -n "$selected_branches" ]; then
+        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit $selected_branches
     fi
 }
 
@@ -706,7 +710,7 @@ function ff() {
 
 # work commands
 function ww() {
-    work_command=$(cat $DROPBOX_DIR/work/work_commands.txt | grep '^[^#]' | fzf --height=10 --layout=reverse)
+    work_command=$(cat $DROPBOX_DIR/work/work_commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
     if [ -n "$work_command" ]; then
         print -s $work_command
         eval $work_command
@@ -832,6 +836,14 @@ function wwf(){
         local stripped
         stripped=$(echo $selected_entry | cut -d'.' -f1 | sed -e "s/\/index//" | xargs)
         open "http://127.0.0.1:8001/$stripped/"
+    fi
+}
+
+function prdiff(){
+    local selected_pr_number
+    selected_pr_number=$(gh pr list | fzf --height=10 --layout=reverse | awk -F  " " '// {print $1}')
+    if [ -n "$selected_pr_number" ]; then
+        gh pr diff $selected_pr_number | git-split-diffs --color | less -RFX
     fi
 }
 

@@ -46,6 +46,9 @@
                    {:vendor_id 1452}
                    {:vendor_id 2652}
                    ]
+           ; :duckyo3m [
+           ;         {:vendor_id 12851}
+           ;         ]
            }
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
@@ -125,7 +128,6 @@
              :z-mode {:key :z}
              :d-mode {:key :d}
              :e-mode {:key :e}
-             :i-mode {:key :i}
              :slash-mode {:key :slash}
              :spacebar-mode {:key :spacebar}
              :c-mode {:key :c}
@@ -159,7 +161,7 @@
                  [:b [:alfred "todays_brain"  "dhth.brain"]] ;; alfred: dhth.brain: today's brain
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
-                 [:o [:alfred "add_on_my_mind_entry"  "dhth.onmymind"]] ;; on my mind: add entry
+                 [:o [:alfred "add_url_to_reading"  "dhth.brain"]] ;; dhth.brain: on my mind: add entry
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
                  [:h :!SOCh] ;; magnet: previous display
                  [:l :!SOCl] ;; magnet: next display
@@ -175,7 +177,7 @@
                  [:e [:open "http://127.0.0.1:8001"]]
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
-                 [:o [:alfred "open_list"  "dhth.onmymind"]] ;; on my mind: open list
+                 [:o [:alfred "open_on_my_mind"  "dhth.brain"]] ;; dhth.brain: on my mind: open list
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  [:h :!TOh] ;; magnet: left
                  [:l :!TOl] ;; magnet: right
@@ -250,6 +252,7 @@
                  [:b [:alfred "add_url_to_log"  "dhth.brain"]] ;; dhth.brain: add url to log
                  [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
+                 [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:f [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
@@ -394,6 +397,7 @@
                   :rules [:left-shift-mode
                          ; [:right_shift [:open-a "Intellij Idea"]]
                          ; [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
+                         [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                          [:right_shift [:!Ta :!Tw] :termemul]  ;; tmux: go to last window
                          [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
                          ; [:delete_or_backspace [:open-a "Preview"]]
@@ -403,6 +407,7 @@
                  {:des "right-shift mode"
                   :rules [:right-shift-mode
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
+                         [:t [:alfred "timezone"  "carlosnz.timezones2"]]
                           ]}
 
                  {:des   "m mode"
@@ -416,6 +421,7 @@
                           [:j :!TOCj ] ;; dato join meeting
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
+                          [:i [:open "http://127.0.0.1:8003/on-my-mind/on-my-mind/"]] ;; brain: open on my mind webpage
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
                           [:e :!SCm :slack] ;; slack: mentions
@@ -498,7 +504,6 @@
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:t [:!SCy] :slack] ;; slack: set status
-                          ; [:b [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
                           [:9 [:spacebar :s :9] :termemul] ;; vim :treesitter: swap next function
@@ -726,8 +731,9 @@
          [:3 [:alfred "browser_modheader_switch_profile_3" "dhth.workutils"] :browser] ;; browser: modheader: profile 3
          [:4 [:alfred "browser_modheader_switch_profile_4" "dhth.workutils"] :browser] ;; browser: modheader: profile 4
          [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
-         [:c [:!Ta :c]] ;; tmux prefix + c
+         ; [:c [:!Ta :c]] ;; tmux prefix + c
          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
+         [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
          [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
@@ -864,8 +870,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
          ]
  }
 
