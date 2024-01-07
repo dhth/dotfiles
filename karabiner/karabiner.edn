@@ -530,10 +530,10 @@
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                           [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
                           ;; shift + option + arrow keys
-                          ; [:h [:!Ta :h] :termemul] ;; tmux prefix + h
-                          ; [:j [:!Ta :j] :termemul] ;; tmux prefix + j
-                          ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                          ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
                           [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
                           [:u :!TCu :browser] ;; browser: notion web clipper
                           ; [:##h :!SOleft_arrow]
