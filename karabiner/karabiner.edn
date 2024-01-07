@@ -46,9 +46,9 @@
                    {:vendor_id 1452}
                    {:vendor_id 2652}
                    ]
-           ; :duckyo3m [
-           ;         {:vendor_id 12851}
-           ;         ]
+           :duckyo3m [
+                   {:vendor_id 12851}
+                   ]
            }
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
@@ -184,17 +184,19 @@
                  [:m :!TOm] ;; magnet: maximise
                  ]}
 
-        {:des   "3-mode"
+        {:des   "three-mode"
          :rules [:three-mode
                  [:t [:km "open: tmux_wiki"]]
                  ; [:c [:km "open: chrome_personal"]]
                  [:o [:alfred "open_list_alfred"  "dhth.brain"]] ;; dhth.brain: open list in alfred
                  [:s [:km "open: setup_personal"]]
-                 [:m [:open "/Applications/Spotify.app"]]
-                 [:h [:km "mouse: move_left_small"]]
-                 [:j [:km "mouse: move_down_small"]]
-                 [:k [:km "mouse: move_up_small"]]
-                 [:l [:km "mouse: move_right_small"]]
+                 ; [:h [:km "mouse: move_left_small"]]
+                 ; [:j [:km "mouse: move_down_small"]]
+                 ; [:k [:km "mouse: move_up_small"]]
+                 ; [:l [:km "mouse: move_right_small"]]
+                 [:h :!TOd] ;; magnet: one-third left
+                 [:l :!TOg] ;; magnet: one-third right
+                 [:m :!TOf] ;; magnet: one-third center
                  ]}
 
         {:des   "four mode"
@@ -206,6 +208,9 @@
                  [:b [:alfred "jira_sprint_board" "dhth.jira"]]
                  [:3 [:alfred "reddit_save"  "dhth.reddit"]]
                  ; [:j [:alfred "jira_manager"  "dhth.tools"]]
+                 [:h :!TOe] ;; magnet: two-thirds left
+                 [:l :!TOt] ;; magnet: two-thirds right
+                 [:m [:open "/Applications/Spotify.app"]]
                  ]}
 
         {:des   "5-mode"
@@ -324,7 +329,7 @@
                           [:j :!Td :code ] ;; vim <c-d>
                           [:k :!Tu :code ] ;; vim <c-d>
                           [:o :!TOCd ] ;; toggle dato
-                          [:f [:f :!Tf ] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
+                          [:f [:spacebar :h :e] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
                           [:c [:spacebar :d :c] :termemul ] ;; nvim: helpers: diff with commit
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
@@ -530,6 +535,7 @@
                           ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
                           ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
                           [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
+                          [:u :!TCu :browser] ;; browser: notion web clipper
                           ; [:##h :!SOleft_arrow]
                           ; [:##j :!SOdown_arrow]
                           ; [:##k :!SOup_arrow]
@@ -678,6 +684,22 @@
                           [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
                           ]}
 
+                 {:des   "quote mode"
+                  :rules [:quote-mode 
+                          ; this is mostly for duckyo3m
+                          [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
+                          [:q [:km "quicktime: movie"]]
+                          [:h [:km "mouse: move_left"]]
+                          [:l [:km "mouse: move_right"]]
+                          [:hyphen [:alfred "pause" "dhth.spotify"]]
+                          [:equal_sign [:alfred "play" "dhth.spotify"]]
+                          [:1 [:type-secret "praline-jingle"]]
+                          [:2 [:type-secret "haven-barnyard"]]
+                          [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
+                          [:c [:alfred "work_calendar" "dhth.bookmarks"]] ;; alfred: open work calendar
+                          [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
+                          ]}
+
                  {:des   "tab mode"
                   :rules [:tab-mode
                           [:##h :!SOleft_arrow ]
@@ -714,8 +736,11 @@
                           ; [:p [:application "spotify" "playpause"]]
                           ; [:open_bracket [:application "spotify" "previous track"]]
                           ; [:close_bracket [:application "spotify" "next track"]]
-                          [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
-                          [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
+                          ; [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
+                          ; [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
+                          [:2 :!TOC2] ;; hammerspoon:: 50-50 window layout
+                          [:3 :!TOC3] ;; hammerspoon:: 30-70 window layout
+                          [:r :!TOCr] ;; hammerspoon:: reload config
                           [:s [:alfred "search_drive_file" "dhth.files"]]
                           ]}
 
@@ -779,6 +804,8 @@
  :rules [:left-command-mode-non-apple
          [:h [:!Ta :p] :termemul]
          [:l [:!Ta :n] :termemul]
+         [:escape :!Cgrave_accent_and_tilde [:browser :duckyo3m]] ;; browser:: command-tilde:: duckyo3m
+         [:escape :grave_accent_and_tilde :termemul] ;; termemul: command-esc to tilde:: duckyo3m
          ]}
 
 {:des "caps lock to left control" :rules [
@@ -823,7 +850,7 @@
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          ; [:##left_option :##left_command nil {:alone [:!Ts]}]
          [:##left_shift :##left_shift nil { :alone [:!Tf]}]         ;; fzf :Buffers
-         [:##right_shift :##right_shift nil {:alone [:!Ta :!Tl]}] ;; termemul: tmux: switch to last session
+         [:##right_shift :##right_shift nil {:alone [:!Ta :!Ts]}] ;; termemul: tmux: switch to last session
          [:##right_command :##right_command :apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
          [:##right_option :##right_option :!apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
          ; [:##right_shift :##right_shift nil {
@@ -870,8 +897,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
          ]
  }
 

@@ -9,8 +9,6 @@
 name: <%= WDIR.split('/').last.downcase  %>
 root: <%= @args[0] %>
 
-# args[1] is supposed to be python env name
-
 windows:
   - editor:
       # layout: main-horizontal

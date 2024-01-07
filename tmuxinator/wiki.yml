@@ -10,9 +10,9 @@ windows:
           - cd $WIKI_DIR
           - tmux resize-pane -Z
           - nvim
-        - docs:
-          - cd $WIKI_DIR/_layouts
-          - print -s "yarn dev --port 8001"
+        - preview:
+          - workon <%= @args[1] %>
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh'
 <%- if args[0] == "work" %>
   - ww:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]

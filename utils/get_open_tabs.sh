@@ -11,13 +11,15 @@
 #  validate args
 #  don't open app if not already open
 
+browser="${1:-"Brave Browser"}"
+
 osascript << EOF
 # build the output with this variable
 set titleString to ""
 # Apple Script must be able to compile tell statments
 # which mean's they can't be variable in Apple Script its self
 # but not Bash ;)
-tell application "$1"
+tell application "$browser"
         set window_list to every window # get the windows
         repeat with the_window in window_list # for every window
                 set tab_list to every tab in the_window # get the tabs

@@ -248,8 +248,19 @@ alias gcd1='git clone --depth=1'
 
 alias icloud='cd $ICLOUD_DIR'
 
-alias opentabs='sh $DOT_FILES_DIR/utils/get_open_tabs.sh "Brave Browser"'
-alias oo='$DOT_FILES_DIR/utils/get_multi.sh'
+
+# urls
+alias opentabs='$DOT_FILES_DIR/utils/get_open_tabs.sh'
+alias oo='$DOT_FILES_DIR/utils/open_multi.sh'
+
+alias spu='opentabs > $BRAIN_URLS_PERS'
+alias swu='opentabs > $BRAIN_URLS_WORK'
+
+alias opu='cat $BRAIN_URLS_PERS | oo'
+alias owu='cat $BRAIN_URLS_WORK | oo'
+
+alias pu='cat $BRAIN_URLS_PERS'
+alias wu='cat $BRAIN_URLS_WORK'
 
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 
@@ -370,7 +381,7 @@ function gco() {
 alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="3 months ago"'
 
 # git log for current branch
-alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit $(git branch --show-current) --since="3 months ago"'
+alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="3 months ago"'
 alias gll='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
 
 alias b='buku --np'
@@ -435,7 +446,7 @@ function glbo() {
     selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi| xargs)
 
     if [ -n "$selected_branches" ]; then
-        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit $selected_branches
+        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit "$selected_branches"
     fi
 }
 
