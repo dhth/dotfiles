@@ -376,7 +376,6 @@
                           [:i [:alfred "github_issues" "dhth.bookmarks"]] ;; bookmarks: github issues
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                           [:d [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files (git diff)
-                          [:f [:!Ssemicolon :!Sg :i :t :spacebar :f :e :t :c :h] :termemul] ;; vim: Git fetch
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
@@ -430,9 +429,12 @@
                           [:k [:open "/Applications/Keyboard Maestro.app"]]
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
                           [:e :!SCm :slack] ;; slack: mentions
-                          [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
-                          [:2 [:km "window: fs: move to display 2"]] ;; km: move to display 2
-                          [:3 [:km "window: fs: move to display 3"]] ;; km: move to display 3
+                          ; [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
+                          ; [:2 [:km "window: fs: move to display 2"]] ;; km: move to display 2
+                          ; [:3 [:km "window: fs: move to display 3"]] ;; km: move to display 3
+                          [:1 :!TOCS1] ;; hammerspoon: move full screen to screen 1
+                          [:2 :!TOCS2] ;; hammerspoon: move full screen to screen 2
+                          [:3 :!TOCS3] ;; hammerspoon: move full screen to screen 3
                           ]}
 
                  {:des   "n mode"
@@ -630,12 +632,15 @@
                           [:s [:alfred "slack_status" "dhth.slack.status"]] ;; slack: change slack status
                           [:v [:alfred "vim_plugins" "dhth.vim"]]
                           [:c [:alfred "control" "dhth.spotify"]]
-                          [:2 [:alfred "albums" "dhth.spotify"]]
-                          [:5 [:alfred "playlists" "dhth.spotify"]]
-                          [:6 [:alfred "recently_played" "dhth.spotify"]]
+                          ; [:2 [:alfred "albums" "dhth.spotify"]]
+                          ; [:5 [:alfred "playlists" "dhth.spotify"]]
+                          ; [:6 [:alfred "recently_played" "dhth.spotify"]]
                           [:d [:alfred "devices" "dhth.spotify"]]
                           [:a [:alfred "add_track_to_playlist" "dhth.spotify"]] ;; spotify: add track to playlist
-                          [:r :!TOSr] ;; hammerspoon: reload config
+                          [:r :!TOCr] ;; hammerspoon: reload config
+                          [:1 :!TOC1] ;; hammerspoon: move to screen 1
+                          [:2 :!TOC2] ;; hammerspoon: move to screen 2
+                          [:3 :!TOC3] ;; hammerspoon: move to screen 3
                           ]}
 
                  {:des "slash mode"
@@ -897,8 +902,8 @@
 
 {:des "spotify"
  :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
          ]
  }
 
