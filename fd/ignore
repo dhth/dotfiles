@@ -1,5 +1,3 @@
 .git
-!.bsp/                               
-!.vscode/                            
 !local_only_
-!project/metals.sbt
+node_modules

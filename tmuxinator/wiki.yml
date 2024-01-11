@@ -12,7 +12,8 @@ windows:
           - nvim
         - preview:
           - workon <%= @args[1] %>
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh'
+          - cd $WIKI_DIR
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
 <%- if args[0] == "work" %>
   - ww:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
@@ -22,8 +23,8 @@ windows:
           - tmux resize-pane -Z
           - nvim
         - docs:
-          - cd $WORK_WIKI_DIR/_layouts
-          - print -s "yarn dev --port 8002"
+          - cd $WORK_WIKI_DIR
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
   - wkb:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
@@ -56,7 +57,7 @@ windows:
         - docs:
           - cd $BRAIN_DIR
           - workon $WIKI_PYTHON
-          - mkdocs serve --dev-addr=127.0.0.1:8003
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
   # - spt:
   #     panes:
   #         - spt:

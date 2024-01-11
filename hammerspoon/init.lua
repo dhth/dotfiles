@@ -48,4 +48,15 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "1", moveWindowToDisplay(1))
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", moveWindowToDisplay(2))
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", moveWindowToDisplay(3))
 
+-- [:j [:km "emoji: point down"] ]
+-- [:k [:km "emoji: point up"] ]
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "k", function()
+    hs.eventtap.keyStrokes("👆")
+end)
+
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "j", function()
+    hs.eventtap.keyStrokes("👇")
+end)
+
 hs.alert.show("Config loaded!")

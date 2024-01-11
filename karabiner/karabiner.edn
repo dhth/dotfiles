@@ -536,7 +536,6 @@
                           [:j [:!Ta :j] :termemul] ;; tmux prefix + j
                           [:k [:!Ta :k] :termemul] ;; tmux prefix + k
                           [:l [:!Ta :l] :termemul] ;; tmux prefix + l
-                          [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
                           [:u :!TCu :browser] ;; browser: notion web clipper
                           ; [:##h :!SOleft_arrow]
                           ; [:##j :!SOdown_arrow]
@@ -572,10 +571,11 @@
                  {:des   "v mode"
                   :rules [:v-mode
                           [:p [:alfred "vim_plugins"  "dhth.vim"]]
-                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
-                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
-                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
-                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          ; [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          ; [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
                           [:n [:spacebar :v :n] :termemul] ;; vim: vnew
                           [:m :!TSOCv ] ;; vimac: activate hint mode
                           [:s :!TSCs ] ;; vimac: activate scroll mode
@@ -609,8 +609,10 @@
                           [:x [:km "emoji: thumbs up"] ]
                           [:c [:km "emoji: check mark"] ]
                           [:0 [:km "emoji: smile"] ]
-                          [:j [:km "emoji: point down"] ]
-                          [:k [:km "emoji: point up"] ]
+                          ; [:j [:km "emoji: point down"] ]
+                          ; [:k [:km "emoji: point up"] ]
+                          [:k [:!TOCk]] ;; hammerspoon: emoji: point up
+                          [:j [:!TOCj]] ;; hammerspoon: emoji: point down
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:alfred "zshrc"  "dhth.tools"]]
