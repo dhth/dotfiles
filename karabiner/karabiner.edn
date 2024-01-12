@@ -680,8 +680,12 @@
                   :rules [:tilde-mode
                           [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
                           [:q [:km "quicktime: movie"]]
-                          [:h [:km "mouse: move_left"]]
-                          [:l [:km "mouse: move_right"]]
+                          ; [:h [:km "mouse: move_left"]]
+                          ; [:l [:km "mouse: move_right"]]
+                          [:h [:!COTSh]] ;; hammerspoon: move mouse left
+                          [:l [:!COTSl]] ;; hammerspoon: move mouse right
+                          [:j [:!COTSj]] ;; hammerspoon: move mouse down
+                          [:k [:!COTSk]] ;; hammerspoon: move mouse up
                           [:hyphen [:alfred "pause" "dhth.spotify"]]
                           [:equal_sign [:alfred "play" "dhth.spotify"]]
                           [:1 [:type-secret "praline-jingle"]]
