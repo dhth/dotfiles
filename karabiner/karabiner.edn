@@ -412,6 +412,7 @@
                   :rules [:right-shift-mode
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
+                         [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
                           ]}
 
                  {:des   "m mode"
@@ -624,6 +625,7 @@
                   :rules [:equal-mode
                           [:1 [:application "Brave Browser" "set the clipboard to title of active tab of first window as text"]]
                           [:2 [:application "Brave Browser" "set the clipboard to title of active tab of second window as text"]]
+                          ; [:w [:km "setup: office"]]
                           [:w [:km "setup: office"]]
                           [:a [:slash :a :w :a :y] :slack] ;; slack: type /away
                           [:f [:open "https://fast.com"]] ;; browser: open fast.com
@@ -772,6 +774,7 @@
          [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
          [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
+         [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          ]}
 
