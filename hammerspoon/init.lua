@@ -3,23 +3,25 @@ P = function(v)
 end
 
 -- widescreen monitor
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", function()
-    local laptopScreen = "LC34G55T"
+hs.hotkey.bind({ "cmd", "alt", "shift", "ctrl" }, "q", function()
+    -- local laptopScreen = "LC34G55T"
+    local screen = hs.screen.mainScreen()
     local windowLayout = {
-        { "Brave Browser", nil, laptopScreen, hs.layout.left50,  nil, nil },
-        { "Zoom",          nil, laptopScreen, hs.layout.left50,  nil, nil },
-        { "Slack",         nil, laptopScreen, hs.layout.right50, nil, nil },
-        { "Alacritty",     nil, laptopScreen, hs.layout.right50, nil, nil },
+        { "Brave Browser", nil, screen, hs.layout.left50,  nil, nil },
+        { "Zoom",          nil, screen, hs.layout.left50,  nil, nil },
+        { "Slack",         nil, screen, hs.layout.right50, nil, nil },
+        { "Alacritty",     nil, screen, hs.layout.right50, nil, nil },
     }
     hs.layout.apply(windowLayout)
 end)
 
 -- widescreen monitor
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", function()
-    local laptopScreen = "LC34G55T"
+hs.hotkey.bind({ "cmd", "alt", "shift", "ctrl" }, "w", function()
+    -- local laptopScreen = "LC34G55T"
+    local screen = hs.screen.mainScreen()
     local windowLayout = {
-        { "Brave Browser", nil, laptopScreen, hs.layout.left30,  nil, nil },
-        { "Alacritty",     nil, laptopScreen, hs.layout.right70, nil, nil },
+        { "Brave Browser", nil, screen, hs.layout.left30,  nil, nil },
+        { "Alacritty",     nil, screen, hs.layout.right70, nil, nil },
     }
     hs.layout.apply(windowLayout)
 end)
@@ -27,6 +29,8 @@ end)
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "r", function()
     hs.reload()
 end)
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "c", hs.toggleConsole)
 
 function MoveWindowToDisplay(d, fullScreen)
     return function()
@@ -86,5 +90,27 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "l", MoveMouse("l", mouse_x_de
 hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "j", MoveMouse("j", 0, mouse_y_delta))
 hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "k", MoveMouse("k", 0, mouse_y_delta))
 
+
+-- hs.hotkey.bind({ "cmd", "alt", "shift" }, "k", function()
+--     hs.eventtap.event.newScrollEvent({0, 100}, {}, "pixel"):post()
+-- end)
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "c", function()
+    local current_mouse_coordinates = hs.mouse.absolutePosition()
+    hs.eventtap.leftClick(current_mouse_coordinates)
+end)
+
+hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "q", function()
+    local app = hs.application.open("com.apple.QuickTimePlayerX")
+    hs.timer.doAfter(0.5, function()
+        app:selectMenuItem({ "File", "New Movie Recording" })
+        hs.timer.doAfter(0.5, function()
+            app:selectMenuItem({ "View", "Float on Top" })
+            hs.timer.doAfter(0.5, function()
+                hs.eventtap.keyStroke({"ctrl", "option"}, "g") -- one thirds of the screen (via magnet)
+            end)
+        end)
+    end)
+end)
 
 hs.alert.show("Config loaded!")

@@ -125,6 +125,7 @@
              :tab-mode {:key :tab}
              :open-bracket-mode {:key :open_bracket}
              :close-bracket-mode {:key :close_bracket}
+             :x-mode {:key :x}
              :z-mode {:key :z}
              :d-mode {:key :d}
              :e-mode {:key :e}
@@ -157,7 +158,8 @@
 
         {:des   "work stuff"
          :rules [:1-mode
-                 [:2 [:km "mouse: left_click"]] ;; km: mouse: left_click
+                 ; [:2 [:km "mouse: left_click"]] ;; km: mouse: left_click
+                 [:2 [:!COTSc]] ;; hammerspoon: mouse: left click
                  [:b [:alfred "todays_brain"  "dhth.brain"]] ;; alfred: dhth.brain: today's brain
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
@@ -258,10 +260,12 @@
                  [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
-                 [:f [:!Ta :z] :termemul] ;; tmux prefix + z
+                 [:d [:!Ta :d] :termemul] ;; tmux prefix + d
+                 [:f [:!Ta :!Tf] :termemul] ;; tmux prefix + C-f
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
                  [:n [:!Ta :!Tn] :termemul] ;; tmux: window picker
+                 [:quote [:!Ta :!Tn] :termemul] ;; tmux: window picker
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
@@ -413,6 +417,8 @@
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
                          [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
+                         [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
+                         [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
                           ]}
 
                  {:des   "m mode"
@@ -603,6 +609,12 @@
                           [:o [:alfred "workout_log_url"  "dhth.bookmarks"]]
                           ]}
 
+                 {:des "x-mode"
+                  :rules [:x-mode
+                          [:j [:!Ta :hyphen] :termemul] ;; termemul: tmux: prefix + -
+                          [:l [:!Ta :!Sbackslash] :termemul] ;; termemul: tmux: prefix + |
+                          ]}
+
                  {:des "emoji-mode"
                   :rules [:z-mode
                           [:e :emoji_picker]
@@ -635,7 +647,8 @@
                   :rules [:comma-mode
                           [:s [:alfred "slack_status" "dhth.slack.status"]] ;; slack: change slack status
                           [:v [:alfred "vim_plugins" "dhth.vim"]]
-                          [:c [:alfred "control" "dhth.spotify"]]
+                          ; [:c [:alfred "control" "dhth.spotify"]]
+                          [:c [:!COTc]] ;; hammerspoon: toggle console
                           ; [:2 [:alfred "albums" "dhth.spotify"]]
                           ; [:5 [:alfred "playlists" "dhth.spotify"]]
                           ; [:6 [:alfred "recently_played" "dhth.spotify"]]
@@ -681,7 +694,8 @@
                  {:des   "tilde mode"
                   :rules [:tilde-mode
                           [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
-                          [:q [:km "quicktime: movie"]]
+                          ; [:q [:km "quicktime: movie"]]
+                          [:q [:!COTq]] ;; hammerspoon: quicktime: movie
                           ; [:h [:km "mouse: move_left"]]
                           ; [:l [:km "mouse: move_right"]]
                           [:h [:!COTSh]] ;; hammerspoon: move mouse left
@@ -751,8 +765,8 @@
                           ; [:close_bracket [:application "spotify" "next track"]]
                           ; [:1 [:application "Brave Browser" "set the clipboard to URL of active tab of first window as text"]]
                           ; [:2 [:application "Brave Browser" "set the clipboard to URL of active tab of second window as text"]]
-                          [:2 :!TOC2] ;; hammerspoon:: 50-50 window layout
-                          [:3 :!TOC3] ;; hammerspoon:: 30-70 window layout
+                          [:2 :!COSTq] ;; hammerspoon:: 50-50 window layout
+                          [:3 :!COSTw] ;; hammerspoon:: 30-70 window layout
                           [:r :!TOCr] ;; hammerspoon:: reload config
                           [:s [:alfred "search_drive_file" "dhth.files"]]
                           ]}
