@@ -1,0 +1,9 @@
+name: popup
+root: ~/
+
+windows:
+  - jira:
+     - tmux set status off
+     - jira sprint list --current
+  - second:
+     - echo "hi"

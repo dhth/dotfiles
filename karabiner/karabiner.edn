@@ -256,7 +256,8 @@
         {:des   "a mode"
          :rules [:a-mode
                  ; [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
-                 [:b [:alfred "add_url_to_log"  "dhth.brain"]] ;; dhth.brain: add url to log
+                 ; [:b [:alfred "add_url_to_log"  "dhth.brain"]] ;; dhth.brain: add url to log
+                 [:b [:!Ta :!Tb]] ;; tmux: persistent popup half screen
                  [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
@@ -282,7 +283,7 @@
                  [:m [:alfred "add_url_to_on_my_mind" "dhth.brain"]] ;; alfred: dhth.brain: add url to "on my mind"
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
-                 [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
+                 ; [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
                  [:i [:alfred "quick_help_link" "dhth.bookmarks"]] ;; alfred: bookmarks: quick help link
                  ]}
 
@@ -416,9 +417,15 @@
                   :rules [:right-shift-mode
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
-                         [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
-                         [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
-                         [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
+                         ; [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
+                         ; [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
+                         ; [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
+                         [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
+                         [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
+                         [:3 [:!Ta :!S3] :termemul] ;; tmux: layout 3
+                         [:4 [:!Ta :!S4] :termemul] ;; tmux: layout 4
+                         [:5 [:!Ta :!S5] :termemul] ;; tmux: layout 5
+                         [:s [:!Ta :!Tv]] ;; tmux: persistent popup full screen
                           ]}
 
                  {:des   "m mode"
