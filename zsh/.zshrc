@@ -78,7 +78,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(zsh-lazyload zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -156,8 +156,8 @@ alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+lazyload nvm -- 'source $NVM_DIR/nvm.sh'  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias v="nvim"
 alias vim="nvim"
@@ -1056,8 +1056,9 @@ mkdir -p $WORKON_HOME
 #
 . ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
 
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit ; compinit
+# https://github.com/zsh-users/zsh-completions
+# fpath=(~/.zsh/completion $fpath)
+# autoload -Uz compinit ; compinit
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
