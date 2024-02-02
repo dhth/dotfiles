@@ -26,6 +26,6 @@ nvim_panes=$(tmux list-panes -a -F "#{session_name}:#{window_name}.#{pane_id} #{
 
 for pane in $nvim_panes; do
     echo "tmux send-keys -t $pane \"$command_to_run\" Enter"
-    tmux send-keys -t $pane "$command_to_run" Enter
+    tmux send-keys -t "$pane" "$command_to_run" Enter
 done
 

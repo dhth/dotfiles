@@ -219,6 +219,8 @@
          :rules [:five-mode
                  [:p [:open "https://github.com/pulls"]]
                  [:k [:open "/Applications/Keyboard Maestro.app"]]
+                 ; [:h :!OSh] ;; amethyst: shrink main pane
+                 ; [:l :!OSl] ;; amethyst: expand main pane
                  ]}
 
         {:des "7-mode"
@@ -417,9 +419,10 @@
                   :rules [:right-shift-mode
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
-                         ; [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
-                         ; [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
-                         ; [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
+                         [:q [:open "/System/Applications/Messages.app"]] ;; open: Messages
+                         [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
+                         [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
+                         [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
                          [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
                          [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
                          [:3 [:!Ta :!S3] :termemul] ;; tmux: layout 3
@@ -430,11 +433,24 @@
 
                  {:des   "m mode"
                   :rules [:m-mode
+                          ; [:1 :!TOS1] ;; amethyst: throw focussed window to space 1
+                          ; [:2 :!TOS2] ;; amethyst: throw focussed window to space 2
+                          ; [:3 :!TOS3] ;; amethyst: throw focussed window to space 3
+                          ; [:4 :!TOS4] ;; amethyst: throw focussed window to space 4
+                          ; [:5 :!TOS5] ;; amethyst: throw focussed window to space 5
+                          ; [:6 :!TOS6] ;; amethyst: throw focussed window to space 6
+                          ; [:1 ["/opt/homebrew/bin/yabai -m window --space 1 --focus"]] ;; yabai: move window to space 1
+                          ; [:2 ["/opt/homebrew/bin/yabai -m window --space 2 --focus"]] ;; yabai: move window to space 2
+                          ; [:3 ["/opt/homebrew/bin/yabai -m window --space 3 --focus"]] ;; yabai: move window to space 3
+                          ; [:4 ["/opt/homebrew/bin/yabai -m window --space 4 --focus"]] ;; yabai: move window to space 4
+                          ; [:5 ["/opt/homebrew/bin/yabai -m window --space 5 --focus"]] ;; yabai: move window to space 5
+                          ; [:6 ["/opt/homebrew/bin/yabai -m window --space 6 --focus"]] ;; yabai: move window to space 6
+                          [:f :!OSk ] ;; amethyst: move focus clockwise
                           ; [:1 [:alfred "search_tracks"  "dhth.spotify"]]
                           ; [:2 [:alfred "search_albums"  "dhth.spotify"]]
                           ; [:3 [:alfred "search_artists"  "dhth.spotify"]]
-                          [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
-                          [:5 [:alfred "search_playlists"  "dhth.spotify"]]
+                          ; [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
+                          ; [:5 [:alfred "search_playlists"  "dhth.spotify"]]
                           [:s [:alfred "search"  "dhth.spotify"]]
                           [:j :!TOCj ] ;; dato join meeting
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
@@ -446,9 +462,9 @@
                           ; [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
                           ; [:2 [:km "window: fs: move to display 2"]] ;; km: move to display 2
                           ; [:3 [:km "window: fs: move to display 3"]] ;; km: move to display 3
-                          [:1 :!TOCS1] ;; hammerspoon: move full screen to screen 1
-                          [:2 :!TOCS2] ;; hammerspoon: move full screen to screen 2
-                          [:3 :!TOCS3] ;; hammerspoon: move full screen to screen 3
+                          [:1 :!COTS1] ;; hammerspoon: move full screen to screen 1
+                          [:2 :!COTS2] ;; hammerspoon: move full screen to screen 2
+                          [:3 :!COTS3] ;; hammerspoon: move full screen to screen 3
                           ]}
 
                  {:des   "n mode"
@@ -544,7 +560,8 @@
                           ; [:p [:open "/Applications/Spotify.app"]]
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
-                          [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
+                          ; [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
+                          [:w :!TOSk] ;; amethyst: swap focussed window clockwise
                           ;; shift + option + arrow keys
                           [:h [:!Ta :h] :termemul] ;; tmux prefix + h
                           [:j [:!Ta :j] :termemul] ;; tmux prefix + j
@@ -662,9 +679,12 @@
                           [:d [:alfred "devices" "dhth.spotify"]]
                           [:a [:alfred "add_track_to_playlist" "dhth.spotify"]] ;; spotify: add track to playlist
                           [:r :!TOCr] ;; hammerspoon: reload config
-                          [:1 :!TOC1] ;; hammerspoon: move to screen 1
-                          [:2 :!TOC2] ;; hammerspoon: move to screen 2
-                          [:3 :!TOC3] ;; hammerspoon: move to screen 3
+                          [:1 :!TOC1] ;; amethyst: full screen mode
+                          [:2 :!TOC2] ;; amethyst: 2 pane layout
+                          [:3 :!TOC3] ;; amethyst: floating layout
+                          ; [:1 :!TOC1] ;; hammerspoon: move to screen 1
+                          ; [:2 :!TOC2] ;; hammerspoon: move to screen 2
+                          ; [:3 :!TOC3] ;; hammerspoon: move to screen 3
                           ]}
 
                  {:des "slash mode"
@@ -716,6 +736,7 @@
                           [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
                           [:c [:alfred "work_calendar" "dhth.bookmarks"]] ;; alfred: open work calendar
                           [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
+                          [:spacebar :!OSspacebar ] ;; amethyst: cycle layout
                           ]}
 
                  {:des   "quote mode"
@@ -780,15 +801,24 @@
 
 {:des   "semicolon mode"
  :rules [:semicolon-mode
-         [:1 [:!Ta :1] :termemul] ;; tmux prefix + 1
-         [:2 [:!Ta :2] :termemul]
-         [:3 [:!Ta :3] :termemul]
-         [:4 [:!Ta :4] :termemul]
-         [:5 [:!Ta :5] :termemul]
-         [:1 [:alfred "browser_modheader_switch_profile_1" "dhth.workutils"] :browser] ;; browser: modheader: profile 1
-         [:2 [:alfred "browser_modheader_switch_profile_2" "dhth.workutils"] :browser] ;; browser: modheader: profile 2
-         [:3 [:alfred "browser_modheader_switch_profile_3" "dhth.workutils"] :browser] ;; browser: modheader: profile 3
-         [:4 [:alfred "browser_modheader_switch_profile_4" "dhth.workutils"] :browser] ;; browser: modheader: profile 4
+         ; [:1 [:!Ta :1] :termemul] ;; tmux prefix + 1
+         ; [:2 [:!Ta :2] :termemul]
+         ; [:3 [:!Ta :3] :termemul]
+         ; [:4 [:!Ta :4] :termemul]
+         ; [:5 [:!Ta :5] :termemul]
+         ; [:1 [:alfred "browser_modheader_switch_profile_1" "dhth.workutils"] :browser] ;; browser: modheader: profile 1
+         ; [:2 [:alfred "browser_modheader_switch_profile_2" "dhth.workutils"] :browser] ;; browser: modheader: profile 2
+         ; [:3 [:alfred "browser_modheader_switch_profile_3" "dhth.workutils"] :browser] ;; browser: modheader: profile 3
+         ; [:4 [:alfred "browser_modheader_switch_profile_4" "dhth.workutils"] :browser] ;; browser: modheader: profile 4
+         ; [:1 :!OSw] ;; amethyst: focus screen 1
+         ; [:2 :!OSe] ;; amethyst: focus screen 2
+         ; [:3 :!OSr] ;; amethyst: focus screen 3
+         ; [:4 :!OSq] ;; amethyst: focus screen 4
+         ; [:1 ["/opt/homebrew/bin/yabai -m display --focus 1"]] ;; yabai focus screen 1
+         ; [:2 ["/opt/homebrew/bin/yabai -m display --focus 2"]] ;; yabai focus screen 2
+         ; [:3 ["/opt/homebrew/bin/yabai -m display --focus 3"]] ;; yabai focus screen 3
+         ; [:3 :!OSr] ;; amethyst: focus screen 3
+         ; [:4 :!OSq] ;; amethyst: focus screen 4
          [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
          ; [:c [:!Ta :c]] ;; tmux prefix + c
          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search

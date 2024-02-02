@@ -1,0 +1,15 @@
+format = """
+$directory\
+$line_break\
+$character"""
+
+[directory]
+home_symbol = "~"
+style = "#d3869b"
+truncation_length = 4
+truncation_symbol = '../'
+
+[character]
+success_symbol = "[❯](#b8bb26)"
+error_symbol = "[✗](#fb4934)"
+vimcmd_symbol = "[❮](#83a598)"

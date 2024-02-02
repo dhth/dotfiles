@@ -1,13 +1,15 @@
 let mapleader = " "
 
-set sneak 
+set surround
 set commentary
-set ideajoin
-set NERDTree
+set ReplaceWithRegister
+set sneak
+"set ideajoin
+"set NERDTree
 
-let g:NERDTreeTreeMapActivateNode='l'
-let g:NERDTreeTreeMapJumpParent='h'
-nnoremap <C-e> :NERDTreeToggle<CR>
+"let g:NERDTreeTreeMapActivateNode='l'
+"let g:NERDTreeTreeMapJumpParent='h'
+"nnoremap <C-e> :NERDTreeToggle<CR>
 
 set idearefactormode=keep
 syntax enable
@@ -40,8 +42,8 @@ set showcmd
 set ruler
 set cursorline                          " enable highlighting of the current line
 set conceallevel=0                      " to be able to see `` in markdown files
-set updatetime=200                      " faster completion
-set timeoutlen=200                      " default is 1000 ms
+set updatetime=100                      " faster completion
+set timeoutlen=500                      " default is 1000 ms
 set nobackup                            " This is recommended by coc
 set nowritebackup                       " This is recommended by coc
 set wildmenu
@@ -98,35 +100,48 @@ nnoremap <silent> <TAB> :action NextTab<CR>
 nnoremap <silent> <S-TAB> :action PreviousTab<CR>
 nnoremap <leader>h :action RecentFiles<CR>
 
-nnoremap <leader>jj :action GotoImplementation<CR>
 nnoremap <leader>ff :action GotoDeclaration<CR>
 " nnoremap <leader>fh :action RecentFiles<CR>
 " nnoremap <C-f> :action SearchEverywhere<CR>
 nnoremap <C-f> :action GotoFile<CR>
 " nnoremap <leader>cl :action CollapseRegion<CR>
 " nnoremap <leader>op :action ExpandRegion<CR>
-nnoremap <leader>bp :action ToggleLineBreakpoint<CR>
 nnoremap za :action ExpandRegionRecursively<CR>
 nnoremap zc :action CollapseRegionRecursively<CR>
 nnoremap <leader>za :action ExpandAllRegions<CR>
 nnoremap <leader>zc :action CollapseAllRegions<CR>
 nnoremap <leader>tc :action CloseEditor<CR>
-nnoremap <C-[> :action Back<CR>
-nnoremap <C-]> :action Forward<CR>
 nnoremap K : action QuickJavaDoc<CR>
-map t<c-t> :action RunClass<CR>
-map <leader>rr :action RunClass<CR>
-nnoremap <leader>db :action DebugClass<CR>
+" map t<c-t> :action RunClass<CR>
+" map <leader>rr :action RunClass<CR>
+
+map <leader>rr <Action>(GotoDeclaration)
+map <leader>jj <Action>(GotoDeclaration)
+map <leader>ll <Action>(TextSearchAction)
+map t<c-t> <Action>(RunClass)
+map <leader>db <Action>(DebugClass)
+map <leader>bp <Action>(ToggleLineBreakpoint)
+map ]s <Action>(StepOver)
+map ]i <Action>(StepInto)
+map ]r <Action>(Resume)
+map <leader>ha <Action>(HideActiveWindow)
+map <leader>sm <Action>(FileStructurePopup)
+map { <Action>(Back)
+map } <Action>(Forward)
+map f<c-f> <Action>(ReformatCode)
+map [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+map <leader>rn <Action>(RenameElement)
+
 nnoremap <leader>pv :action ActivateProjectToolWindow<CR>
 nnoremap <leader>fs :action ToggleFullScreen<CR>
-" nnoremap <C-s> :action FileStructurePopup<CR>
 nnoremap ]] :action MethodDown<CR>
 nnoremap [[ :action MethodUp<CR>
 
 nnoremap <leader>df :action ToggleDistractionFreeMode<CR>
 nnoremap <leader>q :action CloseEditor<CR>
 " nnoremap <C-e> :action ShowErrorDescription<CR>
-nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
+"nnoremap <leader>rn :action Refactorings.QuickListPopupAction<CR>
 
 " Other Intellij shortcuts
 " cmd + 4 : open/close run tool window
@@ -139,9 +154,12 @@ nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
 nnoremap <leader>mm :action HideAllWindows<CR>
 nnoremap <c-w>o :action HideAllWindows<CR>
 
-nnoremap <leader>vv :e ~/.ideavimrc<CR>
+nnoremap <leader>cc :e ~/.ideavimrc<CR>
+nnoremap <leader>vv :vsplit \| action GotoImplementation<CR>
 
 nmap <leader>e <action>(ShowErrorDescription)
 nmap ]e <action>(GotoNextError)
 
-nmap <leader>sm <action>(GotoSymbol)
+"nmap <leader>sm <action>(GotoSymbol)
+
+map <leader>rm <Action>(IdeaVim.ReloadVimRc.reload)

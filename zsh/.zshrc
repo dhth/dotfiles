@@ -156,8 +156,8 @@ alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 
 
 export NVM_DIR="$HOME/.nvm"
-lazyload nvm -- 'source $NVM_DIR/nvm.sh'  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source $NVM_DIR/nvm.sh  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias v="nvim"
 alias vim="nvim"
@@ -396,6 +396,7 @@ alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
 
 alias tm='python -c "import time;print(int(time.time()))"'
 alias ta='tmux attach'
+alias panes='tmux list-panes -a -F "#{session_name}:#{window_name}.#{pane_id} #{pane_current_command}"'
 
 # inspiration from:
 # https://waylonwalker.com/tmux-fzf-session-jump/

@@ -32,14 +32,15 @@ end)
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "c", hs.toggleConsole)
 
-function MoveWindowToDisplay(d, fullScreen)
+function MoveWindowToDisplay(d)
     return function()
         local displays = hs.screen.allScreens()
         local win = hs.window.focusedWindow()
+        local isFullScreen = win:isFullScreen()
         win:setFullScreen(false)
         hs.timer.doAfter(0.6, function()
             win:moveToScreen(displays[d], false, true, 0.)
-            if fullScreen then
+            if isFullScreen then
                 hs.timer.doAfter(0.6, function()
                     win:setFullScreen(true)
                 end)
@@ -48,13 +49,13 @@ function MoveWindowToDisplay(d, fullScreen)
     end
 end
 
-hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "1", MoveWindowToDisplay(1, true))
-hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "2", MoveWindowToDisplay(2, true))
-hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "3", MoveWindowToDisplay(3, true))
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "1", MoveWindowToDisplay(1))
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "2", MoveWindowToDisplay(2))
+hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "3", MoveWindowToDisplay(3))
 
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "1", MoveWindowToDisplay(1))
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", MoveWindowToDisplay(2))
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", MoveWindowToDisplay(3))
+-- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "1", MoveWindowToDisplay(1))
+-- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", MoveWindowToDisplay(2))
+-- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", MoveWindowToDisplay(3))
 
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "k", function()
     hs.eventtap.keyStrokes("👆")

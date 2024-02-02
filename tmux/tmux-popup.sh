@@ -7,7 +7,7 @@ if [ "$(tmux display-message -p -F "#{session_name}")" = "popup" ];then
 else
     tmux display-popup \
         -h 60% -w 100% \
-        -y 40% \
+        -y 100% \
         -S fg=$POPUP_BORDER_COLOR \
         -E \
         -T "persistent" \
