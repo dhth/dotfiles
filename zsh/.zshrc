@@ -410,6 +410,14 @@ alias jr='jira'
 
 alias pomo='$GOPATH/bin/openpomodoro-cli'
 
+alias nvimclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':qa!'"'"
+alias nvimdark='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':set background=dark'"'"
+alias nvimlight='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':set background=light'"'"
+alias sbtclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh java '"'"'exit'"'"
+alias bashclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh bash '"'"'C-c'"'"
+
+alias tmuxls='tmux list-panes -a -F '"'"'#{p20:session_name} #{p20:window_name} #{=20;p20: [ #{pane_current_command} ]} #{session_id}:#{window_id}.#{p20:pane_id}'"'"' | less'
+
 # alias n='nnn'
 # alias ls='nnn -e'
 

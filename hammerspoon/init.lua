@@ -1,3 +1,9 @@
+require("hs.ipc")
+-- I've hacked the hs install process by installing it at
+-- /opt/homebrew/bin/hs
+-- following: https://github.com/Hammerspoon/hammerspoon/issues/2930#issuecomment-899092002
+-- run: hs.ipc.cliInstall("/opt/homebrew") the first time
+
 P = function(v)
     print(hs.inspect(v))
 end
@@ -56,14 +62,6 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl", "shift" }, "3", MoveWindowToDisplay(3))
 -- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "1", MoveWindowToDisplay(1))
 -- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "2", MoveWindowToDisplay(2))
 -- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "3", MoveWindowToDisplay(3))
-
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "k", function()
-    hs.eventtap.keyStrokes("👆")
-end)
-
-hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "j", function()
-    hs.eventtap.keyStrokes("👇")
-end)
 
 -- mouse
 function MoveMouse(direction, x_delta, y_delta)

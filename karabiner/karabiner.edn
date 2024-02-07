@@ -29,6 +29,7 @@
              }
  :applications {;
                 :browser ["com.brave.Browser", "com.google.Chrome"]
+                :arc ["company.thebrowser.Browser"]
                 :slack ["com.tinyspeck.slackmacgap"]
                 :termemul ["org.alacritty"]
                 :spotify ["com.spotify.client"]
@@ -267,7 +268,7 @@
                  [:f [:!Ta :!Tf] :termemul] ;; tmux prefix + C-f
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
-                 [:n [:!Ta :!Tn] :termemul] ;; tmux: window picker
+                 [:n [:!Ta :!Tn] :termemul] ;; tmux: pane picker across all sessions
                  [:quote [:!Ta :!Tn] :termemul] ;; tmux: window picker
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
@@ -276,6 +277,10 @@
                  [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + ;
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
+                 [:h :!SCopen_bracket :arc] ;; arc: previous tab
+                 [:j :!SCclose_bracket :arc] ;; arc: next tab
+                 [:k :!SCopen_bracket :arc] ;; arc: previous tab
+                 [:l :!SCclose_bracket :arc] ;; arc: next tab
                  [:h :!SCopen_bracket :dbeaver] ;; dbeaver: previous tab
                  [:l :!SCclose_bracket :dbeaver] ;; dbeaver: next tab
                  [:h :!SCopen_bracket :code]
@@ -472,7 +477,8 @@
                           [:a [:alfred "notion_omm_add"  "dhth.notion"]]
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           ; [:s [:open "https://notion.so"]]
-                          [:s [:alfred "search" "com.wrjlewis.notion-search"]] ;; alfred: notion search
+                          [:s [:!Ta :!Sp] :termemul] ;; tmux:: new session with general py
+                          ; [:s [:alfred "search" "com.wrjlewis.notion-search"]] ;; alfred: notion search
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
                           [:t [:spacebar :n :t] :termemul] ;; vim: go to next test
                           [:1 [:spacebar :t :1] :termemul] ;; vim: tab 1
@@ -548,6 +554,7 @@
                           [:8 [:spacebar :s :8] :termemul] ;; vim :treesitter: swap next parameter
                           [:o [:!Ssemicolon :s :o :spacebar :!S5] :termemul]
                           [:o :!SCi :jetbrains] ;; jetbrains: reload
+                          [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
                           [:b [:alfred "search_brain"  "dhth.brain"]] ;; alfred: dhth.brain: search brain
                           [:d [:alfred "wiki_file"  "dhth.wiki.search"]]
                           [:c [:launch "Screenshot"]]
@@ -557,6 +564,7 @@
                           [:q [:y :s :i :w :!Squote] :termemul]
                           [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
                           [:m :!Cf12 :jetbrains]  ;; jetbrains: file structure
+                          [:n [:!Ta :!Sn] :termemul] ;; tmux: pane picker for current session
                           ; [:p [:open "/Applications/Spotify.app"]]
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
@@ -615,6 +623,7 @@
                           ; [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           [:c [:spacebar :v :c] :termemul] ;; vim: gitsigns: preview hunk
                           [:r [:alfred "vocab_records"  "dhth.vocabulary"]]
+                          [:n :!OSCs :arc] ;; arc: create a vertical split
                           ]}
 
                  {:des   "w mode"
@@ -629,6 +638,8 @@
                           [:l [:!Tw :l] :termemul]
                           [:j [:!Tw :j] :termemul]
                           [:k [:!Tw :k] :termemul]
+                          [:h :!OSCh :arc] ;; arc: switch to left pane
+                          [:l :!OSCl :arc] ;; arc: switch to right pane
                           [:q [:!Ssemicolon :w :q] :termemul]
                           [:o [:alfred "workout_log_url"  "dhth.bookmarks"]]
                           ]}
@@ -643,13 +654,14 @@
                   :rules [:z-mode
                           [:e :emoji_picker]
                           [:t [:km "emoji: thunder"] ]
-                          [:x [:km "emoji: thumbs up"] ]
-                          [:c [:km "emoji: check mark"] ]
+                          ; [:c [:km "emoji: check mark"] ]
+                          [:c "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('✅')\"" ] ;; hammerspoon: type out check mark
                           [:0 [:km "emoji: smile"] ]
                           ; [:j [:km "emoji: point down"] ]
                           ; [:k [:km "emoji: point up"] ]
-                          [:k [:!TOCk]] ;; hammerspoon: emoji: point up
-                          [:j [:!TOCj]] ;; hammerspoon: emoji: point down
+                          [:k "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👆')\"" ] ;; hammerspoon: type out up arrow
+                          [:j "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👇')\"" ] ;; hammerspoon: type out down arrow
+                          [:x "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👍')\"" ] ;; hammerspoon: type out thumbs up
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:alfred "zshrc"  "dhth.tools"]]
@@ -700,6 +712,7 @@
                           [:##j :!TOCdown_arrow]
                           [:##k :!TOCup_arrow]
                           [:g [:spacebar :g :s] :termemul]
+                          [:q :!OSCq :arc] ;; arc: close tab
                           ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
                           [:left_shift [:spacebar :equal_sign :spacebar]]
                           [:1 [:open "/Applications/IntelliJ IDEA.app"]] ;; custom-app-1
@@ -801,11 +814,12 @@
 
 {:des   "semicolon mode"
  :rules [:semicolon-mode
-         ; [:1 [:!Ta :1] :termemul] ;; tmux prefix + 1
-         ; [:2 [:!Ta :2] :termemul]
-         ; [:3 [:!Ta :3] :termemul]
-         ; [:4 [:!Ta :4] :termemul]
-         ; [:5 [:!Ta :5] :termemul]
+         [:a [:!Ta :1] :termemul] ;; tmux prefix + 1
+         [:s [:!Ta :2] :termemul]
+         [:d [:!Ta :3] :termemul]
+         [:f [:!Ta :4] :termemul]
+         [:g [:!Ta :5] :termemul]
+         [:h [:!Ta :6] :termemul]
          ; [:1 [:alfred "browser_modheader_switch_profile_1" "dhth.workutils"] :browser] ;; browser: modheader: profile 1
          ; [:2 [:alfred "browser_modheader_switch_profile_2" "dhth.workutils"] :browser] ;; browser: modheader: profile 2
          ; [:3 [:alfred "browser_modheader_switch_profile_3" "dhth.workutils"] :browser] ;; browser: modheader: profile 3
@@ -823,10 +837,10 @@
          ; [:c [:!Ta :c]] ;; tmux prefix + c
          [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
          [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
-         [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
+         ; [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
-         [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
-         [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
+         ; [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
+         ; [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          ]}
 
 {:des "left_option mode non apple"

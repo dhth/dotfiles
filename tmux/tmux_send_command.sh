@@ -25,7 +25,11 @@ command_to_run=$2
 nvim_panes=$(tmux list-panes -a -F "#{session_name}:#{window_name}.#{pane_id} #{pane_current_command}" | awk '$2=='"\"$pane_command\""' {print $1}')
 
 for pane in $nvim_panes; do
-    echo "tmux send-keys -t $pane \"$command_to_run\" Enter"
-    tmux send-keys -t "$pane" "$command_to_run" Enter
+    if [ "$command_to_run" = "C-c" ]; then
+        echo "tmux send-keys -t $pane '$command_to_run'"
+        tmux send-keys -t "$pane" "$command_to_run"
+    else
+        echo "tmux send-keys -t \"$pane\" \"$command_to_run\" Enter"
+        tmux send-keys -t "$pane" "$command_to_run" Enter
+        fi
 done
-
