@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+generate_uuids() {
+    local num_uuids=${1:-1}
+    
+    for ((i=0; i<num_uuids; i++)); do
+        uuidgen | tr "[:upper:]" "[:lower:]"
+    done
+}
+
+generate_uuids "$@"

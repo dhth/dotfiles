@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function bback(){
+    local backup_file="$BUKU_BACKUP_DIR/backup-$(date '+%Y-%m-%d').db"
+    echo -e "backing up to ${GREEN}$backup_file...${NOCOLOR}"
+    buku --np -e $backup_file
+}
+
+bback

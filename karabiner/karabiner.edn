@@ -285,7 +285,8 @@
                  [:l :!SCclose_bracket :dbeaver] ;; dbeaver: next tab
                  [:h :!SCopen_bracket :code]
                  [:l :!SCclose_bracket :code]
-                 [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
+                 ; [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
+                 [:w [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
                  [:r [:alfred "add_url_to_reading" "dhth.brain"]] ;; alfred: dhth.brain: add url to reading
                  [:m [:alfred "add_url_to_on_my_mind" "dhth.brain"]] ;; alfred: dhth.brain: add url to "on my mind"
                  [:right_option [:open "/Applications/Slack.app"]]
@@ -547,6 +548,7 @@
                           [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                           [:t [:!SOCs] :dbeaver] ;; dbeaver: open settings
                           [:t [:!SCy] :slack] ;; slack: set status
+                          [:t [:!SCf] :browser] ;; brower: show/hide toolbar
                           [:0 [:alfred "save_current_track"  "dhth.spotify"]]
                           [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
                           [:9 [:spacebar :s :9] :termemul] ;; vim :treesitter: swap next function

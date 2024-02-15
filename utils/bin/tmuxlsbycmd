@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+command=$(tmuxls | awk '{print $4}' | sort | uniq | fzf --height=10 --layout=reverse | xargs)
+
+if [ -n "$command" ]; then
+    tmuxls | grep "$command"
+else
+    exit 0
+fi
+

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+proceed
+
+selected_dir=$(printf "$PROJECTS_DIR\n$WORK_DIR" | fzf --height=5 --layout=reverse | xargs)
+if [ -n "$selected_dir" ]
+then
+    cd $selected_dir && git clone "$1"
+    txw 
+fi
+

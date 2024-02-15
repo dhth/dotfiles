@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+pane_addresses=$(tmuxlsbycmd | awk '{print $NF}')
+
+if ! [ -n "$pane_addresses" ]; then
+    exit 0
+fi
+
+if [ $# -eq 1 ]; then
+    command=$1
+else
+    echo "command?"
+    read command
+fi
+
+echo "$pane_addresses" | tmuxsendcmdbyaddress "$command"

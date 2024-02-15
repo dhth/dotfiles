@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+function glbo() {
+    local selected_branches
+    selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi| xargs)
+
+    if [ -n "$selected_branches" ]; then
+        git log \
+            --color \
+            --graph \
+            --since="3 months ago" \
+            --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+            --invert-grep \
+            --grep='\[no ci\]' \
+            --abbrev-commit \
+            "$selected_branches"
+    fi
+}
+
+glbo

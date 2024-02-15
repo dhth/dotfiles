@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+tmux list-panes \
+    -a \
+    -F \
+    '#{=40;p40:session_name} #{=20;p20:window_name} #{=20;p20: [ #{pane_current_command} ]} #{session_id}:#{window_id}.#{p20:pane_id}'

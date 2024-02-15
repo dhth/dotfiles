@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+show_help() {
+    echo "Usage: echo "\$PANES_TO_TARGET" | $(basename "$0") <command_to_run>"
+    echo "  command_to_run: the command to run in the targeted panes"
+    echo "  -h, --help: Show this help message"
+}
+
+if [ "$#" -eq 1 ] && { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
+    show_help
+    exit 0
+fi
+
+if [ "$#" -ne 1 ]; then
+    echo "Error: Invalid number of arguments."
+    echo ""
+    show_help
+    exit 1
+fi
+
+command_to_run=$1
+
+while read -r pane_address; do
+    if [ "$command_to_run" = "C-c" ]; then
+        echo "tmux send-keys -t $pane_address '$command_to_run'"
+        tmux send-keys -t "$pane_address" "$command_to_run"
+    else
+        echo "tmux send-keys -t \"$pane_address\" \"$command_to_run\" Enter"
+        tmux send-keys -t "$pane_address" "$command_to_run" Enter
+    fi
+done

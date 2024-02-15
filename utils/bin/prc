@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+prc() {
+    git rev-parse HEAD > /dev/null 2>&1 || { echo "not in a git repo; exiting"; exit 1; }
+    local pr_num
+    pr_num=$(gh pr list | fzf --height=10 --layout=reverse --prompt="pull request?" | awk -F  " " '// {print $1}' | xargs)
+    if [ -n "$pr_num" ]; then
+        gh pr checkout $pr_num
+    fi
+}
+
+prc

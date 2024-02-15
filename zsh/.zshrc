@@ -249,8 +249,6 @@ alias gcd1='git clone --depth=1'
 alias icloud='cd $ICLOUD_DIR'
 
 
-# urls
-alias opentabs='$DOT_FILES_DIR/utils/get_open_tabs.sh'
 alias oo='$DOT_FILES_DIR/utils/open_multi.sh'
 
 alias spu='opentabs > $BRAIN_URLS_PERS'
@@ -351,8 +349,8 @@ function dex() {
     selected_container=$(docker ps --format "table {{ .ID }}\t{{.Names}}\t{{.Status}}" --last=5 | fzf --height=6 --layout=reverse)
 
     if [ -n "$selected_container" ]; then
-        echo "docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash"
-        docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /bin/bash
+        echo "docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /usr/bin/env sh"
+        docker exec -it $(echo $selected_container | head -n1| awk '{print$1;}') /usr/bin/env sh
     fi
 }
 
@@ -377,13 +375,6 @@ function gco() {
     fi
 }
 
-# git log for all branches
-alias gl='git log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="3 months ago"'
-
-# git log for current branch
-alias glb='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit --since="3 months ago"'
-alias gll='git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
-
 alias b='buku --np'
 
 alias :q='exit'
@@ -396,7 +387,6 @@ alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
 
 alias tm='python -c "import time;print(int(time.time()))"'
 alias ta='tmux attach'
-alias panes='tmux list-panes -a -F "#{session_name}:#{window_name}.#{pane_id} #{pane_current_command}"'
 
 # inspiration from:
 # https://waylonwalker.com/tmux-fzf-session-jump/
@@ -410,18 +400,30 @@ alias jr='jira'
 
 alias pomo='$GOPATH/bin/openpomodoro-cli'
 
-alias nvimclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':qa!'"'"
-alias nvimdark='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':set background=dark'"'"
-alias nvimlight='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh nvim '"'"':set background=light'"'"
-alias sbtclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh java '"'"'exit'"'"
-alias bashclose='sh $DOT_FILES_DIR/tmux/tmux_send_command.sh bash '"'"'C-c'"'"
-
-alias tmuxls='tmux list-panes -a -F '"'"'#{p20:session_name} #{p20:window_name} #{=20;p20: [ #{pane_current_command} ]} #{session_id}:#{window_id}.#{p20:pane_id}'"'"' | less'
-
 # alias n='nnn'
 # alias ls='nnn -e'
 
 source $DOT_FILES_DIR/utils/open_encoded_url.sh
+
+function nvimclose(){
+    tmuxpanes "nvim" | $DOT_FILES_DIR/tmux/tmuxsendcmd ':qa!'
+}
+
+function nvimdark(){
+    tmuxpanes "nvim" | $DOT_FILES_DIR/tmux/tmuxsendcmd ':set background=dark'
+}
+
+function nvimlight(){
+    tmuxpanes "nvim" | $DOT_FILES_DIR/tmux/tmuxsendcmd ':set background=light'
+}
+
+function sbtclose(){
+    tmuxpanes "java" | $DOT_FILES_DIR/tmux/tmuxsendcmd 'exit'
+}
+
+function bashclose(){
+    tmuxpanes "bash" | $DOT_FILES_DIR/tmux/tmuxsendcmd 'C-c'
+}
 
 function get_ip(){
     ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
@@ -439,23 +441,6 @@ function openurls() {
 
     if [ -n "$selected_urls" ]; then
         echo $selected_urls | xargs open
-    fi
-}
-
-
-function bback(){
-    local backup_file="$BUKU_BACKUP_DIR/backup-$(date '+%Y-%m-%d').db"
-    echo -e "backing up to ${GREEN}$backup_file...${NOCOLOR}"
-    buku --np -e $backup_file
-}
-
-# git log for a specific branch
-function glbo() {
-    local selected_branches
-    selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi| xargs)
-
-    if [ -n "$selected_branches" ]; then
-        git log --color --graph --pretty=format:'''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''' --abbrev-commit "$selected_branches"
     fi
 }
 
@@ -624,14 +609,6 @@ prl() {
 }
 
 
-prc() {
-    is_in_git_repo || return
-    local pr_num
-    pr_num=$(gh pr list | fzf --height=6 --layout=reverse --prompt="pull request?" | awk -F  " " '// {print $1}' | xargs)
-    if [ -n "$pr_num" ]; then
-        gh pr checkout $pr_num
-    fi
-}
 
 
 join-lines() {
@@ -929,59 +906,12 @@ function lc(){
 }
 
 
-function txw(){
-    # open tmuxinator in a specific work directory
-    local selected_entry
-    local selected_py_env
-
-    local project_type
-    project_type=$(echo "scala\npy" | fzf --height=8 --layout=reverse --header="type?")
-
-    if [ -n "$project_type" ]; then
-        if [[ "$project_type" == "py" ]]; then
-            selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python env?")
-            if [ -n "$selected_py_env" ]; then
-                selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
-                if [ -n "$selected_entry" ]; then
-                    tmuxinator two-windows $selected_entry $GENERAL_PYTHON_ENV_NAME
-                fi
-            fi
-        elif [[ "$project_type" == "scala" ]]; then
-            selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
-            if [ -n "$selected_entry" ]; then
-                tmuxinator scala-proj $selected_entry $GENERAL_PYTHON_ENV_NAME sbt
-            fi
-        fi
-    fi
-}
-
-
-function txwp(){
-    # open tmuxinator in a specific work directory
-    local selected_entry
-    local selected_py_env
-    selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --height=8 --layout=reverse --header="project?")
-    if [ -n "$selected_entry" ]; then
-        # echo "export CHOSEN_WORK_DIR=$selected_entry" > ~/chosen_work_dir
-        selected_py_env=$(workon | fzf --height=8 --layout=reverse --header="python?")
-        if [ -n "$selected_py_env" ]; then
-            echo "export CHOSEN_PYENV=$selected_py_env" > ~/chosen_work_dir
-            # local num_sessions=$(tmux ls | grep work | wc -l | xargs)
-            # local new_session_num=`expr $num_sessions + 1`
-            # echo "tmuxinator work-$new_session_num $@"
-            # tmuxinator "work-$new_session_num" "$@"
-            tmuxinator two-windows $selected_entry
-        fi
-    fi
-}
-
 function gitinit() {
     is_in_git_repo || git init
 }
 
 
 function jw(){
-    # open tmuxinator in a specific work directory
     local selected_entry
     selected_entry=$(fd . --max-depth=1 $WORK_DIR | fzf --height=8 --layout=reverse)
     if [ -n "$selected_entry" ]; then
@@ -991,7 +921,6 @@ function jw(){
 }
 
 function jd(){
-    # open tmuxinator in a specific projects directory
     local selected_entry
     selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR | fzf --height=8 --layout=reverse)
     if [ -n "$selected_entry" ]; then
@@ -1003,7 +932,6 @@ function jd(){
 
 
 function txd(){
-    # open tmuxinator in a specific directory
     local selected_entry
     selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR| fzf --height=8 --layout=reverse)
     if [ -n "$selected_entry" ]; then
@@ -1072,7 +1000,6 @@ mkdir -p $WORKON_HOME
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-export PATH=$PATH:/Users/dhruvthakur/.spicetify
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -1091,5 +1018,8 @@ export PATH=$PATH:/Users/dhruvthakur/.spicetify
 #
 # [ -f ~/.inshellisense/key-bindings.zsh ] && source ~/.inshellisense/key-bindings.zsh
 
-export PATH=$PATH:/Users/dhruvthakur/.spicetify
+export PATH="$PATH:/Users/dhruvthakur/.spicetify"
+export PATH="$PATH:$DOT_FILES_DIR/utils/bin"
+export PATH="$PATH:$PROJECTS_DIR/utils/bin"
+workon general
 eval "$(starship init zsh)"

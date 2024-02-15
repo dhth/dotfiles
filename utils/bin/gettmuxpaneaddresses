@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tmuxls | grep "$1" | awk '{print $NF}'
