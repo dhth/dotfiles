@@ -136,6 +136,8 @@ export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 
 export PIP_REQUIRE_VIRTUALENV=false
 
+export DELTA_PAGER='less -R' # so short diffs don't quit
+
 #alias ml='source activate ml'
 alias jp="cd $PROJECTS_DIR"
 
@@ -143,6 +145,7 @@ alias jpn='jupyter notebook'
 
 # . $HOME/Soft/z/z.sh
 alias yd='yarn develop'
+alias mm='mult -i -s'
 
 # enter vim mode
 bindkey -v
@@ -160,7 +163,7 @@ source $NVM_DIR/nvm.sh  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias v="nvim"
-alias vim="nvim"
+# alias vim="nvim"
 alias tx="tmuxinator"
 
 alias cvim="nvim ~/.config/nvim/init.vim"
@@ -191,7 +194,7 @@ function crl(){
 }
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
 
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -271,6 +274,7 @@ alias gf='git fetch'
 alias gp='git pull'
 alias gsl='git stash list'
 alias gsdd='git-split-diffs --color | less -RFX'
+alias ccc='commits -ignore-pattern="^\[NO-CI\]"'
 
 # select python environment using fzf
 # https://seb.jambor.dev/posts/improving-shell-workflows-with-fzf/
@@ -313,24 +317,6 @@ function down(){
 # cd to project root in a git repo
 # https://twitter.com/fatih/status/1381555413083168769
 alias cdr='cd $(git rev-parse --show-toplevel)'
-
-# cd to subdirectory using fzf
-function c() {
-    is_in_git_repo || return
-    local selected_directory
-    local base_directory=$(git rev-parse --show-toplevel)
-    if (($# == 1))
-    then
-        selected_directory=$(fd --base-directory=$base_directory -H -t d $1 | fzf --height=12 --layout=reverse)
-    else
-        selected_directory=$(fd --base-directory=$base_directory -H -t d | fzf --height=12 --layout=reverse)
-    fi
-
-    if [ -n "$selected_directory" ]; then
-        cd $(git rev-parse --show-toplevel)
-        cd $selected_directory
-    fi
-}
 
 # ls subdirectory using fzf
 function lss() {
@@ -657,13 +643,33 @@ function jj(){
     fi
 }
 
-# quickly cd to important directories in $PROJECTS_DIR
-function pp(){
-    local selected_dir
-    selected_dir=$(command ls $PROJECTS_DIR | fzf --height=15 --layout=reverse | xargs)
+# # quickly cd to important directories in $PROJECTS_DIR
+# function pp(){
+#     local selected_dir
+#     selected_dir=$(command ls $PROJECTS_DIR | fzf --height=15 --layout=reverse | xargs)
+#
+#     if [ -n "$selected_dir" ]; then
+#         cd $PROJECTS_DIR/$selected_dir
+#     fi
+# }
 
-    if [ -n "$selected_dir" ]; then
-        cd $PROJECTS_DIR/$selected_dir
+function c() {
+    if ! isgitrepo; then
+        echo "not in a git repo"
+        return
+    fi
+
+    local selected_directory
+    local base_directory=$(git rev-parse --show-toplevel)
+    if (($# == 1)); then
+        selected_directory=$(fd --base-directory=$base_directory -H -t d $1 | fzf --height=12 --layout=reverse)
+    else
+        selected_directory=$(fd --base-directory=$base_directory -H -t d | fzf --height=12 --layout=reverse)
+    fi
+
+    if [ -n "$selected_directory" ]; then
+        cd $(git rev-parse --show-toplevel)
+        cd $selected_directory
     fi
 }
 
@@ -711,6 +717,15 @@ function ww() {
     if [ -n "$work_command" ]; then
         print -s $work_command
         eval $work_command
+    fi
+}
+
+# pers commands
+function pp() {
+    pers_command=$(cat $DROPBOX_DIR/pers/commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
+    if [ -n "$pers_command" ]; then
+        print -s $pers_command
+        eval $pers_command
     fi
 }
 
@@ -957,7 +972,7 @@ function n ()
 
     export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
-    nnn "$@"
+    VISUAL='vi -u NONE' nnn "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -1018,8 +1033,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #
 # [ -f ~/.inshellisense/key-bindings.zsh ] && source ~/.inshellisense/key-bindings.zsh
 
-export PATH="$PATH:/Users/dhruvthakur/.spicetify"
-export PATH="$PATH:$DOT_FILES_DIR/utils/bin"
-export PATH="$PATH:$PROJECTS_DIR/utils/bin"
+export PATH="$PATH:$GOPATH/bin:/Users/dhruvthakur/.spicetify:$DOT_FILES_DIR/utils/bin:$PROJECTS_DIR/utils/bin:$HOME/cbins"
 workon general
 eval "$(starship init zsh)"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform

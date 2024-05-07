@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function hback() {
+    local backup_file="$HISTORY_BACKUP_DIR/backup-$(date '+%Y-%m-%d')"
+    echo "cp $HOME/.zsh_history $backup_file"
+    cp $HOME/.zsh_history $backup_file
+}
+
+hback

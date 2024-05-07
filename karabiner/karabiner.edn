@@ -427,7 +427,7 @@
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
                          [:q [:open "/System/Applications/Messages.app"]] ;; open: Messages
                          [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
-                         [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
+                         ; [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
                          [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
                          [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
                          [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
@@ -520,6 +520,7 @@
                           ; [:s [:alfred "add_pushups" "dhth.pushups"]] ;; pushups: add pushups
                           [:s [:alfred "pomodoro_start" "dhth.pomodoro"]] ;; pomodoro: start pomodoro
                           [:b [:alfred "pomodoro_break_start" "dhth.pomodoro"]] ;; pomodoro: start break
+                          [:o "/opt/homebrew/bin/tmux switch -t wiki:punchout && open -a \"Alacritty\"" ] ;; tmux: switch to punchout
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -571,7 +572,8 @@
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                           ; [:w [:!SOCs :w] :jetbrains] ;; datagrip: switch session
-                          [:w :!TOSk] ;; amethyst: swap focussed window clockwise
+                          ; [:w :!TOSk] ;; amethyst: swap focussed window clockwise
+                          [:w [:alfred "search_wikis" "dhth.bookmarks"]] ;; alfred: search wikis
                           ;; shift + option + arrow keys
                           [:h [:!Ta :h] :termemul] ;; tmux prefix + h
                           [:j [:!Ta :j] :termemul] ;; tmux prefix + j
@@ -717,11 +719,11 @@
                           [:q :!OSCq :arc] ;; arc: close tab
                           ; [:left_shift [:alfred "search" "dhth.bookmarks"]]
                           [:left_shift [:spacebar :equal_sign :spacebar]]
-                          [:1 [:open "/Applications/IntelliJ IDEA.app"]] ;; custom-app-1
-                          [:2 [:open "/Applications/Postman.app"]] ;; custom-app-2
-                          [:3 [:open "/Applications/zoom.us.app"]] ;; custom-app-3
-                          [:4 [:open "/Applications/DBeaver.app"]] ;; custom-app-4
-                          [:5 [:open "/System/Applications/Preview.app"]] ;; custom-app-5
+                          ; [:1 [:open "/Applications/IntelliJ IDEA.app"]] ;; custom-app-1
+                          ; [:2 [:open "/Applications/Postman.app"]] ;; custom-app-2
+                          ; [:3 [:open "/Applications/zoom.us.app"]] ;; custom-app-3
+                          ; [:4 [:open "/Applications/DBeaver.app"]] ;; custom-app-4
+                          ; [:5 [:open "/System/Applications/Preview.app"]] ;; custom-app-5
                           ]}
 
                  {:des   "caps_lock mode"

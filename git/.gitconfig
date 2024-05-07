@@ -2,7 +2,8 @@
 	name = Dhruv Thakur
 	email = dhruvt93@gmail.com
 [push]
-	default = current
+	default = simple
+    autosetupremote = true
 [pull]
 	ff = only
 	default = current
@@ -40,9 +41,9 @@
 
 [core]
 	editor = nvim
-	excludesfile = /Users/dhruvthakur/.gitignore
-	pager = git-split-diffs --color | less -RFX
-    ; pager = delta
+	excludesfile = ~/.gitignore
+	; pager = git-split-diffs --color | less -RFX
+    pager = delta
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
@@ -71,6 +72,9 @@
 [diff]
 	# Detect copies as well as renames
 	renames = copies
+    colorMoved = default
+	algorithm = histogram
+	context = 10
 
 [help]
 	# Automatically correct and execute mistyped commands
@@ -79,15 +83,19 @@
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	conflictStyle = zdiff3
 
 
-; [interactive]
-;     diffFilter = delta --color-only
+[interactive]
+    diffFilter = delta --color-only
 
-; [delta]
-;     features = side-by-side unobtrusive-line-numbers decorations
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false
+    line-numbers = true
+    ; features = side-by-side
 ;     whitespace-error-style = 22 reverse
-;     syntax-theme = gruvbox-dark
+    syntax-theme = Monokai Extended Bright
 ;     whitespace-error-style = 22 reverse
 
 ; [delta "decorations"]
@@ -106,3 +114,16 @@
 [split-diffs]
 	min-line-width = 0
 	theme-name = light
+[rebase]
+	autostash = true
+[commit]
+	verbose = true
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
+[branch]
+	sort = -committerdate
+[tag]
+	sort = taggerdate
+[fetch]
+	prune = true
+	prunetags = true

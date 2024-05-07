@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+NC='\033[0m'
+
+c_files_count=$(ls -1 *.c 2>/dev/null | wc -l)
+
+if [ "$c_files_count" -eq 1 ]; then
+    file=$(ls *.c)
+else
+    file=$(ls -1 *.c | fzf --height=10 --layout=reverse --prompt="file?")
+
+fi
+
+if [ -z "$file" ]; then
+    exit 1
+fi
+
+filename="${file%.*}.out"
+
+echo -e "${GREEN}clang -o $filename $file${NC}"
+clang -o $filename $file

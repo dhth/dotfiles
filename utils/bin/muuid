@@ -1,0 +1,18 @@
+#/usr/bin/env bash
+
+# loops=${1:-1}
+#
+# # Loop for the specified number of times
+# for ((run = 1; run <= loops; run++)); do
+#     echo "$(uuidgen | tr "[:upper:]" "[:lower:]")"
+# done
+
+loops=${1:-1}
+template=${2:-"('<uuid>', CURRENT_TIMESTAMP),"}
+
+# Loop for the specified number of times
+for ((run = 1; run <= loops; run++)); do
+    uuid=$(uuidgen | tr "[:upper:]" "[:lower:]")
+    formatted_template="${template//<uuid>/$uuid}"
+    echo "$formatted_template"
+done

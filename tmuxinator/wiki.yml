@@ -46,7 +46,7 @@ windows:
           - nvim
         - docs:
           - cd $BLOG_DIR
-          - print -s "yarn dev --port 8004"
+          - print -s "hugo server"
   - brain:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
@@ -62,3 +62,15 @@ windows:
   #     panes:
   #         - spt:
   #           - spt
+  - j:
+      panes:
+          - j:
+            - print -s 'jira sprint list --current'
+  - punchout:
+      panes:
+          - punchout:
+            - print -s 'punchout'
+  - prs:
+      panes:
+          - prs:
+            - print -s 'prs'

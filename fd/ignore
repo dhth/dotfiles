@@ -2,3 +2,6 @@
 !local_only*
 node_modules
 !*.env
+!justfile
+!.air.toml
+!.quickrun

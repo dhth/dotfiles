@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 git log \
-    --all \
     --color \
     --graph \
-    --since="3 months ago" \
     --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
-    --abbrev-commit
+    --abbrev-commit \
+    --grep='\[no ci\]' \
+    --invert-grep \
+    --since="3 months ago"

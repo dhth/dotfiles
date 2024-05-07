@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+FE8019='\033[38;2;254;128;25m'
+NC='\033[0m'
+
+function git_push() {
+    if ! isgitrepo; then
+        echo "not in a git repo"
+        return
+    fi
+
+    char1=$(echo $((RANDOM % 26 + 97)) | awk '{printf "%c", $1}')
+    char2=$(echo $((RANDOM % 26 + 97)) | awk '{printf "%c", $1}')
+
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    remote=$(git remote get-url --push origin)
+    echo -e "push ${FE8019}$branch${NC} to ${FE8019}$remote${NC}?\ntype [$char1$char2] to confirm."
+    read -p "" input
+
+    if [ "$input" = "$char1$char2" ]; then
+        git push
+    else
+        echo "Cancelled"
+        exit 1
+    fi
+}
+
+git_push
