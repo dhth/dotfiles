@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+selected_tags=$(cat ~/.config/outtasync.yml |
+    grep '    - ' |
+    sed 's/    -//' |
+    sort |
+    uniq |
+    fzf --multi --height=12 --layout=reverse |
+    xargs |
+    tr ' ' ',')
+
+if [ -n "$selected_tags" ]; then
+    outtasync -t "$selected_tags" "$@"
+fi

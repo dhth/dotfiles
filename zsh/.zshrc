@@ -120,6 +120,9 @@ cyan=$'\033[36m'
 white=$'\033[37m'
 NOCOLOR="\033[0m"
 
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # https://github.com/junegunn/fzf/wiki/Color-schemes
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
  --color=fg:#cbccc6,hl:#707a8c
@@ -994,7 +997,7 @@ export NNN_OPTS="H"
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 
 # export PATH=/Users/dht93/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.rvm/bin:/Users/dht93/.local/bin:/opt/homebrew/bin
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bin:/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bin:$GOPATH/bin:/opt/homebrew/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
@@ -1033,7 +1036,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #
 # [ -f ~/.inshellisense/key-bindings.zsh ] && source ~/.inshellisense/key-bindings.zsh
 
-export PATH="$PATH:$GOPATH/bin:/Users/dhruvthakur/.spicetify:$DOT_FILES_DIR/utils/bin:$PROJECTS_DIR/utils/bin:$HOME/cbins"
+export PATH="$PATH:/Users/dhruvthakur/.spicetify:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$HOME/cbins"
 workon general
 eval "$(starship init zsh)"
 

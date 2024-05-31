@@ -32,6 +32,32 @@ hs.hotkey.bind({ "cmd", "alt", "shift", "ctrl" }, "w", function()
     hs.layout.apply(windowLayout)
 end)
 
+function ResizeWindow(direction)
+        if not direction then
+            return
+        end
+        local screen = hs.screen.mainScreen()
+        local focussedApp = hs.application.frontmostApplication()
+        local rect
+        if direction == "left50" then
+            rect = hs.layout.left50
+        elseif direction == "right50" then
+            rect = hs.layout.right50
+        elseif direction == "left30" then
+            rect = hs.layout.left30
+        elseif direction == "right30" then
+            rect = hs.layout.right30
+        elseif direction == "left70" then
+            rect = hs.layout.left70
+        elseif direction == "right70" then
+            rect = hs.layout.right70
+        end
+        local windowLayout = {
+            { focussedApp, nil, screen, rect, nil, nil },
+        }
+        hs.layout.apply(windowLayout)
+end
+
 hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "r", function()
     hs.reload()
 end)
@@ -106,7 +132,7 @@ hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "q", function()
         hs.timer.doAfter(0.5, function()
             app:selectMenuItem({ "View", "Float on Top" })
             hs.timer.doAfter(0.5, function()
-                hs.eventtap.keyStroke({"ctrl", "option"}, "g") -- one thirds of the screen (via magnet)
+                hs.eventtap.keyStroke({ "ctrl", "option" }, "g") -- one thirds of the screen (via magnet)
             end)
         end)
     end)

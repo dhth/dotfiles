@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+adjective=$(shuf -n 1 ~/adjts.txt)
+noun=$(shuf -n 1 ~/nouns.txt)
+echo "${adjective}-${noun}"

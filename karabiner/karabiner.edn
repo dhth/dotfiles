@@ -40,6 +40,7 @@
                 :fakeapp ["fake.app"]
                 :dbeaver ["org.jkiss.dbeaver.core.product"]
                 :zoom ["us.zoom.xos"]
+                :neovide ["/opt/homebrew/bin/neovide"]
                 ;
                 }
  :devices {
@@ -182,8 +183,10 @@
                  ; [:p [:open "https://github.com/pulls"]]
                  [:o [:alfred "open_on_my_mind"  "dhth.brain"]] ;; dhth.brain: on my mind: open list
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
-                 [:h :!TOh] ;; magnet: left
-                 [:l :!TOl] ;; magnet: right
+                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: type out check mark
+                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: type out check mark
+                 ; [:h :!TOh] ;; magnet: left
+                 ; [:l :!TOl] ;; magnet: right
                  [:m :!TOm] ;; magnet: maximise
                  ]}
 
@@ -197,9 +200,11 @@
                  ; [:j [:km "mouse: move_down_small"]]
                  ; [:k [:km "mouse: move_up_small"]]
                  ; [:l [:km "mouse: move_right_small"]]
-                 [:h :!TOd] ;; magnet: one-third left
-                 [:l :!TOg] ;; magnet: one-third right
-                 [:m :!TOf] ;; magnet: one-third center
+                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left30')\"" ] ;; hammerspoon: type out check mark
+                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right30')\"" ] ;; hammerspoon: type out check mark
+                 ; [:h :!TOd] ;; magnet: one-third left
+                 ; [:l :!TOg] ;; magnet: one-third right
+                 ; [:m :!TOf] ;; magnet: one-third center
                  ]}
 
         {:des   "four mode"
@@ -261,7 +266,7 @@
                  ; [:s [:alfred "aws"  "dhth.aws"]]  ;; aws services search
                  ; [:b [:alfred "add_url_to_log"  "dhth.brain"]] ;; dhth.brain: add url to log
                  [:b [:!Ta :!Tb]] ;; tmux: persistent popup half screen
-                 [:s [:alfred "aws"  "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
+                 [:s [:alfred "aws" "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:d [:!Ta :d] :termemul] ;; tmux prefix + d
@@ -417,6 +422,10 @@
                          [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                          [:right_shift [:!Ta :!Tw] :termemul]  ;; tmux: go to last window
                          [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
+                         [:up_arrow :!Tk ] ;; ctrl+k
+                         [:down_arrow :!Tj ] ;; ctrl+j
+                         [:left_arrow :!Th ] ;; ctrl+h
+                         [:right_arrow :!Tl ] ;; ctrl+l
                          ; [:delete_or_backspace [:open-a "Preview"]]
                          ; [:return_or_enter [:open-a "Preview"]]
                           ]}
@@ -427,7 +436,7 @@
                          [:t [:alfred "timezone"  "carlosnz.timezones2"]]
                          [:q [:open "/System/Applications/Messages.app"]] ;; open: Messages
                          [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
-                         ; [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
+                         [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
                          [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
                          [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
                          [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
@@ -596,6 +605,7 @@
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:h :!SCt :slack] ;; slack: threads
                           [:m [:alfred "time"  "dhth.system"]]
+                          [:n [:!Ta :!Tp] :termemul] ;; tmux: txw
                           ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
                           ; [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
                           [:s :!OSa :browser] ;; browser: dark mode: toggle current site
@@ -660,6 +670,7 @@
                           [:t [:km "emoji: thunder"] ]
                           ; [:c [:km "emoji: check mark"] ]
                           [:c "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('✅')\"" ] ;; hammerspoon: type out check mark
+                          [:i "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('⏳')\"" ] ;; hammerspoon: type out check mark
                           [:0 [:km "emoji: smile"] ]
                           ; [:j [:km "emoji: point down"] ]
                           ; [:k [:km "emoji: point up"] ]
@@ -669,7 +680,7 @@
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:alfred "zshrc"  "dhth.tools"]]
-                          [:p [:km "psss"] ]
+                          ; [:p [:km "psss"] ]
                           ;
                           ]}
 
@@ -925,6 +936,11 @@
          [:##left_command :##left_command :apple {:alone [:open "/Applications/Alacritty.app"]}]
          [:##left_option :##left_command :!apple {:alone [:open "/Applications/Alacritty.app"]}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
+         ]}
+
+{:des "neovide"
+ :rules [:neovide
+         [:##left_shift :##left_shift nil { :alone [:!Tf]}]         ;; fzf :Buffers
          ]}
 
 {:des "terminal"
