@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+input=$(cat)
+
+osascript -e "tell application id \"com.runningwithcrayons.Alfred\" to run trigger \"show_large_text\" in workflow \"dhth.tools\" with argument \"$input\""

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function hoursback() {
+    local backup_file="$BACKUP_DIR/backup/hours/hours-$(date '+%Y-%m-%d').db"
+    echo -e "backing up to ${GREEN}$backup_file...${NOCOLOR}"
+    cp ~/hours.db $backup_file
+}
+
+hoursback

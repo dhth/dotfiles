@@ -13,13 +13,13 @@ function txwpy() {
     if [ -n "$1" ]; then
         selected_py_env="$1"
     else
-        selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F "/" '// {print $1}' | fzf --height=12 --layout=reverse --header="which python?")
+        selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F "/" '// {print $1}' | fzf --height=20 --layout=reverse --header="which python?")
     fi
 
     if [ -n "$2" ]; then
         selected_entry="$2"
     else
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
     fi
 
     if [ -n "$selected_py_env" ]; then

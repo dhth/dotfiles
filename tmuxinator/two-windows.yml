@@ -30,4 +30,11 @@ windows:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w2-p2"'
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w2-p1"'
+  - sh:
+      panes:
+        - sh:
+          - source ~/chosen_work_dir
+          # - workon $CHOSEN_PYENV
+          - workon <%= @args[1] %>
+          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w3-p1"'

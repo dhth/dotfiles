@@ -183,11 +183,12 @@
                  ; [:p [:open "https://github.com/pulls"]]
                  [:o [:alfred "open_on_my_mind"  "dhth.brain"]] ;; dhth.brain: on my mind: open list
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
-                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: type out check mark
-                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: type out check mark
-                 ; [:h :!TOh] ;; magnet: left
-                 ; [:l :!TOl] ;; magnet: right
+                 ; [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: type out check mark
+                 ; [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: type out check mark
+                 [:h :!TOh] ;; magnet: left
+                 [:l :!TOl] ;; magnet: right
                  [:m :!TOm] ;; magnet: maximise
+                 [:equal_sign :!TOf] ;; magnet: center thirds
                  ]}
 
         {:des   "three-mode"
@@ -269,6 +270,7 @@
                  [:s [:alfred "aws" "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
+                 [:r [:!Ta :!Sr] :termemul] ;; tmux prefix + R: cmds
                  [:d [:!Ta :d] :termemul] ;; tmux prefix + d
                  [:f [:!Ta :!Tf] :termemul] ;; tmux prefix + C-f
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
@@ -292,7 +294,7 @@
                  [:l :!SCclose_bracket :code]
                  ; [:w [:alfred "add_url_to_wiki" "dhth.bookmarks"]]
                  [:w [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
-                 [:r [:alfred "add_url_to_reading" "dhth.brain"]] ;; alfred: dhth.brain: add url to reading
+                 ; [:r [:alfred "add_url_to_reading" "dhth.brain"]] ;; alfred: dhth.brain: add url to reading
                  [:m [:alfred "add_url_to_on_my_mind" "dhth.brain"]] ;; alfred: dhth.brain: add url to "on my mind"
                  [:right_option [:open "/Applications/Slack.app"]]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
@@ -584,10 +586,10 @@
                           ; [:w :!TOSk] ;; amethyst: swap focussed window clockwise
                           [:w [:alfred "search_wikis" "dhth.bookmarks"]] ;; alfred: search wikis
                           ;; shift + option + arrow keys
-                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
-                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
-                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          ; [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          ; [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
                           [:u :!TCu :browser] ;; browser: notion web clipper
                           ; [:##h :!SOleft_arrow]
                           ; [:##j :!SOdown_arrow]
@@ -604,6 +606,7 @@
                           [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:h :!SCt :slack] ;; slack: threads
+                          [:i "/opt/homebrew/bin/tmux switch -t wiki:hours && open -a \"Alacritty\"" ] ;; tmux: switch to hours
                           [:m [:alfred "time"  "dhth.system"]]
                           [:n [:!Ta :!Tp] :termemul] ;; tmux: txw
                           ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
@@ -648,10 +651,10 @@
                           ; [:l :!SOCl] ;; magnet next display
                           [:open_bracket :!TOh] ;; magnet left side
                           [:close_bracket :!TOl] ;; magnet left side
-                          [:h [:!Tw :h] :termemul]
-                          [:l [:!Tw :l] :termemul]
-                          [:j [:!Tw :j] :termemul]
-                          [:k [:!Tw :k] :termemul]
+                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
+                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
+                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
+                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
                           [:h :!OSCh :arc] ;; arc: switch to left pane
                           [:l :!OSCl :arc] ;; arc: switch to right pane
                           [:q [:!Ssemicolon :w :q] :termemul]
@@ -662,6 +665,7 @@
                   :rules [:x-mode
                           [:j [:!Ta :hyphen] :termemul] ;; termemul: tmux: prefix + -
                           [:l [:!Ta :!Sbackslash] :termemul] ;; termemul: tmux: prefix + |
+                          [:c [:!SOc] :browser] ;; brower: excalidraw: export to png
                           ]}
 
                  {:des "emoji-mode"
@@ -785,10 +789,12 @@
 
                  {:des   "tab mode"
                   :rules [:tab-mode
-                          [:##h :!SOleft_arrow ]
-                          [:##j :!SOdown_arrow ]
-                          [:##k :!SOup_arrow ]
-                          [:##l :!SOright_arrow ]
+                          ; [:##h :!SOleft_arrow ]
+                          ; [:##j :!SOdown_arrow ]
+                          ; [:##k :!SOup_arrow ]
+                          ; [:##l :!SOright_arrow ]
+                          [:l [:!Ta :!Sbackslash] :termemul]
+                          [:j [:!Ta :hyphen] :termemul]
                           [:s :!TSOCs] ;; mac: siri
                           [:d [:alfred "dark_mode" "dhth.system"]]
                           [:a [:alfred "switch_audio" "dhth.system"]]

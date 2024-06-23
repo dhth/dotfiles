@@ -7,7 +7,7 @@ ORANGE='\033[0;33m'
 NC='\033[0m'
 
 usage() {
-    echo "Usage: $0 [-p value] argument1 argument2"
+    echo "Usage: semdiff [-p value] argument1 argument2"
     exit 1
 }
 

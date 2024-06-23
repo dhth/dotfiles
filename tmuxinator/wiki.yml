@@ -62,15 +62,27 @@ windows:
   #     panes:
   #         - spt:
   #           - spt
+<%- if args[0] == "work" %>
   - j:
       panes:
           - j:
             - print -s 'jira sprint list --current'
+<%- end %>
+<%- if args[0] == "work" %>
   - punchout:
       panes:
           - punchout:
             - print -s 'punchout'
+<%- end %>
+<%- if args[0] == "work" %>
   - prs:
       panes:
           - prs:
             - print -s 'prs'
+<%- end %>
+  - hours:
+      panes:
+          - hours:
+            - print -s 'hours'
+          - hours-report:
+            - print -s 'hours report'

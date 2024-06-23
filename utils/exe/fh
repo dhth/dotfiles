@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+selected_file=$(git ls-files | fzf --height=8 --layout=reverse)
+
+if [ -n "$selected_file" ]; then
+    git log --pretty --oneline -- $selected_file | fzf --ansi \
+        --layout=reverse \
+        --delimiter " " \
+        --preview "git show {1}:$selected_file" \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+fi

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <file-or-directory>"
+    exit 1
+fi
+
+if [ -d "$1" ]; then
+    dust -b -d 1 "$1"
+    printf "\nrm -r $1\n\n"
+    proceed && rm -r "$1"
+elif [ -f "$1" ]; then
+    file "$1"
+    printf "\nrm $1\n\n"
+    proceed && rm "$1"
+else
+    echo "$1 is not a valid file or directory"
+    exit 1
+fi

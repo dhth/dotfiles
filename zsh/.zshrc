@@ -179,6 +179,7 @@ alias gcd1="git clone --depth=1"
 alias gcb='git checkout -b'
 alias sprint='jira sprint list --current -a $(jira me)'
 alias chash="git show --oneline | head -1 | awk '{ print \$1 }' | pbcopy"
+alias po='punchout'
 # alias gco="git checkout"
 
 # alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
@@ -993,6 +994,11 @@ function books(){
 }
 
 export NNN_OPTS="H"
+
+# col -b   : removes ^H characters
+# nvim -R  : Read-only mode
+# nvim -M  : Resets the 'write' and 'modifiable' options, to disable file and buffer modifications.
+export MANPAGER="col -b | nvim -MR -c 'set syntax=man' - "
 
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 

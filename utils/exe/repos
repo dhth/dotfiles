@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+repos() {
+    local owner=$(echo -e "dhth\nradancy-referrals" | fzf --height=4 --layout=reverse)
+    if [ -n "$owner" ]; then
+        gh repo list $owner --limit 500 --json name --jq '.[].name' |
+            fzf --height=20 --layout=reverse --multi |
+            sed "s/^/https:\/\/github.com\/$owner\//" |
+            xargs open
+    fi
+}
+
+repos

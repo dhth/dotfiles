@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ -e ".cmds" ]; then
+    cmd=$(tmux display-message -t ":2" -p "#{pane_current_command}")
+    target="2"
+    if [[ "$cmd" != "zsh" ]]; then
+        cmd=$(tmux display-message -t ":3" -p "#{pane_current_command}")
+        if [[ "$cmd" != "zsh" ]]; then
+            tmux display "cmds already running"
+            return
+        fi
+        target="3"
+    fi
+
+    cmd=$(cat .cmds | fzf --tmux bottom,50% --layout=reverse)
+    if [ -n "$cmd" ]; then
+        tmux send-keys -t ":$target" "$cmd" Enter
+        tmux switch -t ":$target"
+    fi
+else
+    tmux display "no commands"
+fi
