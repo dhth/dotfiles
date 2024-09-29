@@ -11,7 +11,7 @@ declare -a cities=(
 )
 
 echo "===========\n"
-for city in "${cities[@]}" 
-do curl wttr.in/${city}?format=3
+for city in "${cities[@]}"; do
+    curl wttr.in/${city}?format=3
 done
 echo "\n==========="

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -e
+
+DATE="$(date '+%Y-%m-%d')"
+
+function bback() {
+    local backup_dir="$BACKUP_DIR/buku"
+    mkdir -p $backup_dir
+    local backup_file="$backup_dir/buku_$DATE.db"
+    echo -e "backing up buku to ${GREEN}$backup_file...${NOCOLOR}"
+    buku --np -e $backup_file
+}
+
+function hback() {
+    local backup_dir="$BACKUP_DIR/history"
+    mkdir -p $backup_dir
+    local backup_file="$backup_dir/.zsh_history_$DATE"
+    echo "backin up .zsh_history to $backup_file"
+    cp $HOME/.zsh_history $backup_file
+}
+
+function ommback() {
+    local backup_dir="$BACKUP_DIR/omm/omm-$DATE"
+    mkdir -p $backup_dir
+    echo "backin up ~/.local/share/omm to $backup_dir"
+    cp $HOME/.local/share/omm/* $backup_dir
+}
+
+function hoursback() {
+    local backup_dir="$BACKUP_DIR/hours"
+    mkdir -p $backup_dir
+    local backup_file="$backup_dir/hours-$DATE.db"
+    echo "backin up ~/hours.db to $backup_file"
+    cp $HOME/hours.db $backup_file
+}
+
+bback
+hback
+ommback
+hoursback

@@ -17,7 +17,7 @@ function txwpy() {
     fi
 
     if [ -n "$selected_py_env" ]; then
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR $MAC_CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
         if [ -n "$selected_entry" ]; then
             printf "%s\n" "$selected_entry" | while IFS= read -r project; do
             tmuxinator two-windows $project $selected_py_env

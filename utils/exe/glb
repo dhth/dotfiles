@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 
-width=$(tput cols)
-
-message_width=$((width / 2))
-date_width=$((width / 6))
-author_width=$((width / 6))
-
 git log \
     --color \
     --graph \
     --since="3 months ago" \
-    --pretty=format:"%Cred%h%Creset %<($message_width,trunc)%s %Cgreen%<($date_width,trunc)%cr %C(bold blue)%<($author_width,trunc)%an%Creset" \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
     --abbrev-commit

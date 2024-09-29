@@ -1,2 +1,13 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 
+if [ ! -e ".cmds" ]; then
+    echo "no commands"
+    exit 1
+fi
+
+cmd=$(cat .cmds | fzf --height=15 --layout=reverse)
+if [ -z "$cmd" ]; then
+    exit 0
+fi
+
+eval "$cmd"

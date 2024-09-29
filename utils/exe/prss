@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+QUERY=$(cat ~/.config/prs/queries.txt | fzf --with-nth=1 --delimiter=":::" --height=8 --layout=reverse --prompt="query?" --wrap | awk -F ':::' '{print $2}' | xargs)
+if [ -z "$QUERY" ]; then
+    exit 1
+fi
+
+prs --query="$QUERY"

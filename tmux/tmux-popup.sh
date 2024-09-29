@@ -5,7 +5,7 @@ POPUP_BORDER_COLOR=#928374 # gruvbox gray darker
 current_session_name="$(tmux display-message -p -F "#{session_name}")"
 session_name="popup"
 
-if [ "$current_session_name" = "$session_name" ];then
+if [ "$current_session_name" = "$session_name" ]; then
     tmux detach-client
 else
     if ! tmux has-session -t "$session_name" 2>/dev/null; then

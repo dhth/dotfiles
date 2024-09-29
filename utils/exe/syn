@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+max=${1:-20}
+
+while IFS= read -r word; do
+    echo "== $word =="
+    encoded_word=$(jq -rn --arg word "$word" '$word|@uri')
+    curl -s "https://api.datamuse.com/words?ml=${encoded_word}&max=${max}" | jq -r '.[].word'
+    echo ""
+done

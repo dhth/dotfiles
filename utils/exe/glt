@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git log --since="3 months ago" \
+    --pretty=format:'%h:::%s:::%cr:::%an' \
+    --abbrev-commit | tbll -s --headers 'hash,message,when,author'

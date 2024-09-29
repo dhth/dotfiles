@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+NC='\033[0m'
+
+echo -e "${ORANGE}go get -u ./...${NC}"
+go get -u ./...
+
+echo -e "${ORANGE}go get -t -u ./...${NC}"
+go get -t -u ./...
+
+echo -e "${ORANGE}go mod tidy${NC}"
+go mod tidy

@@ -14,27 +14,27 @@ root: <%= @args[0] %>
 
 windows:
   - editor:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
+      # layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
           - nvim
-        - preview:
-          - workon <%= @args[1] %>
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
+        # - preview:
+        #   - workon <%= @args[1] %>
+        #   - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
   - sh:
       panes:
         - sh:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w2-p1"'
+          - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
   - sh:
       panes:
         - sh:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w3-p1"'
+          - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear

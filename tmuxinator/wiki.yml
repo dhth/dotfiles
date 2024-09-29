@@ -37,7 +37,7 @@ windows:
           - workon $WIKI_PYTHON
           - print -s "mkdocs serve --dev-addr=127.0.0.1:8005"
 <%- end %>
-  - blog:
+  - bl:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
@@ -47,7 +47,7 @@ windows:
         - docs:
           - cd $BLOG_DIR
           - print -s "hugo server"
-  - brain:
+  - br:
       layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
@@ -68,21 +68,34 @@ windows:
           - j:
             - print -s 'jira sprint list --current'
 <%- end %>
-<%- if args[0] == "work" %>
-  - punchout:
-      panes:
-          - punchout:
-            - print -s 'punchout'
-<%- end %>
-<%- if args[0] == "work" %>
   - prs:
       panes:
           - prs:
             - print -s 'prs'
-<%- end %>
-  - hours:
+<%- if args[0] == "work" %>
+  - po:
       panes:
-          - hours:
+          - po:
+            - print -s 'punchout'
+<%- end %>
+  - h:
+      panes:
+          - h:
             - print -s 'hours'
-          - hours-report:
+          - h-report:
             - print -s 'hours report'
+  - o:
+      panes:
+          - omm:
+            - export NVIM_APPNAME=nvim-omm
+            - clear && omm
+  - ow:
+      panes:
+          - ommw:
+            - export NVIM_APPNAME=nvim-omm
+            - clear && ommw
+  - or:
+      panes:
+          - ommr:
+            - export NVIM_APPNAME=nvim-omm
+            - clear && ommr

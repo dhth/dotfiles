@@ -5,5 +5,5 @@
 browser="${1:-"Brave Browser"}"
 
 while read -r url; do
-  open -a "$browser" "$url"
-done < /dev/stdin
+    open -a "$browser" "$url"
+done </dev/stdin

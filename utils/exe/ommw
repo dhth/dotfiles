@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+omm \
+    --config-path=~/.config/omm/omm-w.toml \
+    "$@"

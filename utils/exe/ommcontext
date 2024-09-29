@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+TMUX_LOCATION="wiki:w"
+
+tmux send-keys -t $TMUX_LOCATION ":e $1" ENTER
+tmux switch -t $TMUX_LOCATION

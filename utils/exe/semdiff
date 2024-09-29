@@ -2,55 +2,57 @@
 
 set -e
 
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-NC='\033[0m'
-
-usage() {
-    echo "Usage: semdiff [-p value] argument1 argument2"
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 <pattern> <start> <end>"
+    echo "eg: $0 '**.go' startcommit endcommit"
     exit 1
-}
-
-if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
-    usage
 fi
 
-pattern=""
+pattern="$1"
+start="$2"
+end="$3"
 
-while getopts ":p:" opt; do
-    case ${opt} in
-    p)
-        pattern="$OPTARG"
-        ;;
-    \?)
-        echo "Invalid option: -$OPTARG" 1>&2
-        usage
-        ;;
-    :)
-        echo "Option -$OPTARG requires an argument" 1>&2
-        usage
-        ;;
-    esac
-done
-shift $((OPTIND - 1))
+cwd="$(pwd)"
 
-start="$1"
-end="$2"
+current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-start_file="/tmp/semdiff_$start.txt"
-end_file="/tmp/semdiff_$end.txt"
+temp_dir=$(mktemp -d)
+if [ ! -e ${temp_dir} ]; then
+    echo "Failed to create temporary directory."
+    exit 1
+fi
 
-# echo -e "${ORANGE}git checkout $start${NC}"
+changed=$(git diff --name-only "$start..$end" -- "$pattern" || true)
+
+if [ -z "$changed" ]; then
+    echo "No changes detected"
+    exit 0
+fi
+
 git checkout "$start" >/dev/null 2>&1
-echo -e "${GREEN}git ls-files "$pattern" | dstll -plain=true > $start_file${NC}"
-git ls-files "$pattern" | dstll -plain=true >"$start_file"
+files_start=$(git ls-files "$pattern")
+if [ -z "$files_start" ]; then
+    mkdir -p "${temp_dir}/$start"
+else
+    dstll write $files_start -o "${temp_dir}/$start" -q
+fi
 
-echo -e ""
-
-# echo -e "${ORANGE}git checkout $end${NC}"
 git checkout "$end" >/dev/null 2>&1
-echo -e "${GREEN}git ls-files "$pattern" | dstll -plain=true > $end_file${NC}"
-git ls-files "$pattern" | dstll -plain=true >"$end_file"
+files_end=$(git ls-files "$pattern")
+if [ -z "$files_end" ]; then
+    mkdir -p "${temp_dir}/$end"
+else
+    dstll write $files_end -o "${temp_dir}/$end" -q
+fi
 
-echo -e "${ORANGE}git diff --ignore-space-at-eol --no-index $start_file $end_file${NC}"
-git diff --ignore-space-at-eol --no-index "$start_file" "$end_file"
+git checkout $current_branch >/dev/null
+
+cd $temp_dir
+changed_dstlled=$(git diff --name-only --no-index --relative "$start" "$end" || true)
+
+if [ -z "$changed_dstlled" ]; then
+    echo "No changes detected"
+    exit 0
+fi
+
+git --no-pager diff --no-index --relative --unified=0 "$start" "$end" || true

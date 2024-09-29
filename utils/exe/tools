@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo 'act3
+commits
+cueitup
+dstll
+ecsv
+hours
+kplay
+mult
+outtasync
+prs
+punchout
+schemas' | xargs -I {} echo "https://github.com/dhth/{}/pulls" | xargs open

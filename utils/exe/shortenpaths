@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Function to shorten a given path
+shorten_path() {
+    local path=$1
+    local no_shorten_first=$2
+    local no_shorten_last=$3
+    local IFS='/'
+    local parts=($path)
+    local shortened_path=""
+
+    # Check if the last part is a file
+    if [[ -f "$path" ]]; then
+        no_shorten_last=true
+    fi
+
+    for i in "${!parts[@]}"; do
+        if [[ $i -eq 0 && $no_shorten_first == true ]]; then
+            shortened_path+="${parts[$i]}/"
+        elif [[ $i -eq $((${#parts[@]} - 1)) && $no_shorten_last == true ]]; then
+            shortened_path+="${parts[$i]}"
+        else
+            shortened_path+="${parts[$i]:0:1}/"
+        fi
+    done
+
+    # Remove trailing slash if last element is not shortened
+    if [[ $no_shorten_last == true ]]; then
+        shortened_path=${shortened_path%/}
+    fi
+
+    echo "$shortened_path"
+}
+
+# Default values for flags
+no_shorten_first=false
+no_shorten_last=false
+
+# Parse flags
+while getopts "fl" opt; do
+    case $opt in
+    f) no_shorten_first=true ;;
+    l) no_shorten_last=true ;;
+    *)
+        echo "Usage: $0 [-f] [-l] [paths...]"
+        exit 1
+        ;;
+    esac
+done
+
+# Shift to get the remaining arguments (paths)
+shift $((OPTIND - 1))
+
+# If there are arguments, process them as paths
+if [ $# -gt 0 ]; then
+    for path in "$@"; do
+        shorten_path "$path" $no_shorten_first $no_shorten_last
+    done
+else
+    # Otherwise, read paths from stdin
+    while IFS= read -r path; do
+        shorten_path "$path" $no_shorten_first $no_shorten_last
+    done
+fi

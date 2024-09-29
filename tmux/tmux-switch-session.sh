@@ -1,4 +1,4 @@
-function txs(){
+function txs() {
     local selected_entry
 
     selected_entry=$(tmux list-sessions -F '#S' | fzf --height=20 --layout=reverse --header="session?")

@@ -2,7 +2,7 @@
 
 function glbo() {
     local selected_branches
-    selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi| xargs)
+    selected_branches=$(git branch --remote | fzf --height=12 --layout=reverse --multi | xargs)
 
     if [ -n "$selected_branches" ]; then
         git log \

@@ -13,7 +13,7 @@
 
 browser="${1:-"Brave Browser"}"
 
-osascript << EOF
+osascript <<EOF
 # build the output with this variable
 set titleString to ""
 # Apple Script must be able to compile tell statments

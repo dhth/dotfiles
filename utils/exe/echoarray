@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-function echoarray(){
+function echoarray() {
     arr=("$@")
-    for el in $arr
-    do
+    for el in $arr; do
         echo "$el"
     done
 }

@@ -93,7 +93,7 @@
     navigate = true    # use n and N to move between diff sections
     light = false
     line-numbers = true
-    ; features = side-by-side
+    features = side-by-side
 ;     whitespace-error-style = 22 reverse
     syntax-theme = Monokai Extended Bright
 ;     whitespace-error-style = 22 reverse
@@ -118,8 +118,8 @@
 	autostash = true
 [commit]
 	verbose = true
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
+; [blame]
+; 	ignoreRevsFile = .git-blame-ignore-revs
 [branch]
 	sort = -committerdate
 [tag]

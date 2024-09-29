@@ -27,7 +27,6 @@ validate_color() {
     fi
 }
 
-
 if [ $# -eq 0 ]; then
     argument=$(basename "$PWD")
     selected_color=$(choose_color "$argument")
