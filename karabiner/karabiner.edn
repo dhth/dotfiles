@@ -143,7 +143,7 @@
              :left-option-mode-apple {:key :left_option}
              :left-command-mode-non-apple {:key :left_option}
              ; :ro-intellij-mode {:key :period :condi ["ro-intellij" 1]}
-             ; :ro-preview-mode {:key :period :condi ["ro-preview" 1]}
+             ; :ro-lc-preview {:key :period :condi ["ro-preview" 1]}
              }
  :main [
 
@@ -189,9 +189,12 @@
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  ; [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: type out check mark
                  ; [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: type out check mark
-                 [:h :!TOh] ;; magnet: left
-                 [:l :!TOl] ;; magnet: right
-                 [:m :!TOm] ;; magnet: maximise
+                 ; [:h :!TOh] ;; magnet: left
+                 ; [:l :!TOl] ;; magnet: right
+                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: move window to left50
+                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: move window to right50
+                 [:m "/opt/homebrew/bin/hs -c \"ResizeWindow('maximized')\"" ] ;; hammerspoon: maximise window
+                 ; [:m :!TOm] ;; magnet: maximise
                  [:equal_sign :!TOf] ;; magnet: center thirds
                  ]}
 
@@ -205,8 +208,8 @@
                  ; [:j [:km "mouse: move_down_small"]]
                  ; [:k [:km "mouse: move_up_small"]]
                  ; [:l [:km "mouse: move_right_small"]]
-                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left30')\"" ] ;; hammerspoon: type out check mark
-                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right30')\"" ] ;; hammerspoon: type out check mark
+                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left30')\"" ] ;; hammerspoon: move window to left30
+                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right30')\"" ] ;; hammerspoon: move window to right30
                  [:o "/opt/homebrew/bin/tmux switch -t wiki:or && open -a \"Alacritty\"" ] ;; tmux: switch to ommr
                  [:u [:alfred "add_url_to_ommr" "dhth.omm"]] ;; alfred: dhth.omm add url to ommr
                  ; [:h :!TOd] ;; magnet: one-third left
@@ -278,7 +281,7 @@
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:r [:!Ta :!Sr] :termemul] ;; tmux prefix + R: cmds
                  [:d [:!Ta :d] :termemul] ;; tmux prefix + d
-                 [:f [:!Ta :!Tf] :termemul] ;; tmux prefix + C-f
+                 [:f [:!Ta :!Tf] :termemul] ;; tmux: temporary popup
                  [:l [:!Ta :n] :termemul] ;; tmux prefix + n
                  [:h [:!Ta :p] :termemul] ;; tmux prefix + p
                  [:n [:!Ta :!Tn] :termemul] ;; tmux: pane picker across all sessions
@@ -320,7 +323,8 @@
                           [:o [:spacebar :b :o ] :jetbrains ]
                           [:l [:!SOCb :!Sl] :code ] ;; vscode: foam: backlinks
                           [:l [:spacebar :b :l] :termemul ] ;; vim: wiki: backlinks
-                          [:m :!OC5 :pdfviewer ] ;; pdfviewer: show bookmarks
+                          ; [:m :!OC5 :pdfviewer ] ;; pdfviewer: show bookmarks
+                          [:m [:alfred "search"  "dhth.bookmarks"]]
                           ]}
 
                  {:des   "c-mode"
@@ -433,7 +437,7 @@
                          ; [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
                          [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                          [:right_shift [:!Ta :!Tw] :termemul]  ;; tmux: go to last window
-                         [:spacebar [:!Ta :!Tm] :termemul] ;; tmux: session menu
+                         [:spacebar [:!Ta :!Tg] :termemul] ;; tmux: session menu
                          [:up_arrow :!Tk ] ;; ctrl+k
                          [:down_arrow :!Tj ] ;; ctrl+j
                          [:left_arrow :!Th ] ;; ctrl+h
@@ -450,6 +454,7 @@
                          [:a [:open "/System/Applications/Preview.app"]] ;; open: Preview
                          [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
                          [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
+                         [:o [:open "/Applications/Obsidian.app"]] ;; open: Obsidian
                          [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
                          [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
                          [:3 [:!Ta :!S3] :termemul] ;; tmux: layout 3
@@ -725,9 +730,13 @@
                           [:d [:alfred "devices" "dhth.spotify"]]
                           [:a [:alfred "add_track_to_playlist" "dhth.spotify"]] ;; spotify: add track to playlist
                           [:r :!TOCr] ;; hammerspoon: reload config
-                          [:1 :!TOC1] ;; amethyst: full screen mode
-                          [:2 :!TOC2] ;; amethyst: 2 pane layout
-                          [:3 :!TOC3] ;; amethyst: floating layout
+                          [:1 [["lc-browser" 1] ["lc-preview" 0] ["lc-intellij-idea" 0] ["lc-zoom" 0]]]
+                          [:2 [["lc-browser" 0] ["lc-preview" 1] ["lc-intellij-idea" 0] ["lc-zoom" 0]]]
+                          [:3 [["lc-browser" 0] ["lc-preview" 0] ["lc-intellij-idea" 1] ["lc-zoom" 0]]]
+                          [:4 [["lc-browser" 0] ["lc-preview" 0] ["lc-intellij-idea" 0] ["lc-zoom" 1]]]
+                          ; [:1 :!TOC1] ;; amethyst: full screen mode
+                          ; [:2 :!TOC2] ;; amethyst: 2 pane layout
+                          ; [:3 :!TOC3] ;; amethyst: floating layout
                           ; [:1 :!TOC1] ;; hammerspoon: move to screen 1
                           ; [:2 :!TOC2] ;; hammerspoon: move to screen 2
                           ; [:3 :!TOC3] ;; hammerspoon: move to screen 3
@@ -858,6 +867,7 @@
          [:r :!T4 :slack] ;; slack: open later view
          [:t :!CSt :slack] ;; slack: open threads
          [:q [:!Ta :!Sq] :termemul] ;; tsw: show sessions
+         [:tab "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/.tsw\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul] ;; tsw: edit tsw
          [:a "~/projects/dotfiles/utils/exe/tsw 1" :termemul] ;; tsw: go to session 1
          [:s "~/projects/dotfiles/utils/exe/tsw 2" :termemul] ;; tsw: go to session 2
          [:d "~/projects/dotfiles/utils/exe/tsw 3" :termemul] ;; tsw: go to session 3
@@ -884,6 +894,8 @@
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
          ; [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
          ; [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
+         [:1 [["lo-browser" 1] ["lo-preview" 0]]]
+         [:2 [["lo-browser" 0] ["lo-preview" 1]]]
          ]}
 
 {:des "left_option mode non apple"
@@ -946,7 +958,17 @@
 {:des "left control to caps lock"
  :rules [
          ; [:##left_control :caps_lock]
-         [:left_control [:alfred "search"  "dhth.bookmarks"]]
+         ; [:left_control [:alfred "search"  "dhth.bookmarks"]]
+         [:##left_control :##left_control [:apple ["lc-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_control :##left_control [:!apple ["lc-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_control :##left_control [:apple ["lc-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         [:##left_control :##left_control [:!apple ["lc-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         [:##left_control :##left_control [:apple ["lc-intellij-idea" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         [:##left_control :##left_control [:!apple ["lc-intellij-idea" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
+         [:##left_control :##left_control [:apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
+         [:##left_control :##left_control [:!apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
+         [:##left_control :##left_control :apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-control:: fallback
+         [:##left_control :##left_control :!apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-control:: fallback
          ]
  }
 
@@ -996,22 +1018,16 @@
          ; [:##right_command :##right_command :apple {:alone [:spacebar :w :n]}] ;; fzf :Windows
          ]}
 
-{:des "not browser"
- :rules [:!browser
-         ; [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}]
-         ; [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}]
-         [:##left_option :##left_option :apple {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_command :##left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}]
-         ; [:##left_command :##left_option nil {:alone [:open "/Applications/Brave Browser.app"]}]
+{:des "left-option"
+ :rules [
+         [:##left_option :left_command [:apple ["lo-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_command :left_option [:!apple ["lo-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
+         [:##left_option :left_command [:apple ["lo-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         [:##left_command :left_option [:!apple ["lo-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
+         [:##left_option :left_command :apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-option: fallback
+         [:##left_command :left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-option: fallback
          ]
  }
-
-; {:des "hack to map left opt to multiple apps"
-;  :rules [:!fakeapp
-;          [:##left_option :##left_option :apple {:alone [:open-a "Brave Browser"]}] ;; replaceable-left-option-app-apple
-;          [:##left_command :##left_option :!apple {:alone [:open-a "Brave Browser"]}] ;; replaceable-left-option-app-non-apple
-;          ]
-;  }
 
 {:des "browser"
  :rules [:browser
@@ -1030,7 +1046,7 @@
          ]
  }
 
-{:des "spotify"
+{:des "right-option"
  :rules [
          [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
          [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
@@ -1071,32 +1087,6 @@
          [:##left_shift :left_shift nil {:alone :!Oleft_arrow}]
          ]
  }
-
-{:des "right command/option"
- :rules [
-         ; [:##right_option :##right_option :!apple {:alone [:alfred "quick_switch_app" "dhth.system"]}] ;; alfred: system: quick switch app
-
-         ; [:##right_option :##right_option nil {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         ; [:##right_option :##right_option [:!apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         ; [:##right_command :##right_command [:apple ["ro-intellij" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         ;
-         ; [:##right_option :##right_option [:!apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         ; [:##right_command :##right_command [:apple ["ro-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         ;
-         ; [:##right_option :##right_option [:!apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
-         ; [:##right_command :##right_command [:apple ["ro-spotify" 1]] {:alone [:open "/Applications/Spotify.app"]}]
-         ;
-         ; [:##right_option :##right_option [:!apple ["ro-postman" 1]] {:alone [:open "/Applications/Postman.app"]}]
-         ; [:##right_command :##right_command [:apple ["ro-postman" 1]] {:alone [:open "/Applications/Postman.app"]}]
-         ]
- }
-
-    ; try to get this working
-    ; https://johnlindquist.com/combine-layer-and-simlayer-in-karabiner/
-    ; {:des "combo"
-    ;  :rules [[:condi :d-mode :r-mode]
-    ;          [:k [:b :o :t :h]];
-    ;          ]}
 
 ]
 }

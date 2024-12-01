@@ -76,9 +76,9 @@ alias gs="git status -sb"
 alias cvim="nvim ~/.config/nvim/init.vim"
 alias tx="tmuxinator"
 alias v="nvim"
+alias vnolsp='nvim --cmd "let g:lsp=v:false"'
 alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 alias ..="cd .."
-alias tnew='txw general $(pwd)'
 alias mm='mult -i -s'
 alias yd='yarn develop'
 alias jpn='jupyter notebook'
@@ -889,3 +889,8 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 . "$HOME/.grit/bin/env"
+
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+bindkey '^e' atuin-search
+bindkey -s '^N' 'n\n'

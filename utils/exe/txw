@@ -19,7 +19,7 @@ function txwpy() {
     if [ -n "$2" ]; then
         selected_entry="$2"
     else
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $PROJECTS_DIR/rusttest | fzf --multi --height=20 --layout=reverse --header="project?")
+        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $PROJECTS_DIR/rusttest $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
     fi
 
     if [ -n "$selected_py_env" ]; then

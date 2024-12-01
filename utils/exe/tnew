@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" ]; then
+  tmuxinator two-windows "$(pwd)" general
+else
+  tmuxinator two-windows "$1" general
+fi

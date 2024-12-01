@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-if ! [[ "$1" =~ ^[1-5]$ ]]; then
+if ! [[ "$1" =~ ^[1-9]$ ]]; then
     echo "Invalid argument. Please provide a number between 1 and 5."
     exit 1
 fi
@@ -18,6 +18,8 @@ if [ -z "$sessions" ]; then
     exit 1
 fi
 
-session=$(echo "$sessions" | sed -n "${1}p")
+position=${1}
+session=$(echo "$sessions" | sed -n "${position}p")
+# session=$(/opt/homebrew/bin/tmux list-sessions -F "#{session_last_attached} #{session_name}" | sort -nr | awk '{print $2}' | sed -n "${position}p")
 
 /opt/homebrew/bin/tmux switch-client -t "$session"

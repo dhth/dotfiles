@@ -1,11 +1,10 @@
-import = ["~/.config/alacritty/gruvbox.toml"]
 
 [env]
 TERM = "xterm-256color"
 
 [font]
 # scale_with_dpi = true
-size = 15
+size = 20
 
 [font.bold]
 family = "MesloLGS Nerd Font"
@@ -54,4 +53,7 @@ startup_mode = "Windowed"
 [window.padding]
 x = 0
 y = 0
+
+[general]
+import = ["~/.config/alacritty/gruvbox.toml"]
 

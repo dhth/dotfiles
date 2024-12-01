@@ -37,4 +37,5 @@ windows:
           - source ~/chosen_work_dir
           # - workon $CHOSEN_PYENV
           - workon <%= @args[1] %>
+          # - ~/projects/dotfiles/tmux/tmux-set-color.sh <%= WDIR.split('/').last.downcase  %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear

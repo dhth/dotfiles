@@ -11,10 +11,11 @@ end
 -- widescreen monitor
 hs.hotkey.bind({ "cmd", "alt", "shift", "ctrl" }, "q", function()
     -- local laptopScreen = "LC34G55T"
-    local screen = hs.screen.mainScreen()
-    local windowLayout = {
+        local screen = hs.screen.mainScreen()
+        local windowLayout = {
         { "Brave Browser", nil, screen, hs.layout.left50,  nil, nil },
         { "Zoom",          nil, screen, hs.layout.left50,  nil, nil },
+        { "Preview",       nil, screen, hs.layout.left50,  nil, nil },
         { "Slack",         nil, screen, hs.layout.right50, nil, nil },
         { "Alacritty",     nil, screen, hs.layout.right50, nil, nil },
     }
@@ -28,29 +29,32 @@ hs.hotkey.bind({ "cmd", "alt", "shift", "ctrl" }, "w", function()
     local windowLayout = {
         { "Brave Browser", nil, screen, hs.layout.left30,  nil, nil },
         { "Alacritty",     nil, screen, hs.layout.right70, nil, nil },
+        { "Preview",       nil, screen, hs.layout.left30,  nil, nil },
     }
     hs.layout.apply(windowLayout)
 end)
 
-function ResizeWindow(direction)
-        if not direction then
+function ResizeWindow(layout)
+        if not layout then
             return
         end
         local screen = hs.screen.mainScreen()
         local focussedApp = hs.application.frontmostApplication()
         local rect
-        if direction == "left50" then
+        if layout == "left50" then
             rect = hs.layout.left50
-        elseif direction == "right50" then
+        elseif layout == "right50" then
             rect = hs.layout.right50
-        elseif direction == "left30" then
+        elseif layout == "left30" then
             rect = hs.layout.left30
-        elseif direction == "right30" then
+        elseif layout == "right30" then
             rect = hs.layout.right30
-        elseif direction == "left70" then
+        elseif layout == "left70" then
             rect = hs.layout.left70
-        elseif direction == "right70" then
+        elseif layout == "right70" then
             rect = hs.layout.right70
+        elseif layout == "maximized" then
+            rect = hs.layout.maximized
         end
         local windowLayout = {
             { focussedApp, nil, screen, rect, nil, nil },
