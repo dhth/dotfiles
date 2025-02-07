@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+FILE_PATH="~/.keystroke"
+
+FILE_PATH="${FILE_PATH/#\~/$HOME}"
+
+if [[ ! -f "$FILE_PATH" || ! -s "$FILE_PATH" ]]; then
+  echo "File does not exist or is empty."
+  exit 1
+fi
+
+CONTENT=$(head -n 1 "${FILE_PATH}")
+
+osascript -e "tell application \"System Events\" to keystroke \"$CONTENT\""

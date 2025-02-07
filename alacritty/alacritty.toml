@@ -5,6 +5,8 @@ TERM = "xterm-256color"
 [font]
 # scale_with_dpi = true
 size = 20
+offset.x = 0
+offset.y = 10
 
 [font.bold]
 family = "MesloLGS Nerd Font"
@@ -20,10 +22,6 @@ family = "MesloLGS Nerd Font"
 [font.normal]
 family = "MesloLGS Nerd Font"
 style = "Regular"
-
-[font.offset]
-x = 0
-y = 10
 
 [[keyboard.bindings]]
 action = "ToggleFullscreen"

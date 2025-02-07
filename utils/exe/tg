@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+selected_key=$(
+    tash ls |
+        fzf \
+            --reverse \
+            --preview 'tash get {}' \
+            --preview-window=right:70% \
+            --preview-border=vertical \
+            --border=none
+)
+
+if [ -z "$selected_key" ]; then
+    exit 0
+fi
+
+tash get "${selected_key}" -nc

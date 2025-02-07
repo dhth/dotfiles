@@ -1,0 +1,10 @@
+font-family = "FiraCode Nerd Font Mono Bold"
+font-size = 22
+theme = GruvboxDark
+cursor-style = block
+cursor-style-blink = false
+adjust-cell-width = 0
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+font-thicken

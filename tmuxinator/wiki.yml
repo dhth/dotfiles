@@ -8,51 +8,28 @@ windows:
         - editor:
           # - tmux set status off
           - cd $WIKI_DIR
-          - tmux resize-pane -Z
           - nvim
-        - preview:
-          - workon <%= @args[1] %>
-          - cd $WIKI_DIR
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
 <%- if args[0] == "work" %>
   - ww:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - cd $WORK_WIKI_DIR
-          - tmux resize-pane -Z
-          - nvim
-        - docs:
-          - cd $WORK_WIKI_DIR
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
+          - print -s "nvim"
   - wkb:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - cd $WORK_KB_DIR
-          - tmux resize-pane -Z
-          - nvim
-        - docs:
-          - cd $WORK_KB_DIR
-          - workon $WIKI_PYTHON
-          - print -s "mkdocs serve --dev-addr=127.0.0.1:8005"
+          - print -s "nvim"
 <%- end %>
   - bl:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - cd $BLOG_DIR
-          - tmux resize-pane -Z
-          - nvim
-        - docs:
-          - cd $BLOG_DIR
-          - print -s "hugo server"
+          - print -s "nvim"
   - br:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
           - cd $BRAIN_DIR
-          - tmux resize-pane -Z
           - nvim
         - docs:
           - cd $BRAIN_DIR
@@ -68,33 +45,29 @@ windows:
           - j:
             - print -s 'jira sprint list --current'
 <%- end %>
-  - prs:
-      panes:
-          - prs:
-            - print -s 'prs'
 <%- if args[0] == "work" %>
   - po:
       panes:
           - po:
             - print -s 'punchout'
 <%- end %>
-  - h:
+  - hours:
       panes:
           - h:
             - print -s 'hours'
           - h-report:
             - print -s 'hours report'
-  - o:
+  - omm:
       panes:
           - omm:
             - export NVIM_APPNAME=nvim-omm
             - clear && omm
-  - ow:
+  - ommw:
       panes:
           - ommw:
             - export NVIM_APPNAME=nvim-omm
             - clear && ommw
-  - or:
+  - ommr:
       panes:
           - ommr:
             - export NVIM_APPNAME=nvim-omm

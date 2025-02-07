@@ -22,14 +22,10 @@ white=$'\033[37m'
 NOCOLOR="\033[0m"
 
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
-alias pomo='$GOPATH/bin/openpomodoro-cli'
 alias tf='terraform'
 alias jr='jira'
-alias jirah='$JIRA_PYTHON $JIRA_MANAGER_DIR/main.py'
 alias ta='tmux attach'
 alias tm='python -c "import time;print(int(time.time()))"'
-alias chimeerror='python -c "import chime;chime.theme(\"mario\");chime.error()"'
-alias chime='python -c "import chime;chime.theme(\"mario\");chime.success()"'
 alias dps='docker ps'
 alias :Qa='exit'
 alias :qa='exit'
@@ -116,23 +112,9 @@ bindkey -v
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
-source $NVM_DIR/nvm.sh  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# source $NVM_DIR/nvm.sh  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# alias vim="nvim"
-
-# alias gc="git commit"
-# alias gco="git checkout"
-
-# alias t='python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks'
-# function t(){
-#     python $HOME/Soft/t/t.py --task-dir ~/tasks --list tasks "$@"
-# }
-function t(){
-    last_num=$(tail -n 1 $POMODORO_TASK_LIST_FILE_LOC | cut -d':' -f1)
-    new_num=`expr $last_num + 1`
-    echo "$new_num: $@" >> $POMODORO_TASK_LIST_FILE_LOC
-}
 
 function crl(){
     response=$(curl -s $1)
@@ -574,19 +556,10 @@ function ff() {
 
 # work commands
 function ww() {
-    work_command=$(cat $DROPBOX_DIR/work/work_commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
+    work_command=$(cat ~/projects/utils/work_commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
     if [ -n "$work_command" ]; then
         print -s $work_command
         eval $work_command
-    fi
-}
-
-# pers commands
-function pp() {
-    pers_command=$(cat $DROPBOX_DIR/pers/commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
-    if [ -n "$pers_command" ]; then
-        print -s $pers_command
-        eval $pers_command
     fi
 }
 
@@ -605,16 +578,16 @@ function _number_of_docker_compose_files(){
 
 function dcm() {
     if (( $(_number_of_docker_compose_files) <= 1 )); then
-        echo -e "${GREEN}docker-compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
-        docker-compose -f $(ls | grep docker-compose | xargs) "$@"
+        echo -e "${GREEN}docker compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
+        docker compose -f $(ls | grep docker-compose | xargs) "$@"
     else
         local selected_docker_compose_files
         selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=10 --layout=reverse --multi | xargs)
 
         if [ -n "$selected_docker_compose_files" ]; then
-            echo -e "${GREEN}docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
-            print -s "docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@""
-            docker-compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
+            echo -e "${GREEN}docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
+            print -s "docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@""
+            docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
         fi
     fi
 }
@@ -841,6 +814,14 @@ function n ()
     fi
 }
 
+function loadpy() {
+    if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init --path)"
+    fi
+    . ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
+    workon general
+}
+
 
 function books(){
     local selected_book
@@ -862,33 +843,33 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-fi
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init --path)"
+# fi
 
 export WORKON_HOME=~/.virtualenvs
 
 mkdir -p $WORKON_HOME
 #
-. ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
+# . ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH="$PATH:/Users/dhruvthakur/.spicetify:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
-workon general
+# workon general
 # eval "$(starship init zsh)"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
+# complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-. "$HOME/.grit/bin/env"
+# . "$HOME/.grit/bin/env"
 
 export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"

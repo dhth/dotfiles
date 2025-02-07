@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tash put "$1" -e
