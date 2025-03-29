@@ -22,6 +22,7 @@ windows:
           # - workon <%= @args[1] %>
           # - nvim
             - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p1"'
+            - clear
         # - preview:
         #   - workon <%= @args[1] %>
         #   - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
@@ -32,6 +33,7 @@ windows:
           # - workon $CHOSEN_PYENV
           # - workon <%= @args[1] %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
+          - clear
   - sh:
       panes:
         - sh:
@@ -40,3 +42,4 @@ windows:
           # - workon <%= @args[1] %>
           # - ~/projects/dotfiles/tmux/tmux-set-color.sh <%= WDIR.split('/').last.downcase  %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
+          - clear

@@ -30,7 +30,7 @@ windows:
       panes:
         - editor:
           - cd $BRAIN_DIR
-          - nvim
+          - print -s "nvim"
         - docs:
           - cd $BRAIN_DIR
           - workon $WIKI_PYTHON
@@ -54,21 +54,16 @@ windows:
   - hours:
       panes:
           - h:
-            - print -s 'hours'
-          - h-report:
-            - print -s 'hours report'
+            - hours
   - omm:
       panes:
           - omm:
             - export NVIM_APPNAME=nvim-omm
-            - clear && omm
+            - print -s 'omm'
+            - clear
   - ommw:
       panes:
           - ommw:
             - export NVIM_APPNAME=nvim-omm
-            - clear && ommw
-  - ommr:
-      panes:
-          - ommr:
-            - export NVIM_APPNAME=nvim-omm
-            - clear && ommr
+            - print -s 'ommw'
+            - clear

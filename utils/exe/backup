@@ -12,6 +12,15 @@ function bback() {
     buku --np -e $backup_file
 }
 
+function bmmback() {
+    local backup_dir="$BACKUP_DIR/bmm"
+    mkdir -p $backup_dir
+    local bmm_backup_dir="${backup_dir}/bmm-$DATE"
+    mkdir -p ${bmm_backup_dir}
+    echo -e "backing up bmm to ${GREEN}${bmm_backup_dir}${NOCOLOR}"
+    cp -r "${MAC_CONFIG_DIR}/bmm" ${bmm_backup_dir}
+}
+
 function hback() {
     local backup_dir="$BACKUP_DIR/history"
     mkdir -p $backup_dir
@@ -35,7 +44,7 @@ function hoursback() {
     cp $HOME/hours.db $backup_file
 }
 
-bback
+bmmback
 hback
 ommback
 hoursback

@@ -16,4 +16,4 @@ if [ -z "$selected_keys" ]; then
     exit 0
 fi
 
-tash d ${selected_keys}
+tash delete ${selected_keys}

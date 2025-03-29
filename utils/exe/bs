@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# RELOAD='reload:bmm search {q} -f plain'
+# OPEN='open {1}'
+# EDIT='bmm save {1} -e'
+# START=''
+#
+# if [ $# -gt 0 ]; then
+#     START="reload:bmm search ${1} -f plain"
+# fi
+#
+# fzf </dev/null \
+#     --disabled \
+#     --reverse \
+#     --multi \
+#     --bind "start:${START}" \
+#     --bind "enter:$RELOAD" \
+#     --bind "ctrl-o:execute:$OPEN" \
+#     --bind "ctrl-e:execute:$EDIT" \
+#     --bind 'H:clear-query' \
+#     --preview 'bmm show {1}' \
+#     --preview-window='right:70%' \
+#     --style=minimal
+
+RELOAD='reload:(tail -n +2 <(bmm search {q} -f delimited))'
+OPEN='open {+1}'
+EDIT='bmm save {1} -e'
+START=''
+
+if [ $# -gt 0 ]; then
+    START="reload:(tail -n +2 <(bmm search ${1} -f delimited))"
+fi
+
+fzf </dev/null \
+    --disabled \
+    --reverse \
+    --multi \
+    --delimiter ',' \
+    --with-nth=2,1 \
+    --bind "start:${START}" \
+    --bind "enter:$RELOAD" \
+    --bind "ctrl-o:execute:$OPEN" \
+    --bind "ctrl-e:execute:$EDIT" \
+    --bind 'H:clear-query' \
+    --preview 'bmm show {1}' \
+    --preview-window='down:40%' \
+    --style=minimal

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+RELOAD='reload:buku --np --nostdin -s {q} -n 50 -f 10'
+OPENER='open {1}'
+fzf </dev/null \
+    --disabled \
+    --reverse \
+    --multi \
+    --bind "start:" --bind "change:$RELOAD" \
+    --bind "enter:become:$OPENER" \
+    --bind "ctrl-o:execute:$OPENER" \
+    --preview 'echo {1}' \
+    --preview-window='right:70%' \
+    --preview-border=none \
+    --border=none \
+    --query "$*"

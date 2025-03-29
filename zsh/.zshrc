@@ -81,6 +81,7 @@ alias jpn='jupyter notebook'
 alias jp="cd $PROJECTS_DIR"
 alias j='just'
 alias ls='ls -aG'
+alias tv='tnew ~/.config/nvim'
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -112,8 +113,10 @@ bindkey -v
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
-# source $NVM_DIR/nvm.sh  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+function loadnode() {
+    source $NVM_DIR/nvm.sh  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
 
 
 function crl(){
@@ -832,11 +835,15 @@ function books(){
 }
 
 export NNN_OPTS="H"
+export BMM_EDITOR="vi"
 
 # col -b   : removes ^H characters
 # nvim -R  : Read-only mode
 # nvim -M  : Resets the 'write' and 'modifiable' options, to disable file and buffer modifications.
-export MANPAGER="col -b | nvim -MR -c 'set syntax=man' - "
+# export MANPAGER="col -b | nvim -MR -c 'set syntax=man' - "
+# https://github.com/sharkdp/bat?tab=readme-ov-file#man
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
 
 # export PATH=/Users/dht93/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.rvm/bin:/Users/dht93/.local/bin:/opt/homebrew/bin
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bin:$GOPATH/bin:$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
@@ -875,3 +882,4 @@ export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
+export HOURS_THEME=monokai

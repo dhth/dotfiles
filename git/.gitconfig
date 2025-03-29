@@ -118,6 +118,7 @@
 	autostash = true
 [commit]
 	verbose = true
+	gpgsign = true
 ; [blame]
 ; 	ignoreRevsFile = .git-blame-ignore-revs
 [branch]
