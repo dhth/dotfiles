@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eu
+
+git status
+echo -e "\n-----\n"
+gpp
+echo "pushed..."
+cpr

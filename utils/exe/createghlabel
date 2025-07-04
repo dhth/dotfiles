@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <repo> <tag>..." >&2
+    exit 1
+fi
+
+repo="$1"
+shift
+
+for label in "$@"; do
+    echo gh label create ${label} --repo ${repo}
+done
+
+echo ""
+read -p "continue? [y/n]: " choice
+
+case "$choice" in
+y | Y) {
+    echo ""
+    for label in "$@"; do
+        echo gh label create ${label} --repo ${repo}
+        gh label create ${label} --repo ${repo}
+    done
+} ;;
+n | N) exit 0 ;;
+*) exit 1 ;;
+esac

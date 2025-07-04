@@ -908,6 +908,7 @@
          [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
          ; [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
+         [:z [:open "/Applications/Zed.app"]] ;; open: Zed
          ; [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
          ; [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          [:1 [["lo-browser" 1] ["lo-preview" 0] ["lo-anki" 0]]]
@@ -986,8 +987,8 @@
          [:##left_control :##left_control [:!apple ["lc-intellij-idea" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
          [:##left_control :##left_control [:apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
          [:##left_control :##left_control [:!apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
-         [:##left_control :##left_control :apple {:alone [:open "/System/Applications/Preview.app"]}] ;; left-control:: fallback
-         [:##left_control :##left_control :!apple {:alone [:open "/System/Applications/Preview.app"]}] ;; left-control:: fallback
+         [:##left_control :##left_control :apple {:alone [:open "/Applications/Cursor.app"]}] ;; left-control:: fallback
+         [:##left_control :##left_control :!apple {:alone [:open "/Applications/Cursor.app"]}] ;; left-control:: fallback
          ]
  }
 

@@ -17,7 +17,7 @@ function txwpy() {
     fi
 
     if [ -n "$selected_py_env" ]; then
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR $MAC_CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $CONFIG_DIR $MAC_CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
         if [ -n "$selected_entry" ]; then
             printf "%s\n" "$selected_entry" | while IFS= read -r project; do
             tmuxinator two-windows $project $selected_py_env
@@ -38,7 +38,7 @@ function txw() {
 		if [[ "$project_type" == "py" ]]; then
 			selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F "/" '// {print $1}' | fzf --height=8 --layout=reverse --header="python env?")
 			if [ -n "$selected_py_env" ]; then
-				selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+				selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
 				if [ -n "$selected_entry" ]; then
 					printf "%s\n" "$selected_entry" | while IFS= read -r project; do
 						tmuxinator two-windows $project $selected_py_env
@@ -46,7 +46,7 @@ function txw() {
 				fi
 			fi
 		elif [[ "$project_type" == "scala" ]]; then
-			selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+			selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
 			if [ -n "$selected_entry" ]; then
 				printf "%s\n" "$selected_entry" | while IFS= read -r project; do
 					tmuxinator scala-proj $project $GENERAL_PYTHON_ENV_NAME sbt

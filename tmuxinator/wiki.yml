@@ -54,7 +54,7 @@ windows:
   - hours:
       panes:
           - h:
-            - hours
+            - print -s 'hours'
   - omm:
       panes:
           - omm:

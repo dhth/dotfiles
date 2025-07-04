@@ -1,3 +1,24 @@
 #!/usr/bin/env bash
 
-cat ~/gruvbox.txt | termpal -1
+cat <<EOF | termpal -1
+#ebdbb2
+#fbf1c7
+#f2e5bc
+#d5c4a1
+#bdae93
+#a89984
+#b8bb26
+#98971a
+#d79921
+#fabd2f
+#fb4934
+#cc241d
+#d3869b
+#d65d0e
+#fe8019
+#8ec07c
+#83a598
+#458588
+#b16286
+#d3869b
+EOF

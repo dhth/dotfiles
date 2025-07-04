@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+git rev-parse HEAD >/dev/null 2>&1 || {
+    echo "not in a git repo; exiting"
+    exit 1
+}
+gh pr create
