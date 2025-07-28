@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+function _number_of_docker_compose_files() {
+    echo $(ls | grep docker-compose | wc -l)
+}
+
+if (($(_number_of_docker_compose_files) <= 1)); then
+    echo -e "${GREEN}docker compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
+    docker compose -f $(ls | grep docker-compose | xargs) "$@"
+else
+    local selected_docker_compose_files
+    selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=10 --layout=reverse --multi | xargs)
+
+    if [ -n "$selected_docker_compose_files" ]; then
+        echo -e "${GREEN}docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
+        echo -n "docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@""
+        docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
+    fi
+fi

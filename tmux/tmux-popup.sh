@@ -20,7 +20,7 @@ else
     command="tmux attach -t \"$session_name:$current_session_name\""
 
     tmux display-popup \
-        -h 60% -w 100% \
+        -h 80% -w 100% \
         -y 100% \
         -S fg=$POPUP_BORDER_COLOR \
         -E \

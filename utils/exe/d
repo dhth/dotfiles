@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker_command=$(cat $PROJECTS_DIR/dotfiles/utils/docker_commands.txt | fzf --height=10 --layout=reverse)
+if [ -n "$docker_command" ]; then
+    print -s $docker_command
+    eval $docker_command
+fi

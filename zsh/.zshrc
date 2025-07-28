@@ -21,30 +21,34 @@ cyan=$'\033[36m'
 white=$'\033[37m'
 NOCOLOR="\033[0m"
 
-alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
-alias ta='tmux attach'
-alias dps='docker ps'
-alias :qa='exit'
 alias :q='exit'
-alias cdr='cd $(git rev-parse --show-toplevel)'
-alias gp='git pull'
-alias gf='git fetch'
-alias icloud='cd $ICLOUD_DIR'
-alias gcd1='git clone --depth=1'
-alias e='exit'
-alias po='punchout'
-alias sprint='jira sprint list --current -a $(jira me)'
-alias gcb='git checkout -b'
-alias lg='lazygit'
-alias gs='git status -sb'
-alias tx='tmuxinator'
-alias v='nvim'
-alias vnolsp='nvim --cmd 'let g:lsp=v:false''
-alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
+alias :qa='exit'
 alias ..='cd ..'
+alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
+alias cdr='cd $(git rev-parse --show-toplevel)'
+alias cl='claude'
+alias dps='docker ps'
+alias e='exit'
+alias gcb='git checkout -b'
+alias gcd1='git clone --depth=1'
+alias gf='git fetch'
+alias gp='git pull'
+alias gs='git status -sb'
+alias icloud='cd $ICLOUD_DIR'
 alias j='just'
 alias jp='cd $PROJECTS_DIR'
+alias k='kubectl'
+alias lg='lazygit'
 alias ls='ls -aG'
+alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
+alias po='punchout'
+alias sprint='jira sprint list --current -a $(jira me)'
+alias t='ting p $?'
+alias ta='tmux attach'
+alias ticks='jira sprint list --current -q "sprint in openSprints() AND assignee = currentUser()"'
+alias tx='tmuxinator'
+alias v='nvim'
+alias vnolsp='nvim --cmd "let g:lsp=v:false"'
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -410,15 +414,6 @@ bind-git-helper() {
 bind-git-helper f b h s
 unset -f bind-git-helper
 
-# docker helpers
-function d() {
-    docker_command=$(cat $PROJECTS_DIR/dotfiles/utils/docker_commands.txt | fzf --height=10 --layout=reverse)
-    if [ -n "$docker_command" ]; then
-        print -s $docker_command
-        eval $docker_command
-    fi
-}
-
 # utility function
 function echo_array(){
     arr=("$@")
@@ -513,55 +508,6 @@ function ww() {
 #     fi
 # }
 
-function _number_of_docker_compose_files(){
-    echo $(ls | grep docker-compose | wc -l)
-}
-
-function dcm() {
-    if (( $(_number_of_docker_compose_files) <= 1 )); then
-        echo -e "${GREEN}docker compose -f $(ls | grep docker-compose | xargs) "$@"${NOCOLOR}"
-        docker compose -f $(ls | grep docker-compose | xargs) "$@"
-    else
-        local selected_docker_compose_files
-        selected_docker_compose_files=$(ls | grep docker-compose | fzf --height=10 --layout=reverse --multi | xargs)
-
-        if [ -n "$selected_docker_compose_files" ]; then
-            echo -e "${GREEN}docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"${NOCOLOR}"
-            print -s "docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@""
-            docker compose $(echo $selected_docker_compose_files | sed 's/[^ ]* */-f &/g') "$@"
-        fi
-    fi
-}
-
-# function dcme(){
-#     local selected_docker_compose_file
-#     if (( $(_number_of_docker_compose_files) <= 1 )); then
-#         selected_docker_compose_file=$(ls | grep docker-compose | xargs)
-#     else
-#         selected_docker_compose_file=$(ls | grep docker-compose | fzf --height=6 --layout=reverse)
-#     fi
-#     if [ -n "$selected_docker_compose_file" ]; then
-#         selected_service=$(docker-compose -f $selected_docker_compose_file ps --services | fzf --height=5 --layout=reverse | xargs)
-#         if [ -n "$selected_service" ]; then
-#             echo docker-compose -f $selected_docker_compose_file exec $selected_service bash -c \'"$@"\'
-#             docker-compose -f $selected_docker_compose_file exec $selected_service bash -c "$@"
-#         fi
-#     fi
-# }
-#
-# function lzd() {
-#     if (( $(_number_of_docker_compose_files) <= 1 )); then
-#         lazydocker
-#     else
-#         local selected_docker_compose_file
-#         selected_docker_compose_file=$(fd --max-depth=1 -t f docker-compose | fzf --height=6 --layout=reverse)
-#
-#         if [ -n "$selected_docker_compose_file" ]; then
-#             lazydocker -f $selected_docker_compose_file
-#         fi
-#     fi
-# }
-#
 # function kk(){
 #     local selected_entry
 #     selected_entry=$( cat ~/clipboard.txt | fzf --height=6 --layout=reverse --preview 'echo {}| cut -d"|" -f3')
@@ -735,25 +681,6 @@ function dcm() {
 #          -e 'do script "open: setup_work"' \
 #         -e 'end tell'
 # }
-
-# https://github.com/jarun/nnn/wiki/Basic-use-cases#configure-cd-on-quit
-function n ()
-{
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    VISUAL='vim' nnn "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
 
 function loadpy() {
     if command -v pyenv 1>/dev/null 2>&1; then

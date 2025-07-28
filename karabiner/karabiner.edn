@@ -33,7 +33,7 @@
                 :slack ["com.tinyspeck.slackmacgap"]
                 :termemul ["com.mitchellh.ghostty"]
                 :spotify ["com.spotify.client"]
-                :code ["com.microsoft.VSCode"]
+                :code ["com.microsoft.VSCode", "com.todesktop.230313mzl4w4u92"]
                 :jetbrains ["com.jetbrains.*"]
                 :intellij ["com.jetbrains.intellij"]
                 :pdfviewer ["com.apple.Preview"]
@@ -291,13 +291,12 @@
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:!Ta :open_bracket] :termemul]
+                 [:j [:!Ta :!Sj] :termemul] ;; tmux prefix + J
+                 [:g [:!Ta :!Sg] :termemul] ;; tmux prefix + G
                  [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + ;
+                 [:e [:!Ta :!Se] :termemul] ;; tmux prefix + E
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
-                 [:h :!SCopen_bracket :arc] ;; arc: previous tab
-                 [:j :!SCclose_bracket :arc] ;; arc: next tab
-                 [:k :!SCopen_bracket :arc] ;; arc: previous tab
-                 [:l :!SCclose_bracket :arc] ;; arc: next tab
                  [:h :!SCopen_bracket :dbeaver] ;; dbeaver: previous tab
                  [:l :!SCclose_bracket :dbeaver] ;; dbeaver: next tab
                  [:h :!SCopen_bracket :code]
@@ -360,12 +359,14 @@
                           [:k :!Tu :jetbrains ]
                           [:j :!Td :code ] ;; vim <c-d>
                           [:k :!Tu :code ] ;; vim <c-d>
-                          [:o :!TOCd ] ;; toggle dato
+                          ; [:o :!TOCd ] ;; toggle dato
+                          [:s [:!Ta :!Ss] :termemul] ;; tmux prefix + S
+                          [:o [:!Ta :!Sd] :termemul] ;; tmux prefix + O
                           [:f [:spacebar :h :e] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
                           [:c [:spacebar :d :c] :termemul ] ;; nvim: helpers: diff with commit
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
-                          [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
+                          ; [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
                           ; [:b [:alfred "db_tables_search"  "dhth.dl"]]
                           [:b [:spacebar :d :b] :termemul] ;; vim: add println
                           ;; option + arrow keys
@@ -412,16 +413,18 @@
                   :rules [:g-mode
                           [:i [:alfred "github_issues" "dhth.bookmarks"]] ;; bookmarks: github issues
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
-                          [:d [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files (git diff)
+                          ; [:d [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files (git diff)
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
                           [:quote [:g :r :i :!Squote]]
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
+                          [:d [:!Ta :!Sd] :termemul] ;; tmux prefix + D
                           [:s [:spacebar :g :s ] :termemul ]
                           [:p [:spacebar :g :p] :termemul ] ;; vim: fugitive: git push
                           [:b [:spacebar :g :b] :termemul ] ;; vim: telescope: git branches
                           [:quote [:g :r :i :quote] :termemul ] ;; vim: replace with regiser: gri"
+                          [:l [:!Ta :!Sl] :termemul] ;; tmux prefix + L
                           ]}
 
                  ; {:des   "l mode"
@@ -492,7 +495,6 @@
                           ; [:3 [:alfred "search_artists"  "dhth.spotify"]]
                           ; [:4 [:alfred "search_related_artists"  "dhth.spotify"]]
                           ; [:5 [:alfred "search_playlists"  "dhth.spotify"]]
-                          [:s [:alfred "search"  "dhth.spotify"]]
                           [:j :!TOCj ] ;; dato join meeting
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
@@ -835,11 +837,12 @@
                           ; [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
                           [:b [:!Ta :!Sb] :termemul] ;; termemul: bmm: show search
                           [:m [:alfred "search"  "dhth.bookmarks"]] ;; alfred: search bookmarks via bmm
-                          [:z [:alfred "system_sleep" "dhth.system"]] ;; 1password: quick access
+                          [:z [:alfred "system_sleep" "dhth.system"]]
                           [:spacebar :!TSOCo]
                           [:i :!TOC8]
                           [:c :!OCf5]
                           [:comma [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to bmm
+                          [:o :!TOCo] ;; 1password: quick access
                           ]}
 
                  {:des   "open bracket mode"
