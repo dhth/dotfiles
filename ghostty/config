@@ -1,6 +1,6 @@
 font-family = "FiraCode Nerd Font Mono Bold"
-font-size = 22
-theme = GruvboxDark
+font-size = 20
+theme = "Gruvbox Dark"
 cursor-invert-fg-bg
 cursor-style = block
 cursor-style-blink = false
@@ -9,3 +9,4 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 font-thicken
+keybind = shift+enter=text:\x1b\r

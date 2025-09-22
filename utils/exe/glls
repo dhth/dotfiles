@@ -7,4 +7,4 @@ git log \
     --abbrev-commit \
     --grep='\[no ci\]' \
     --invert-grep \
-    --since="3 months ago"
+    --since="6 months ago"

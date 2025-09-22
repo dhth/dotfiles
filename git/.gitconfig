@@ -49,7 +49,7 @@
     navigate = true
     light = false
     line-numbers = true
-    syntax-theme = Monokai Extended Bright
+    syntax-theme = gruvbox-dark
 [split-diffs]
 	min-line-width = 0
 	theme-name = light
@@ -57,7 +57,7 @@
 	autostash = true
 [commit]
 	verbose = true
-	gpgsign = true
+	; gpgsign = true
 [branch]
 	sort = -committerdate
 [tag]

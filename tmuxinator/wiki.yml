@@ -9,23 +9,6 @@ windows:
           # - tmux set status off
           - cd $WIKI_DIR
           - nvim
-<%- if args[0] == "work" %>
-  - ww:
-      panes:
-        - editor:
-          - cd $WORK_WIKI_DIR
-          - print -s "nvim"
-  - wkb:
-      panes:
-        - editor:
-          - cd $WORK_KB_DIR
-          - print -s "nvim"
-<%- end %>
-  - bl:
-      panes:
-        - editor:
-          - cd $BLOG_DIR
-          - print -s "nvim"
   - br:
       panes:
         - editor:
@@ -34,23 +17,11 @@ windows:
         - docs:
           - cd $BRAIN_DIR
           - workon $WIKI_PYTHON
-          - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
-  # - spt:
-  #     panes:
-  #         - spt:
-  #           - spt
-<%- if args[0] == "work" %>
-  - j:
+  - bl:
       panes:
-          - j:
-            - print -s 'jira sprint list --current'
-<%- end %>
-<%- if args[0] == "work" %>
-  - po:
-      panes:
-          - po:
-            - print -s 'punchout'
-<%- end %>
+        - editor:
+          - cd $BLOG_DIR
+          - print -s "nvim"
   - hours:
       panes:
           - h:

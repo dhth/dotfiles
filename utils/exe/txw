@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-export PROJECTS_DIR="$HOME/projects"
-export WIKI_DIR="$HOME/projects/knowledge"
-export CONFIG_DIR="$HOME/.config"
-export GENERAL_PYTHON_ENV_NAME="general"
+PROJECTS_DIR="$HOME/projects"
+WIKI_DIR="$HOME/projects/knowledge"
+CONFIG_DIR="$HOME/.config"
+GENERAL_PYTHON_ENV_NAME="general"
+WORK_DIR="$PROJECTS_DIR/firstbird"
+WORK_DIR_2="$PROJECTS_DIR/radancy-ai"
 
 function txwpy() {
     # open tmuxinator in a specific work directory
@@ -19,7 +21,7 @@ function txwpy() {
     if [ -n "$2" ]; then
         selected_entry="$2"
     else
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $PROJECTS_DIR/rusttest $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
+        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $PROJECTS_DIR/rusttest $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
     fi
 
     if [ -n "$selected_py_env" ]; then

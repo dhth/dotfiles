@@ -24,9 +24,12 @@ NOCOLOR="\033[0m"
 alias :q='exit'
 alias :qa='exit'
 alias ..='cd ..'
+alias a='atls'
+alias ca='cursor-agent'
 alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias cl='claude'
+alias dev='assume ai-dev && unset AWS_PROFILE'
 alias dps='docker ps'
 alias e='exit'
 alias gcb='git checkout -b'
@@ -42,6 +45,7 @@ alias lg='lazygit'
 alias ls='ls -aG'
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 alias po='punchout'
+alias prod='assume ai-prod && unset AWS_PROFILE'
 alias sprint='jira sprint list --current -a $(jira me)'
 alias t='ting p $?'
 alias ta='tmux attach'
@@ -414,6 +418,15 @@ bind-git-helper() {
 bind-git-helper f b h s
 unset -f bind-git-helper
 
+# docker helpers
+function d() {
+    docker_command=$(cat $PROJECTS_DIR/dotfiles/utils/docker_commands.txt | fzf --height=10 --layout=reverse)
+    if [ -n "$docker_command" ]; then
+        # print -s $docker_command
+        eval $docker_command
+    fi
+}
+
 # utility function
 function echo_array(){
     arr=("$@")
@@ -682,6 +695,25 @@ function ww() {
 #         -e 'end tell'
 # }
 
+# https://github.com/jarun/nnn/wiki/Basic-use-cases#configure-cd-on-quit
+function n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    VISUAL='vim' nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
 function loadpy() {
     if command -v pyenv 1>/dev/null 2>&1; then
       eval "$(pyenv init --path)"
@@ -758,3 +790,5 @@ export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export PATH=$PATH:/Users/dhruvthakur/.spicetify
