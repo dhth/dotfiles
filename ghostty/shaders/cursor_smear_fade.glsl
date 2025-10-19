@@ -96,15 +96,20 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec2 centerCP = getRectangleCenter(previousCursor);
     float lineLength = distance(centerCC, centerCP);
 
+    // Skip trail effect for small movements (1 position)
+    float minMovementThreshold = 0.05; // Adjust based on normalized coordinate space
+    float shouldDrawTrail = step(minMovementThreshold, lineLength);
+
     vec4 newColor = vec4(fragColor);
+
     // Compute fade factor based on distance along the trail
     float fadeFactor = 1.0 - smoothstep(lineLength, sdfCurrentCursor, easedProgress * lineLength);
 
     // Apply fading effect to trail color
     vec4 fadedTrailColor = TRAIL_COLOR * fadeFactor;
 
-    // Blend trail with fade effect
-    newColor = mix(newColor, fadedTrailColor, antialising(sdfTrail));
+    // Blend trail with fade effect (only if movement is significant)
+    newColor = mix(newColor, fadedTrailColor, antialising(sdfTrail) * shouldDrawTrail);
     // Draw current cursor
     newColor = mix(newColor, TRAIL_COLOR, antialising(sdfCurrentCursor));
     newColor = mix(newColor, fragColor, step(sdfCurrentCursor, 0.));
