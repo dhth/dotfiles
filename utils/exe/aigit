@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -eu
+
+if [ -f ".git/info/exclude" ]; then
+    cat <<EOF >>.git/info/exclude
+.claude
+.dfftignore
+.fdignore
+ARCHITECTURE.md
+CLAUDE.md
+PLAN.md
+TASK.md
+EOF
+fi
+
+if [ ! -f ".fdignore" ]; then
+    touch .fdignore
+    cat <<EOF >.fdignore
+!.fdignore
+!.claude
+!.dfftignore
+!.fdignore
+!ARCHITECTURE.md
+!CLAUDE.md
+!PLAN.md
+!TASK.md
+EOF
+else
+    cat <<EOF >>.fdignore
+!.claude
+!.dfftignore
+!.fdignore
+!ARCHITECTURE.md
+!CLAUDE.md
+!PLAN.md
+!TASK.md
+EOF
+fi
+
+touch .dfftignore
+cat <<EOF >>.dfftignore
+.git
+.DS_Store
+EOF

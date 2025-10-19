@@ -43,3 +43,12 @@ windows:
           # - ~/projects/dotfiles/tmux/tmux-set-color.sh <%= WDIR.split('/').last.downcase  %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
           - clear
+  - cl:
+      panes:
+        - cl:
+          - loadnode
+          - clear
+  - cx:
+      panes:
+        - cx:
+          - clear

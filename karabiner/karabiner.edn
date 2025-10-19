@@ -404,7 +404,9 @@
                   :rules [:f-mode
                           ; [:h :!SCopen_bracket :termemul] ;; for iterm
                           ; [:l :!SCclose_bracket :termemul] ;; for iterm
-                          ; [:h [:!Ta :!S9] :termemul] ;; tmux: previous session
+                          [:h "/opt/homebrew/bin/tmux select-window -t :editor" :termemul] ;; tmux: go to window: editor
+                          [:j "/opt/homebrew/bin/tmux select-window -t :cl" :termemul] ;; tmux: go to window: cl
+                          [:k "/opt/homebrew/bin/tmux select-window -t :cx" :termemul] ;; tmux: go to window: cx
                           ; [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           ; [:s [:!Ta :!Tm] :termemul] ;; tmux: session menu
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
@@ -469,17 +471,22 @@
                          ; [:s [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
                          ; [:z [:open "/Applications/zoom.us.app"]] ;; open: Zoom
                          ; [:o [:open "/Applications/Obsidian.app"]] ;; open: Obsidian
-                         [:f [:open-a "Finder"]] ;; open: Finder
                          [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
                          [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
                          [:3 [:!Ta :!S3] :termemul] ;; tmux: layout 3
                          [:4 [:!Ta :!S4] :termemul] ;; tmux: layout 4
                          [:5 [:!Ta :!S5] :termemul] ;; tmux: layout 5
-                         [:a "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
-                         [:s "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to session 2
-                         [:d "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to session 3
-                         [:f "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to session 4
-                         [:g "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to session 5
+                         [:a [:!Ta :1] :termemul] ;; tmux prefix + 1
+                         [:s [:!Ta :2] :termemul]
+                         [:d [:!Ta :3] :termemul]
+                         [:f [:!Ta :4] :termemul]
+                         [:g [:!Ta :5] :termemul]
+                         [:h [:!Ta :6] :termemul]
+                         ; [:a "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
+                         ; [:s "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to session 2
+                         ; [:d "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to session 3
+                         ; [:f "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to session 4
+                         ; [:g "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to session 5
                          [:s [:!Ta :!Tv]] ;; tmux: persistent popup full screen
                           ]}
 

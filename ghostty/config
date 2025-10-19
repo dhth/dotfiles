@@ -1,7 +1,7 @@
 font-family = "FiraCode Nerd Font Mono Bold"
 font-size = 20
 theme = "Gruvbox Dark"
-cursor-invert-fg-bg
+# cursor-invert-fg-bg
 cursor-style = block
 cursor-style-blink = false
 adjust-cell-width = 0
@@ -10,3 +10,4 @@ font-feature = -liga
 font-feature = -dlig
 font-thicken
 keybind = shift+enter=text:\x1b\r
+custom-shader = ~/projects/dotfiles/ghostty/shaders/cursor_smear_fade.glsl

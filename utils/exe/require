@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+for cmd in "$@"; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "This utility requires \"$cmd\" to be installed"
+        exit 1
+    fi
+done

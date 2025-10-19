@@ -16,6 +16,10 @@ windows:
       panes:
           - j:
             - print -s 'jira sprint list --current'
+  - mcps:
+      panes:
+          - mcps:
+            - cd "$PROJECTS_DIR/local-mcps"
   - po:
       panes:
           - po:
@@ -26,10 +30,6 @@ windows:
             - export NVIM_APPNAME=nvim-omm
             - print -s 'ommw'
             - clear
-  - mcps:
-      panes:
-          - mcps:
-            - cd "$PROJECTS_DIR/local-mcps"
   - k9s-dev:
       panes:
           - k9s-dev:

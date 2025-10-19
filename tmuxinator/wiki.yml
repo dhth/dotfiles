@@ -3,10 +3,8 @@ root: ~/
 
 windows:
   - w:
-      layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
-          # - tmux set status off
           - cd $WIKI_DIR
           - nvim
   - br:
@@ -14,9 +12,6 @@ windows:
         - editor:
           - cd $BRAIN_DIR
           - print -s "nvim"
-        - docs:
-          - cd $BRAIN_DIR
-          - workon $WIKI_PYTHON
   - bl:
       panes:
         - editor:
@@ -24,7 +19,7 @@ windows:
           - print -s "nvim"
   - hours:
       panes:
-          - h:
+          - hours:
             - print -s 'hours'
   - omm:
       panes:
@@ -37,4 +32,9 @@ windows:
           - ommw:
             - export NVIM_APPNAME=nvim-omm
             - print -s 'ommw'
+            - clear
+  - btop:
+      panes:
+          - btop:
+            - print -s 'btop'
             - clear

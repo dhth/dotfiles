@@ -68,3 +68,5 @@
 [maintenance]
     auto = true
     strategy = incremental
+[coderabbit]
+	machineId = cli/56473f7d74464632ab9dbcac64931ddc

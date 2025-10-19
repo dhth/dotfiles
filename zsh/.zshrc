@@ -25,10 +25,12 @@ alias :q='exit'
 alias :qa='exit'
 alias ..='cd ..'
 alias a='atls'
+alias b='btop'
 alias ca='cursor-agent'
 alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias cl='claude'
+alias crb='coderabbit'
 alias dev='assume ai-dev && unset AWS_PROFILE'
 alias dps='docker ps'
 alias e='exit'
@@ -39,10 +41,12 @@ alias gp='git pull'
 alias gs='git status -sb'
 alias icloud='cd $ICLOUD_DIR'
 alias j='just'
+alias jc='just --choose'
 alias jp='cd $PROJECTS_DIR'
 alias k='kubectl'
 alias lg='lazygit'
 alias ls='ls -aG'
+alias lzd='lazydocker'
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 alias po='punchout'
 alias prod='assume ai-prod && unset AWS_PROFILE'
@@ -422,8 +426,8 @@ unset -f bind-git-helper
 function d() {
     docker_command=$(cat $PROJECTS_DIR/dotfiles/utils/docker_commands.txt | fzf --height=10 --layout=reverse)
     if [ -n "$docker_command" ]; then
-        # print -s $docker_command
-        eval $docker_command
+        print -s "$docker_command"
+        eval "$docker_command"
     fi
 }
 
@@ -780,6 +784,7 @@ export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
+bindkey -s '^f' 'j\n'
 export HOURS_THEME=monokai
 export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
 
