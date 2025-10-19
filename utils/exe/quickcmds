@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+quick_command=$(
+    cat <<EOF | fzf --layout=reverse
+commits
+create-pr
+docker
+git-diff
+git-diff-staged
+git-log
+git-status
+just
+lazydocker
+lazygit
+main
+nnn
+push-and-create-pr
+EOF
+)
+
+if [ -n "$quick_command" ]; then
+    case "$quick_command" in
+        commits)
+            commits
+            ;;
+        create-pr)
+            cpr; read -n 1
+            ;;
+        docker)
+            d
+            ;;
+        git-diff)
+            git diff
+            ;;
+        git-diff-staged)
+            git diff --staged
+            ;;
+        git-log)
+            gl
+            ;;
+        git-status)
+            git status; read -n 1
+            ;;
+        just)
+            just --choose; read -n 1
+            ;;
+        lazydocker)
+            lazydocker
+            ;;
+        lazygit)
+            lazygit
+            ;;
+        main)
+            mn; read -n 1
+            ;;
+        nnn)
+            n
+            ;;
+        push-and-create-pr)
+            gpcp; read -n 1
+            ;;
+        *)
+            echo "Unknown command: $quick_command"
+            ;;
+    esac
+fi
