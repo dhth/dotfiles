@@ -71,7 +71,14 @@ vec2 getRectangleCenter(vec4 rectangle) {
     return vec2(rectangle.x + (rectangle.z / 2.), rectangle.y - (rectangle.w / 2.));
 }
 
-const vec4 TRAIL_COLOR = vec4(1.0, 0.725, 0.161, 1.0); // yellow
+// const vec4 TRAIL_COLOR = vec4(1.0, 0.725, 0.161, 1.0); // yellow
+// const vec4 TRAIL_COLOR = vec4(0.514, 0.647, 0.596, 1.0); // #83a598
+// const vec4 TRAIL_COLOR = vec4(0.980, 0.741, 0.184, 1.0); // #fabd2f
+// const vec4 TRAIL_COLOR = vec4(0.984, 0.286, 0.204, 1.0); // #fb4934
+const vec4 TRAIL_COLOR = vec4(0.922, 0.859, 0.698, 1.0); // #ebdbb2
+// const vec4 TRAIL_COLOR = vec4(0.741, 0.682, 0.576, 1.0); // #bdae93
+// const vec4 TRAIL_COLOR = vec4(0.984, 0.945, 0.780, 1.0); // #fbf1c7
+// const vec4 TRAIL_COLOR = vec4(0.659, 0.600, 0.518, 1.0); // #a89984
 const vec4 CURRENT_CURSOR_COLOR = TRAIL_COLOR;
 const vec4 PREVIOUS_CURSOR_COLOR = TRAIL_COLOR;
 const float DURATION = .5;

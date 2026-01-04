@@ -29,6 +29,7 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
+    ; pager = cat
     pager = delta
     whitespace = trailing-space
 [color]
@@ -50,6 +51,7 @@
     light = false
     line-numbers = true
     syntax-theme = gruvbox-dark
+    features = side-by-side
 [split-diffs]
 	min-line-width = 0
 	theme-name = light
@@ -57,7 +59,7 @@
 	autostash = true
 [commit]
 	verbose = true
-	; gpgsign = true
+	gpgsign = true
 [branch]
 	sort = -committerdate
 [tag]

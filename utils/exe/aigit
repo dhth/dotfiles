@@ -9,6 +9,7 @@ if [ -f ".git/info/exclude" ]; then
 .fdignore
 ARCHITECTURE.md
 CLAUDE.md
+AGENTS.md
 PLAN.md
 TASK.md
 EOF
@@ -23,6 +24,7 @@ if [ ! -f ".fdignore" ]; then
 !.fdignore
 !ARCHITECTURE.md
 !CLAUDE.md
+!AGENTS.md
 !PLAN.md
 !TASK.md
 EOF
@@ -33,6 +35,7 @@ else
 !.fdignore
 !ARCHITECTURE.md
 !CLAUDE.md
+!AGENTS.md
 !PLAN.md
 !TASK.md
 EOF

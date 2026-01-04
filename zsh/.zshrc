@@ -30,6 +30,7 @@ alias ca='cursor-agent'
 alias calrefresh='bash $DOT_FILES_DIR/utils/calendar_refresh.sh'
 alias cdr='cd $(git rev-parse --show-toplevel)'
 alias cl='claude'
+alias cpl='copilot'
 alias crb='coderabbit'
 alias dev='assume ai-dev && unset AWS_PROFILE'
 alias dps='docker ps'
@@ -46,8 +47,9 @@ alias jp='cd $PROJECTS_DIR'
 alias k='kubectl'
 alias lg='lazygit'
 alias ls='ls -aG'
-alias lzd='lazydocker'
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
+alias lzd='lazydocker'
+alias oc='opencode'
 alias po='punchout'
 alias prod='assume ai-prod && unset AWS_PROFILE'
 alias sprint='jira sprint list --current -a $(jira me)'
@@ -57,6 +59,7 @@ alias ticks='jira sprint list --current -q "sprint in openSprints() AND assignee
 alias tx='tmuxinator'
 alias v='nvim'
 alias vnolsp='nvim --cmd "let g:lsp=v:false"'
+alias vv='nvim --cmd "let g:lsp=v:false"'
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -77,6 +80,10 @@ export DELTA_PAGER='less -R' # so short diffs don't quit
 
 # enter vim mode
 bindkey -v
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -785,7 +792,7 @@ eval "$(atuin init zsh)"
 bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
-export HOURS_THEME=monokai
+export HOURS_THEME=monokai-classic
 export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
 
 [ -f "/Users/$USER/.ghcup/env" ] && . "/Users/$USER/.ghcup/env" # ghcup-env

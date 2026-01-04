@@ -22,8 +22,13 @@ command_to_run=$1
 
 while read -r pane_address; do
     if [ "$command_to_run" = "C-c" ]; then
-        echo "tmux send-keys -t $pane_address '$command_to_run'"
-        tmux send-keys -t "$pane_address" "$command_to_run"
+        echo "tmux send-keys -t $pane_address 'C-c'"
+        tmux send-keys -t "$pane_address" "C-c"
+        sleep 1
+    elif [ "$command_to_run" = "C-c C-c" ]; then
+        echo "tmux send-keys -t $pane_address 'C-c'"
+        tmux send-keys -t "$pane_address" "C-c"
+        tmux send-keys -t "$pane_address" "C-c"
         sleep 1
     else
         echo "tmux send-keys -t \"$pane_address\" \"$command_to_run\" Enter"

@@ -5,38 +5,43 @@ windows:
   - ww:
       panes:
         - editor:
-          - cd $WORK_WIKI_DIR
-          - print -s "nvim"
+            - cd $WORK_WIKI_DIR
+            - print -s "nvim"
   - wkb:
       panes:
         - editor:
-          - cd $WORK_KB_DIR
-          - print -s "nvim"
+            - cd $WORK_KB_DIR
+            - print -s "nvim"
   - j:
       panes:
-          - j:
+        - j:
             - print -s 'jira sprint list --current'
   - mcps:
+      layout: even-horizontal
       panes:
-          - mcps:
+        - mcps:
             - cd "$PROJECTS_DIR/local-mcps"
+        - cl:
+            - cd "$PROJECTS_DIR/local-mcps"
+            - loadnode
+            - clear
   - po:
       panes:
-          - po:
+        - po:
             - print -s 'punchout'
   - ommw:
       panes:
-          - ommw:
+        - ommw:
             - export NVIM_APPNAME=nvim-omm
             - print -s 'ommw'
             - clear
   - k9s-dev:
       panes:
-          - k9s-dev:
+        - k9s-dev:
             - print -s 'k9s'
             - clear
   - k9s-prod:
       panes:
-          - k9s-prod:
+        - k9s-prod:
             - print -s 'k9s'
             - clear

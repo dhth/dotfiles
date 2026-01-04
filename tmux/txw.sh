@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
-export PROJECTS_DIR="$HOME/projects"
-export WIKI_DIR="$HOME/projects/knowledge"
-export CONFIG_DIR="$HOME/.config"
-export GENERAL_PYTHON_ENV_NAME="general"
+PROJECTS_DIR="$HOME/projects"
+WIKI_DIR="$HOME/projects/knowledge"
+WORK_DIR_2="$HOME/projects/radancy-aio"
+CONFIG_DIR="$HOME/.config"
+GENERAL_PYTHON_ENV_NAME="general"
 
 function txwpy() {
 	# open tmuxinator in a specific work directory

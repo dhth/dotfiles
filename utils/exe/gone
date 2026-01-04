@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+branches=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+
+if [ -z "$branches" ]; then
+    echo "No branches with where upstream is gone found"
+    exit 0
+fi
+
+echo "The following branches will be deleted:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "$branches"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+read -p "Do you want to delete these branches? (yes/no): " confirmation
+
+if [ "$confirmation" != "yes" ]; then
+    echo "Cancelled"
+    exit 0
+fi
+
+echo "$branches" | xargs git branch -D
+
+echo ""
+echo "Done!"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function _number_of_docker_compose_files() {
-    echo $(ls | grep docker-compose | wc -l)
+    echo $(ls | grep 'docker-compose..*' | wc -l)
 }
 
 if (($(_number_of_docker_compose_files) <= 1)); then

@@ -11,3 +11,4 @@ font-feature = -dlig
 font-thicken
 keybind = shift+enter=text:\x1b\r
 custom-shader = ~/projects/dotfiles/ghostty/shaders/cursor_smear.glsl
+keybind = global:cmd+backquote=toggle_quick_terminal

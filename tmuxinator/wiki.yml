@@ -5,36 +5,55 @@ windows:
   - w:
       panes:
         - editor:
-          - cd $WIKI_DIR
-          - nvim
+            - cd $WIKI_DIR
+            - nvim
   - br:
       panes:
         - editor:
-          - cd $BRAIN_DIR
-          - print -s "nvim"
+            - cd $BRAIN_DIR
+            - print -s "nvim"
   - bl:
       panes:
         - editor:
-          - cd $BLOG_DIR
-          - print -s "nvim"
+            - cd $BLOG_DIR
+            - print -s "nvim"
   - hours:
       panes:
-          - hours:
+        - hours:
             - print -s 'hours'
   - omm:
       panes:
-          - omm:
+        - omm:
             - export NVIM_APPNAME=nvim-omm
             - print -s 'omm'
             - clear
   - ommw:
       panes:
-          - ommw:
+        - ommw:
             - export NVIM_APPNAME=nvim-omm
             - print -s 'ommw'
             - clear
   - btop:
       panes:
-          - btop:
+        - btop:
             - print -s 'btop'
+            - clear
+  - gcl:
+      panes:
+        - cl:
+            - cd $GLOBAL_AGENTS_DIR
+            - loadnode
+            - print -s 'cl'
+            - clear
+  - gcx:
+      panes:
+        - cx:
+            - cd $GLOBAL_AGENTS_DIR
+            - print -s 'cx'
+            - clear
+  - goc:
+      panes:
+        - cx:
+            - cd $GLOBAL_AGENTS_DIR
+            - print -s 'opencode'
             - clear

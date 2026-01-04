@@ -48,7 +48,24 @@ windows:
         - cl:
           - loadnode
           - clear
+        - spare:
+          - clear
   - cx:
       panes:
         - cx:
+          - clear
+        - spare:
+          - clear
+  - oc:
+      panes:
+        - oc:
+          - clear
+        - spare:
+          - clear
+  - am:
+      panes:
+        - am:
+          - loadnode
+          - clear
+        - spare:
           - clear
