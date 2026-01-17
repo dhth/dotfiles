@@ -2,8 +2,8 @@
 
 set -euxo pipefail
 
-bun install -g @anthropic-ai/claude-code @google/gemini-cli @sourcegraph/amp @github/copilot
-cursor-agent upgrade
+bun install -g @anthropic-ai/claude-code @sourcegraph/amp @mariozechner/pi-coding-agent
+# cursor-agent upgrade
 
 brew update && brew upgrade
 

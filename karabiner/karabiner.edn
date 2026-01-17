@@ -291,13 +291,15 @@
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
-                 [:s [:!Ta :open_bracket] :termemul]
+                 ; [:s [:!Ta :open_bracket] :termemul]
+                 [:s "/opt/homebrew/bin/tmux switch -t scratch" :termemul] ;; tmux: switch to scratch
                  [:open_bracket [:!Ta :open_bracket] :termemul]
                  [:j [:!Ta :!Sj] :termemul] ;; tmux prefix + J
                  [:g [:!Ta :!Sg] :termemul] ;; tmux prefix + G
                  [:p [:!Ta :!Sp] :termemul] ;; tmux prefix + P
+                 [:spacebar "~/projects/dotfiles/utils/exe/tmuxarrange" :termemul] ;; tmuxarrange
                  [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + ;
-                 [:e [:!Ta :!Se] :termemul] ;; tmux prefix + E
+                 ; [:e [:!Ta :!Se] :termemul] ;; tmux prefix + E
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
                  [:h :!SCopen_bracket :dbeaver] ;; dbeaver: previous tab
@@ -336,6 +338,8 @@
                           [:b [:spacebar :c :b] :termemul] ;; vim: check key binding: verbose nmap <leader>
                           [:p :!SOCj :browser] ;; jupyter: command palette
                           [:a [:spacebar :c :a] :termemul] ;; vim: fugitive: commit --amend
+                          [:h [:open "https://chatgpt.com"]] ;; chatgpt: chat
+                          [:t [:open "https://chatgpt.com/?temporary-chat=true"]] ;; chatgpt: temporary chat
                           ; [:h :!Sopen_bracket]
                           [:l [:spacebar :c :l]] ;; vim: wiki: create link
                           [:o [:spacebar :c :o]] ;; vim: copen
@@ -354,8 +358,7 @@
                   :rules [:d-mode
                           [:t :open_dev_tools :browser]
                           [:t [:spacebar :d :t] :termemul] ;; vim: windo diffthis
-                          ; [:i :!TOSd] ;; macos: dictation
-                          [:i [:!Sd :i :d :spacebar :!Si :spacebar :g :e :t :spacebar :t :h :a :t :spacebar :r :i :g :h :t :!Sslash] :termemul]
+                          [:i :!TCd] ;; dictation
                           [:m :!SOd :browser] ;; dark reader
                           [:j :!Td :termemul ] ;; vim <c-d>
                           [:j :!Odown_arrow :pdfviewer ] ;; pdfviewer: page down
@@ -371,7 +374,7 @@
                           [:l [:!Ta :8] :termemul] ;; tmux prefix + 8
                           [:c [:spacebar :d :c] :termemul ] ;; nvim: helpers: diff with commit
                           ; [:f [:spacebar :h :e] :termemul ] ;; nvim/ftplugin/markdown.vim > wiki#Helpers()
-                          [:f [:!Ta :!Td] :termemul ] ;; tmux: prefix + ctrl+d: dfft run
+                          [:f [:!Ta :!Sd] :termemul] ;; tmux prefix + D
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
                           ; [:s [:alfred "work_wiki_file"  "dhth.workwiki.search"]]
@@ -393,7 +396,6 @@
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:r [:alfred "reddit_search"  "dhth.reddit"]]
                           [:d "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/projects/dotfiles/karabiner/karabiner.edn\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul]
-                          [:h :hyphen]
                           [:u :!Shyphen]
                           ; [:l [:open "/Applications/Altair GraphQL Client.app"]] ;; open: Altair
                           ; [:i [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
@@ -436,7 +438,7 @@
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
-                          [:d [:!Ta :!Sd] :termemul] ;; tmux prefix + D
+                          [:d [:!Ta :!Td] :termemul ] ;; tmux: prefix + ctrl+d: dfft run
                           [:s [:!Ta :s] :termemul ] ;; tmux: show git status
                           ; [:p [:spacebar :g :p] :termemul ] ;; vim: fugitive: git push
                           [:p [:!Ta :9] :termemul] ;; tmux: git push
@@ -557,7 +559,7 @@
 
                  {:des   "q mode"
                   :rules [:q-mode
-                          [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
+                          ; [:a [:alfred "quick_task_add"  "dhth.tasks.quick"]]
                           ; [:l [:alfred "quick_tasks_list"  "dhth.tasks.quick"]]
                           [:s :!CS4] ;; quick screenshot
                           [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
@@ -633,7 +635,7 @@
                           [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
                           [:m [:!SCo] :code] ;; code: search for symbol in editor
                           [:m :!Cf12 :jetbrains]  ;; jetbrains: file structure
-                          [:n [:!Ta :!Sn] :termemul] ;; tmux: pane picker for current session
+                          [:n [:!Ta :!Sn] :termemul] ;; tmux: nnn
                           ; [:p [:open "/Applications/Spotify.app"]]
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
@@ -692,12 +694,12 @@
                           ; [:l [:!Ta :l] :termemul] ;; tmux prefix + l
                           ; [:j [:!Ta :j] :termemul] ;; tmux prefix + j
                           ; [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                          [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
+                          ; [:l [:spacebar :s :l] :termemul] ;; vim: wiki_helpers: open current page's webview
                           [:n [:spacebar :v :n] :termemul] ;; vim: vnew
                           [:m :!TSOCv ] ;; vimac: activate hint mode
                           [:s :!TSCs ] ;; vimac: activate scroll mode
                           ; [:s [:spacebar :v :s] :termemul] ;; vim: vsplit
-                          [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
+                          ; [:k [:!Ck :!Cs] :code] ;; vscode: keyboard shortcuts
                           ; [:c [:alfred "vocabulary"  "dhth.vocabulary"]]
                           [:c [:spacebar :v :c] :termemul] ;; vim: gitsigns: preview hunk
                           [:r [:alfred "vocab_records"  "dhth.vocabulary"]]
@@ -728,9 +730,16 @@
 
                  {:des "x-mode"
                   :rules [:x-mode
-                          [:j [:!Ta :hyphen] :termemul] ;; termemul: tmux: prefix + -
-                          [:l [:!Ta :!Sbackslash] :termemul] ;; termemul: tmux: prefix + |
+                          ; [:j [:!Ta :hyphen] :termemul] ;; termemul: tmux: prefix + -
+                          ; [:l [:!Ta :!Sbackslash] :termemul] ;; termemul: tmux: prefix + |
                           [:c [:!SOc] :browser] ;; brower: excalidraw: export to png
+                          [:a [:!Tx :a] :termemul] ;; opencode: ctrl+x a
+                          [:m [:!Tx :m] :termemul] ;; opencode: ctrl+x m
+                          [:l [:!Tx :right_arrow] :termemul] ;; opencode: ctrl+x right arrow
+                          [:h [:!Tx :left_arrow] :termemul] ;; opencode: ctrl+x left arrow
+                          [:j [:!Tx :down_arrow] :termemul] ;; opencode: ctrl+x down arrow
+                          [:k [:!Tx :up_arrow] :termemul] ;; opencode: ctrl+x up arrow
+                          [:n [:!Tx :n] :termemul] ;; opencode: ctrl+x n
                           ]}
 
                  {:des "emoji-mode"
@@ -922,7 +931,7 @@
          [:h [:!Ta :6] :termemul]
          ; [:r :!T4 :slack] ;; slack: open later view
          [:t :!CSt :slack] ;; slack: open threads
-         [:q [:!Ta :!Sq] :termemul] ;; tmux: shfl sessions
+         [:q "~/projects/dotfiles/utils/exe/tsw" :termemul] ;; tmux: shfl sessions
          [:t [:!Ta :!St] :termemul] ;; tmux: show tash popup
          [:tab "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/.tsw\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul] ;; tsw: edit tsw
          [:1 "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
