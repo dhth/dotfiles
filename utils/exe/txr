@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Usage: txr <window-name> <command>
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: $0 <window-name> <command>" >&2
+    exit 1
+fi
+
+SESSION=$(tmux display-message -p '#S')
+WINDOW_NAME="$1"
+shift
+
+if tmux list-windows -t "$SESSION" | grep -wq "$WINDOW_NAME"; then
+    tmux select-window -t "$SESSION:$WINDOW_NAME"
+else
+    tmux new-window -t "$SESSION" -n "$WINDOW_NAME"
+fi
+
+tmux send-keys -t "$SESSION:$WINDOW_NAME" "$@" Enter

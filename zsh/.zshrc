@@ -787,11 +787,25 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # . "$HOME/.grit/bin/env"
 
+function _insert_drs() {
+  local selection
+  selection="$(fd . --max-depth=1 $(echo_array $DIRS_TO_SEARCH) | fzf --height=10 --layout=reverse | xargs)"
+
+  if [[ -n "$selection" ]]; then
+    LBUFFER+="$selection"
+  fi
+  zle reset-prompt
+  zle autosuggest-clear
+}
+zle -N _insert_drs
+bindkey '^p' _insert_drs
+
 export ATUIN_NOBIND="true"
 eval "$(atuin init zsh)"
 bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
+bindkey -s '^o' 'oc\n'
 export HOURS_THEME=monokai-classic
 export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
 
