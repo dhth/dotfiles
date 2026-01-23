@@ -12,9 +12,19 @@ WINDOW_NAME="$1"
 shift
 
 if tmux list-windows -t "$SESSION" | grep -wq "$WINDOW_NAME"; then
-    tmux select-window -t "$SESSION:$WINDOW_NAME"
+    CURRENT_CMD=$(tmux display-message -t "$SESSION:$WINDOW_NAME" -p '#{pane_current_command}')
+    case "$CURRENT_CMD" in
+        bash|zsh|fish|sh|dash)
+            ;;
+        *)
+            echo "Error: window '$WINDOW_NAME' is busy (running: $CURRENT_CMD)" >&2
+            exit 1
+            ;;
+    esac
 else
     tmux new-window -t "$SESSION" -n "$WINDOW_NAME"
+    sleep 0.2
 fi
 
+tmux select-window -t "$SESSION:$WINDOW_NAME"
 tmux send-keys -t "$SESSION:$WINDOW_NAME" "$@" Enter
