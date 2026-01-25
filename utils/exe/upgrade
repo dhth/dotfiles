@@ -2,7 +2,8 @@
 
 set -euxo pipefail
 
-bun install -g @anthropic-ai/claude-code @sourcegraph/amp @mariozechner/pi-coding-agent
+bun install -g @sourcegraph/amp @mariozechner/pi-coding-agent
+claude update
 # cursor-agent upgrade
 
 brew update && brew upgrade

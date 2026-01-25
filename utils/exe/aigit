@@ -2,6 +2,8 @@
 
 set -eu
 
+mkdir -p .plans .research .references .instructions
+
 if [ -f ".git/info/exclude" ]; then
     cat <<EOF >>.git/info/exclude
 .claude

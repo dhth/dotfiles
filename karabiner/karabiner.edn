@@ -417,6 +417,7 @@
                           [:l "/opt/homebrew/bin/tmux select-window -t :oc" :termemul] ;; tmux: go to window: oc
                           [:semicolon "/opt/homebrew/bin/tmux select-window -t :am" :termemul] ;; tmux: go to window: am
                           [:m [:!Ta :!Sm] :termemul] ;; tmux: run pth
+                          [:n [:!Ta :7] :termemul] ;; tmux: run pth
                           ; [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           ; [:s [:!Ta :!Tm] :termemul] ;; tmux: session menu
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
@@ -431,7 +432,8 @@
                  {:des   "g mode"
                   :rules [:g-mode
                           [:n [:!Ta :!Sa] :termemul] ;; tmux prefix + A
-                          [:i [:alfred "github_issues" "dhth.bookmarks"]] ;; bookmarks: github issues
+                          ; [:i [:alfred "github_issues" "dhth.bookmarks"]] ;; bookmarks: github issues
+                          [:i [:spacebar :g :i] :termemul] ;; vim: git exclude
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                           ; [:d [:spacebar :g :d] :termemul] ;; vim: telescope: search changed files (git diff)
                           [:h [:alfred "github_repo_search"  "dhth.github"]]

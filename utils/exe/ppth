@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+dir=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 | fzf --layout=reverse)
+if [ -z "${dir}" ]; then
+    exit 0
+fi
+
+path=$(fd . -ipH -t=f --base-directory "${dir}" | fzf --layout=reverse)
+
+if [ -z "${path}" ]; then
+    exit 0
+fi
+
+echo -n "${path}" | pbcopy

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+path=$(fd -ipH -t=f | fzf --layout=reverse)
+
+if [ -z "${path}" ]; then
+    exit 0
+fi
+
+echo -n "${path}" | pbcopy
