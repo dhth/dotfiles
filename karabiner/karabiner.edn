@@ -743,6 +743,7 @@
                           [:j [:!Tx :down_arrow] :termemul] ;; opencode: ctrl+x down arrow
                           [:k [:!Tx :up_arrow] :termemul] ;; opencode: ctrl+x up arrow
                           [:n [:!Tx :n] :termemul] ;; opencode: ctrl+x n
+                          [:y [:!Tx :y] :termemul] ;; opencode: ctrl+x y
                           ]}
 
                  {:des "emoji-mode"

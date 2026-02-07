@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+tmux list-panes \
+    -s \
+    -F \
+    '#{session_name} #{window_name} #{pane_current_command} #{session_id}:#{window_id}.#{pane_id}' \
+    | grep -E '\s(bash|zsh|fish|sh)\s' \
+    | awk '{print $NF}' \
+    | tmuxsendcmdbyaddress "clear"

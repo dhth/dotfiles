@@ -3,9 +3,10 @@
 set -euxo pipefail
 
 bun install -g @sourcegraph/amp @mariozechner/pi-coding-agent
-claude update
-# cursor-agent upgrade
 
 brew update && brew upgrade
+
+# cursor-agent upgrade
+claude update
 
 cargo install-update -a
