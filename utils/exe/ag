@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+title_filter='#{m|ri:^(cl|cx|oc|am)([[:space:]]*\||$),#{pane_title}}'
+command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
+
+pane_rows=$(tmux list-panes -a -f "#{&&:${title_filter},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}:#{pane_title}	#{pane_current_command}')
+
+if [ -z "$pane_rows" ]; then
+    exit 0
+fi
+
+selected=$(
+    printf '%s\n' "$pane_rows" |
+        fzf \
+            --reverse \
+            --style=minimal \
+            --delimiter '\t' \
+            --with-nth=2 \
+            --preview 'tmux capture-pane -e -p -t {1} | tail -n 30' \
+            --preview-window='down:75%'
+)
+
+if [ -z "$selected" ]; then
+    exit 0
+fi
+
+pane_target=$(printf '%s\n' "$selected" | awk -F '\t' '{print $1}')
+
+tmux switch-client -t "$pane_target"
