@@ -8,5 +8,3 @@ brew update && brew upgrade
 
 # cursor-agent upgrade
 claude update
-
-cargo install-update -a

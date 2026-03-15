@@ -30,6 +30,7 @@ if [ ! -f ".fdignore" ]; then
 !.dfftignore
 !.fdignore
 !.plans
+.plans/old
 !.research
 !.references
 !.instructions
@@ -46,6 +47,7 @@ else
 !.dfftignore
 !.fdignore
 !.plans
+.plans/old
 !.research
 !.references
 !.instructions

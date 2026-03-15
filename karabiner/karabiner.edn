@@ -293,8 +293,8 @@
                  [:c [:!Ta :c] :termemul] ;; tmux prefix + c
                  [:z [:!Ta :z] :termemul] ;; tmux prefix + z
                  ; [:s [:!Ta :open_bracket] :termemul]
-                 [:s "/opt/homebrew/bin/tmux switch -t scratch" :termemul] ;; tmux: switch to scratch
-                 [:open_bracket [:!Ta :open_bracket] :termemul]
+                 [:open_bracket "/opt/homebrew/bin/tmux switch -t scratch" :termemul] ;; tmux: switch to scratch
+                 [:s [:!Ta :open_bracket] :termemul]
                  [:j [:!Ta :!Sj] :termemul] ;; tmux prefix + J
                  [:g [:!Ta :!Sg] :termemul] ;; tmux prefix + G
                  [:p [:!Ta :!Sp] :termemul] ;; tmux prefix + P

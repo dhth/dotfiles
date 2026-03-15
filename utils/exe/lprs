@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+lang=$(printf "all\nrust\ngo\ntypescript\ngleam\nscala" | fzf --height=12 --layout=reverse --prompt="lang?")
+
+[[ -z "$lang" ]] && exit 0
+
+if [[ "$lang" == "all" ]]; then
+    gh search prs --author dhth --state open --json url --jq '.[].url'
+else
+    gh search prs --author dhth --state open --language "$lang" --json url --jq '.[].url'
+fi
