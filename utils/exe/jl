@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+recipes=$(just --list) || exit $?
+
+recipe=$(printf '%s\n' "$recipes" | tail -n +2 | sed 's/^[[:space:]]*//' | fzf --height=15 --layout=reverse --style=minimal)
+exit_code=$?
+
+if [[ $exit_code -eq 130 ]]; then
+    exit 0
+fi
+
+just "$recipe"
+
+jl
