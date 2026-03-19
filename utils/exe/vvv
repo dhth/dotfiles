@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nvim --cmd "let g:lsp=v:false" "$@"

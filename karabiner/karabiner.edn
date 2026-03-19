@@ -739,9 +739,9 @@
                           [:a [:!Tx :a] :termemul] ;; opencode: ctrl+x a
                           [:m [:!Tx :m] :termemul] ;; opencode: ctrl+x m
                           [:l [:!Tx :right_arrow] :termemul] ;; opencode: ctrl+x right arrow
+                          [:j [:!Tx :0] :termemul] ;; opencode: ctrl+x 0
+                          [:k [:!Tx :9] :termemul] ;; opencode: ctrl+x 9
                           [:h [:!Tx :left_arrow] :termemul] ;; opencode: ctrl+x left arrow
-                          [:j [:!Tx :down_arrow] :termemul] ;; opencode: ctrl+x down arrow
-                          [:k [:!Tx :up_arrow] :termemul] ;; opencode: ctrl+x up arrow
                           [:n [:!Tx :n] :termemul] ;; opencode: ctrl+x n
                           [:y [:!Tx :y] :termemul] ;; opencode: ctrl+x y
                           ]}
