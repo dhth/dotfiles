@@ -47,6 +47,7 @@ alias j='just'
 alias jc='just --choose'
 alias jp='cd $PROJECTS_DIR'
 alias k='kubectl'
+alias lc='fc -ln -1 | pbcopy'
 alias lg='lazygit'
 alias ls='ls -aG'
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
