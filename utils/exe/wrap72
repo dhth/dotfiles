@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+pbpaste | fmt -w 72 | pbcopy

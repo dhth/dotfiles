@@ -18,18 +18,21 @@
 [init]
 	defaultBranch = main
 [alias]
-    la = log --all --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit
-    l = !git log --color --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit staging..$(git branch --show-current)
+    l = log  \
+        --color \
+        --graph \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+        --abbrev-commit
+    la = l  \
+        --all
+    lnb = l \
+        --perl-regexp --author='^(?!.*dependabot\\[bot\\])'
 	s = status --short
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-	p = !"git pull"
-	c = clone --recursive
-	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-	graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+	p = pull
+	c = clone
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
-    ; pager = cat
     pager = delta
     whitespace = trailing-space
 [color]
@@ -48,10 +51,11 @@
     diffFilter = delta --color-only
 [delta]
     navigate = true
-    light = false
     line-numbers = true
     syntax-theme = gruvbox-dark
-    features = side-by-side
+    ; diff-so-fancy = true
+    diff-highlight = true
+    ; features = side-by-side
 [split-diffs]
 	min-line-width = 0
 	theme-name = light

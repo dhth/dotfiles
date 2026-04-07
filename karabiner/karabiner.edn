@@ -717,6 +717,7 @@
                           ; [:l :!SOCl] ;; magnet next display
                           [:open_bracket :!TOh] ;; magnet left side
                           [:close_bracket :!TOl] ;; magnet left side
+                          [:7 "~/projects/dotfiles/utils/exe/wrap72"] ;; utils: wrap72
                           [:h [:!Ta :h] :termemul] ;; tmux prefix + h
                           [:j [:!Ta :j] :termemul] ;; tmux prefix + j
                           [:k [:!Ta :k] :termemul] ;; tmux prefix + k
