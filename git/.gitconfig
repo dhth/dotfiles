@@ -52,10 +52,22 @@
 [delta]
     navigate = true
     line-numbers = true
-    syntax-theme = gruvbox-dark
+    syntax-theme = none
     ; diff-so-fancy = true
-    diff-highlight = true
+    ; diff-highlight = true
     ; features = side-by-side
+
+    minus-style = black "#f14c4c"
+    minus-emph-style = black "#f9b7b7"
+    plus-style = black "#15ac91"
+    plus-emph-style = black "#75d3ba"
+    line-numbers-minus-style = "#f14c4c"
+    line-numbers-plus-style = "#15ac91"
+    file-added-label = [●]
+    file-copied-label = [C]
+    file-modified-label = [+]
+    file-removed-label = [⛌]
+    file-renamed-label = [→]
 [split-diffs]
 	min-line-width = 0
 	theme-name = light
