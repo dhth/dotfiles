@@ -420,6 +420,7 @@
                           [:n [:!Ta :7] :termemul] ;; tmux: run pth
                           ; [:l [:!Ta :!S0] :termemul] ;; tmux: next session
                           ; [:s [:!Ta :!Tm] :termemul] ;; tmux: session menu
+                          [:s [:spacebar :f :s] :termemul] ;; nvim: filtered search
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
                           [:a :!SCa :jetbrains] ;; find action
@@ -567,8 +568,10 @@
                           [:s :!CS4] ;; quick screenshot
                           [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
                           [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
-                          [:j :page_down] ;; page down
-                          [:k :page_up] ;; page up
+                          ; [:j :page_down] ;; page down
+                          ; [:k :page_up] ;; page up
+                          [:k [:!Tx :7] :termemul] ;; opencode: half page up
+                          [:j [:!Tx :8] :termemul] ;; opencode: half page down
                           ]}
 
 
@@ -631,6 +634,7 @@
                           [:c [:launch "Screenshot"]]
                           ; [:l :!Ts :termemul]
                           ; [:l :slash :termemul]
+                          [:g [:!Ta :close_bracket] :termemul] ;; tmux prefix + ]
                           [:k [:!SCopen_bracket] :code] ;; code: Shift + cmd + [
                           [:j [:!SCclose_bracket] :code] ;; code: Shift + cmd + ]
                           [:f :!Tf :termemul]

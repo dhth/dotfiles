@@ -28,8 +28,12 @@
     lnb = l \
         --perl-regexp --author='^(?!.*dependabot\\[bot\\])'
 	s = status --short
+	d = diff
+	ds = diff --staged
 	p = pull
 	c = clone
+	ms = merge --squash
+	sh = show HEAD
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
@@ -53,6 +57,7 @@
     navigate = true
     line-numbers = true
     syntax-theme = none
+    true-color = always
     ; diff-so-fancy = true
     ; diff-highlight = true
     ; features = side-by-side
