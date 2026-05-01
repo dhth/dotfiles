@@ -3,29 +3,26 @@
 set -e
 set -o pipefail
 
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 <repo> <tag>..." >&2
+if [ $# -ne 4 ]; then
+    echo "Usage: $0 <owner> <label> <desc> <color>"
     exit 1
 fi
 
-repo="$1"
-shift
+owner=$1
+label=$2
+desc=$3
+color=$4
 
-for label in "$@"; do
-    echo gh label create ${label} --repo ${repo}
-done
+repos=$(gh repo list "$owner" --limit 100 --source --no-archived --json name --jq '.[].name')
+
+echo -e "repos:\n$(echo $repos | xargs)"
 
 echo ""
-read -p "continue? [y/n]: " choice
+echo "gh label create \"$label\" --repo \"$owner/REPO\" --color \"$color\" --description \"$desc\" --force"
+echo ""
 
-case "$choice" in
-y | Y) {
-    echo ""
-    for label in "$@"; do
-        echo gh label create ${label} --repo ${repo}
-        gh label create ${label} --repo ${repo}
-    done
-} ;;
-n | N) exit 0 ;;
-*) exit 1 ;;
-esac
+gum confirm "proceed?"
+
+while IFS= read -r repo; do
+    gh label create "$label" --repo "$owner/$repo" --color "$color" --description "$desc" --force
+done <<<"$repos"

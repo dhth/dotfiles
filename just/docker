@@ -1,0 +1,27 @@
+[no-cd]
+@up:
+    dcm up -d
+
+[no-cd]
+@logs:
+    dcm logs -f
+
+[no-cd]
+@down:
+    dcm down
+
+[no-cd]
+@down-v:
+    dcm down -v
+
+[no-cd]
+@ps:
+    dcm ps
+
+[no-cd]
+@restart:
+    dcm restart
+
+[no-cd]
+@up-build:
+    dcm up -d --build

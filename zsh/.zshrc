@@ -34,6 +34,7 @@ alias crb='coderabbit'
 alias crt='crumbs tui'
 alias cts='commits'
 alias dev='assume ai-dev && unset AWS_PROFILE'
+alias d='just --justfile "$PROJECTS_DIR/dotfiles/just/docker" --choose'
 alias dps='docker ps'
 alias e='exit'
 alias g='git'
@@ -210,15 +211,6 @@ bind-git-helper() {
 }
 bind-git-helper f b h s
 unset -f bind-git-helper
-
-# docker helpers
-function d() {
-    docker_command=$(cat $PROJECTS_DIR/dotfiles/utils/docker_commands.txt | fzf --height=10 --layout=reverse)
-    if [ -n "$docker_command" ]; then
-        print -s "$docker_command"
-        eval "$docker_command"
-    fi
-}
 
 # utility function
 function echo_array(){
