@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-# bun install -g @sourcegraph/amp 
+# bun install -g @sourcegraph/amp
 bun install -g @mariozechner/pi-coding-agent
 
 brew update && brew upgrade

@@ -14,12 +14,12 @@ shift
 if tmux list-windows -t "$SESSION" | grep -wq "$WINDOW_NAME"; then
     CURRENT_CMD=$(tmux display-message -t "$SESSION:$WINDOW_NAME" -p '#{pane_current_command}')
     case "$CURRENT_CMD" in
-        bash|zsh|fish|sh|dash)
-            ;;
-        *)
-            echo "Error: window '$WINDOW_NAME' is busy (running: $CURRENT_CMD)" >&2
-            exit 1
-            ;;
+    bash | zsh | fish | sh | dash)
+        ;;
+    *)
+        echo "Error: window '$WINDOW_NAME' is busy (running: $CURRENT_CMD)" >&2
+        exit 1
+        ;;
     esac
 else
     tmux new-window -t "$SESSION" -n "$WINDOW_NAME"
