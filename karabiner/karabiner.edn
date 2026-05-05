@@ -124,7 +124,6 @@
              :9-mode {:key :9}
              :w-mode {:key :w}
              :caps-lock-mode {:key :caps_lock}
-             :tab-mode {:key :tab}
              :open-bracket-mode {:key :open_bracket}
              :close-bracket-mode {:key :close_bracket}
              :x-mode {:key :x}
@@ -882,23 +881,24 @@
                           ]}
 
                  {:des   "tab mode"
-                  :rules [:tab-mode
-                          [:##h :!SOleft_arrow ]
-                          [:##j :!SOdown_arrow ]
-                          [:##k :!SOup_arrow ]
-                          [:##l :!SOright_arrow ]
-                          [:s :!TSOCs] ;; mac: siri
-                          [:d [:alfred "dark_mode" "dhth.system"]]
-                          [:a [:alfred "switch_audio" "dhth.system"]]
+                  :rules [[:tab ["tab-mode" 1] nil {:afterup ["tab-mode" 0] :alone :tab}]
+                          [:j [:open "/Applications/Ghostty.app"] ["tab-mode" 1]]
+                          [:k [:open "/Applications/Brave Browser.app"] ["tab-mode" 1]]
+                          [:l [:open "/Applications/Spotify.app"] ["tab-mode" 1]]
+                          [:m [:open "/System/Applications/Messages.app"] ["tab-mode" 1]]
+                          [:semicolon [:open "/Applications/Slack.app"] ["tab-mode" 1]]
+                          [:s :!TSOCs ["tab-mode" 1]] ;; mac: siri
+                          [:d [:alfred "dark_mode" "dhth.system"] ["tab-mode" 1]]
+                          [:a [:alfred "switch_audio" "dhth.system"] ["tab-mode" 1]]
                           ; [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
-                          [:b [:!Ta :!Sb] :termemul] ;; termemul: bmm: show search
-                          [:z [:alfred "system_sleep" "dhth.system"]]
+                          [:b [:!Ta :!Sb] [:termemul ["tab-mode" 1]]] ;; termemul: bmm: show search
+                          [:z [:alfred "system_sleep" "dhth.system"] ["tab-mode" 1]]
                           ; [:spacebar :!TSOCo]
-                          [:spacebar [:alfred "search"  "dhth.bookmarks"]] ;; alfred: search bookmarks via bmm
-                          [:i :!TOC8]
-                          [:c :!OCf5]
-                          [:comma [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to bmm
-                          [:o :!TOCo] ;; 1password: quick access
+                          [:spacebar [:alfred "search"  "dhth.bookmarks"] ["tab-mode" 1]] ;; alfred: search bookmarks via bmm
+                          [:i :!TOC8 ["tab-mode" 1]]
+                          [:c :!OCf5 ["tab-mode" 1]]
+                          [:comma [:alfred "save_tab" "dhth.bookmarks"] ["tab-mode" 1]] ;; alfred: save browser tab to bmm
+                          [:o :!TOCo ["tab-mode" 1]] ;; 1password: quick access
                           ]}
 
                  {:des   "open bracket mode"
