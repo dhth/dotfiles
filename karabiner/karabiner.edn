@@ -54,6 +54,10 @@
            }
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
+             :hs-resize "/opt/homebrew/bin/hs -c \"ResizeWindow('%s')\""
+             :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
+             :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
+             :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
              :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -78,8 +82,16 @@
              '"
              }
  :tos {;
-       :emoji_picker {:key :spacebar :modi :ct} ;!CTspacebar
-       :open_dev_tools {:key :i :modi :co}
+       :emoji-picker {:key :spacebar :modi :ct} ;!CTspacebar
+       :open-dev-tools {:key :i :modi :co}
+       :tmux-prefix {:key :a :modi :left_control}
+       :open-anki {:shell [:open "/Applications/Anki.app"]}
+       :open-brave {:shell [:open "/Applications/Brave Browser.app"]}
+       :open-ghostty {:shell [:open "/Applications/Ghostty.app"]}
+       :open-km {:shell [:open "/Applications/Keyboard Maestro.app"]}
+       :open-messages {:shell [:open "/System/Applications/Messages.app"]}
+       :open-slack {:shell [:open "/Applications/Slack.app"]}
+       :open-spotify {:shell [:open "/Applications/Spotify.app"]}
        ;
        }
  :layers {
@@ -154,7 +166,7 @@
                  [:a [:alfred "tasks_work_add"  "dhth.tasks"]]
                  [:1 [:alfred "get_pass_1"  "dhth.system"]]
                  [:2 [:alfred "get_pass_2"  "dhth.system"]]
-                 [:p [:open "/Applications/Spotify.app"]]
+                 [:p :open-spotify]
                  ]}
 
         {:des   "work stuff"
@@ -166,7 +178,7 @@
                  ; [:l [:alfred "tasks_work_list"  "dhth.tasks"]]
                  ; [:l [:alfred "aws_lambda_list_functions"  "dhth.aws"]]
                  ; [:o [:alfred "add_url_to_reading"  "dhth.brain"]] ;; dhth.brain: on my mind: add entry
-                 [:o "/opt/homebrew/bin/tmux switch -t wiki:omm && open -a \"Ghostty\"" ] ;; tmux: switch to omm
+                 [:o [:tmux-open "wiki:omm"]] ;; tmux: switch to omm
                  [:u [:alfred "add_url_to_omm" "dhth.omm"]] ;; alfred: dhth.omm add url to omm
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
                  [:h :!SOCh] ;; magnet: previous display
@@ -184,16 +196,16 @@
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
                  ; [:o [:alfred "open_on_my_mind"  "dhth.brain"]] ;; dhth.brain: on my mind: open list
-                 [:o "/opt/homebrew/bin/tmux switch -t work:ommw && open -a \"Ghostty\"" ] ;; tmux: switch to ommw
+                 [:o [:tmux-open "work:ommw"]] ;; tmux: switch to ommw
                  [:u [:alfred "add_url_to_ommw" "dhth.omm"]] ;; alfred: dhth.omm add url to ommw
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  ; [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: type out check mark
                  ; [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: type out check mark
                  ; [:h :!TOh] ;; magnet: left
                  ; [:l :!TOl] ;; magnet: right
-                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left50')\"" ] ;; hammerspoon: move window to left50
-                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right50')\"" ] ;; hammerspoon: move window to right50
-                 [:m "/opt/homebrew/bin/hs -c \"ResizeWindow('maximized')\"" ] ;; hammerspoon: maximise window
+                 [:h [:hs-resize "left50"]] ;; hammerspoon: move window to left50
+                 [:l [:hs-resize "right50"]] ;; hammerspoon: move window to right50
+                 [:m [:hs-resize "maximized"]] ;; hammerspoon: maximise window
                  ; [:m :!TOm] ;; magnet: maximise
                  [:equal_sign :!TOf] ;; magnet: center thirds
                  ]}
@@ -208,9 +220,9 @@
                  ; [:j [:km "mouse: move_down_small"]]
                  ; [:k [:km "mouse: move_up_small"]]
                  ; [:l [:km "mouse: move_right_small"]]
-                 [:h "/opt/homebrew/bin/hs -c \"ResizeWindow('left30')\"" ] ;; hammerspoon: move window to left30
-                 [:l "/opt/homebrew/bin/hs -c \"ResizeWindow('right30')\"" ] ;; hammerspoon: move window to right30
-                 [:o "/opt/homebrew/bin/tmux switch -t wiki:ommr && open -a \"Ghostty\"" ] ;; tmux: switch to ommr
+                 [:h [:hs-resize "left30"]] ;; hammerspoon: move window to left30
+                 [:l [:hs-resize "right30"]] ;; hammerspoon: move window to right30
+                 [:o [:tmux-open "wiki:ommr"]] ;; tmux: switch to ommr
                  [:u [:alfred "add_url_to_ommr" "dhth.omm"]] ;; alfred: dhth.omm add url to ommr
                  ; [:h :!TOd] ;; magnet: one-third left
                  ; [:l :!TOg] ;; magnet: one-third right
@@ -228,13 +240,13 @@
                  ; [:j [:alfred "jira_manager"  "dhth.tools"]]
                  [:h :!TOe] ;; magnet: two-thirds left
                  [:l :!TOt] ;; magnet: two-thirds right
-                 [:m [:open "/Applications/Spotify.app"]]
+                 [:m :open-spotify]
                  ]}
 
         {:des   "5-mode"
          :rules [:five-mode
                  [:p [:open "https://github.com/pulls"]]
-                 [:k [:open "/Applications/Keyboard Maestro.app"]]
+                 [:k :open-km]
                  ; [:h :!OSh] ;; amethyst: shrink main pane
                  ; [:l :!OSl] ;; amethyst: expand main pane
                  ]}
@@ -279,26 +291,26 @@
                  ; [:s [:alfred "aws" "com.ryankoval.awsconsoleservices"]]  ;; alfred: aws search
                  ; [:c [:alfred "aws_cf_user_guide"  "dhth.aws.cloudformation.userguide"]]  ;; aws cf user guide search
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
-                 [:r [:!Ta :!Sr] :termemul] ;; tmux prefix + R: cmds
-                 [:t [:!Ta :!Tf] :termemul] ;; tmux: temporary popup
-                 [:f [:!Ta :!Sf] :termemul] ;; tmux: quick command picker
-                 [:l [:!Ta :n] :termemul] ;; tmux prefix + n
-                 [:h [:!Ta :p] :termemul] ;; tmux prefix + p
-                 [:n [:!Ta :!Tn] :termemul] ;; tmux: pane picker across all sessions
+                 [:r [:tmux-prefix :!Sr] :termemul] ;; tmux prefix + R: cmds
+                 [:t [:tmux-prefix :!Tf] :termemul] ;; tmux: temporary popup
+                 [:f [:tmux-prefix :!Sf] :termemul] ;; tmux: quick command picker
+                 [:l [:tmux-prefix :n] :termemul] ;; tmux prefix + n
+                 [:h [:tmux-prefix :p] :termemul] ;; tmux prefix + p
+                 [:n [:tmux-prefix :!Tn] :termemul] ;; tmux: pane picker across all sessions
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
-                 [:m [:!Ta :!Tm] :termemul] ;; tmux: pane picker for current session
-                 [:w [:!Ta :!Sw] :termemul] ;; tmux: pane picker across current sessions
-                 [:quote [:!Ta :!Tn] :termemul] ;; tmux: window picker
-                 [:c [:!Ta :c] :termemul] ;; tmux prefix + c
-                 [:z [:!Ta :z] :termemul] ;; tmux prefix + z
+                 [:m [:tmux-prefix :!Tm] :termemul] ;; tmux: pane picker for current session
+                 [:w [:tmux-prefix :!Sw] :termemul] ;; tmux: pane picker across current sessions
+                 [:quote [:tmux-prefix :!Tn] :termemul] ;; tmux: window picker
+                 [:c [:tmux-prefix :c] :termemul] ;; tmux prefix + c
+                 [:z [:tmux-prefix :z] :termemul] ;; tmux prefix + z
                  ; [:s [:!Ta :open_bracket] :termemul]
-                 [:open_bracket "/opt/homebrew/bin/tmux switch -t scratch" :termemul] ;; tmux: switch to scratch
-                 [:s [:!Ta :open_bracket] :termemul]
-                 [:j [:!Ta :!Sj] :termemul] ;; tmux prefix + J
-                 [:g [:!Ta :!Sg] :termemul] ;; tmux prefix + G
-                 [:p [:!Ta :!Sp] :termemul] ;; tmux prefix + P
+                 [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
+                 [:s [:tmux-prefix :open_bracket] :termemul]
+                 [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
+                 [:g [:tmux-prefix :!Sg] :termemul] ;; tmux prefix + G
+                 [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
                  [:spacebar "~/projects/dotfiles/utils/exe/tmuxarrange" :termemul] ;; tmuxarrange
-                 [:semicolon [:!Ta :semicolon] :termemul] ;; tmux prefix + ;
+                 [:semicolon [:tmux-prefix :semicolon] :termemul] ;; tmux prefix + ;
                  ; [:e [:!Ta :!Se] :termemul] ;; tmux prefix + E
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
@@ -310,7 +322,7 @@
                  ; [:w [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
                  ; [:r [:alfred "add_url_to_reading" "dhth.brain"]] ;; alfred: dhth.brain: add url to reading
                  ; [:m [:alfred "add_url_to_on_my_mind" "dhth.brain"]] ;; alfred: dhth.brain: add url to "on my mind"
-                 [:right_option [:open "/Applications/Slack.app"]]
+                 [:right_option :open-slack]
                  [:b [:alfred "wiki_add_book" "dhth.wiki.search"]]
                  ; [:v [:alfred "add_word_to_records" "dhth.vocabulary"]] ;; alfred: vocab: add word to records
                  [:i [:alfred "quick_help_link" "dhth.bookmarks"]] ;; alfred: bookmarks: quick help link
@@ -356,7 +368,7 @@
 
                  {:des   "d mode"
                   :rules [:d-mode
-                          [:t :open_dev_tools :browser]
+                          [:t :open-dev-tools :browser]
                           [:t [:spacebar :d :t] :termemul] ;; vim: windo diffthis
                           [:i :!TCd] ;; dictation
                           [:m :!SOd :browser] ;; dark reader
@@ -399,9 +411,8 @@
                           [:u :!Shyphen]
                           ; [:l [:open "/Applications/Altair GraphQL Client.app"]] ;; open: Altair
                           ; [:i [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
-                          [:o [:open "/Applications/Obsidian.app"]] ;; open: Obsidian
-                          [:m [:open "/System/Applications/Messages.app"]] ;; open: Messages
-                          [:n [:open "/Applications/Anki.app"]] ;; open: Anki
+                          [:m :open-messages] ;; open: Messages
+                          [:n :open-anki] ;; open: Anki
                           ]
                   }
 
@@ -409,12 +420,12 @@
                   :rules [:f-mode
                           ; [:h :!SCopen_bracket :termemul] ;; for iterm
                           ; [:l :!SCclose_bracket :termemul] ;; for iterm
-                          [:h "/opt/homebrew/bin/tmux select-window -t :editor" :termemul] ;; tmux: go to window: editor
-                          [:d "/opt/homebrew/bin/tmux select-window -t :2" :termemul] ;; tmux: go to window: 2
-                          [:j "/opt/homebrew/bin/tmux select-window -t :cl" :termemul] ;; tmux: go to window: cl
-                          [:k "/opt/homebrew/bin/tmux select-window -t :cx" :termemul] ;; tmux: go to window: cx
-                          [:l "/opt/homebrew/bin/tmux select-window -t :oc" :termemul] ;; tmux: go to window: oc
-                          [:semicolon "/opt/homebrew/bin/tmux select-window -t :am" :termemul] ;; tmux: go to window: am
+                          [:h [:tmux-window ":editor"] :termemul] ;; tmux: go to window: editor
+                          [:d [:tmux-window ":2"] :termemul] ;; tmux: go to window: 2
+                          [:j [:tmux-window ":cl"] :termemul] ;; tmux: go to window: cl
+                          [:k [:tmux-window ":cx"] :termemul] ;; tmux: go to window: cx
+                          [:l [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
+                          [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
                           [:m [:!Ta :!Sm] :termemul] ;; tmux: run pth
                           [:n [:!Ta :7] :termemul] ;; tmux: run pth
                           ; [:l [:!Ta :!S0] :termemul] ;; tmux: next session
@@ -465,8 +476,8 @@
                          ; [:right_shift [:open-a "Intellij Idea"]]
                          ; [:right_shift :!SOs :termemul]  ;; vim: quick language snippet 1
                          [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
-                         [:right_shift [:!Ta :!Tw] :termemul]  ;; tmux: go to last window
-                         [:spacebar [:!Ta :!Tg] :termemul] ;; tmux: session menu
+                          [:right_shift [:tmux-prefix :!Tw] :termemul]  ;; tmux: go to last window
+                          [:spacebar [:tmux-prefix :!Tg] :termemul] ;; tmux: session menu
                          [:up_arrow :!Tk ] ;; ctrl+k
                          [:down_arrow :!Tj ] ;; ctrl+j
                          [:left_arrow :!Th ] ;; ctrl+h
@@ -527,7 +538,7 @@
                           [:l [:alfred "means_like"  "dhth.vocabulary"]]
                           [:p [:alfred "karabiner_mappings"  "dhth.karabiner"]] ;; alfred: show karabiner mappings
                           [:i [:open "http://127.0.0.1:8003/on-my-mind/on-my-mind/"]] ;; brain: open on my mind webpage
-                          [:k [:open "/Applications/Keyboard Maestro.app"]]
+                          [:k :open-km]
                           [:c [:spacebar :m :c] :termemul] ;; vim: close tab
                           [:e :!SCm :slack] ;; slack: mentions
                           ; [:1 [:km "window: fs: move to display 1"]] ;; km: move to display 1
@@ -543,7 +554,7 @@
                           [:a [:alfred "notion_omm_add"  "dhth.notion"]]
                           [:l [:alfred "notion_omm_list"  "dhth.notion"]]
                           ; [:s [:open "https://notion.so"]]
-                          [:s [:!Ta :!Sp] :termemul] ;; tmux:: new session with general py
+                          [:s [:tmux-prefix :!Sp] :termemul] ;; tmux:: new session with general py
                           ; [:s [:alfred "search" "com.wrjlewis.notion-search"]] ;; alfred: notion search
                           [:p [:alfred "get_current_track"  "dhth.spotify"]] ;; now playing
                           [:t [:spacebar :n :t] :termemul] ;; vim: go to next test
@@ -589,7 +600,7 @@
                           ; [:s [:alfred "add_pushups" "dhth.pushups"]] ;; pushups: add pushups
                           [:s [:alfred "pomodoro_start" "dhth.pomodoro"]] ;; pomodoro: start pomodoro
                           [:b [:alfred "pomodoro_break_start" "dhth.pomodoro"]] ;; pomodoro: start break
-                          [:o "/opt/homebrew/bin/tmux switch -t wiki:po && open -a \"Ghostty\"" ] ;; tmux: switch to punchout
+                          [:o [:tmux-open "wiki:po"]] ;; tmux: switch to punchout
                           ; [:o [:open "/Applications/Postman.app"]]
                           ]}
 
@@ -606,7 +617,7 @@
                           [:f :!OCl :jetbrains] ;; jetbrains: reformat code
                           [:f :!TSf :dbeaver] ;; dbeaver: reformat code
                           [:f [:spacebar :r :f] :termemul] ;; vim: <leader>rf
-                          [:p [:!Ta :!Tr] :termemul] ;; tmux: prefix + ctrl-r: running processes
+                          [:p [:tmux-prefix :!Tr] :termemul] ;; tmux: prefix + ctrl-r: running processes
                           [:u [:spacebar :r :u] :termemul] ;; vim: run line as command
                           [:w [:alfred "random_word" "dhth.vocabulary"]] ;; alfred: random word
                           [:v [:km "system: restart vim"] ] ;; karabiner: system: restart vim
@@ -633,7 +644,7 @@
                           [:c [:launch "Screenshot"]]
                           ; [:l :!Ts :termemul]
                           ; [:l :slash :termemul]
-                          [:g [:!Ta :close_bracket] :termemul] ;; tmux prefix + ]
+                          [:g [:tmux-prefix :close_bracket] :termemul] ;; tmux prefix + ]
                           [:k [:!SCopen_bracket] :code] ;; code: Shift + cmd + [
                           [:j [:!SCclose_bracket] :code] ;; code: Shift + cmd + ]
                           [:f :!Tf :termemul]
@@ -641,7 +652,7 @@
                           [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
                           [:m [:!SCo] :code] ;; code: search for symbol in editor
                           [:m :!Cf12 :jetbrains]  ;; jetbrains: file structure
-                          [:n [:!Ta :!Sn] :termemul] ;; tmux: nnn
+                          [:n [:tmux-prefix :!Sn] :termemul] ;; tmux: nnn
                           ; [:p [:open "/Applications/Spotify.app"]]
                           [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
@@ -671,10 +682,10 @@
                           [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
                           [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                           [:h :!SCt :slack] ;; slack: threads
-                          [:i "/opt/homebrew/bin/tmux switch -t wiki:h && open -a \"Ghostty\"" ] ;; tmux: switch to hours
+                          [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
                           ; [:m [:alfred "time"  "dhth.system"]]
-                          [:m [:!Ta :!Tt] :termemul] ;; tmux: prefix + C-t
-                          [:n [:!Ta :!Tp] :termemul] ;; tmux: txw
+                          [:m [:tmux-prefix :!Tt] :termemul] ;; tmux: prefix + C-t
+                          [:n [:tmux-prefix :!Tp] :termemul] ;; tmux: txw
                           ; [:w [:alfred "tmux_windows"  "dhth.tmux"]] ;; tmux: switch between all windows on a server
                           ; [:s [:alfred "tmux_sessions"  "dhth.tmux"]] ;; tmux: switch between sessions
                           [:s :!OSa :browser] ;; browser: dark mode: toggle current site
@@ -752,7 +763,7 @@
 
                  {:des "emoji-mode"
                   :rules [:z-mode
-                          [:e :emoji_picker]
+                          [:e :emoji-picker]
                           [:t [:km "emoji: thunder"] ]
                           ; [:c [:km "emoji: check mark"] ]
                           [:c "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('✅')\"" ] ;; hammerspoon: type out check mark
@@ -882,16 +893,16 @@
 
                  {:des   "tab mode"
                   :rules [[:tab ["tab-mode" 1] nil {:afterup ["tab-mode" 0] :alone :tab}]
-                          [:j [:open "/Applications/Ghostty.app"] ["tab-mode" 1]]
-                          [:k [:open "/Applications/Brave Browser.app"] ["tab-mode" 1]]
-                          [:l [:open "/Applications/Spotify.app"] ["tab-mode" 1]]
-                          [:m [:open "/System/Applications/Messages.app"] ["tab-mode" 1]]
-                          [:semicolon [:open "/Applications/Slack.app"] ["tab-mode" 1]]
+                          [:j :open-ghostty ["tab-mode" 1]]
+                          [:k :open-brave ["tab-mode" 1]]
+                          [:l :open-spotify ["tab-mode" 1]]
+                          [:m :open-messages ["tab-mode" 1]]
+                          [:semicolon :open-slack ["tab-mode" 1]]
                           [:s :!TSOCs ["tab-mode" 1]] ;; mac: siri
                           [:d [:alfred "dark_mode" "dhth.system"] ["tab-mode" 1]]
                           [:a [:alfred "switch_audio" "dhth.system"] ["tab-mode" 1]]
                           ; [:b [:alfred "connect_to_bluetooth_device" "dhth.system"]]
-                          [:b [:!Ta :!Sb] [:termemul ["tab-mode" 1]]] ;; termemul: bmm: show search
+                          [:b [:tmux-prefix :!Sb] [:termemul ["tab-mode" 1]]] ;; termemul: bmm: show search
                           [:z [:alfred "system_sleep" "dhth.system"] ["tab-mode" 1]]
                           ; [:spacebar :!TSOCo]
                           [:spacebar [:alfred "search"  "dhth.bookmarks"] ["tab-mode" 1]] ;; alfred: search bookmarks via bmm
@@ -1072,8 +1083,8 @@
  :rules [:!termemul
          ; [:##left_command :##left_command :apple {:alone [:open-a "Ghostty"]}]
          ; [:##left_option :##left_command :!apple {:alone [:open-a "Ghostty"]}]
-         [:##left_command :##left_command :apple {:alone [:open "/Applications/Ghostty.app"]}]
-         [:##left_option :##left_command :!apple {:alone [:open "/Applications/Ghostty.app"]}]
+         [:##left_command :##left_command :apple {:alone :open-ghostty}]
+         [:##left_option :##left_command :!apple {:alone :open-ghostty}]
          ; [:##left_option :##left_command nil {:alone [:open "/Applications/iTerm.app"]}]
          ]}
 
