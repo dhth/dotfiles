@@ -267,7 +267,7 @@
 
         {:des   "a mode"
          :rules [:a-mode
-                 [:b [:!Ta :!Tb]] ;; tmux: persistent popup half screen
+                 [:b [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:r [:tmux-prefix :!Sr] :termemul] ;; tmux prefix + R: cmds
                  [:t [:tmux-prefix :!Tf] :termemul] ;; tmux: temporary popup
@@ -324,7 +324,7 @@
                           [:j :open_bracket]
                           [:k :close_bracket]
                           [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :termemul] ;; vim: coc restart
-                          [:m [:!Ta :!Sc] :termemul] ;; tmux prefix + C
+                          [:m [:tmux-prefix :!Sc] :termemul] ;; tmux prefix + C
                           [:s [:km "alfred: search clipboard"]] ;; km: alfred: search clipboard
                           [:n [:alfred "clear_notifications" "dhth.system"]] ;; alfred: system: clear notifications
                           [:u [:alfred "get_md_url" "dhth.utils"]] ;; alfred: utils: get current url as a markdown list item
@@ -345,11 +345,11 @@
                           [:j :!Td :code ] ;; vim <c-d>
                           [:k :!Tu :code ] ;; vim <c-d>
                           ; [:o :!TOCd ] ;; toggle dato
-                          [:s [:!Ta :!Ss] :termemul] ;; tmux prefix + S
-                          [:o [:!Ta :!Sd] :termemul] ;; tmux prefix + O
-                          [:l [:!Ta :8] :termemul] ;; tmux prefix + 8
+                          [:s [:tmux-prefix :!Ss] :termemul] ;; tmux prefix + S
+                          [:o [:tmux-prefix :!Sd] :termemul] ;; tmux prefix + O
+                          [:l [:tmux-prefix :8] :termemul] ;; tmux prefix + 8
                           [:c [:spacebar :d :c] :termemul ] ;; nvim: helpers: diff with commit
-                          [:f [:!Ta :!Sd] :termemul] ;; tmux prefix + D
+                          [:f [:tmux-prefix :!Sd] :termemul] ;; tmux prefix + D
                           [:f [:!SCf :!Cn ] :code ] ;; vscode: foam: new note
                           [:f :!TOCn :jetbrains ] ;; new
                           [:b [:spacebar :d :b] :termemul] ;; vim: add println
@@ -381,8 +381,8 @@
                           [:k [:tmux-window ":cx"] :termemul] ;; tmux: go to window: cx
                           [:l [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
                           [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
-                          [:m [:!Ta :!Sm] :termemul] ;; tmux: run pth
-                          [:n [:!Ta :7] :termemul] ;; tmux: run pth
+                          [:m [:tmux-prefix :!Sm] :termemul] ;; tmux: run pth
+                          [:n [:tmux-prefix :7] :termemul] ;; tmux: run pth
                           [:s [:spacebar :f :s] :termemul] ;; nvim: filtered search
                           [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                           [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
@@ -393,7 +393,7 @@
 
                  {:des   "g mode"
                   :rules [:g-mode
-                          [:n [:!Ta :!Sa] :termemul] ;; tmux prefix + A
+                          [:n [:tmux-prefix :!Sa] :termemul] ;; tmux prefix + A
                           [:i [:spacebar :g :i] :termemul] ;; vim: git exclude
                           [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                           [:h [:alfred "github_repo_search"  "dhth.github"]]
@@ -401,12 +401,12 @@
                           [:8 [:alfred "github_stars_search"  "dhth.github"]] ;; github: stars
                           [:9 [:g :r :i :!S9]]
                           [:open_bracket [:g :r :i :open_bracket]]
-                          [:d [:!Ta :!Td] :termemul ] ;; tmux: prefix + ctrl+d: dfft run
-                          [:s [:!Ta :s] :termemul ] ;; tmux: show git status
-                          [:p [:!Ta :9] :termemul] ;; tmux: git push
+                          [:d [:tmux-prefix :!Td] :termemul ] ;; tmux: prefix + ctrl+d: dfft run
+                          [:s [:tmux-prefix :s] :termemul ] ;; tmux: show git status
+                          [:p [:tmux-prefix :9] :termemul] ;; tmux: git push
                           [:b [:spacebar :g :b] :termemul ] ;; vim: telescope: git branches
                           [:quote [:g :r :i :quote] :termemul ] ;; vim: replace with regiser: gri"
-                          [:l [:!Ta :!Sl] :termemul] ;; tmux prefix + L
+                          [:l [:tmux-prefix :!Sl] :termemul] ;; tmux prefix + L
                           ]}
 
                  {:des "left-shift mode"
@@ -423,18 +423,18 @@
                  {:des "right-shift mode"
                   :rules [:right-shift-mode
                          [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
-                         [:1 [:!Ta :!S1] :termemul] ;; tmux: layout 1
-                         [:2 [:!Ta :!S2] :termemul] ;; tmux: layout 2
-                         [:3 [:!Ta :!S3] :termemul] ;; tmux: layout 3
-                         [:4 [:!Ta :!S4] :termemul] ;; tmux: layout 4
-                         [:5 [:!Ta :!S5] :termemul] ;; tmux: layout 5
-                         [:a [:!Ta :1] :termemul] ;; tmux prefix + 1
-                         [:s [:!Ta :2] :termemul]
-                         [:d [:!Ta :3] :termemul]
-                         [:f [:!Ta :4] :termemul]
-                         [:g [:!Ta :5] :termemul]
-                         [:h [:!Ta :6] :termemul]
-                         [:s [:!Ta :!Tv]] ;; tmux: persistent popup full screen
+                         [:1 [:tmux-prefix :!S1] :termemul] ;; tmux: layout 1
+                         [:2 [:tmux-prefix :!S2] :termemul] ;; tmux: layout 2
+                         [:3 [:tmux-prefix :!S3] :termemul] ;; tmux: layout 3
+                         [:4 [:tmux-prefix :!S4] :termemul] ;; tmux: layout 4
+                         [:5 [:tmux-prefix :!S5] :termemul] ;; tmux: layout 5
+                         [:a [:tmux-prefix :1] :termemul] ;; tmux prefix + 1
+                         [:s [:tmux-prefix :2] :termemul]
+                         [:d [:tmux-prefix :3] :termemul]
+                         [:f [:tmux-prefix :4] :termemul]
+                         [:g [:tmux-prefix :5] :termemul]
+                         [:h [:tmux-prefix :6] :termemul]
+                         [:s [:tmux-prefix :!Tv]] ;; tmux: persistent popup full screen
                           ]}
 
                  {:des   "m mode"
@@ -544,8 +544,8 @@
                           [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                           [:w [:alfred "search_wikis" "dhth.bookmarks"]] ;; alfred: search wikis
                           [:u :!TCu :browser] ;; browser: notion web clipper
-                          [:l [:!Ta :!Sbackslash] :termemul]
-                          [:j [:!Ta :hyphen] :termemul]
+                          [:l [:tmux-prefix :!Sbackslash] :termemul]
+                          [:j [:tmux-prefix :hyphen] :termemul]
                           ]}
 
                  {:des   "t mode"
@@ -589,10 +589,10 @@
                           [:open_bracket :!TOh] ;; magnet left side
                           [:close_bracket :!TOl] ;; magnet left side
                           [:7 "~/projects/dotfiles/utils/exe/wrap72"] ;; utils: wrap72
-                          [:h [:!Ta :h] :termemul] ;; tmux prefix + h
-                          [:j [:!Ta :j] :termemul] ;; tmux prefix + j
-                          [:k [:!Ta :k] :termemul] ;; tmux prefix + k
-                          [:l [:!Ta :l] :termemul] ;; tmux prefix + l
+                          [:h [:tmux-prefix :h] :termemul] ;; tmux prefix + h
+                          [:j [:tmux-prefix :j] :termemul] ;; tmux prefix + j
+                          [:k [:tmux-prefix :k] :termemul] ;; tmux prefix + k
+                          [:l [:tmux-prefix :l] :termemul] ;; tmux prefix + l
                           [:h [:!Tw :h] :code] ;; code: go left
                           [:j [:!Tw :j] :code] ;; code: go down
                           [:k [:!Tw :k] :code] ;; code: go up
@@ -621,7 +621,7 @@
                           [:c [:type "✅"]] ;; hammerspoon: type out check mark
                           [:i [:type "⏳"]] ;; hammerspoon: type out check mark
                           [:0 [:km "emoji: smile"] ]
-                          [:h [:!Ta :0] :termemul] ;; tmux: join pane
+                          [:h [:tmux-prefix :0] :termemul] ;; tmux: join pane
                           [:k [:type "👆"]] ;; hammerspoon: type out up arrow
                           [:j [:type "👇"]] ;; hammerspoon: type out down arrow
                           [:x [:type "👍"]] ;; hammerspoon: type out thumbs up
@@ -765,15 +765,15 @@
 {:des   "semicolon mode"
  :rules [:semicolon-mode
          [:a :!SCm :slack] ;; slack: activity view
-         [:a [:!Ta :1] :termemul] ;; tmux prefix + 1
-         [:s [:!Ta :2] :termemul]
-         [:d [:!Ta :3] :termemul]
-         [:f [:!Ta :4] :termemul]
-         [:g [:!Ta :5] :termemul]
-         [:h [:!Ta :6] :termemul]
+         [:a [:tmux-prefix :1] :termemul] ;; tmux prefix + 1
+         [:s [:tmux-prefix :2] :termemul]
+         [:d [:tmux-prefix :3] :termemul]
+         [:f [:tmux-prefix :4] :termemul]
+         [:g [:tmux-prefix :5] :termemul]
+         [:h [:tmux-prefix :6] :termemul]
          [:t :!CSt :slack] ;; slack: open threads
          [:q "~/projects/dotfiles/utils/exe/tsw" :termemul] ;; tmux: shfl sessions
-         [:t [:!Ta :!St] :termemul] ;; tmux: show tash popup
+         [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
          [:tab [:tmux-edit-and-switch "wiki:w" "~/.tsw" "wiki:w"] :termemul] ;; tsw: edit tsw
          [:1 "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
          [:2 "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to session 2
@@ -827,8 +827,8 @@
 
 {:des "left_command mode non apple"
  :rules [:left-command-mode-non-apple
-         [:h [:!Ta :p] :termemul]
-         [:l [:!Ta :n] :termemul]
+         [:h [:tmux-prefix :p] :termemul]
+         [:l [:tmux-prefix :n] :termemul]
          [:escape :!Cgrave_accent_and_tilde [:browser :duckyo3m]] ;; browser:: command-tilde:: duckyo3m
          [:escape :grave_accent_and_tilde :termemul] ;; termemul: command-esc to tilde:: duckyo3m
          ]}
@@ -874,9 +874,9 @@
          [:##left_command :##left_command :apple {:alone [:!Ts] }]
          [:##left_option :##left_command :!apple {:alone [:!Ts]}]
          [:##left_shift :##left_shift nil { :alone [:!Tf]}]         ;; fzf :Buffers
-         [:##right_shift :##right_shift nil {:alone [:!Ta :!Ts]}] ;; termemul: tmux: switch to last session
-         [:##right_command :##right_command :apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
-         [:##right_option :##right_option :!apple {:alone [:!Ta :semicolon]}] ;; tmux prefix + ;
+         [:##right_shift :##right_shift nil {:alone [:tmux-prefix :!Ts]}] ;; termemul: tmux: switch to last session
+         [:##right_command :##right_command :apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
+         [:##right_option :##right_option :!apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
          ]}
 
 {:des "left-option"
