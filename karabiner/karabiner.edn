@@ -55,6 +55,7 @@
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
              :hs-resize "/opt/homebrew/bin/hs -c \"ResizeWindow('%s')\""
+             :tmux-edit-and-switch "/opt/homebrew/bin/tmux send-keys -t %s \":edit %s\" ENTER && /opt/homebrew/bin/tmux switch -t %s"
              :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
@@ -86,12 +87,14 @@
        :open-dev-tools {:key :i :modi :co}
        :tmux-prefix {:key :a :modi :left_control}
        :open-anki {:shell [:open "/Applications/Anki.app"]}
-       :open-brave {:shell [:open "/Applications/Brave Browser.app"]}
+       :open-browser {:shell [:open "/Applications/Brave Browser.app"]}
        :open-ghostty {:shell [:open "/Applications/Ghostty.app"]}
        :open-km {:shell [:open "/Applications/Keyboard Maestro.app"]}
        :open-messages {:shell [:open "/System/Applications/Messages.app"]}
+       :open-preview {:shell [:open "/System/Applications/Preview.app"]}
        :open-slack {:shell [:open "/Applications/Slack.app"]}
        :open-spotify {:shell [:open "/Applications/Spotify.app"]}
+       :open-zoom {:shell [:open "/Applications/zoom.us.app"]}
        ;
        }
  :layers {
@@ -407,7 +410,7 @@
                           [:r :!T9 :dbeaver ] ;; dbeaver: change active connection
                           [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                           [:r [:alfred "reddit_search"  "dhth.reddit"]]
-                          [:d "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/projects/dotfiles/karabiner/karabiner.edn\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul]
+                          [:d [:tmux-edit-and-switch "wiki:w" "~/projects/dotfiles/karabiner/karabiner.edn" "wiki:w"] :termemul]
                           [:u :!Shyphen]
                           ; [:l [:open "/Applications/Altair GraphQL Client.app"]] ;; open: Altair
                           ; [:i [:open "/Applications/IntelliJ IDEA.app"]] ;; open: Intellij
@@ -777,7 +780,7 @@
                           [:x "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👍')\"" ] ;; hammerspoon: type out thumbs up
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
-                          [:s "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/.zshrc\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul]
+                          [:s [:tmux-edit-and-switch "wiki:w" "~/.zshrc" "wiki:w"] :termemul]
                           ; [:p [:km "psss"] ]
                           ;
                           ]}
@@ -881,9 +884,9 @@
                           [:l [:km "mouse: move_right"]]
                           [:hyphen [:alfred "pause" "dhth.spotify"]]
                           [:equal_sign [:alfred "play" "dhth.spotify"]]
-                          [:1 "/opt/homebrew/bin/tmux switch -t wiki:gcl" :termemul] ;; tmux: switch to wiki:cl
-                          [:2 "/opt/homebrew/bin/tmux switch -t wiki:gcx" :termemul] ;; tmux: switch to wiki:cx
-                          [:3 "/opt/homebrew/bin/tmux switch -t wiki:goc" :termemul] ;; tmux: switch to wiki:oc
+                          [:1 [:tmux-switch "wiki:gcl"] :termemul] ;; tmux: switch to wiki:cl
+                          [:2 [:tmux-switch "wiki:gcx"] :termemul] ;; tmux: switch to wiki:cx
+                          [:3 [:tmux-switch "wiki:goc"] :termemul] ;; tmux: switch to wiki:oc
                           [:1 [:type-secret "praline-jingle"] :duckyo3m]
                           [:2 [:type-secret "haven-barnyard"] :duckyo3m]
                           [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
@@ -894,7 +897,7 @@
                  {:des   "tab mode"
                   :rules [[:tab ["tab-mode" 1] nil {:afterup ["tab-mode" 0] :alone :tab}]
                           [:j :open-ghostty ["tab-mode" 1]]
-                          [:k :open-brave ["tab-mode" 1]]
+                          [:k :open-browser ["tab-mode" 1]]
                           [:l :open-spotify ["tab-mode" 1]]
                           [:m :open-messages ["tab-mode" 1]]
                           [:semicolon :open-slack ["tab-mode" 1]]
@@ -953,7 +956,7 @@
          [:t :!CSt :slack] ;; slack: open threads
          [:q "~/projects/dotfiles/utils/exe/tsw" :termemul] ;; tmux: shfl sessions
          [:t [:!Ta :!St] :termemul] ;; tmux: show tash popup
-         [:tab "/opt/homebrew/bin/tmux send-keys -t wiki:w \":edit ~/.tsw\" ENTER && /opt/homebrew/bin/tmux switch -t wiki:w" :termemul] ;; tsw: edit tsw
+         [:tab [:tmux-edit-and-switch "wiki:w" "~/.tsw" "wiki:w"] :termemul] ;; tsw: edit tsw
          [:1 "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
          [:2 "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to session 2
          [:3 "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to session 3
@@ -978,7 +981,6 @@
          [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
          ; [:f [:alfred "fe_feature_search"  "dhth.workutils"]] ;; work utils: front end feature search
          [:w [:alfred "work_bookmarks" "dhth.bookmarks"]] ;; alfred: search work bookmarks
-         [:z [:open "/Applications/Zed.app"]] ;; open: Zed
          ; [:s [:alfred "save_url_to_wiki" "dhth.bookmarks"]] ;; alfred: save url to a wiki
          ; [:a [:alfred "aws_account_switch" "dhth.aws"]] ;; alfred: aws: account switch
          [:1 [["lo-browser" 1] ["lo-preview" 0] ["lo-anki" 0]]]
@@ -1047,20 +1049,14 @@
  :rules [
          ; [:##left_control :caps_lock]
          ; [:left_control [:alfred "search"  "dhth.bookmarks"]]
-         [:##left_control :##left_control [:apple ["lc-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_control :##left_control [:apple ["lc-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         [:##left_control :##left_control [:apple ["lc-anki" 1]] {:alone [:open "/Applications/Anki.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-anki" 1]] {:alone [:open "/Applications/Anki.app"]}]
-         [:##left_control :##left_control [:apple ["lc-intellij-idea" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-intellij-idea" 1]] {:alone [:open "/Applications/IntelliJ IDEA.app"]}]
-         [:##left_control :##left_control [:apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-zoom" 1]] {:alone [:open "/Applications/zoom.us.app"]}]
-         [:##left_control :##left_control [:apple ["lc-cursor" 1]] {:alone [:open "/Applications/Cursor.app"]}]
-         [:##left_control :##left_control [:!apple ["lc-cursor" 1]] {:alone [:open "/Applications/Cursor.app"]}]
-         [:##left_control :##left_control :apple {:alone [:open "/Applications/Visual Studio Code.app"]}] ;; left-control:: fallback
-         [:##left_control :##left_control :!apple {:alone [:open "/Applications/Visual Studio Code.app"]}] ;; left-control:: fallback
+         [:##left_control :##left_control [:apple ["lc-browser" 1]] {:alone :open-browser}]
+         [:##left_control :##left_control [:!apple ["lc-browser" 1]] {:alone :open-browser}]
+         [:##left_control :##left_control [:apple ["lc-preview" 1]] {:alone :open-preview}]
+         [:##left_control :##left_control [:!apple ["lc-preview" 1]] {:alone :open-preview}]
+         [:##left_control :##left_control [:apple ["lc-anki" 1]] {:alone :open-anki}]
+         [:##left_control :##left_control [:!apple ["lc-anki" 1]] {:alone :open-anki}]
+         [:##left_control :##left_control [:apple ["lc-zoom" 1]] {:alone :open-zoom}]
+         [:##left_control :##left_control [:!apple ["lc-zoom" 1]] {:alone :open-zoom}]
          ]
  }
 
@@ -1112,14 +1108,14 @@
 
 {:des "left-option"
  :rules [
-         [:##left_option :left_command [:apple ["lo-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_command :left_option [:!apple ["lo-browser" 1]] {:alone [:open "/Applications/Brave Browser.app"]}]
-         [:##left_option :left_command [:apple ["lo-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         [:##left_command :left_option [:!apple ["lo-preview" 1]] {:alone [:open "/System/Applications/Preview.app"]}]
-         [:##left_option :left_command [:apple ["lo-anki" 1]] {:alone [:open "/Applications/Anki.app"]}]
-         [:##left_command :left_option [:!apple ["lo-anki" 1]] {:alone [:open "/Applications/Anki.app"]}]
-         [:##left_option :left_command :apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-option: fallback
-         [:##left_command :left_option :!apple {:alone [:open "/Applications/Brave Browser.app"]}] ;; left-option: fallback
+         [:##left_option :left_command [:apple ["lo-browser" 1]] {:alone :open-browser}]
+         [:##left_command :left_option [:!apple ["lo-browser" 1]] {:alone :open-browser}]
+         [:##left_option :left_command [:apple ["lo-preview" 1]] {:alone :open-preview}]
+         [:##left_command :left_option [:!apple ["lo-preview" 1]] {:alone :open-preview}]
+         [:##left_option :left_command [:apple ["lo-anki" 1]] {:alone :open-anki}]
+         [:##left_command :left_option [:!apple ["lo-anki" 1]] {:alone :open-anki}]
+         [:##left_option :left_command :apple {:alone :open-browser}] ;; left-option: fallback
+         [:##left_command :left_option :!apple {:alone :open-browser}] ;; left-option: fallback
          ]
  }
 
