@@ -55,8 +55,8 @@
              :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
-             :type "osascript -e 'tell application \"System Events\" to keystroke \"%s\"'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
+             :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
              tell application \"System Events\"
              keystroke \"v\" using command down
@@ -618,13 +618,13 @@
                   :rules [:z-mode
                           [:e :emoji-picker]
                           [:t [:km "emoji: thunder"] ]
-                          [:c "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('✅')\"" ] ;; hammerspoon: type out check mark
-                          [:i "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('⏳')\"" ] ;; hammerspoon: type out check mark
+                          [:c [:type "✅"]] ;; hammerspoon: type out check mark
+                          [:i [:type "⏳"]] ;; hammerspoon: type out check mark
                           [:0 [:km "emoji: smile"] ]
                           [:h [:!Ta :0] :termemul] ;; tmux: join pane
-                          [:k "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👆')\"" ] ;; hammerspoon: type out up arrow
-                          [:j "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👇')\"" ] ;; hammerspoon: type out down arrow
-                          [:x "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('👍')\"" ] ;; hammerspoon: type out thumbs up
+                          [:k [:type "👆"]] ;; hammerspoon: type out up arrow
+                          [:j [:type "👇"]] ;; hammerspoon: type out down arrow
+                          [:x [:type "👍"]] ;; hammerspoon: type out thumbs up
                           [:a [:!SOCm]] ;; zoom: toggle audio
                           [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
                           [:s [:tmux-edit-and-switch "wiki:w" "~/.zshrc" "wiki:w"] :termemul]
