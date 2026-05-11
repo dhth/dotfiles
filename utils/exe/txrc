@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ -z "${TMUX:-}" ]; then
+    echo "txrc must be run from inside tmux" >&2
+    exit 1
+fi
+
+selected_command=$(cpicker)
+
+pane_lines=$(tmux list-panes \
+    -s \
+    -F '#{pane_current_command}|#{pane_id}|#{window_name} #{pane_current_path}' |
+    awk -F '|' '$1 == "zsh" { print $2 "|" $3 }')
+
+if [ -z "$pane_lines" ]; then
+    echo "No zsh panes found" >&2
+    exit 1
+fi
+
+selected_pane=$(printf '%s\n' "$pane_lines" | fzf --delimiter='|' --with-nth=2.. --height=10 --layout=reverse --header="target pane?")
+
+pane_id=$(printf '%s\n' "$selected_pane" | cut -d '|' -f 1)
+
+tmux send-keys -t "$pane_id" "$selected_command" Enter

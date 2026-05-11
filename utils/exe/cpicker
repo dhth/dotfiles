@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+history_lines=$(zsh -fc '
+HISTFILE=${HISTFILE:-$HOME/.zsh_history}
+HISTSIZE=50000
+SAVEHIST=50000
+fc -R "$HISTFILE"
+fc -rl 1
+')
+
+if [ -z "$history_lines" ]; then
+    exit 1
+fi
+
+selected_command=$(printf '%s\n' "$history_lines" |
+    awk '{ command = $0; sub(/^[ 	]*[0-9]+\**[ 	]+/, "", command); if (!seen[command]++) print command }' |
+    fzf --scheme=history --layout=reverse --header="command?") || exit 1
+
+if [ -z "$selected_command" ]; then
+    exit 1
+fi
+
+printf '%s\n' "$selected_command"

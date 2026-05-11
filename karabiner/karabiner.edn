@@ -39,6 +39,7 @@
              :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
+             :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -472,7 +473,8 @@
 
         {:des   "s mode"
          :rules [:s-mode
-                 [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
+                 ; [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
+                 [:t [:tmux-pane-bottom-half "txrc"] :termemul] ;; tmux: txrc
                  [:t [:!SCy] :slack] ;; slack: set status
                  [:t [:!SCf] :browser] ;; brower: show/hide toolbar
                  [:0 [:alfred "save_current_track"  "dhth.spotify"]]
