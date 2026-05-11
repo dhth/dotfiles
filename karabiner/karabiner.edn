@@ -672,10 +672,10 @@
 
         {:des   "tab mode"
          :rules [[:tab ["tab-mode" 1] nil {:afterup ["tab-mode" 0] :alone :tab}]
-                 [:j :open-ghostty ["tab-mode" 1]]
-                 [:k :open-browser ["tab-mode" 1]]
-                 [:l :open-spotify ["tab-mode" 1]]
-                 [:m :open-messages ["tab-mode" 1]]
+                 [:##h :!SOleft_arrow ["tab-mode" 1]]
+                 [:##j :!SOdown_arrow ["tab-mode" 1]]
+                 [:##k :!SOup_arrow ["tab-mode" 1]]
+                 [:##l :!SOright_arrow ["tab-mode" 1]]
                  [:semicolon :open-slack ["tab-mode" 1]]
                  [:s :!TSOCs ["tab-mode" 1]] ;; mac: siri
                  [:d [:alfred "dark_mode" "dhth.system"] ["tab-mode" 1]]
@@ -769,8 +769,6 @@
 
         {:des "left_command mode non apple"
          :rules [:left-command-mode-non-apple
-                 [:h [:tmux-prefix :p] :termemul]
-                 [:l [:tmux-prefix :n] :termemul]
                  [:escape :!Cgrave_accent_and_tilde [:browser :duckyo3m]] ;; browser:: command-tilde:: duckyo3m
                  [:escape :grave_accent_and_tilde :termemul] ;; termemul: command-esc to tilde:: duckyo3m
                  ]}
