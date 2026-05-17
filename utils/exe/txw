@@ -1,37 +1,27 @@
 #!/usr/bin/env bash
 
-PROJECTS_DIR="$HOME/projects"
-WIKI_DIR="$HOME/projects/knowledge"
-CONFIG_DIR="$HOME/.config"
-GENERAL_PYTHON_ENV_NAME="general"
-WORK_DIR="$PROJECTS_DIR/firstbird"
-WORK_DIR_2="$PROJECTS_DIR/radancy-aio"
-WORK_DIR_3="$PROJECTS_DIR/radancy-ai"
+if [ -z "${DIRS_TO_SEARCH:-}" ]; then
+    printf 'DIRS_TO_SEARCH is not set\n' >&2
+    exit 1
+fi
 
-function txwpy() {
-    # open tmuxinator in a specific work directory
+txw() {
     local selected_entry
-    local selected_py_env
+    local -a search_dirs
+
+    IFS=':' read -r -a search_dirs <<<"$DIRS_TO_SEARCH"
 
     if [ -n "$1" ]; then
-        selected_py_env="$1"
+        selected_entry="$1"
     else
-        selected_py_env=$(fd -t d --max-depth 1 --base-directory /Users/dhruvthakur/.virtualenvs | awk -F "/" '// {print $1}' | fzf --height=20 --layout=reverse --header="which python?")
+        selected_entry=$(fd . --max-depth=1 "${search_dirs[@]}" | fzf --multi --height=20 --layout=reverse --header="project?")
     fi
 
-    if [ -n "$2" ]; then
-        selected_entry="$2"
-    else
-        selected_entry=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $WORK_DIR_3 $PROJECTS_DIR/rusttest $CONFIG_DIR | fzf --multi --height=20 --layout=reverse --header="project?")
-    fi
-
-    if [ -n "$selected_py_env" ]; then
-        if [ -n "$selected_entry" ]; then
-            printf "%s\n" "$selected_entry" | while IFS= read -r project; do
-                tmuxinator two-windows $project $selected_py_env
-            done
-        fi
+    if [ -n "$selected_entry" ]; then
+        printf "%s\n" "$selected_entry" | while IFS= read -r project; do
+            tmuxinator two-windows "$project"
+        done
     fi
 }
 
-txwpy "$@"
+txw "$@"

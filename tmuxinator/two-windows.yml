@@ -10,37 +10,25 @@ name: <%= WDIR.split('/').last.downcase  %>
 root: <%= @args[0] %>
 
 # example usage:
-# tmuxinator two-windows ~/projects/learning-rust general
+# tmuxinator two-windows ~/projects/learning-rust
 
 windows:
   - editor:
       # layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
-          # - source ~/chosen_work_dir
-          # - workon $CHOSEN_PYENV
-          # - workon <%= @args[1] %>
-          # - nvim
             - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p1"'
             - clear
         # - preview:
-        #   - workon <%= @args[1] %>
         #   - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
   - sh:
       panes:
         - sh:
-          # - source ~/chosen_work_dir
-          # - workon $CHOSEN_PYENV
-          # - workon <%= @args[1] %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
           - clear
   - sh:
       panes:
         - sh:
-          # - source ~/chosen_work_dir
-          # - workon $CHOSEN_PYENV
-          # - workon <%= @args[1] %>
-          # - ~/projects/dotfiles/tmux/tmux-set-color.sh <%= WDIR.split('/').last.downcase  %>
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
           - clear
   - cl:

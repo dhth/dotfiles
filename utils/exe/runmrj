@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+output="$(gh workflow run mrj.yml --repo dhth/mrj-runner)"
+printf '%s\n' "$output"
+while IFS= read -r line; do
+    [[ "$line" == https://github.com/* ]] && open "$line" && break
+done <<<"$output"
