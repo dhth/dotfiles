@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-path=$(fd -ipH -t=f | fzf --layout=reverse)
+path=$(fd -ipH | fzf --layout=reverse)
 
 if [ -z "${path}" ]; then
     exit 0

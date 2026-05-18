@@ -211,19 +211,13 @@ bind-git-helper() {
 bind-git-helper f b h s
 unset -f bind-git-helper
 
-# utility function
-function echo_array(){
-    arr=("$@")
-    for el in $arr
-    do
-        echo "$el"
-    done
-}
-
 # quickly cd to important directories
 function jj(){
     local selected_dir
-    selected_dir=$(fd . --max-depth=1 $(echo_array $DIRS_TO_SEARCH) | fzf --height=10 --layout=reverse | xargs)
+    local -a search_dirs
+
+    search_dirs=("${(@s/:/)DIRS_TO_SEARCH}")
+    selected_dir=$(fd . --max-depth=1 "${search_dirs[@]}" | fzf --height=10 --layout=reverse | xargs)
 
     if [ -n "$selected_dir" ]; then
         cd $selected_dir
@@ -342,7 +336,10 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 function _insert_drs() {
   local selection
-  selection="$(fd . --max-depth=1 $(echo_array $DIRS_TO_SEARCH) | fzf --height=10 --layout=reverse | xargs)"
+  local -a search_dirs
+
+  search_dirs=("${(@s/:/)DIRS_TO_SEARCH}")
+  selection="$(fd . --max-depth=1 "${search_dirs[@]}" | fzf --height=10 --layout=reverse | xargs)"
 
   if [[ -n "$selection" ]]; then
     LBUFFER+="$selection"
