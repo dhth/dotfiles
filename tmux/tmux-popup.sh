@@ -24,6 +24,5 @@ else
         -y 100% \
         -S fg=$POPUP_BORDER_COLOR \
         -E \
-        -T "persistent" \
         "$command"
 fi

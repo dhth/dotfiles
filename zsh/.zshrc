@@ -63,6 +63,7 @@ alias ticks='jira sprint list --current -q "sprint in openSprints() AND assignee
 alias tx='tmuxinator'
 alias v='nvim --cmd "let g:lsp=v:false"'
 alias vv='nvim'
+alias wl='hours -d "~/.local/share/hours/work.db" -t gruvbox-dark'
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8

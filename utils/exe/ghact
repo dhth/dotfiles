@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$#" -lt 1 ]; then
+    printf 'Usage: ghact <github-username> [github-username ...]\n' "$0" >&2
+    exit 1
+fi
+
+temp_dir="$(mktemp -d)"
+output_files=()
+
+for username in "$@"; do
+    output_file="$temp_dir/${username}.html"
+
+    ghlog run "$username" \
+        --limit 200 \
+        --format html \
+        >"${output_file}"
+
+    output_files+=("${output_file}")
+done
+
+open "${output_files[@]}"

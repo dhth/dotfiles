@@ -40,6 +40,7 @@
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
              :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
+             :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#928374' -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -230,7 +231,6 @@
 
         {:des   "a mode"
          :rules [:a-mode
-                 [:b [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:r [:tmux-prefix :!Sr] :termemul] ;; tmux prefix + R: cmds
                  [:t [:tmux-prefix :!Tf] :termemul] ;; tmux: temporary popup
@@ -333,6 +333,7 @@
                  ]}
         {:des   "f mode"
          :rules [:f-mode
+                 [:spacebar [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
                  [:h [:tmux-window ":editor"] :termemul] ;; tmux: go to window: editor
                  [:d [:tmux-window ":2"] :termemul] ;; tmux: go to window: 2
                  [:j [:tmux-window ":cl"] :termemul] ;; tmux: go to window: cl
@@ -491,7 +492,6 @@
                  [:g [:tmux-prefix :close_bracket] :termemul] ;; tmux prefix + ]
                  [:k [:!SCopen_bracket] :code] ;; code: Shift + cmd + [
                  [:j [:!SCclose_bracket] :code] ;; code: Shift + cmd + ]
-                 [:f :!Tf :termemul]
                  [:q [:y :s :i :w :!Squote] :termemul]
                  [:m [:spacebar :s :m] :termemul] ;; vim: telescope: coc: document_symbols
                  [:m [:!SCo] :code] ;; code: search for symbol in editor
@@ -508,7 +508,7 @@
          :rules [:t-mode
                  [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
                  [:e [:spacebar :t :e] :termemul] ;; vim: markdown: add task entry
-                 [:l [:alfred "go_to_todays_log"  "dhth.logs"]] ;; vim: logs: go to today's log
+                 [:l [:tmux-pane-center "hours -d \"~/.local/share/hours/work.db\" -t gruvbox-dark"] :termemul] ;; hours: work
                  [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                  [:h :!SCt :slack] ;; slack: threads
                  [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
@@ -655,7 +655,10 @@
 
         {:des   "quote mode"
          :rules [:quote-mode
-                          ; this is mostly for duckyo3m
+                 [:a [:tmux-switch "agents-config:editor"] :termemul] ;; tmux: switch to agents-config:editor
+                 [:d [:tmux-switch "dotfiles:editor"] :termemul] ;; tmux: switch to dotfiles:editor
+
+                 ; this is mostly for duckyo3m
                  [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
                  [:q [:km "quicktime: movie"]]
                  [:h [:km "mouse: move_left"]]

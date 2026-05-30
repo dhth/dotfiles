@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+URL=$(osascript -e 'tell application "Brave Browser" to get URL of active tab of front window')
+
+osascript -e "tell application \"Safari\" to add reading list item \"$URL\""
+
+osascript -e "display notification \"$URL\" with title \"saved to reading list\""
