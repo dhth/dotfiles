@@ -3,8 +3,8 @@
 set -e
 set -o pipefail
 
-if [ $# -ne 4 ]; then
-    echo "Usage: $0 <owner> <label> <desc> <color>"
+if [ $# -lt 4 ]; then
+    echo "Usage: $0 <owner> <label> <desc> <color> [repo ...]"
     exit 1
 fi
 
@@ -13,7 +13,11 @@ label=$2
 desc=$3
 color=$4
 
-repos=$(gh repo list "$owner" --limit 100 --source --no-archived --json name --jq '.[].name')
+if [ $# -gt 4 ]; then
+    repos=$(printf '%s\n' "${@:5}")
+else
+    repos=$(gh repo list "$owner" --limit 100 --source --no-archived --json name --jq '.[].name')
+fi
 
 echo -e "repos:\n$(echo $repos | xargs)"
 
