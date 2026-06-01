@@ -31,28 +31,9 @@ windows:
         - sh:
           - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
           - clear
-  - cl:
-      panes:
-        - cl:
-          - loadnode
-          - clear
-        - spare:
-          - clear
-  - cx:
-      panes:
-        - cx:
-          - clear
-        - spare:
-          - clear
   - oc:
       panes:
-        - oc:
-          - clear
-        - spare:
-          - clear
-  - am:
-      panes:
-        - am:
+        - cl:
           - loadnode
           - clear
         - spare:
