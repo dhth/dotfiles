@@ -40,6 +40,7 @@
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
              :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
+             :tmux-pane-bottom-quarter "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
              :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#928374' -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
@@ -434,7 +435,8 @@
         {:des   "q mode"
          :rules [:q-mode
                  [:s :!CS4] ;; quick screenshot
-                 [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
+                 ; [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
+                 [:u [:tmux-pane-bottom-quarter "pickline \"$DOT_FILES_DIR/utils/data/agent-questions\""] :termemul] ;; tmux: agent questions
                  [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
                  [:k [:!Tx :7] :termemul] ;; opencode: half page up
                  [:j [:!Tx :8] :termemul] ;; opencode: half page down

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+    printf 'usage: %s <source-file>\n' "${0##*/}" >&2
+    exit 1
+fi
+
+source_file="$1"
+
+if [ ! -f "$source_file" ]; then
+    printf 'file not found: %s\n' "$source_file" >&2
+    exit 1
+fi
+
+if [ ! -r "$source_file" ]; then
+    printf 'file is not readable: %s\n' "$source_file" >&2
+    exit 1
+fi
+
+selected_line=$(
+    awk 'NF' "$source_file" |
+        fzf \
+            --reverse \
+            --style=minimal
+)
+
+if [ -z "$selected_line" ]; then
+    exit 0
+fi
+
+printf '%s' "$selected_line" | pbcopy
