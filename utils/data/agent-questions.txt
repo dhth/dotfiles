@@ -1,3 +1,7 @@
 What do you think?
 What can be done here?
 Which approach is better?
+Did I get that right?
+What is the idiomatic choice?
+Am i thinking about this in the right way?
+Does that make sense?

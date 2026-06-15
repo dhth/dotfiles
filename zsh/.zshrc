@@ -356,8 +356,6 @@ eval "$(atuin init zsh)"
 bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
-bindkey -s '^o' 'oc\n'
-bindkey -s '^x' 'clear\n'
 export HOURS_THEME=monokai-classic
 export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
 

@@ -39,9 +39,9 @@
              :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
-             :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
-             :tmux-pane-bottom-quarter "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#928374' -E '%s'"
-             :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#928374' -E '%s'"
+             :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-quarter "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -146,10 +146,11 @@
                  [:2 [:!COTSc]] ;; hammerspoon: mouse: left click
                  [:b [:alfred "todays_brain"  "dhth.brain"]] ;; alfred: dhth.brain: today's brain
                  [:9 "/Users/dhruvthakur/projects/dotfiles/utils/exe/keystroke"] ;; alfred: dhth.brain: today's brain
-                 [:o [:tmux-open "wiki:omm"]] ;; tmux: switch to omm
+                 [:o [:tmux-pane-center "omm"] :termemul] ;; tmux: omm
+                 [:h [:tmux-pane-center "hours"] :termemul] ;; tmux: hours
                  [:u [:alfred "add_url_to_omm" "dhth.omm"]] ;; alfred: dhth.omm add url to omm
                  [:p [:alfred "pomodoro_work_start"  "dhth.pomodoro"]]
-                 [:h :!SOCh] ;; magnet: previous display
+                 ; [:h :!SOCh] ;; magnet: previous display
                  [:l :!SOCl] ;; magnet: next display
                  [:k [:alfred "work_kb_file"  "dhth.workwiki.search"]] ;; alfred: work: work kb seaRch
                  ]}
@@ -163,13 +164,14 @@
                  [:e [:open "http://127.0.0.1:8001"]]
                  [:g [:open "https://github.com"]]
                  ; [:p [:open "https://github.com/pulls"]]
-                 [:o [:tmux-open "work:ommw"]] ;; tmux: switch to ommw
+                 [:o [:tmux-pane-center "omm --config-path=~/.config/omm/omm-w.toml"] :termemul] ;; tmux:: omm
+                 [:h [:tmux-pane-center "hours -d \"~/.local/share/hours/work.db\" -t gruvbox-dark"] :termemul] ;; hours: work
                  [:u [:alfred "add_url_to_ommw" "dhth.omm"]] ;; alfred: dhth.omm add url to ommw
                  [:p [:alfred "pomodoro_personal_start"  "dhth.pomodoro"]]
                  ; [:h :!TOh] ;; magnet: left
                  ; [:l :!TOl] ;; magnet: right
-                 [:h [:hs-resize "left50"]] ;; hammerspoon: move window to left50
-                 [:l [:hs-resize "right50"]] ;; hammerspoon: move window to right50
+                 ; [:h [:hs-resize "left50"]] ;; hammerspoon: move window to left50
+                 ; [:l [:hs-resize "right50"]] ;; hammerspoon: move window to right50
                  [:m [:hs-resize "maximized"]] ;; hammerspoon: maximise window
                  ; [:m :!TOm] ;; magnet: maximise
                  [:equal_sign :!TOf] ;; magnet: center thirds
@@ -327,7 +329,7 @@
                  [:r [:!TOCp :v] :jetbrains] ;; jetbrains: project view popup menu
                  [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                  [:r [:alfred "reddit_search"  "dhth.reddit"]]
-                 [:d [:tmux-edit-and-switch "wiki:w" "~/projects/dotfiles/karabiner/karabiner.edn" "wiki:w"] :termemul]
+                 [:d [:tmux-edit-and-switch "dotfiles:editor" "~/projects/dotfiles/karabiner/karabiner.edn" "dotfiles:editor"] :termemul]
                  [:u :!Shyphen]
                  [:m :open-messages] ;; open: Messages
                  [:n :open-anki] ;; open: Anki
@@ -337,12 +339,11 @@
                  [:spacebar [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
                  [:h [:tmux-window ":editor"] :termemul] ;; tmux: go to window: editor
                  [:d [:tmux-window ":2"] :termemul] ;; tmux: go to window: 2
-                 [:j [:tmux-window ":cl"] :termemul] ;; tmux: go to window: cl
-                 [:k [:tmux-window ":cx"] :termemul] ;; tmux: go to window: cx
-                 [:l [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
+                 [:j [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
+                 [:r [:tmux-window ":run"] :termemul] ;; tmux: go to window: run
                  [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
-                 [:m [:tmux-prefix :!Sm] :termemul] ;; tmux: run pth
-                 [:n [:tmux-prefix :7] :termemul] ;; tmux: run pth
+                 [:m [:tmux-pane-bottom-half "pth"] :termemul] ;; tmux: run pth
+                 [:n [:tmux-pane-bottom-half "ppth"] :termemul] ;; tmux: run ppth
                  [:s [:spacebar :f :s] :termemul] ;; nvim: filtered search
                  [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                  [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
@@ -436,7 +437,7 @@
          :rules [:q-mode
                  [:s :!CS4] ;; quick screenshot
                  ; [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
-                 [:u [:tmux-pane-bottom-quarter "pickline \"$DOT_FILES_DIR/utils/data/agent-questions\""] :termemul] ;; tmux: agent questions
+                 [:u [:tmux-pane-bottom-quarter "pickline \"$DOT_FILES_DIR/utils/data/agent-questions.txt\""] :termemul] ;; tmux: agent questions
                  [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
                  [:k [:!Tx :7] :termemul] ;; opencode: half page up
                  [:j [:!Tx :8] :termemul] ;; opencode: half page down
@@ -502,7 +503,8 @@
                  [:p [:spacebar :s :p] :termemul] ;; vim: search projects
                  [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                  [:w [:alfred "search_wikis" "dhth.bookmarks"]] ;; alfred: search wikis
-                 [:u :!TCu :browser] ;; browser: notion web clipper
+                 ; [:u :!TCu :browser] ;; browser: notion web clipper
+                 [:u "~/projects/dotfiles/utils/exe/savetoreadinglist" :browser] ;; browser: save to reading list
                  [:l [:tmux-prefix :!Sbackslash] :termemul]
                  [:j [:tmux-prefix :hyphen] :termemul]]}
 
@@ -515,7 +517,7 @@
                  [:h :!SCt :slack] ;; slack: threads
                  [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
                  [:m [:tmux-prefix :!Tt] :termemul] ;; tmux: prefix + C-t
-                 [:n [:tmux-prefix :!Tp] :termemul] ;; tmux: txw
+                 [:n [:tmux-pane-bottom-half "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                  [:b :!SCf :browser] ;; browser: toolbar visibility
                  [:s "~/.cargo/bin/tomo start && /opt/homebrew/bin/tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
@@ -555,7 +557,9 @@
                  [:k [:!Tw :k] :code] ;; code: go up
                  [:l [:!Tw :l] :code] ;; code: go right
                  [:q [:!Ssemicolon :w :q] :termemul]
-                 [:o [:alfred "workout_log_url"  "dhth.bookmarks"]]]}
+                 [:o [:alfred "workout_log_url"  "dhth.bookmarks"]]
+                 [:y [:type "what do you think?"]] ;; type: what do you think?
+                 ]}
 
         {:des "x-mode"
          :rules [:x-mode

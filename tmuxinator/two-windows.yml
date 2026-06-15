@@ -17,24 +17,14 @@ windows:
       # layout: 4cb0,202x42,0,0[202x33,0,0,4,202x8,0,34,6]
       panes:
         - editor:
-            - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p1"'
-            - clear
-        # - preview:
-        #   - '[ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2"'
   - sh:
       panes:
         - sh:
-          - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
-          - clear
   - sh:
       panes:
         - sh:
-          - $([ -f ".txconf.sh" ] && bash .txconf.sh "w1-p2") || clear
-          - clear
   - oc:
       panes:
-        - cl:
-          - loadnode
-          - clear
+        - main:
+          - sleep 1 && tmux resize-pane -Z && clear
         - spare:
-          - clear
