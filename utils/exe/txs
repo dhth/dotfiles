@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+binds=(
+    # The visible label is field 1; field 2 is the raw tmux session target.
+    --bind 'enter:become(tmux switch-client -t {2})'
+)
+
+# Number keys jump to the matching visible row before switching.
+for i in {1..9}; do
+    binds+=(--bind "$i:pos($i)+become(tmux switch-client -t {2})")
+done
+
+tmux list-sessions -F "#{?session_last_attached,#{session_last_attached},#{session_created}} #{session_name}" |
+    sort -nr |
+    awk '{print $2}' |
+    awk '{ prefix = (NR <= 9 ? "[" NR "] " : "    "); print prefix $0 "\t" $0 }' |
+    fzf \
+        --no-sort \
+        --height=20 \
+        --layout=reverse \
+        --header="session?" \
+        --delimiter=$'\t' \
+        --with-nth=1 \
+        "${binds[@]}"

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+binds=(
+    # The visible label is field 1; field 2 is the raw tmux session target.
+    --bind 'enter:become(tmux switch-client -t {2})'
+)
+
+# Number keys jump to the matching visible row before switching.
+for i in {1..9}; do
+    binds+=(--bind "$i:pos($i)+become(tmux switch-client -t {2})")
+done
+
+# Prefix only the first nine rows with shortcuts; pad the rest so names align.
+awk '{ prefix = (NR <= 9 ? "[" NR "] " : "    "); print prefix $0 "\t" $0 }' ~/.tsw |
+    fzf \
+        --no-sort \
+        --height=20 \
+        --layout=reverse \
+        --header="target?" \
+        --delimiter=$'\t' \
+        --with-nth=1 \
+        "${binds[@]}"
