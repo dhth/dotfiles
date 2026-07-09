@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+show_help() {
+    echo "Usage: $(basename "$0") [command_to_run]"
+    echo ""
+    echo "Choose a window from the current tmux session and send a command to all panes in it."
+}
+
+if [ "$#" -eq 1 ] && { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
+    show_help
+    exit 0
+fi
+
+current_session=$(tmux display-message -p '#{session_id}')
+
+window_target=$(tmux list-windows \
+    -t "$current_session" \
+    -F '#{window_index}: #{window_name} #{window_id}' |
+    fzf --height=10 --layout=reverse |
+    awk '{print $NF}' |
+    xargs)
+
+if ! [ -n "$window_target" ]; then
+    exit 0
+fi
+
+pane_addresses=$(tmux list-panes -t "$window_target" -F '#{pane_id}')
+
+if ! [ -n "$pane_addresses" ]; then
+    exit 0
+fi
+
+if [ $# -eq 1 ]; then
+    command=$1
+else
+    echo "command?"
+    read command
+fi
+
+echo "$pane_addresses" | tmuxsendcmdbyaddress "$command"

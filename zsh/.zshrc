@@ -54,6 +54,7 @@ alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 alias lzd='lazydocker'
 alias oc='opencode'
 alias ommw='omm --config-path=~/.config/omm/omm-w.toml'
+alias ommc='omm --db-path=.local/omm.db'
 alias po='punchout'
 alias prod='assume ai-prod && unset AWS_PROFILE'
 alias sprint='jira sprint list --current -a $(jira me)'

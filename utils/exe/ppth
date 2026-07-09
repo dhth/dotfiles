@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dir=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 | fzf --layout=reverse)
+dir=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $REFERENCES_DIR | fzf --layout=reverse)
 if [ -z "${dir}" ]; then
     exit 0
 fi

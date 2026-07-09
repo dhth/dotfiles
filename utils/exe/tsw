@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-POPUP_BORDER_COLOR=#928374 # gruvbox gray darker
-
-/opt/homebrew/bin/tmux list-sessions -F "#{session_last_attached} #{session_name}" | sort -nr | awk '{print $2}' >~/.tsw
-
-/opt/homebrew/bin/tmux \
-    display-popup \
-    -h 60% -w 100% \
-    -y 50% \
-    -S fg=$POPUP_BORDER_COLOR \
-    -E \
-    'shfl -s ~/.tsw'
+tmux list-sessions -F "#{session_last_attached} #{session_name}" | sort -nr | awk '{print $2}' >~/.tsw

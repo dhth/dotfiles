@@ -187,7 +187,7 @@
                  ; [:l [:km "mouse: move_right_small"]]
                  [:h [:hs-resize "left30"]] ;; hammerspoon: move window to left30
                  [:l [:hs-resize "right30"]] ;; hammerspoon: move window to right30
-                 [:o [:tmux-open "wiki:ommr"]] ;; tmux: switch to ommr
+                 [:o [:tmux-pane-center "omm --db-path=.local/omm.db"] :termemul] ;; tmux: omm current directory
                  [:u [:alfred "add_url_to_ommr" "dhth.omm"]] ;; alfred: dhth.omm add url to ommr
                  ; [:h :!TOd] ;; magnet: one-third left
                  ; [:l :!TOg] ;; magnet: one-third right
@@ -325,6 +325,7 @@
 
         {:des   "e mode"
          :rules [:e-mode
+                 [:q [:tmux-pane-center "vi -u NONE \"$HOME/.tsw\""] :termemul] ;; tmux: edit ~/.tsw
                  [:r [:spacebar :e :r] :termemul] ;; nvim/keys/mappings.vim > helpers#Helpers()
                  [:r [:!TOCp :v] :jetbrains] ;; jetbrains: project view popup menu
                  [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
@@ -374,7 +375,7 @@
          :rules [:left-shift-mode
                  [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                  [:right_shift [:tmux-prefix :!Tw] :termemul]  ;; tmux: go to last window
-                 [:spacebar [:tmux-prefix :!Tg] :termemul] ;; tmux: session menu
+                 [:spacebar [:tmux-pane-bottom-half "txs"] :termemul] ;; tmux: session menu
                  [:up_arrow :!Tk] ;; ctrl+k
                  [:down_arrow :!Tj] ;; ctrl+j
                  [:left_arrow :!Th] ;; ctrl+h
@@ -383,7 +384,7 @@
 
         {:des "right-shift mode"
          :rules [:right-shift-mode
-                 [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
+                 ; [:left_shift :!SOa :termemul]  ;; vim: quick language snippet 2
                  [:1 [:tmux-prefix :!S1] :termemul] ;; tmux: layout 1
                  [:2 [:tmux-prefix :!S2] :termemul] ;; tmux: layout 2
                  [:3 [:tmux-prefix :!S3] :termemul] ;; tmux: layout 3
@@ -395,7 +396,7 @@
                  [:f [:tmux-prefix :4] :termemul]
                  [:g [:tmux-prefix :5] :termemul]
                  [:h [:tmux-prefix :6] :termemul]
-                 [:s [:tmux-prefix :!Tv]] ;; tmux: persistent popup full screen
+                 ; [:s [:tmux-prefix :!Tv]] ;; tmux: persistent popup full screen
                  ]}
 
         {:des   "m mode"
@@ -628,8 +629,10 @@
                  [:##l :!TOCright_arrow]
                  [:##j :!TOCdown_arrow]
                  [:##k :!TOCup_arrow]
-                 [:left_shift [:spacebar :equal_sign :spacebar]]]}
-
+                 ; [:left_shift [:spacebar :equal_sign :spacebar]]]}
+                 [:left_shift [:tmux-pane-bottom-half "txbk"] :termemul] ;; tmux: bookmark switch
+                ]
+        }
         {:des   "caps_lock mode"
          :rules [:caps-lock-mode
                  [:##h :left_arrow]
@@ -723,21 +726,16 @@
         {:des   "semicolon mode"
          :rules [:semicolon-mode
                  [:a :!SCm :slack] ;; slack: activity view
-                 [:a [:tmux-prefix :1] :termemul] ;; tmux prefix + 1
-                 [:s [:tmux-prefix :2] :termemul]
-                 [:d [:tmux-prefix :3] :termemul]
-                 [:f [:tmux-prefix :4] :termemul]
-                 [:g [:tmux-prefix :5] :termemul]
-                 [:h [:tmux-prefix :6] :termemul]
+                 [:a "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to bookmark 1
+                 [:s "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to bookmark 2
+                 [:d "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to bookmark 3
+                 [:f "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to bookmark 4
+                 [:g "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to bookmark 5
                  [:t :!CSt :slack] ;; slack: open threads
-                 [:q "~/projects/dotfiles/utils/exe/tsw" :termemul] ;; tmux: shfl sessions
+                 [:q [:tmux-pane-bottom-half "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
+                 [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
                  [:tab [:tmux-edit-and-switch "wiki:w" "~/.tsw" "wiki:w"] :termemul] ;; tsw: edit tsw
-                 [:1 "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to session 1
-                 [:2 "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to session 2
-                 [:3 "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to session 3
-                 [:4 "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to session 4
-                 [:5 "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to session 5
                  [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
                  [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
                  [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
@@ -841,9 +839,11 @@
                  [:##right_shift :##right_shift nil {:alone :!TSCm}]  ;; jetbrains: open context menu
                  ]}
         {:des "right-option"
-         :rules [[:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         :rules [
+                 [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
                  [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
-                 ]}
+                 ]
+         }
         {:des "slack"
          :rules [:slack
                  [:##left_shift :##left_shift nil {:alone [:km "slack: messages sent to me"]}] ;; slack: message sent to me
