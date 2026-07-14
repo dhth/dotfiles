@@ -88,9 +88,6 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 export NVM_DIR="$HOME/.nvm"
 function loadnode() {
     source $NVM_DIR/nvm.sh  # This loads nvm
@@ -99,10 +96,7 @@ function loadnode() {
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-
 export GOPATH="$HOME/go"
-
-export PATH="$PATH:$HOME/.local/bin"
 
 # default command for fzf
 # -i is to ignore case
@@ -132,16 +126,6 @@ function dex() {
     fi
 }
 
-# git checkout using fzf
-function gco() {
-    local selected_branch
-    selected_branch=$(git branch | fzf --height=12 --layout=reverse | xargs)
-
-    if [ -n "$selected_branch" ]; then
-        git checkout $selected_branch
-    fi
-}
-
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 
 is_in_git_repo() {
@@ -150,38 +134,6 @@ is_in_git_repo() {
 
 fzf-down() {
   fzf --height 50% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
-}
-
-_gf() {
-  is_in_git_repo || return
-  git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
-  cut -c4- | sed 's/.* -> //'
-}
-
-_gb() {
-  is_in_git_repo || return
-  git branch -a --color=always | grep -v '/HEAD\s' | sort |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
-  sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
-}
-
-_gh() {
-  is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-    --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
-  grep -o "[a-f0-9]\{7,\}"
-}
-
-_gs() {
-  is_in_git_repo || return
-  git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
-  cut -d: -f1
 }
 
 # https://github.com/junegunn/fzf#custom-fuzzy-completion
@@ -201,17 +153,6 @@ join-lines() {
     echo -n "${(q)item} "
   done
 }
-
-bind-git-helper() {
-  local c
-  for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
-  done
-}
-bind-git-helper f b h s
-unset -f bind-git-helper
 
 # quickly cd to important directories
 function jj(){
@@ -246,7 +187,6 @@ function c() {
     fi
 }
 
-# work commands
 function ww() {
     work_command=$(cat ~/projects/utils/work_commands.txt | grep '^[^#]' | fzf --height=15 --layout=reverse)
     if [ -n "$work_command" ]; then
@@ -274,23 +214,6 @@ function n ()
     fi
 }
 
-function loadpy() {
-    if command -v pyenv 1>/dev/null 2>&1; then
-      eval "$(pyenv init --path)"
-    fi
-    . ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
-    workon general
-}
-
-
-# function books(){
-#     local selected_book
-#     selected_book=$(fd -t=f -e=pdf --max-depth=1 --base-directory=$BOOKS_DIR | fzf --height=8 --layout=reverse)
-#     if [ -n "$selected_book" ]; then
-#         open $BOOKS_DIR/$selected_book
-#     fi
-# }
-
 export NNN_OPTS="H"
 export BMM_EDITOR="vi"
 
@@ -301,40 +224,12 @@ export BMM_EDITOR="vi"
 # https://github.com/sharkdp/bat?tab=readme-ov-file#man
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 
-
-# export PATH=/Users/dht93/.pyenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.rvm/bin:/Users/dht93/.local/bin:/opt/homebrew/bin
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/dht93/.local/bin:$GOPATH/bin:$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init --path)"
-# fi
-
-export WORKON_HOME=~/.virtualenvs
-
-mkdir -p $WORKON_HOME
-#
-# . ~/.pyenv/versions/3.10.4/bin/virtualenvwrapper.sh
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# workon general
-# eval "$(starship init zsh)"
-
 autoload -U +X bashcompinit && bashcompinit
-# fpath+="/Users/$USER/.zfunc"
-# autoload -U compinit; compinit
-# source "/Users/$USER//soft/fzf-tab/fzf-tab.plugin.zsh"
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# . "$HOME/.grit/bin/env"
 
 function _insert_drs() {
   local selection
@@ -358,14 +253,5 @@ bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
 export HOURS_THEME=monokai-classic
-export PATH="$HOME/.ghcup/bin:$PATH:$DOT_FILES_DIR/utils/exe:$PROJECTS_DIR/utils/exe:$PROJECTS_DIR/utils/compexe:$HOME/cbins"
 
-[ -f "/Users/$USER/.ghcup/env" ] && . "/Users/$USER/.ghcup/env" # ghcup-env
-# bun completions
-[ -s "/Users/$USER/.bun/_bun" ] && source "/Users/$USER/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-export PATH=$PATH:/Users/dhruvthakur/.spicetify
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.local/bin:$DOT_FILES_DIR/utils/exe:/opt/homebrew/bin:$PATH"
