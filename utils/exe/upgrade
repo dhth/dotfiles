@@ -2,10 +2,6 @@
 
 set -euxo pipefail
 
-# bun install -g @sourcegraph/amp
-bun install -g @earendil-works/pi-coding-agent
-
 brew update && brew upgrade --yes
 
-# cursor-agent upgrade
 claude update

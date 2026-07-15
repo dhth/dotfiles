@@ -254,4 +254,4 @@ bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
 export HOURS_THEME=monokai-classic
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.local/bin:$DOT_FILES_DIR/utils/exe:/opt/homebrew/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PROJECTS_DIR/utils/exe:$DOT_FILES_DIR/utils/exe:/opt/homebrew/bin:$PATH"
