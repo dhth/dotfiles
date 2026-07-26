@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Sets the background option in Neovim instances running in tmux panes.
+# Only panes whose current command is nvim are targeted. Keys are sent to
+# return Neovim to Normal mode before changing the option.
+
+show_help() {
+    printf 'Usage: %s <dark|light>\n' "$(basename "$0")"
+}
+
+case ${1:-} in
+dark | light)
+    background=$1
+    ;;
+-h | --help)
+    show_help
+    exit 0
+    ;;
+*)
+    show_help >&2
+    exit 1
+    ;;
+esac
+
+nvim_panes=$(tmux list-panes -a \
+    -f '#{==:#{pane_current_command},nvim}' \
+    -F '#{pane_id}') || exit 1
+
+while IFS= read -r pane; do
+    if [[ -n $pane ]]; then
+        tmux send-keys -t "$pane" 'C-\' C-n Escape \
+            ":set background=$background" Enter
+    fi
+done <<<"$nvim_panes"

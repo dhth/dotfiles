@@ -69,13 +69,7 @@ alias wl='hours -d "~/.local/share/hours/work.db" -t gruvbox-dark'
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# https://github.com/junegunn/fzf/wiki/Color-schemes
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#cbccc6,hl:#707a8c
- --color=fg+:#5fff87,hl+:#ffcc66
- --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff
- --bind ctrl-a:select-all'
+source "$DOT_FILES_DIR/zsh/colors.sh"
 
 export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# Selects a known theme, saves it as shared state, and updates tmux, running
+# Neovim panes, and Ghostty. DOT_FILES_DIR must point to this repository.
+# Theme names must match the tmux filenames and the mappings in zsh and Neovim.
+# Existing shells must source zsh/colors.sh to pick up the new colors.
+# Ghostty must be reloaded manually after its config is updated.
+
+set -euo pipefail
+
+themes=(
+    "gruvbox-dark-hard"
+    "gruvbox-light-hard"
+)
+
+selected_theme=$(printf '%s\n' "${themes[@]}" | fzf --layout=reverse --height=12 --prompt="theme? ") || exit 0
+
+if [[ -z $selected_theme ]]; then
+    exit 0
+fi
+
+case $selected_theme in
+gruvbox-dark-hard)
+    ghostty_theme="Gruvbox Dark Hard"
+    nvim_background="dark"
+    ;;
+gruvbox-light-hard)
+    ghostty_theme="Gruvbox Light Hard"
+    nvim_background="light"
+    ;;
+esac
+
+state_dir="$HOME/.local/state/dotfiles"
+
+mkdir -p "$state_dir"
+printf '%s\n' "$selected_theme" >"$state_dir/theme"
+
+if tmux list-sessions >/dev/null 2>&1; then
+    "$HOME/.config/tmux/load-theme.sh"
+    tmux-set-nvim-background "$nvim_background"
+fi
+
+/usr/bin/sed -i '' -E \
+    "s/^theme[[:space:]]*=.*/theme = \"$ghostty_theme\"/" \
+    "$DOT_FILES_DIR/ghostty/config"
+
+printf 'Ghostty theme updated. Press Command+Shift+, to reload it.\n'

@@ -840,8 +840,8 @@
                  ]}
         {:des "right-option"
          :rules [
-                 [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
-                 [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
                  ]
          }
         {:des "slack"
