@@ -374,7 +374,7 @@
         {:des "left-shift mode"
          :rules [:left-shift-mode
                  [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
-                 [:right_shift [:tmux-prefix :!Tw] :termemul]  ;; tmux: go to last window
+                 [:right_shift [:tmux-prefix :!Ts] :termemul]  ;; tmux: switch to last session
                  [:spacebar [:tmux-pane-bottom-half "txs"] :termemul] ;; tmux: session menu
                  [:up_arrow :!Tk] ;; ctrl+k
                  [:down_arrow :!Tj] ;; ctrl+j
@@ -814,7 +814,6 @@
                  [:##left_command :##left_command :apple {:alone [:!Ts]}]
                  [:##left_option :##left_command :!apple {:alone [:!Ts]}]
                  [:##left_shift :##left_shift nil {:alone [:!Tf]}]         ;; fzf :Buffers
-                 [:##right_shift :##right_shift nil {:alone [:tmux-prefix :!Ts]}] ;; termemul: tmux: switch to last session
                  [:##right_command :##right_command :apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
                  [:##right_option :##right_option :!apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
                  ]}
@@ -828,6 +827,7 @@
                  [:##left_command :left_option [:!apple ["lo-anki" 1]] {:alone :open-anki}]
                  [:##left_option :left_command :apple {:alone :open-browser}] ;; left-option: fallback
                  [:##left_command :left_option :!apple {:alone :open-browser}] ;; left-option: fallback
+                 [:##right_shift :##right_shift nil {:alone :!TCd}] ;; dictation
                  ]}
         {:des "browser"
          :rules [:browser
