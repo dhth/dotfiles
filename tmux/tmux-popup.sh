@@ -1,7 +1,5 @@
 # https://blog.meain.io/2020/tmux-flating-scratch-terminal/
 
-POPUP_BORDER_COLOR=#928374 # gruvbox gray darker
-
 current_session_name="$(tmux display-message -p -F "#{session_name}")"
 session_name="popup"
 
@@ -22,7 +20,6 @@ else
     tmux display-popup \
         -h 80% -w 100% \
         -y 100% \
-        -S fg=$POPUP_BORDER_COLOR \
         -E \
         "$command"
 fi
