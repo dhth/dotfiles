@@ -68,9 +68,11 @@
     file-modified-label = [+]
     file-removed-label = [⛌]
     file-renamed-label = [→]
-    features = gruvbox
+    features = gruvbox-dark-hard
 [include]
-    path = ~/.config/git/themes/gruvbox.gitconfig
+    path = ~/.config/git/themes/gruvbox-dark-hard.gitconfig
+[include]
+    path = ~/.config/git/themes/gruvbox-light-hard.gitconfig
 [split-diffs]
 	min-line-width = 0
 	theme-name = light

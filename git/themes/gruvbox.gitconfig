@@ -1,9 +1,0 @@
-# Gruvbox colors adapted for high-contrast diffs in both light and dark terminals.
-[delta "gruvbox"]
-    dark = true
-    minus-style = "#1d2021 #fb4934"
-    minus-emph-style = "#1d2021 #ff9b8c"
-    plus-style = "#1d2021 #b8bb26"
-    plus-emph-style = "#1d2021 #d8dc72"
-    line-numbers-minus-style = "#fb4934"
-    line-numbers-plus-style = "#b8bb26"

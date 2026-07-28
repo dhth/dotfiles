@@ -1,0 +1,44 @@
+# Gruvbox Dark Hard colors adapted for high-contrast diffs.
+[delta "gruvbox-dark-hard"]
+    dark = true
+
+    commit-style = "#fabd2f"
+    commit-decoration-style = "#504945 ul"
+    file-style = "#83a598"
+    file-decoration-style = "#504945 ul"
+    hunk-header-style = "#a89984"
+    hunk-header-decoration-style = "#3c3836 box"
+    hunk-header-file-style = "#83a598"
+    hunk-header-line-number-style = "#d79921"
+
+    minus-style = "#1d2021 #fb4934"
+    minus-emph-style = "#1d2021 #ff9b8c"
+    plus-style = "#1d2021 #b8bb26"
+    plus-emph-style = "#1d2021 #d8dc72"
+    zero-style = "#ebdbb2"
+
+    line-numbers-minus-style = "#fb4934"
+    line-numbers-plus-style = "#b8bb26"
+    line-numbers-zero-style = "#665c54"
+    line-numbers-left-style = "#504945"
+    line-numbers-right-style = "#504945"
+
+    whitespace-error-style = "#1d2021 #fe8019"
+    inline-hint-style = "#928374 italic"
+
+    grep-context-line-style = "#928374"
+    grep-file-style = "#83a598"
+    grep-header-decoration-style = "#3c3836 ul"
+    grep-header-file-style = "#83a598"
+    grep-line-number-style = "#d79921"
+    grep-match-line-style = "#ebdbb2"
+    grep-match-word-style = "#1d2021 #fabd2f bold"
+
+    blame-code-style = "#a89984"
+    blame-separator-style = "#504945"
+    blame-palette = "#282828 #3c3836 #504945"
+
+    merge-conflict-ours-diff-header-style = "#b8bb26"
+    merge-conflict-ours-diff-header-decoration-style = "#3c3836 box"
+    merge-conflict-theirs-diff-header-style = "#fb4934"
+    merge-conflict-theirs-diff-header-decoration-style = "#3c3836 box"
