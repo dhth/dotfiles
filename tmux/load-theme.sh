@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# Loads the tmux theme named in shared state, falling back to Gruvbox Dark Hard.
-# Theme names must use lowercase letters, numbers, and hyphens, and match a file
-# under ~/.config/tmux/themes.
+# Loads the tmux palette named in shared state, falling back to Gruvbox Dark
+# Hard, then reapplies the shared tmux theme configuration. Theme names must use
+# lowercase letters, numbers, and hyphens, and match a file under
+# ~/.config/tmux/themes.
 
 default_theme="gruvbox-dark-hard"
 state_file="$HOME/.local/state/dotfiles/theme"
@@ -17,9 +18,11 @@ if [[ ! $theme =~ ^[a-z0-9-]+$ ]]; then
 fi
 
 theme_file="$HOME/.config/tmux/themes/$theme.conf"
+theme_config="$HOME/.config/tmux/theme.conf"
 
 if [[ ! -r $theme_file ]]; then
     theme_file="$HOME/.config/tmux/themes/$default_theme.conf"
 fi
 
 tmux source-file "$theme_file"
+tmux source-file "$theme_config"
