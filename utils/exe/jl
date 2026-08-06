@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-recipes=$(just --list --list-heading='' --list-prefix='' --no-aliases) || exit $?
-
-recipe=$(printf '%s\n' "$recipes" | awk 'NF { print $1 }' | fzf --height=15 --layout=reverse --style=minimal)
-exit_code=$?
-
-if [[ $exit_code -eq 130 ]]; then
-    exit 0
+if [[ -f mise.toml ]]; then
+    exec mr
 fi
 
-just "$recipe"
+while true; do
+    recipes=$(just --list --list-heading='' --list-prefix='' --no-aliases) || exit $?
 
-jl
+    recipe=$(printf '%s\n' "$recipes" | awk 'NF { print $1 }' | fzf --height=15 --layout=reverse --style=minimal)
+    exit_code=$?
+
+    # Treat cancelling the fzf picker as a clean exit.
+    if [[ $exit_code -eq 130 ]]; then
+        exit 0
+    fi
+
+    just "$recipe"
+done
