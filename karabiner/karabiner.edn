@@ -249,7 +249,8 @@
                  [:z [:tmux-prefix :z] :termemul] ;; tmux prefix + z
                  [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
                  [:s [:tmux-prefix :open_bracket] :termemul]
-                 [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
+                 ; [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
+                 [:j [:tmux-pane-center "jl"] :termemul] ;; tmux: show command picker
                  [:g [:tmux-prefix :!Sg] :termemul] ;; tmux prefix + G
                  [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
                  [:spacebar "~/projects/dotfiles/utils/exe/tmuxarrange" :termemul] ;; tmuxarrange
@@ -341,6 +342,7 @@
                  [:h [:tmux-window ":editor"] :termemul] ;; tmux: go to window: editor
                  [:d [:tmux-window ":2"] :termemul] ;; tmux: go to window: 2
                  [:j [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
+                 [:k [:tmux-window ":pi"] :termemul] ;; tmux: go to window: pi
                  [:r [:tmux-window ":run"] :termemul] ;; tmux: go to window: run
                  [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
                  [:m [:tmux-pane-bottom-half "pth"] :termemul] ;; tmux: run pth
@@ -513,7 +515,7 @@
          :rules [:t-mode
                  [:a [:alfred "tasks_personal_add"  "dhth.tasks"]]
                  [:e [:spacebar :t :e] :termemul] ;; vim: markdown: add task entry
-                 [:l [:tmux-pane-center "hours -d \"~/.local/share/hours/work.db\" -t gruvbox-dark"] :termemul] ;; hours: work
+                 [:l [:tmux-pane-center "punchout"] :termemul] ;; punchout
                  [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                  [:h :!SCt :slack] ;; slack: threads
                  [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
