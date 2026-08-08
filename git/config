@@ -32,7 +32,9 @@
 	ds = diff --staged
 	p = pull
 	c = clone
+	cp = cherry-pick
 	ms = merge --squash
+	s = status -sb
 	sh = show HEAD
 [core]
 	editor = nvim
