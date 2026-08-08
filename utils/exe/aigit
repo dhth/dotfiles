@@ -29,7 +29,7 @@ if [ ! -f ".fdignore" ]; then
 !.plans
 !.references
 !.research
-.plans/old
+.plans/**/old
 EOF
 else
     cat <<EOF >>.fdignore
@@ -41,7 +41,7 @@ else
 !.plans
 !.references
 !.research
-.plans/old
+.plans/**/old
 EOF
 fi
 
