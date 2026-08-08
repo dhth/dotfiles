@@ -32,8 +32,8 @@ alias clar='clear'
 alias cpl='copilot'
 alias crt='crumbs tui'
 alias cts='commits'
-alias dev='assume ai-dev && unset AWS_PROFILE'
 alias d='just --justfile "$PROJECTS_DIR/dotfiles/just/docker" --choose'
+alias dev='assume ai-dev && unset AWS_PROFILE'
 alias dps='docker ps'
 alias e='exit'
 alias g='git'
@@ -52,9 +52,10 @@ alias lg='lazygit'
 alias ls='ls -aG'
 alias luamake=/Users/dht93/Soft/lua-language-server/3rd/luamake/luamake
 alias lzd='lazydocker'
+alias m='mise run'
 alias oc='opencode'
-alias ommw='omm --config-path=~/.config/omm/omm-w.toml'
 alias ommc='omm --db-path=.local/omm.db'
+alias ommw='omm --config-path=~/.config/omm/omm-w.toml'
 alias po='punchout'
 alias prod='assume ai-prod && unset AWS_PROFILE'
 alias sprint='jira sprint list --current -a $(jira me)'
@@ -249,3 +250,4 @@ bindkey -s '^f' 'j\n'
 export HOURS_THEME=monokai-classic
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PROJECTS_DIR/utils/exe:$DOT_FILES_DIR/utils/exe:/opt/homebrew/bin:$PATH"
+eval "$(mise activate zsh)"
