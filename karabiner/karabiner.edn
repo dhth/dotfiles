@@ -21,7 +21,7 @@
                 :code ["com.microsoft.VSCode", "com.todesktop.230313mzl4w4u92"]
                 :intellij ["com.jetbrains.intellij"]
                 :jetbrains ["com.jetbrains.*"]
-                :pdfviewer ["com.apple.Preview"]
+                ; :pdfviewer ["com.apple.Preview"]
                 :slack ["com.tinyspeck.slackmacgap"]
                 :spotify ["com.spotify.client"]
                 :termemul ["com.mitchellh.ghostty"]
@@ -42,6 +42,7 @@
              :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
              :tmux-pane-bottom-quarter "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
              :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-right-quarter "/opt/homebrew/bin/tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -247,11 +248,12 @@
                  [:quote [:tmux-prefix :!Tn] :termemul] ;; tmux: window picker
                  [:c [:tmux-prefix :c] :termemul] ;; tmux prefix + c
                  [:z [:tmux-prefix :z] :termemul] ;; tmux prefix + z
-                 [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
+                 ; [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
+                 [:open_bracket [:tmux-pane-right-quarter "lazygit --screen-mode full"] :termemul] ;; tmux: lazygit full screen mode
                  [:s [:tmux-prefix :open_bracket] :termemul]
                  ; [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
                  [:j [:tmux-pane-center "jl"] :termemul] ;; tmux: show command picker
-                 [:g [:tmux-prefix :!Sg] :termemul] ;; tmux prefix + G
+                 [:g [:tmux-pane-center "lazygit"] :termemul] ;; tmux: prefix + G
                  [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
                  [:spacebar "~/projects/dotfiles/utils/exe/tmuxarrange" :termemul] ;; tmuxarrange
                  [:semicolon [:tmux-prefix :semicolon] :termemul] ;; tmux prefix + ;
@@ -303,8 +305,8 @@
                  [:i :!TCd] ;; dictation
                  [:m :!SOd :browser] ;; dark reader
                  [:j :!Td :termemul] ;; vim <c-d>
-                 [:j :!Odown_arrow :pdfviewer] ;; pdfviewer: page down
-                 [:k :!Oup_arrow :pdfviewer] ;; pdfviewer: page up
+                 ; [:j :!Odown_arrow :pdfviewer] ;; pdfviewer: page down
+                 ; [:k :!Oup_arrow :pdfviewer] ;; pdfviewer: page up
                  [:k :!Tu :termemul] ;; vim <c-d>
                  [:j :!Td :jetbrains]
                  [:k :!Tu :jetbrains]
@@ -376,7 +378,7 @@
         {:des "left-shift mode"
          :rules [:left-shift-mode
                  [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
-                 [:right_shift [:tmux-prefix :!Ts] :termemul]  ;; tmux: switch to last session
+                 [:right_shift [:tmux-prefix :!Tw] :termemul] ;; tmux: go to last window
                  [:spacebar [:tmux-pane-bottom-half "txs"] :termemul] ;; tmux: session menu
                  [:up_arrow :!Tk] ;; ctrl+k
                  [:down_arrow :!Tj] ;; ctrl+j
@@ -451,7 +453,8 @@
                  [:2 [:alfred "pomodoro_personal"  "dhth.pomodoro"]]
                  [:l [:alfred "search"  "dhth.pocket"]]
                  [:a [:alfred "add"  "dhth.pocket"]]
-                 [:r [:alfred "open_prs" "dhth.bookmarks"]] ;; bookmarks: open pull requests
+                 ; [:r [:alfred "open_prs" "dhth.bookmarks"]] ;; bookmarks: open pull requests
+                 [:r [:tmux-pane-center "btop"] :termemul] ;; tmux: btop
                  [:g [:spacebar :p :g] :termemul] ;; vim: edit plugins file
                  [:i [:!Ssemicolon :!Sp :l :u :g :!Si :n :s :t :a :l :l] :termemul] ;; vim: PlugInstall
                  [:u [:!Ssemicolon :!Sp :l :u :g :!Su :p :d :a :t :e] :termemul] ;; vim: PlugUpdate
@@ -481,6 +484,7 @@
         {:des   "s mode"
          :rules [:s-mode
                  ; [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
+                 [:f [:tmux-pane-center "lgdiff"] :termemul] ;; tmux: lazygit half screen mode
                  [:t [:tmux-pane-bottom-half "txrc"] :termemul] ;; tmux: txrc
                  [:t [:!SCy] :slack] ;; slack: set status
                  [:t [:!SCf] :browser] ;; brower: show/hide toolbar
@@ -528,7 +532,7 @@
                  [:r [:spacebar :t :r] :termemul] ;; vim: test results
                  [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                  [:y [:open "https://monkeytype.com"]]
-                 [:o :!OC3 :pdfviewer] ;; pdfviewer: table of contents
+                 ; [:o :!OC3 :pdfviewer] ;; pdfviewer: table of contents
                  ]}
 
         {:des "u mode"
@@ -829,7 +833,7 @@
                  [:##left_command :left_option [:!apple ["lo-anki" 1]] {:alone :open-anki}]
                  [:##left_option :left_command :apple {:alone :open-browser}] ;; left-option: fallback
                  [:##left_command :left_option :!apple {:alone :open-browser}] ;; left-option: fallback
-                 [:##right_shift :##right_shift nil {:alone :!TCd}] ;; dictation
+                 [:##right_shift :##right_shift nil {:alone [:tmux-prefix :!Ts]}] ;; tmux: switch to last session
                  ]}
         {:des "browser"
          :rules [:browser
@@ -842,8 +846,8 @@
                  ]}
         {:des "right-option"
          :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Preview"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Preview"]}] ;; replaceable-right-option-app-apple
+         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
                  ]
          }
         {:des "slack"
@@ -851,16 +855,16 @@
                  [:##left_shift :##left_shift nil {:alone [:km "slack: messages sent to me"]}] ;; slack: message sent to me
                  [:##right_shift :##right_shift nil {:alone [:km "slack: messages sent by me"]}] ;; slack: message sent by me
                  ]}
-        {:des "pdf viewer"
-         :rules [:pdfviewer
-                 [:h :left_arrow]
-                 [:j :down_arrow]
-                 [:k :up_arrow]
-                 [:l :right_arrow]
-                 [:hyphen :!Chyphen]
-                 [:equal_sign :!Cequal_sign]
-                 [:##left_shift :##left_shift nil {:alone [:!OC1]}]         ;; pdfviewer: show side bar
-                 ]}
+        ; {:des "pdf viewer"
+        ;  :rules [:pdfviewer
+        ;          [:h :left_arrow]
+        ;          [:j :down_arrow]
+        ;          [:k :up_arrow]
+        ;          [:l :right_arrow]
+        ;          [:hyphen :!Chyphen]
+        ;          [:equal_sign :!Cequal_sign]
+        ;          [:##left_shift :##left_shift nil {:alone [:!OC1]}]         ;; pdfviewer: show side bar
+        ;          ]}
         {:des "vscode"
          :rules [:code
                  [:##right_shift :##right_shift :code {:alone [:!SCp]}] ;; vscode command palette

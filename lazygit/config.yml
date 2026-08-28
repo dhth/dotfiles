@@ -1,5 +1,6 @@
-git:
-  diffRenderers:
-    - colorArg: always
-      command: delta --dark --paging=never
 promptToReturnFromSubprocess: false
+disableStartupPopups: true
+git:
+  autoFetch: true
+gui:
+  showRandomTip: false

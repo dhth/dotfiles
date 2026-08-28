@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+layout="$HOME/.config/lazygit/layouts/files-diff.yml"
+
+if [[ -n ${LG_CONFIG_FILE:-} ]]; then
+    config="$LG_CONFIG_FILE,$layout"
+else
+    config="$HOME/.config/lazygit/config.yml,$layout"
+fi
+
+exec env LG_CONFIG_FILE="$config" lazygit "$@"

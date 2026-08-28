@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 while true; do
-    tasks=$(mise tasks ls --json | jq -r '.[].name') || exit $?
+    tasks=$(mise tasks ls --all --json | jq -r '.[].name') || exit $?
 
-    task=$(printf '%s\n' "$tasks" | awk 'NF { print $1 }' | fzf --height=15 --layout=reverse --style=minimal)
+    task=$(printf '%s\n' "$tasks" | awk 'NF { print $1 }' | fzf --layout=reverse --style=minimal)
     exit_code=$?
 
     # Treat cancelling the fzf picker as a clean exit.

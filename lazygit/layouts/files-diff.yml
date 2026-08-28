@@ -1,0 +1,5 @@
+gui:
+  screenMode: normal
+  sidePanelWidth: 0.2
+  sidePanels:
+    - [files, branches, commits]
