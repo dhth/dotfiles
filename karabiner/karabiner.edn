@@ -39,10 +39,11 @@
              :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
              :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
-             :tmux-pane-bottom-half "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-bottom-quarter "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-60 "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-40 "/opt/homebrew/bin/tmux display-popup -h '40%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-30 "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
              :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-right-quarter "/opt/homebrew/bin/tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
+             :tmux-pane-right-30 "/opt/homebrew/bin/tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -249,7 +250,7 @@
                  [:c [:tmux-prefix :c] :termemul] ;; tmux prefix + c
                  [:z [:tmux-prefix :z] :termemul] ;; tmux prefix + z
                  ; [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
-                 [:open_bracket [:tmux-pane-right-quarter "lazygit --screen-mode full"] :termemul] ;; tmux: lazygit full screen mode
+                 [:open_bracket [:tmux-pane-right-30 "lazygit --screen-mode full"] :termemul] ;; tmux: lazygit full screen mode
                  [:s [:tmux-prefix :open_bracket] :termemul]
                  ; [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
                  [:j [:tmux-pane-center "jl"] :termemul] ;; tmux: show command picker
@@ -347,8 +348,8 @@
                  [:k [:tmux-window ":pi"] :termemul] ;; tmux: go to window: pi
                  [:r [:tmux-window ":run"] :termemul] ;; tmux: go to window: run
                  [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
-                 [:m [:tmux-pane-bottom-half "pth"] :termemul] ;; tmux: run pth
-                 [:n [:tmux-pane-bottom-half "ppth"] :termemul] ;; tmux: run ppth
+                 [:m [:tmux-pane-bottom-60 "pth"] :termemul] ;; tmux: run pth
+                 [:n [:tmux-pane-bottom-60 "ppth"] :termemul] ;; tmux: run ppth
                  [:s [:spacebar :f :s] :termemul] ;; nvim: filtered search
                  [:s [:!Ff] :browser] ;; browser: full screen toggle (vimium interferes with this, use in a new tab)
                  [:g [:!SCf :!Cg] :code]  ;; vscode: foam: show graph
@@ -369,7 +370,7 @@
                  [:open_bracket [:g :r :i :open_bracket]]
                  [:d [:tmux-prefix :!Td] :termemul] ;; tmux: prefix + ctrl+d: dfft run
                  [:s [:tmux-prefix :s] :termemul] ;; tmux: show git status
-                 [:p [:tmux-prefix :9] :termemul] ;; tmux: git push
+                 [:p [:tmux-pane-bottom-40 "gpp; read -n 1"] :termemul] ;; tmux: git push
                  [:b [:spacebar :g :b] :termemul] ;; vim: telescope: git branches
                  [:quote [:g :r :i :quote] :termemul] ;; vim: replace with regiser: gri"
                  [:l [:tmux-prefix :!Sl] :termemul] ;; tmux prefix + L
@@ -379,7 +380,7 @@
          :rules [:left-shift-mode
                  [:delete_or_backspace [:alfred "search_browser_tabs"  "com.epilande.browser-tabs"]]
                  [:right_shift [:tmux-prefix :!Tw] :termemul] ;; tmux: go to last window
-                 [:spacebar [:tmux-pane-bottom-half "txs"] :termemul] ;; tmux: session menu
+                 [:spacebar [:tmux-pane-bottom-60 "txs"] :termemul] ;; tmux: session menu
                  [:up_arrow :!Tk] ;; ctrl+k
                  [:down_arrow :!Tj] ;; ctrl+j
                  [:left_arrow :!Th] ;; ctrl+h
@@ -442,7 +443,7 @@
          :rules [:q-mode
                  [:s :!CS4] ;; quick screenshot
                  ; [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
-                 [:u [:tmux-pane-bottom-quarter "pickline \"$DOT_FILES_DIR/utils/data/agent-questions.txt\""] :termemul] ;; tmux: agent questions
+                 [:u [:tmux-pane-bottom-30 "pickline \"$DOT_FILES_DIR/utils/data/agent-questions.txt\""] :termemul] ;; tmux: agent questions
                  [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
                  [:k [:!Tx :7] :termemul] ;; opencode: half page up
                  [:j [:!Tx :8] :termemul] ;; opencode: half page down
@@ -485,7 +486,7 @@
          :rules [:s-mode
                  ; [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
                  [:f [:tmux-pane-center "lgdiff"] :termemul] ;; tmux: lazygit half screen mode
-                 [:t [:tmux-pane-bottom-half "txrc"] :termemul] ;; tmux: txrc
+                 [:t [:tmux-pane-bottom-60 "txrc"] :termemul] ;; tmux: txrc
                  [:t [:!SCy] :slack] ;; slack: set status
                  [:t [:!SCf] :browser] ;; brower: show/hide toolbar
                  [:0 [:alfred "save_current_track"  "dhth.spotify"]]
@@ -523,8 +524,8 @@
                  [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                  [:h :!SCt :slack] ;; slack: threads
                  [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
-                 [:m [:tmux-prefix :!Tt] :termemul] ;; tmux: prefix + C-t
-                 [:n [:tmux-pane-bottom-half "txw"] :termemul] ;; tmux: txw
+                 [:m [:tmux-pane-bottom-60 ""] :termemul] ;; tmux: temporary popup
+                 [:n [:tmux-pane-bottom-60 "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                  [:b :!SCf :browser] ;; browser: toolbar visibility
                  [:s "~/.cargo/bin/tomo start && /opt/homebrew/bin/tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
@@ -636,7 +637,7 @@
                  [:##j :!TOCdown_arrow]
                  [:##k :!TOCup_arrow]
                  ; [:left_shift [:spacebar :equal_sign :spacebar]]]}
-                 [:left_shift [:tmux-pane-bottom-half "txbk"] :termemul] ;; tmux: bookmark switch
+                 [:left_shift [:tmux-pane-bottom-60 "txbk"] :termemul] ;; tmux: bookmark switch
                 ]
         }
         {:des   "caps_lock mode"
@@ -738,7 +739,7 @@
                  [:f "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to bookmark 4
                  [:g "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to bookmark 5
                  [:t :!CSt :slack] ;; slack: open threads
-                 [:q [:tmux-pane-bottom-half "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
+                 [:q [:tmux-pane-bottom-60 "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
                  [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
                  [:tab [:tmux-edit-and-switch "wiki:w" "~/.tsw" "wiki:w"] :termemul] ;; tsw: edit tsw
