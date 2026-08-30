@@ -27,11 +27,12 @@
         --all
     lnb = l \
         --perl-regexp --author='^(?!.*dependabot\\[bot\\])'
-	s = status --short
 	d = diff
+	f = fetch
 	ds = diff --staged
 	p = pull
 	c = clone
+	cb = checkout -b
 	cp = cherry-pick
 	ms = merge --squash
 	s = status -sb
@@ -61,9 +62,9 @@
     syntax-theme = none
     true-color = always
     tabs = 4
+    side-by-side = true
     ; diff-so-fancy = true
     ; diff-highlight = true
-    ; features = side-by-side
 
     file-added-label = [●]
     file-copied-label = [C]
@@ -95,3 +96,5 @@
     strategy = incremental
 [coderabbit]
 	machineId = cli/56473f7d74464632ab9dbcac64931ddc
+[drift]
+	theme = gruvbox-dark
