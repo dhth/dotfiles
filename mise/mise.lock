@@ -324,6 +324,53 @@ checksum = "sha256:1b388af0e1566ab19deea663b0ce64730ad46ade2825fadd43cc88f0bd281
 url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-apple-darwin"
 url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290107"
 
+[[tools."github:jfernandez/mdserve"]]
+version = "1.1.0"
+backend = "github:jfernandez/mdserve"
+specifiers = ["latest"]
+
+[tools."github:jfernandez/mdserve"."platforms.linux-arm64"]
+checksum = "sha256:69060a4749f47cd5e8bd0a8138a1ca833239d43052cb7de5efe96debaab4ac0d"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250996"
+provenance = "github-attestations"
+
+[tools."github:jfernandez/mdserve"."platforms.linux-arm64-musl"]
+checksum = "sha256:f896b735a85b218d97f2d6b16cf11612b28c5d65c6c178fccfbe0733ebea12d6"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-musl"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250990"
+provenance = "github-attestations"
+
+[tools."github:jfernandez/mdserve"."platforms.linux-x64"]
+checksum = "sha256:77f2c3d0e4cc0c4b35ac35e1d484a70fa893fe4d743a88d8774e2c90f076459f"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250978"
+provenance = "github-attestations"
+
+[tools."github:jfernandez/mdserve"."platforms.linux-x64-musl"]
+checksum = "sha256:85cbf6fd9768aef3b64675ba953f1294c4e4554c215ea9609a21dc9a5225edd7"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-musl"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250971"
+provenance = "github-attestations"
+
+[tools."github:jfernandez/mdserve"."platforms.macos-arm64"]
+checksum = "sha256:1ddb2647cf8446c95795415d7c60fa38149317f45e6954a9d5e1b8a8f2f6dc4a"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-apple-darwin"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369251003"
+provenance = "github-attestations"
+provenance_verified = true
+
+[tools."github:jfernandez/mdserve"."platforms.macos-x64"]
+checksum = "sha256:f7cf0e1938ec9e3ff8f0baeae341032e0633e8b4eb38af92e24f804086c91cf1"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-apple-darwin"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250983"
+provenance = "github-attestations"
+
+[[tools."go:golang.org/x/tools/gopls"]]
+version = "0.23.0"
+backend = "go:golang.org/x/tools/gopls"
+specifiers = ["latest"]
+
 [[tools.hyperfine]]
 version = "1.20.0"
 backend = "aqua:sharkdp/hyperfine"
