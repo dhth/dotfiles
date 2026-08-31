@@ -125,6 +125,7 @@
              :spacebar-mode {:key :spacebar}
              :c-mode {:key :c}
              :u-mode {:key :u}
+             :left-control-mode {:key :left_control}
              :left-shift-mode {:key :left_shift}
              :right-shift-mode {:key :right_shift}
              :left-option-mode-non-apple {:key :left_command}
@@ -825,7 +826,7 @@
                  [:##right_option :##right_option :!apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
                  ]}
 
-        {:des "left-option"
+        {:des "alones"
          :rules [[:##left_option :left_command [:apple ["lo-browser" 1]] {:alone :open-browser}]
                  [:##left_command :left_option [:!apple ["lo-browser" 1]] {:alone :open-browser}]
                  [:##left_option :left_command [:apple ["lo-preview" 1]] {:alone :open-preview}]
@@ -835,6 +836,7 @@
                  [:##left_option :left_command :apple {:alone :open-browser}] ;; left-option: fallback
                  [:##left_command :left_option :!apple {:alone :open-browser}] ;; left-option: fallback
                  [:##right_shift :##right_shift nil {:alone [:tmux-prefix :!Ts]}] ;; tmux: switch to last session
+                 [:##left_control :##left_control nil {:alone :!TCd}] ;; dictation
                  ]}
         {:des "browser"
          :rules [:browser
