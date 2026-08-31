@@ -1,0 +1,11 @@
+[tasks."global-tools:install"]
+description = "Install global tools from the committed lockfile"
+run = 'mise -C "$HOME" install --locked'
+
+[tasks."global-tools:lock"]
+description = "Update the global lockfile without bumping existing versions"
+run = "mise lock --global"
+
+[tasks."global-tools:bump-lock"]
+description = "Bump fuzzy global tool versions in the lockfile"
+run = "mise lock --global --bump"
