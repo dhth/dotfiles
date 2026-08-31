@@ -21,4 +21,4 @@ fi
 position=${1}
 session=$(echo "$sessions" | sed -n "${position}p")
 
-/opt/homebrew/bin/tmux switch-client -t "$session"
+tmux switch-client -t "$session"

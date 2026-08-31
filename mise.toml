@@ -9,3 +9,23 @@ run = "mise lock --global"
 [tasks."global-tools:bump-lock"]
 description = "Bump fuzzy global tool versions in the lockfile"
 run = "mise lock --global --bump"
+
+[tasks."karabiner:update-environment"]
+description = "Update Karabiner's environment for required tools"
+run = '''
+environment_file='/Library/Application Support/org.pqrs/config/karabiner_environment'
+mise_paths="$(mise -C "$HOME" bin-paths tmux | paste -sd: -)"
+[ -n "$mise_paths" ] || {
+  printf 'error: mise returned no tmux binary path\n' >&2
+  exit 1
+}
+
+sudo mkdir -p "$(dirname "$environment_file")"
+printf 'PATH=$HOME/.local/bin/utils:%s:$PATH\n' "$mise_paths" |
+  sudo tee "$environment_file" > /dev/null
+
+printf 'Karabiner environment updated. Restart Karabiner-Elements to apply it.\n'
+printf '\n---\n'
+cat "$environment_file"
+printf '%s\n' '---'
+'''

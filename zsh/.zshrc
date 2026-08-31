@@ -4,6 +4,10 @@ fi
 
 source $HOME/.zsh_env_vars
 source $HOME/.env_vars_secret.sh
+
+export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:$PROJECTS_DIR/utils/exe:$HOME/.local/bin/utils:/opt/homebrew/bin:$PATH"
+eval "$(mise activate zsh)"
+
 export ZSH="$HOME/.oh-my-zsh"
 
 plugins=(zsh-lazyload zsh-autosuggestions zsh-syntax-highlighting)
@@ -89,7 +93,6 @@ function loadnode() {
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-export GOPATH="$HOME/go"
 
 # default command for fzf
 # -i is to ignore case
@@ -99,7 +102,9 @@ export GOPATH="$HOME/go"
 export FZF_DEFAULT_COMMAND='fd -ipH -t f'
 export FZF_CTRL_T_COMMAND='fd -ipH -t f'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if (( $+commands[fzf] )); then
+  eval "$(fzf --zsh)"
+fi
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=208"
 bindkey '`' autosuggest-accept
@@ -246,6 +251,3 @@ bindkey '^e' atuin-search
 bindkey -s '^N' 'n\n'
 bindkey -s '^f' 'j\n'
 export HOURS_THEME=monokai-classic
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$HOME/.cargo/bin:$HOME/.local/bin:$PROJECTS_DIR/utils/exe:$DOT_FILES_DIR/utils/exe:/opt/homebrew/bin:$PATH"
-eval "$(mise activate zsh)"

@@ -2,7 +2,7 @@
 
 POPUP_BORDER_COLOR=#928374 # gruvbox gray darker
 
-/opt/homebrew/bin/tmux \
+tmux \
     display-popup \
     -h 60% -w 100% \
     -y 50% \

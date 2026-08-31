@@ -35,15 +35,15 @@
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
              :hs-resize "/opt/homebrew/bin/hs -c \"ResizeWindow('%s')\""
-             :tmux-edit-and-switch "/opt/homebrew/bin/tmux send-keys -t %s \":edit %s\" ENTER && /opt/homebrew/bin/tmux switch -t %s"
-             :tmux-open "/opt/homebrew/bin/tmux switch -t %s && open \"/Applications/Ghostty.app\""
-             :tmux-switch "/opt/homebrew/bin/tmux switch -t %s"
-             :tmux-window "/opt/homebrew/bin/tmux select-window -t %s"
-             :tmux-pane-bottom-60 "/opt/homebrew/bin/tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-bottom-40 "/opt/homebrew/bin/tmux display-popup -h '40%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-bottom-30 "/opt/homebrew/bin/tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-center "/opt/homebrew/bin/tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
-             :tmux-pane-right-30 "/opt/homebrew/bin/tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
+             :tmux-edit-and-switch "tmux send-keys -t %s \":edit %s\" ENTER && tmux switch -t %s"
+             :tmux-open "tmux switch -t %s && open \"/Applications/Ghostty.app\""
+             :tmux-switch "tmux switch -t %s"
+             :tmux-window "tmux select-window -t %s"
+             :tmux-pane-bottom-60 "tmux display-popup -h '60%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-40 "tmux display-popup -h '40%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-bottom-30 "tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-center "tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
+             :tmux-pane-right-30 "tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -148,7 +148,7 @@
                  ; [:2 [:km "mouse: left_click"]] ;; km: mouse: left_click
                  [:2 [:!COTSc]] ;; hammerspoon: mouse: left click
                  [:b [:alfred "todays_brain"  "dhth.brain"]] ;; alfred: dhth.brain: today's brain
-                 [:9 "/Users/dhruvthakur/projects/dotfiles/utils/exe/keystroke"] ;; alfred: dhth.brain: today's brain
+                 [:9 "keystroke"] ;; alfred: dhth.brain: today's brain
                  [:o [:tmux-pane-center "omm"] :termemul] ;; tmux: omm
                  [:h [:tmux-pane-center "hours"] :termemul] ;; tmux: hours
                  [:u [:alfred "add_url_to_omm" "dhth.omm"]] ;; alfred: dhth.omm add url to omm
@@ -257,7 +257,7 @@
                  [:j [:tmux-pane-center "jl"] :termemul] ;; tmux: show command picker
                  [:g [:tmux-pane-center "lazygit"] :termemul] ;; tmux: prefix + G
                  [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
-                 [:spacebar "~/projects/dotfiles/utils/exe/tmuxarrange" :termemul] ;; tmuxarrange
+                 [:spacebar "tmuxarrange" :termemul] ;; tmuxarrange
                  [:semicolon [:tmux-prefix :semicolon] :termemul] ;; tmux prefix + ;
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
@@ -513,7 +513,7 @@
                  [:y [:alfred "synonyms"  "dhth.vocabulary"]]
                  [:w [:alfred "search_wikis" "dhth.bookmarks"]] ;; alfred: search wikis
                  ; [:u :!TCu :browser] ;; browser: notion web clipper
-                 [:u "~/projects/dotfiles/utils/exe/savetoreadinglist" :browser] ;; browser: save to reading list
+                 [:u "savetoreadinglist" :browser] ;; browser: save to reading list
                  [:l [:tmux-prefix :!Sbackslash] :termemul]
                  [:j [:tmux-prefix :hyphen] :termemul]]}
 
@@ -529,8 +529,8 @@
                  [:n [:tmux-pane-bottom-60 "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                  [:b :!SCf :browser] ;; browser: toolbar visibility
-                 [:s "~/.cargo/bin/tomo start && /opt/homebrew/bin/tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
-                 [:b "~/.cargo/bin/tomo break && /opt/homebrew/bin/tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
+                  [:s "~/.cargo/bin/tomo start && tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
+                  [:b "~/.cargo/bin/tomo break && tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
                  [:r [:spacebar :t :r] :termemul] ;; vim: test results
                  [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                  [:y [:open "https://monkeytype.com"]]
@@ -556,7 +556,7 @@
                  [:e [:alfred "wiki_search"  "dhth.wiki.search"]]
                  [:open_bracket :!TOh] ;; magnet left side
                  [:close_bracket :!TOl] ;; magnet left side
-                 [:7 "~/projects/dotfiles/utils/exe/wrap72"] ;; utils: wrap72
+                 [:7 "wrap72"] ;; utils: wrap72
                  [:h [:tmux-prefix :h] :termemul] ;; tmux prefix + h
                  [:j [:tmux-prefix :j] :termemul] ;; tmux prefix + j
                  [:k [:tmux-prefix :k] :termemul] ;; tmux prefix + k
@@ -734,11 +734,11 @@
         {:des   "semicolon mode"
          :rules [:semicolon-mode
                  [:a :!SCm :slack] ;; slack: activity view
-                 [:a "~/projects/dotfiles/utils/exe/tswitch 1" :termemul] ;; tsw: go to bookmark 1
-                 [:s "~/projects/dotfiles/utils/exe/tswitch 2" :termemul] ;; tsw: go to bookmark 2
-                 [:d "~/projects/dotfiles/utils/exe/tswitch 3" :termemul] ;; tsw: go to bookmark 3
-                 [:f "~/projects/dotfiles/utils/exe/tswitch 4" :termemul] ;; tsw: go to bookmark 4
-                 [:g "~/projects/dotfiles/utils/exe/tswitch 5" :termemul] ;; tsw: go to bookmark 5
+                 [:a "tswitch 1" :termemul] ;; tsw: go to bookmark 1
+                 [:s "tswitch 2" :termemul] ;; tsw: go to bookmark 2
+                 [:d "tswitch 3" :termemul] ;; tsw: go to bookmark 3
+                 [:f "tswitch 4" :termemul] ;; tsw: go to bookmark 4
+                 [:g "tswitch 5" :termemul] ;; tsw: go to bookmark 5
                  [:t :!CSt :slack] ;; slack: open threads
                  [:q [:tmux-pane-bottom-60 "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
