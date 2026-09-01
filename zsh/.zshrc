@@ -6,11 +6,9 @@ source $HOME/.zsh_env_vars
 source $HOME/.env_vars_secret.sh
 
 export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:$PROJECTS_DIR/utils/exe:$HOME/.local/bin/utils:/opt/homebrew/bin:$PATH"
-eval "$(mise activate zsh)"
-
 export ZSH="$HOME/.oh-my-zsh"
 
-plugins=(zsh-lazyload zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(mise zsh-lazyload zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
