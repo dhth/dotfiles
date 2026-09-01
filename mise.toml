@@ -10,6 +10,10 @@ run = "mise lock --global"
 description = "Bump fuzzy global tool versions in the lockfile"
 run = "mise lock --global --bump"
 
+[tasks."global-tools:bump-agents"]
+description = "Bump versions for agents in the lockfile"
+run = "mise lock --global --bump opencode pi"
+
 [tasks."karabiner:update-environment"]
 description = "Update Karabiner's environment for required tools"
 run = '''
