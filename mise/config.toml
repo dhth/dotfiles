@@ -7,10 +7,11 @@
 "github:Skyscanner/turbolift" = "latest"
 "go:golang.org/x/tools/gopls" = { version = "latest", depends = "go" }
 bat = "latest"
+delta = "latest"
 fd = "latest"
 fzf = "0.74.3"
-go = "latest"
 gh = "latest"
+go = "latest"
 hyperfine = "latest"
 jq = "latest"
 just = "1.58.0"
