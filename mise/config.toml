@@ -5,10 +5,11 @@
 "github:asciinema/asciinema" = "latest"
 "github:jfernandez/mdserve" = "latest"
 "github:Skyscanner/turbolift" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
+"go:golang.org/x/tools/gopls" = { version = "latest", depends = "go" }
 bat = "latest"
 fd = "latest"
 fzf = "0.74.3"
+go = "latest"
 gh = "latest"
 hyperfine = "latest"
 jq = "latest"

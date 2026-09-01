@@ -1,5 +1,4 @@
-tap "fwdcloudsec/granted"
-
+brew "ampcode/tap/ampcode"
 brew "fwdcloudsec/granted/granted"
 brew "nnn"
 brew "yqrashawn/goku/goku"
