@@ -35,6 +35,7 @@
  :templates {:open "open \"%s\""
              :open-a "open -a \"%s\""
              :hs-resize "/opt/homebrew/bin/hs -c \"ResizeWindow('%s')\""
+             :osascript "osascript -e '%s'"
              :tmux-edit-and-switch "tmux send-keys -t %s \":edit %s\" ENTER && tmux switch -t %s"
              :tmux-open "tmux switch -t %s && open \"/Applications/Ghostty.app\""
              :tmux-switch "tmux switch -t %s"
@@ -211,6 +212,7 @@
         {:des   "5-mode"
          :rules [:five-mode
                  [:p [:open "https://github.com/pulls"]]
+                 [:j "jsontidy" :termemul] ;; termemul: format json in clipboard
                  [:k :open-km]]}
 
         {:des "7-mode"
@@ -700,7 +702,7 @@
                  [:##l :!SOright_arrow ["tab-mode" 1]]
                  [:semicolon :open-slack ["tab-mode" 1]]
                  [:s :!TSOCs ["tab-mode" 1]] ;; mac: siri
-                 [:d [:alfred "dark_mode" "dhth.system"] ["tab-mode" 1]]
+                 [:d [:osascript "tell application \"System Events\" to tell appearance preferences to set dark mode to not dark mode"] ["tab-mode" 1]]
                  [:a [:alfred "switch_audio" "dhth.system"] ["tab-mode" 1]]
                  [:b [:tmux-prefix :!Sb] [:termemul ["tab-mode" 1]]] ;; termemul: bmm: show search
                  [:z [:alfred "system_sleep" "dhth.system"] ["tab-mode" 1]]
