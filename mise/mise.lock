@@ -2,6 +2,41 @@
 
 lockfile_version = 1
 
+[[tools.asciinema]]
+version = "3.2.1"
+backend = "github:asciinema/asciinema"
+specifiers = ["latest"]
+
+[tools.asciinema."platforms.linux-arm64"]
+checksum = "sha256:b516a6d896844c0ffbc96e0a55afe4cbcc79216abde0fc64fdda4e39bee421ea"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290064"
+
+[tools.asciinema."platforms.linux-arm64-musl"]
+checksum = "sha256:b516a6d896844c0ffbc96e0a55afe4cbcc79216abde0fc64fdda4e39bee421ea"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290064"
+
+[tools.asciinema."platforms.linux-x64"]
+checksum = "sha256:1b405bbda565b33c3c4718de67fedc3535580603c0694b1ff3fb04f363430a20"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449289226"
+
+[tools.asciinema."platforms.linux-x64-musl"]
+checksum = "sha256:bec9781bc8f297a9d3d74ff60205599507f2abba1183578b8b2f22be4c999214"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-unknown-linux-musl"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449289811"
+
+[tools.asciinema."platforms.macos-arm64"]
+checksum = "sha256:1f0c76da7855601df93e5dccdf69b7c683b81beff1411e38b3802de1f5fc7a1c"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-apple-darwin"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290357"
+
+[tools.asciinema."platforms.macos-x64"]
+checksum = "sha256:1b388af0e1566ab19deea663b0ce64730ad46ade2825fadd43cc88f0bd28140a"
+url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-apple-darwin"
+url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290107"
+
 [[tools.bat]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"
@@ -147,11 +182,6 @@ checksum = "sha256:cf5c137d9b391c3988c54af8f5fc490ffbef6f70444651e7d57fdb45ad04c
 url = "https://github.com/junegunn/fzf/releases/download/v0.74.3/fzf-0.74.3-windows_amd64.zip"
 url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/517537078"
 
-[[tools."gem:tmuxinator"]]
-version = "3.4.1"
-backend = "gem:tmuxinator"
-specifiers = ["3.4.1"]
-
 [[tools.gh]]
 version = "2.98.0"
 backend = "aqua:cli/cli"
@@ -199,203 +229,6 @@ url = "https://github.com/cli/cli/releases/download/v2.98.0/gh_2.98.0_windows_am
 url_api = "https://api.github.com/repos/cli/cli/releases/assets/522857996"
 provenance = "github-attestations"
 
-[[tools."github:Skyscanner/turbolift"]]
-version = "4.1.3"
-backend = "github:Skyscanner/turbolift"
-specifiers = ["latest"]
-
-[tools."github:Skyscanner/turbolift"."platforms.linux-arm64"]
-checksum = "sha256:d65e9a06feeb88bd33a9f79fc52651c3d66cd42ed6aa759e2cc7863ee205bea1"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974451"
-
-[tools."github:Skyscanner/turbolift"."platforms.linux-arm64-musl"]
-checksum = "sha256:d65e9a06feeb88bd33a9f79fc52651c3d66cd42ed6aa759e2cc7863ee205bea1"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974451"
-
-[tools."github:Skyscanner/turbolift"."platforms.linux-x64"]
-checksum = "sha256:48bbf6d6fa0eb6baeae9b588cc296eafdb710e84dcdaee8f8afb9d34841869a1"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974453"
-
-[tools."github:Skyscanner/turbolift"."platforms.linux-x64-musl"]
-checksum = "sha256:48bbf6d6fa0eb6baeae9b588cc296eafdb710e84dcdaee8f8afb9d34841869a1"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974453"
-
-[tools."github:Skyscanner/turbolift"."platforms.macos-arm64"]
-checksum = "sha256:45aa620abb7c879beed2627db8273c77bf474d33108f3e70e5dee391b1677ef0"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974467"
-
-[tools."github:Skyscanner/turbolift"."platforms.macos-x64"]
-checksum = "sha256:242447da9c77967b49bf2be892ba966d5942468a55bf3422961009b3db88f9e8"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Darwin_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974470"
-
-[tools."github:Skyscanner/turbolift"."platforms.windows-x64"]
-checksum = "sha256:e4ae0add86e8b66b5984b85484da96b98c1eda7a18e6863711ace86a5c924c54"
-url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Windows_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974452"
-
-[[tools."github:agavra/tuicr"]]
-version = "0.24.0"
-backend = "github:agavra/tuicr"
-specifiers = ["v0.24.0"]
-
-[tools."github:agavra/tuicr"."platforms.linux-arm64"]
-checksum = "sha256:04f1fca7f1a60a40cafa8ae357d47acc361cc20fab26197f23d83184bedeab15"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529549990"
-
-[tools."github:agavra/tuicr"."platforms.linux-arm64-musl"]
-checksum = "sha256:bff2f9c3f10c322c48ff1641b3a6c2584697c6a63a61a0f9a63f447d107746bf"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529550267"
-
-[tools."github:agavra/tuicr"."platforms.linux-x64"]
-checksum = "sha256:a6959bbe05644fde43e3fe1c13e23653f25c441b7d34f38d015b3a8de85aac8d"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551008"
-
-[tools."github:agavra/tuicr"."platforms.linux-x64-musl"]
-checksum = "sha256:8fef201937cba0d894512b6f32e742edec9cf817e20225f94b0ac00486da735e"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551391"
-
-[tools."github:agavra/tuicr"."platforms.macos-arm64"]
-checksum = "sha256:25631798033a6434f6042c6f51b33a6ce918840e15cab290e992ffde9a8789ee"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551249"
-
-[tools."github:agavra/tuicr"."platforms.macos-x64"]
-checksum = "sha256:d0390c18371a52700b0a8b179aa9eb2f0212826dc2f0c7773ddd9a9f20218aa3"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529552522"
-
-[tools."github:agavra/tuicr"."platforms.windows-x64"]
-checksum = "sha256:c1cd6a5418ff5d39673949a0078872df3622a1832780352df3af56556056a2f0"
-url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-pc-windows-msvc.zip"
-url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529553290"
-
-[[tools."github:ankitpokhrel/jira-cli"]]
-version = "1.7.0"
-backend = "github:ankitpokhrel/jira-cli"
-specifiers = ["latest"]
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.linux-arm64"]
-checksum = "sha256:80aa3cc02790892b29e1580a8e49eb49a6550815b362c5ef8c05aea1dee73a95"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071450"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.linux-arm64-musl"]
-checksum = "sha256:80aa3cc02790892b29e1580a8e49eb49a6550815b362c5ef8c05aea1dee73a95"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071450"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.linux-x64"]
-checksum = "sha256:b5e0ba4804f3f11f92c483d9a6ea9ebccec1c735cd2e12b0440cab9d7afd626a"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071447"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.linux-x64-musl"]
-checksum = "sha256:b5e0ba4804f3f11f92c483d9a6ea9ebccec1c735cd2e12b0440cab9d7afd626a"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071447"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.macos-arm64"]
-checksum = "sha256:f9c75d1b242a4cbd78fc49c00c9854c3856f1bd421bdf196c567b3bb71ccf527"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_macOS_arm64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071451"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.macos-x64"]
-checksum = "sha256:c2cb2f6b440522ec73439ec9a10f4a194b78e4c409341d18da3f91dfef59d090"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_macOS_x86_64.tar.gz"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071454"
-
-[tools."github:ankitpokhrel/jira-cli"."platforms.windows-x64"]
-checksum = "sha256:84b205a187ff498533088a8077a294e4245323a66b33f2d963430d27323923a2"
-url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_windows_x86_64.zip"
-url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071449"
-
-[[tools."github:asciinema/asciinema"]]
-version = "3.2.1"
-backend = "github:asciinema/asciinema"
-specifiers = ["latest"]
-
-[tools."github:asciinema/asciinema"."platforms.linux-arm64"]
-checksum = "sha256:b516a6d896844c0ffbc96e0a55afe4cbcc79216abde0fc64fdda4e39bee421ea"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-unknown-linux-gnu"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290064"
-
-[tools."github:asciinema/asciinema"."platforms.linux-arm64-musl"]
-checksum = "sha256:b516a6d896844c0ffbc96e0a55afe4cbcc79216abde0fc64fdda4e39bee421ea"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-unknown-linux-gnu"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290064"
-
-[tools."github:asciinema/asciinema"."platforms.linux-x64"]
-checksum = "sha256:1b405bbda565b33c3c4718de67fedc3535580603c0694b1ff3fb04f363430a20"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-unknown-linux-gnu"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449289226"
-
-[tools."github:asciinema/asciinema"."platforms.linux-x64-musl"]
-checksum = "sha256:bec9781bc8f297a9d3d74ff60205599507f2abba1183578b8b2f22be4c999214"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-unknown-linux-musl"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449289811"
-
-[tools."github:asciinema/asciinema"."platforms.macos-arm64"]
-checksum = "sha256:1f0c76da7855601df93e5dccdf69b7c683b81beff1411e38b3802de1f5fc7a1c"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-aarch64-apple-darwin"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290357"
-
-[tools."github:asciinema/asciinema"."platforms.macos-x64"]
-checksum = "sha256:1b388af0e1566ab19deea663b0ce64730ad46ade2825fadd43cc88f0bd28140a"
-url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-apple-darwin"
-url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290107"
-
-[[tools."github:jfernandez/mdserve"]]
-version = "1.1.0"
-backend = "github:jfernandez/mdserve"
-specifiers = ["latest"]
-
-[tools."github:jfernandez/mdserve"."platforms.linux-arm64"]
-checksum = "sha256:69060a4749f47cd5e8bd0a8138a1ca833239d43052cb7de5efe96debaab4ac0d"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-gnu"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250996"
-provenance = "github-attestations"
-
-[tools."github:jfernandez/mdserve"."platforms.linux-arm64-musl"]
-checksum = "sha256:f896b735a85b218d97f2d6b16cf11612b28c5d65c6c178fccfbe0733ebea12d6"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-musl"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250990"
-provenance = "github-attestations"
-
-[tools."github:jfernandez/mdserve"."platforms.linux-x64"]
-checksum = "sha256:77f2c3d0e4cc0c4b35ac35e1d484a70fa893fe4d743a88d8774e2c90f076459f"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-gnu"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250978"
-provenance = "github-attestations"
-
-[tools."github:jfernandez/mdserve"."platforms.linux-x64-musl"]
-checksum = "sha256:85cbf6fd9768aef3b64675ba953f1294c4e4554c215ea9609a21dc9a5225edd7"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-musl"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250971"
-provenance = "github-attestations"
-
-[tools."github:jfernandez/mdserve"."platforms.macos-arm64"]
-checksum = "sha256:1ddb2647cf8446c95795415d7c60fa38149317f45e6954a9d5e1b8a8f2f6dc4a"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-apple-darwin"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369251003"
-provenance = "github-attestations"
-provenance_verified = true
-
-[tools."github:jfernandez/mdserve"."platforms.macos-x64"]
-checksum = "sha256:f7cf0e1938ec9e3ff8f0baeae341032e0633e8b4eb38af92e24f804086c91cf1"
-url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-apple-darwin"
-url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250983"
-provenance = "github-attestations"
-
 [[tools.go]]
 version = "1.27.0"
 backend = "core:go"
@@ -429,7 +262,7 @@ url = "https://dl.google.com/go/go1.27.0.darwin-amd64.tar.gz"
 checksum = "sha256:f0c0a0d33ba94f4d2c5dbc887334ce678b21813504ddb3aafcb06e60a5a667c4"
 url = "https://dl.google.com/go/go1.27.0.windows-amd64.zip"
 
-[[tools."go:golang.org/x/tools/gopls"]]
+[[tools.gopls]]
 version = "0.23.0"
 backend = "go:golang.org/x/tools/gopls"
 specifiers = ["latest"]
@@ -508,6 +341,46 @@ url_api = "https://api.github.com/repos/sharkdp/hyperfine/releases/assets/317832
 checksum = "sha256:2508c549b049b1d4342d08edc1cb42bfac169082b6e3069431b5bab9822dbb32"
 url = "https://github.com/sharkdp/hyperfine/releases/download/v1.20.0/hyperfine-v1.20.0-x86_64-pc-windows-msvc.zip"
 url_api = "https://api.github.com/repos/sharkdp/hyperfine/releases/assets/317832313"
+
+[[tools.jira]]
+version = "1.7.0"
+backend = "github:ankitpokhrel/jira-cli"
+specifiers = ["latest"]
+
+[tools.jira."platforms.linux-arm64"]
+checksum = "sha256:80aa3cc02790892b29e1580a8e49eb49a6550815b362c5ef8c05aea1dee73a95"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071450"
+
+[tools.jira."platforms.linux-arm64-musl"]
+checksum = "sha256:80aa3cc02790892b29e1580a8e49eb49a6550815b362c5ef8c05aea1dee73a95"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071450"
+
+[tools.jira."platforms.linux-x64"]
+checksum = "sha256:b5e0ba4804f3f11f92c483d9a6ea9ebccec1c735cd2e12b0440cab9d7afd626a"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071447"
+
+[tools.jira."platforms.linux-x64-musl"]
+checksum = "sha256:b5e0ba4804f3f11f92c483d9a6ea9ebccec1c735cd2e12b0440cab9d7afd626a"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071447"
+
+[tools.jira."platforms.macos-arm64"]
+checksum = "sha256:f9c75d1b242a4cbd78fc49c00c9854c3856f1bd421bdf196c567b3bb71ccf527"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_macOS_arm64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071451"
+
+[tools.jira."platforms.macos-x64"]
+checksum = "sha256:c2cb2f6b440522ec73439ec9a10f4a194b78e4c409341d18da3f91dfef59d090"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_macOS_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071454"
+
+[tools.jira."platforms.windows-x64"]
+checksum = "sha256:84b205a187ff498533088a8077a294e4245323a66b33f2d963430d27323923a2"
+url = "https://github.com/ankitpokhrel/jira-cli/releases/download/v1.7.0/jira_1.7.0_windows_x86_64.zip"
+url_api = "https://api.github.com/repos/ankitpokhrel/jira-cli/releases/assets/288071449"
 
 [[tools.jq]]
 version = "1.8.2"
@@ -675,6 +548,48 @@ url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/51
 checksum = "sha256:de8eca2cf2e75857882d313bf9dfc706a7aae893951ab29df706c99b525661ae"
 url = "https://github.com/jesseduffield/lazygit/releases/download/v0.64.1/lazygit_0.64.1_windows_x86_64.zip"
 url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/511894165"
+
+[[tools.mdserve]]
+version = "1.1.0"
+backend = "github:jfernandez/mdserve"
+specifiers = ["latest"]
+
+[tools.mdserve."platforms.linux-arm64"]
+checksum = "sha256:69060a4749f47cd5e8bd0a8138a1ca833239d43052cb7de5efe96debaab4ac0d"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250996"
+provenance = "github-attestations"
+
+[tools.mdserve."platforms.linux-arm64-musl"]
+checksum = "sha256:f896b735a85b218d97f2d6b16cf11612b28c5d65c6c178fccfbe0733ebea12d6"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-unknown-linux-musl"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250990"
+provenance = "github-attestations"
+
+[tools.mdserve."platforms.linux-x64"]
+checksum = "sha256:77f2c3d0e4cc0c4b35ac35e1d484a70fa893fe4d743a88d8774e2c90f076459f"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-gnu"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250978"
+provenance = "github-attestations"
+
+[tools.mdserve."platforms.linux-x64-musl"]
+checksum = "sha256:85cbf6fd9768aef3b64675ba953f1294c4e4554c215ea9609a21dc9a5225edd7"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-unknown-linux-musl"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250971"
+provenance = "github-attestations"
+
+[tools.mdserve."platforms.macos-arm64"]
+checksum = "sha256:1ddb2647cf8446c95795415d7c60fa38149317f45e6954a9d5e1b8a8f2f6dc4a"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-aarch64-apple-darwin"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369251003"
+provenance = "github-attestations"
+provenance_verified = true
+
+[tools.mdserve."platforms.macos-x64"]
+checksum = "sha256:f7cf0e1938ec9e3ff8f0baeae341032e0633e8b4eb38af92e24f804086c91cf1"
+url = "https://github.com/jfernandez/mdserve/releases/download/v1.1.0/mdserve-x86_64-apple-darwin"
+url_api = "https://api.github.com/repos/jfernandez/mdserve/releases/assets/369250983"
+provenance = "github-attestations"
 
 [[tools.neovim]]
 version = "0.12.5"
@@ -943,6 +858,91 @@ url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/4251729
 checksum = "sha256:073f6e2c2baa7eb5d643563600ee6052ca8619f3ec5a0cfdf99c56397fb72c94"
 url = "https://github.com/tmux/tmux-builds/releases/download/v3.6b/tmux-3.6b-macos-x86_64.tar.gz"
 url_api = "https://api.github.com/repos/tmux/tmux-builds/releases/assets/425172972"
+
+[[tools.tmuxinator]]
+version = "3.4.1"
+backend = "gem:tmuxinator"
+specifiers = ["3.4.1"]
+
+[[tools.tuicr]]
+version = "0.24.0"
+backend = "github:agavra/tuicr"
+specifiers = ["v0.24.0"]
+
+[tools.tuicr."platforms.linux-arm64"]
+checksum = "sha256:04f1fca7f1a60a40cafa8ae357d47acc361cc20fab26197f23d83184bedeab15"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529549990"
+
+[tools.tuicr."platforms.linux-arm64-musl"]
+checksum = "sha256:bff2f9c3f10c322c48ff1641b3a6c2584697c6a63a61a0f9a63f447d107746bf"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529550267"
+
+[tools.tuicr."platforms.linux-x64"]
+checksum = "sha256:a6959bbe05644fde43e3fe1c13e23653f25c441b7d34f38d015b3a8de85aac8d"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551008"
+
+[tools.tuicr."platforms.linux-x64-musl"]
+checksum = "sha256:8fef201937cba0d894512b6f32e742edec9cf817e20225f94b0ac00486da735e"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551391"
+
+[tools.tuicr."platforms.macos-arm64"]
+checksum = "sha256:25631798033a6434f6042c6f51b33a6ce918840e15cab290e992ffde9a8789ee"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529551249"
+
+[tools.tuicr."platforms.macos-x64"]
+checksum = "sha256:d0390c18371a52700b0a8b179aa9eb2f0212826dc2f0c7773ddd9a9f20218aa3"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529552522"
+
+[tools.tuicr."platforms.windows-x64"]
+checksum = "sha256:c1cd6a5418ff5d39673949a0078872df3622a1832780352df3af56556056a2f0"
+url = "https://github.com/agavra/tuicr/releases/download/v0.24.0/tuicr-0.24.0-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/agavra/tuicr/releases/assets/529553290"
+
+[[tools.turbolift]]
+version = "4.1.3"
+backend = "github:Skyscanner/turbolift"
+specifiers = ["latest"]
+
+[tools.turbolift."platforms.linux-arm64"]
+checksum = "sha256:d65e9a06feeb88bd33a9f79fc52651c3d66cd42ed6aa759e2cc7863ee205bea1"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974451"
+
+[tools.turbolift."platforms.linux-arm64-musl"]
+checksum = "sha256:d65e9a06feeb88bd33a9f79fc52651c3d66cd42ed6aa759e2cc7863ee205bea1"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974451"
+
+[tools.turbolift."platforms.linux-x64"]
+checksum = "sha256:48bbf6d6fa0eb6baeae9b588cc296eafdb710e84dcdaee8f8afb9d34841869a1"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974453"
+
+[tools.turbolift."platforms.linux-x64-musl"]
+checksum = "sha256:48bbf6d6fa0eb6baeae9b588cc296eafdb710e84dcdaee8f8afb9d34841869a1"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974453"
+
+[tools.turbolift."platforms.macos-arm64"]
+checksum = "sha256:45aa620abb7c879beed2627db8273c77bf474d33108f3e70e5dee391b1677ef0"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974467"
+
+[tools.turbolift."platforms.macos-x64"]
+checksum = "sha256:242447da9c77967b49bf2be892ba966d5942468a55bf3422961009b3db88f9e8"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974470"
+
+[tools.turbolift."platforms.windows-x64"]
+checksum = "sha256:e4ae0add86e8b66b5984b85484da96b98c1eda7a18e6863711ace86a5c924c54"
+url = "https://github.com/Skyscanner/turbolift/releases/download/4.1.3/turbolift_4.1.3_Windows_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/Skyscanner/turbolift/releases/assets/315974452"
 
 [[tools.uv]]
 version = "0.12.6"
