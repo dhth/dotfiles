@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$#" -ne 0 ]; then
+    echo "Usage: $(basename "$0")" >&2
+    exit 1
+fi
+
+panes=$(tmuxls)
+[ -n "$panes" ] || exit 0
+
+selected=$(
+    printf '%s\n' "$panes" | fzf \
+        --multi \
+        --delimiter=$'\t' \
+        --with-nth=2.. \
+        --header-lines=1 \
+        --layout=reverse
+) || {
+    status=$?
+    case "$status" in
+    1 | 130) exit 0 ;;
+    *) exit "$status" ;;
+    esac
+}
+
+[ -n "$selected" ] || exit 0
+printf '%s\n' "$selected" | cut -f1

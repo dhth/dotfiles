@@ -1,16 +1,81 @@
 #!/usr/bin/env bash
 
-pane_addresses=$(tmuxlsbycmd | awk '{print $NF}')
+set -euo pipefail
 
-if ! [ -n "$pane_addresses" ]; then
+show_help() {
+    echo "Usage: $(basename "$0") [--pick | --target <running-command>] [<text-to-send>]"
+    echo "  -t, --target: Send to all panes running exactly this command."
+    echo "  -p, --pick: Pick individual panes with fzf multi-selection."
+    echo "  --pick and --target cannot be used together."
+    echo "  Omitted inputs are collected interactively."
+    echo "  -h, --help: Show this help message."
+}
+
+target=
+pick_panes=false
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+    -p | --pick)
+        pick_panes=true
+        shift
+        ;;
+    -t | --target)
+        if [ "$#" -lt 2 ] || [ -z "$2" ]; then
+            echo "Error: --target requires a running command." >&2
+            exit 1
+        fi
+        target=$2
+        shift 2
+        ;;
+    -h | --help)
+        show_help
+        exit 0
+        ;;
+    --)
+        shift
+        break
+        ;;
+    -*)
+        echo "Error: Unknown option '$1'." >&2
+        show_help >&2
+        exit 1
+        ;;
+    *) break ;;
+    esac
+done
+
+if [ "$pick_panes" = true ] && [ -n "$target" ]; then
+    echo "Error: --pick and --target cannot be used together." >&2
+    exit 1
+fi
+
+if [ "$#" -gt 1 ]; then
+    show_help >&2
+    exit 1
+fi
+
+if { [ -z "$target" ] || [ "$#" -eq 0 ]; } && ! [ -t 0 ]; then
+    echo "Error: Interactive selection or prompting requires a terminal. Provide --target and text to run non-interactively." >&2
+    exit 1
+fi
+
+if [ "$pick_panes" = true ]; then
+    pane_addresses=$(tmuxpickpanes)
+elif [ -n "$target" ]; then
+    pane_addresses=$(tmuxlsbycmd "$target")
+else
+    pane_addresses=$(tmuxlsbycmd)
+fi
+
+if [ -z "$pane_addresses" ]; then
     exit 0
 fi
 
-if [ $# -eq 1 ]; then
+if [ "$#" -eq 1 ]; then
     command=$1
 else
     echo "command?"
-    read command
+    IFS= read -r command
 fi
 
-echo "$pane_addresses" | tmuxsendcmdbyaddress "$command"
+printf '%s\n' "$pane_addresses" | tmuxsendcmdbyaddress "$command"

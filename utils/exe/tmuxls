@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-tmux list-panes \
-    -a \
-    -F \
-    '#{=40;p40:session_name} #{=20;p20:window_name} #{=20;p20: [ #{pane_current_command} ]} #{session_id}:#{window_id}.#{p20:pane_id}'
+set -euo pipefail
+
+# The first tab-separated field is the pane ID; the rest is for display only.
+panes=$(tmux list-panes -a -F $'#{pane_id}\t#{=24;p24:session_name}    #{=28;p28:#{window_index}: #{window_name}}    #{=4;p4:pane_index}    #{pane_current_command}')
+[ -n "$panes" ] || exit 0
+
+printf 'ID\t%-24s    %-28s    %-4s    %s\n' SESSION WINDOW PANE COMMAND
+printf '%s\n' "$panes"

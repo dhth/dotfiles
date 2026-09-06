@@ -492,7 +492,8 @@
                  [:t [:tmux-pane-bottom-60 "txrc"] :termemul] ;; tmux: txrc
                  [:t [:!SCy] :slack] ;; slack: set status
                  [:t [:!SCf] :browser] ;; brower: show/hide toolbar
-                 [:0 [:alfred "save_current_track"  "dhth.spotify"]]
+                 ; [:0 [:alfred "save_current_track"  "dhth.spotify"]]
+                 [:delete_or_backspace [:type "Don\\'t use subagents."]] ;; type: don't use subagents
                  [:6 [:spacebar :s :6] :termemul] ;; vim :treesitter: swap previous function
                  [:9 [:spacebar :s :9] :termemul] ;; vim :treesitter: swap next function
                  [:7 [:spacebar :s :7] :termemul] ;; vim :treesitter: swap previous parameter
@@ -530,9 +531,10 @@
                  [:m [:tmux-pane-bottom-60 ""] :termemul] ;; tmux: temporary popup
                  [:n [:tmux-pane-bottom-60 "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
+                 [:s [:tmux-pane-bottom-60 "tmuxsendcmd -p"] :termemul] ;; tmux: send
                  [:b :!SCf :browser] ;; browser: toolbar visibility
-                  [:s "~/.cargo/bin/tomo start && tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
-                  [:b "~/.cargo/bin/tomo break && tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
+                 ; [:s "~/.cargo/bin/tomo start && tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
+                 [:b "~/.cargo/bin/tomo break && tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
                  [:r [:spacebar :t :r] :termemul] ;; vim: test results
                  [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                  [:y [:open "https://monkeytype.com"]]
