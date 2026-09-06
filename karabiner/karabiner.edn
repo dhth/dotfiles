@@ -531,7 +531,7 @@
                  [:m [:tmux-pane-bottom-60 ""] :termemul] ;; tmux: temporary popup
                  [:n [:tmux-pane-bottom-60 "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
-                 [:s [:tmux-pane-bottom-60 "tmuxsendcmd -p"] :termemul] ;; tmux: send
+                 [:s [:tmux-pane-bottom-60 "tmuxsend -p"] :termemul] ;; tmux: send
                  [:b :!SCf :browser] ;; browser: toolbar visibility
                  ; [:s "~/.cargo/bin/tomo start && tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
                  [:b "~/.cargo/bin/tomo break && tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
