@@ -676,8 +676,11 @@
 
         {:des   "quote mode"
          :rules [:quote-mode
-                 [:a [:tmux-switch "agents-config:editor"] :termemul] ;; tmux: switch to agents-config:editor
-                 [:d [:tmux-switch "dotfiles:editor"] :termemul] ;; tmux: switch to dotfiles:editor
+                 [:a "tswitch 1" :termemul] ;; tsw: go to bookmark 1
+                 [:s "tswitch 2" :termemul] ;; tsw: go to bookmark 2
+                 [:d "tswitch 3" :termemul] ;; tsw: go to bookmark 3
+                 [:f "tswitch 4" :termemul] ;; tsw: go to bookmark 4
+                 [:g "tswitch 5" :termemul] ;; tsw: go to bookmark 5
 
                  ; this is mostly for duckyo3m
                  [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
@@ -738,12 +741,12 @@
         {:des   "semicolon mode"
          :rules [:semicolon-mode
                  [:a :!SCm :slack] ;; slack: activity view
-                 [:a "tswitch 1" :termemul] ;; tsw: go to bookmark 1
-                 [:s "tswitch 2" :termemul] ;; tsw: go to bookmark 2
-                 [:d "tswitch 3" :termemul] ;; tsw: go to bookmark 3
-                 [:f "tswitch 4" :termemul] ;; tsw: go to bookmark 4
-                 [:g "tswitch 5" :termemul] ;; tsw: go to bookmark 5
                  [:t :!CSt :slack] ;; slack: open threads
+                 [:a [:tmux-switch ":1"] :termemul] ;; tmux: switch to window: 1
+                 [:s [:tmux-switch ":2"] :termemul] ;; tmux: switch to window: 2
+                 [:d [:tmux-switch ":3"] :termemul] ;; tmux: switch to window: 3
+                 [:f [:tmux-switch ":4"] :termemul] ;; tmux: switch to window: 4
+                 [:g [:tmux-switch ":5"] :termemul] ;; tmux: switch to window: 5
                  [:q [:tmux-pane-bottom-60 "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
                  [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
