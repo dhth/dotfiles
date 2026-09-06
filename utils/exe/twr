@@ -37,4 +37,4 @@ else
     read command
 fi
 
-echo "$pane_addresses" | tmuxsendcmdbyaddress "$command"
+echo "$pane_addresses" | tmuxsendbyaddress "$command"

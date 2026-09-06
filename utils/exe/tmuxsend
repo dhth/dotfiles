@@ -78,4 +78,4 @@ else
     IFS= read -r command
 fi
 
-printf '%s\n' "$pane_addresses" | tmuxsendcmdbyaddress "$command"
+printf '%s\n' "$pane_addresses" | tmuxsendbyaddress "$command"
