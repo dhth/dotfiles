@@ -14,6 +14,10 @@ run = "mise lock --global --bump"
 description = "Bump versions for agents in the lockfile"
 run = "mise lock --global --bump opencode pi"
 
+[tasks."global-tools:bump-agents-no-delay"]
+description = "Bump agents without any release-age delay"
+run = "mise lock --global --bump --minimum-release-age 0s opencode pi"
+
 [tasks."karabiner:update-environment"]
 description = "Update Karabiner's environment for required tools"
 run = '''
