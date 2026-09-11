@@ -31,8 +31,22 @@ uv = "0.12.6"
 yamlfmt = "latest"
 zls = "0.16.0"
 
+[tools.goku]
+version = "0.8.0"
+os = ["macos/arm64"]
+strip_components = 1
+bin_path = "bin"
+postinstall = '''
+mkdir -p "$MISE_TOOL_INSTALL_PATH/bin" &&
+ln -sf ../goku "$MISE_TOOL_INSTALL_PATH/bin/goku"
+'''
+
+[tools.goku.platforms]
+macos-arm64 = { url = "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v{{ version }}/goku-arm.zip", checksum = "sha256:c912f151f01067eac4effe36c278e5b3a5274febdbfdbe58de5556ba36461008" }
+
 [tool_alias]
 asciinema = "github:asciinema/asciinema"
+goku = "http:goku"
 gopls = "go:golang.org/x/tools/gopls"
 jira = "github:ankitpokhrel/jira-cli"
 mdserve = "github:jfernandez/mdserve"

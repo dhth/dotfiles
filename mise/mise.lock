@@ -267,6 +267,18 @@ url = "https://dl.google.com/go/go1.27.0.darwin-amd64.tar.gz"
 checksum = "sha256:f0c0a0d33ba94f4d2c5dbc887334ce678b21813504ddb3aafcb06e60a5a667c4"
 url = "https://dl.google.com/go/go1.27.0.windows-amd64.zip"
 
+[[tools.goku]]
+version = "0.8.0"
+backend = "http:goku"
+specifiers = ["0.8.0"]
+
+[tools.goku.options]
+strip_components = "1"
+
+[tools.goku."platforms.macos-arm64"]
+checksum = "sha256:c912f151f01067eac4effe36c278e5b3a5274febdbfdbe58de5556ba36461008"
+url = "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v0.8.0/goku-arm.zip"
+
 [[tools.gopls]]
 version = "0.23.0"
 backend = "go:golang.org/x/tools/gopls"

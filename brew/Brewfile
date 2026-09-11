@@ -4,7 +4,6 @@ brew "ffmpeg"
 brew "fwdcloudsec/granted/granted"
 brew "nnn"
 brew "tree"
-brew "yqrashawn/goku/goku"
 
 cask "hammerspoon"
 cask "keycastr"
