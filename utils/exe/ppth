@@ -5,7 +5,9 @@ if [ -z "${dir}" ]; then
     exit 0
 fi
 
-path=$(fd . -ipH -t=f --base-directory "${dir}" | fzf --layout=reverse --multi)
+path=$(
+    project-files "${dir}" | fzf --layout=reverse --multi
+)
 
 if [ -z "${path}" ]; then
     exit 0

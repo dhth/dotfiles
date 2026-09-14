@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-path=$(fd -ipH | fzf --layout=reverse --multi)
+set -euo pipefail
+
+path=$(
+    project-files | fzf --layout=reverse --multi
+)
 
 if [ -z "${path}" ]; then
     exit 0
