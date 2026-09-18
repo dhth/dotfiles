@@ -1,6 +1,7 @@
 min_version = "2026.9.11"
 
 [tools]
+actionlint = "latest"
 asciinema = "latest"
 bat = "latest"
 delta = "latest"
