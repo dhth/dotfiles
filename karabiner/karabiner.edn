@@ -45,6 +45,7 @@
              :tmux-pane-bottom-30 "tmux display-popup -h '30%%' -w '100%%' -y '50%%' -S fg='#504945' -E '%s'"
              :tmux-pane-center "tmux display-popup -h '80%%' -w '90%%' -S fg='#504945' -E '%s'"
              :tmux-pane-right-30 "tmux display-popup -h '100%%' -w '30%%' -x '200%%' -B -E '%s'"
+             :tmux-pane-full-screen "tmux display-popup -h '100%%' -w '100%%' -B -E '%s'"
              :launch "osascript -e 'tell application \"%s\" to launch'"
              :type "/opt/homebrew/bin/hs -c \"hs.eventtap.keyStrokes('%s')\""
              :paste "osascript -e 'set the clipboard to \"%s\"
@@ -292,7 +293,8 @@
                  [:h [:open "https://chatgpt.com"]] ;; chatgpt: chat
                  [:t [:open "https://chatgpt.com/?temporary-chat=true"]] ;; chatgpt: temporary chat
                  [:l [:spacebar :c :l]] ;; vim: wiki: create link
-                 [:o [:spacebar :c :o]] ;; vim: copen
+                 ; [:o [:spacebar :c :o]] ;; vim: copen
+                 [:o [:tmux-pane-center "lazygit --path \"$PROJECTS_DIR/context\""] :termemul] ;; tmux: lazygit: context
                  [:j :open_bracket]
                  [:k :close_bracket]
                  [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :termemul] ;; vim: coc restart
@@ -363,7 +365,8 @@
 
         {:des   "g mode"
          :rules [:g-mode
-                 [:n [:tmux-prefix :!Sa] :termemul] ;; tmux prefix + A
+                 [:n [:tmux-pane-bottom-60 "ag-picker"] :termemul] ;; tmux: agents
+                 [:m [:tmux-pane-full-screen "ag-preview"] :termemul] ;; tmux: agents with preview
                  [:i [:spacebar :g :i] :termemul] ;; vim: git exclude
                  [:k [:!Ssemicolon :!S1 :g :o :k :u]]
                  [:h [:alfred "github_repo_search"  "dhth.github"]]
@@ -697,6 +700,7 @@
                  [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
                  [:c [:alfred "work_calendar" "dhth.bookmarks"]] ;; alfred: open work calendar
                  [:semicolon [:alfred "work_main_url" "dhth.bookmarks"]] ;; alfred: bookmarks: work main url
+                 [:x [:open "https://excalidraw.com"]] ;; open https://excalidraw.com
                  ]}
 
         {:des   "tab mode"

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+title_filter='#{m|ri:^(cl|cx|oc|am)([[:space:]]*\||$),#{pane_title}}'
+command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
+
+pane_rows=$(tmux list-panes -a -f "#{&&:${title_filter},${command_filter}}" -F '#{pane_id}	#{window_activity}	#{session_name}	#{pane_current_command}	#{pane_title}' | sort -t $'\t' -k2,2nr)
+
+if [ -z "$pane_rows" ]; then
+    exit 0
+fi
+
+selected=$(
+    printf '%s\n' "$pane_rows" |
+        fzf \
+            --reverse \
+            --style=minimal \
+            --no-info \
+            --delimiter '\t' \
+            --with-nth=3.. \
+            --header=$'SESSION\tCOMMAND\tTITLE' \
+            --tabstop=16
+) || {
+    status=$?
+    case "$status" in
+    1 | 130) exit 0 ;;
+    *) exit "$status" ;;
+    esac
+}
+
+[ -n "$selected" ] || exit 0
+
+pane_target=${selected%%$'\t'*}
+tmux switch-client -t "$pane_target"
