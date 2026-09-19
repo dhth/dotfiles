@@ -248,6 +248,7 @@
                  [:h [:tmux-prefix :p] :termemul] ;; tmux prefix + p
                  [:n [:tmux-prefix :!Tn] :termemul] ;; tmux: pane picker across all sessions
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
+                 [:o [:tmux-switch "agents-config"] :termemul] ;; tmux: switch to agents-config
                  [:m [:tmux-prefix :!Tm] :termemul] ;; tmux: pane picker for current session
                  [:w [:tmux-prefix :!Sw] :termemul] ;; tmux: pane picker across current sessions
                  [:quote [:tmux-prefix :!Tn] :termemul] ;; tmux: window picker
@@ -320,10 +321,11 @@
                  [:k :!Tu :code] ;; vim <c-d>
                           ; [:o :!TOCd ] ;; toggle dato
                  [:s [:tmux-prefix :!Ss] :termemul] ;; tmux prefix + S
-                 [:o [:tmux-prefix :!Sd] :termemul] ;; tmux prefix + O
+                 [:s [:tmux-pane-full-screen "git diff --staged"] :termemul] ;; tmux: git staged changes
+                 [:o [:tmux-switch "dotfiles"] :termemul] ;; tmux: switch to dotfiles
                  [:l [:tmux-prefix :8] :termemul] ;; tmux prefix + 8
                  [:c [:spacebar :d :c] :termemul] ;; nvim: helpers: diff with commit
-                 [:f [:tmux-prefix :!Sd] :termemul] ;; tmux prefix + D
+                 [:f [:tmux-pane-full-screen "git diff"] :termemul] ;; tmux: git changes
                  [:f [:!SCf :!Cn] :code] ;; vscode: foam: new note
                  [:f :!TOCn :jetbrains] ;; new
                  [:b [:spacebar :d :b] :termemul] ;; vim: add println
