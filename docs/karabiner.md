@@ -26,26 +26,27 @@ starts, rather than before every mapping invocation.
 
 ## Command paths
 
-The Goku configuration deliberately invokes `tmux` by command name instead of
-using a Homebrew path, a mise shim, or `mise exec`. Karabiner's `PATH` includes
-the selected tmux installation directory, so normal command lookup executes the
-mise-installed tmux binary directly.
+Tmux-related mappings do not launch `tmux` through Karabiner shell commands.
+Karabiner sends prefix and key-table sequences into the focused terminal, and
+the focused tmux client executes the corresponding bindings. This preserves the
+client, pane, session, and working-directory context of the visible terminal.
 
-Mappings also invoke repository utilities by command name.
+Other mappings invoke repository utilities by command name.
 `$HOME/.local/bin/utils` is a symlink to `utils/exe` in this repository.
 Karabiner's `PATH` includes that stable entry rather than the repository's clone
 path.
 
-The repository owns the complete environment file and updates its
-machine-specific assignment with:
+The repository owns the complete environment file and updates its managed
+environment with:
 
 ```sh
 mise run karabiner:update-environment
 ```
 
-Tmux is currently the only mise-managed tool included. The task replaces the
-file, so additional Karabiner environment settings must be added to the task
-rather than edited only on one machine. After running it, restart
+The environment includes the stable utilities directory. Tmux key-sequence
+mappings do not require the tmux executable in Karabiner's `PATH`. The task
+replaces the file, so additional Karabiner environment settings must be added to
+the task rather than edited only on one machine. After running it, restart
 Karabiner-Elements from its menu-bar menu so the console-user server loads the
 new environment.
 
