@@ -73,6 +73,7 @@
        :open-dev-tools {:key :i :modi :co}
        :tmux-prefix {:key :a :modi :left_control}
        :tmux-window-nav {:key :f :modi :left_control}
+       :tmux-workspace-nav {:key :p :modi :left_control}
        :open-anki {:shell [:open "/Applications/Anki.app"]}
        :open-browser {:shell [:open "/Applications/Brave Browser.app"]}
        :open-ghostty {:shell [:open "/Applications/Ghostty.app"]}
@@ -249,7 +250,7 @@
                  [:h [:tmux-prefix :p] :termemul] ;; tmux prefix + p
                  [:n [:tmux-prefix :!Tn] :termemul] ;; tmux: pane picker across all sessions
                  [:n [:alfred "tmux_windows" "dhth.tmux"] :!termemul] ;; alfred: !termemul: search tmux windows
-                 [:o [:tmux-switch "agents-config"] :termemul] ;; tmux: switch to agents-config
+                 [:o [:tmux-prefix :tmux-workspace-nav :a] :termemul] ;; tmux: switch to agents-config
                  [:m [:tmux-prefix :!Tm] :termemul] ;; tmux: pane picker for current session
                  [:w [:tmux-prefix :!Sw] :termemul] ;; tmux: pane picker across current sessions
                  [:quote [:tmux-prefix :!Tn] :termemul] ;; tmux: window picker
@@ -322,7 +323,7 @@
                  [:k :!Tu :code] ;; vim <c-d>
                           ; [:o :!TOCd ] ;; toggle dato
                  [:s [:tmux-pane-full-screen "git diff --staged"] :termemul] ;; tmux: git staged changes
-                 [:o [:tmux-switch "dotfiles"] :termemul] ;; tmux: switch to dotfiles
+                 [:o [:tmux-prefix :tmux-workspace-nav :d] :termemul] ;; tmux: switch to dotfiles
                  [:l [:tmux-prefix :8] :termemul] ;; tmux prefix + 8
                  [:c [:spacebar :d :c] :termemul] ;; nvim: helpers: diff with commit
                  [:f [:tmux-pane-full-screen "git diff"] :termemul] ;; tmux: git changes
@@ -341,7 +342,7 @@
                  [:r [:!TOCp :v] :jetbrains] ;; jetbrains: project view popup menu
                  [:w [:alfred "work_wiki_search"  "dhth.workwiki.search"]]
                  [:r [:alfred "reddit_search"  "dhth.reddit"]]
-                 [:d [:tmux-edit-and-switch "dotfiles:editor" "~/projects/dotfiles/karabiner/karabiner.edn" "dotfiles:editor"] :termemul]
+                 [:d [:tmux-prefix :tmux-workspace-nav :k] :termemul] ;; tmux: edit karabiner config
                  [:u :!Shyphen]
                  [:m :open-messages] ;; open: Messages
                  [:n :open-anki] ;; open: Anki
@@ -600,7 +601,7 @@
                  [:x [:type "👍"]] ;; hammerspoon: type out thumbs up
                  [:a [:!SOCm]] ;; zoom: toggle audio
                  [:d [:!SOCd] :zoom] ;; zoom: toggle dual monitor
-                 [:s [:tmux-edit-and-switch "wiki:w" "~/.zshrc" "wiki:w"] :termemul]
+                 [:s [:tmux-prefix :tmux-workspace-nav :z] :termemul] ;; tmux: edit zsh config
                           ; [:p [:km "psss"] ]
                           ;
                  ]}
