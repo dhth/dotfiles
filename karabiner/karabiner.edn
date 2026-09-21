@@ -320,7 +320,6 @@
                  [:j :!Td :code] ;; vim <c-d>
                  [:k :!Tu :code] ;; vim <c-d>
                           ; [:o :!TOCd ] ;; toggle dato
-                 [:s [:tmux-prefix :!Ss] :termemul] ;; tmux prefix + S
                  [:s [:tmux-pane-full-screen "git diff --staged"] :termemul] ;; tmux: git staged changes
                  [:o [:tmux-switch "dotfiles"] :termemul] ;; tmux: switch to dotfiles
                  [:l [:tmux-prefix :8] :termemul] ;; tmux prefix + 8
@@ -469,7 +468,6 @@
                  [:u [:!Ssemicolon :!Sp :l :u :g :!Su :p :d :a :t :e] :termemul] ;; vim: PlugUpdate
                  [:s [:alfred "pomodoro_start" "dhth.pomodoro"]] ;; pomodoro: start pomodoro
                  [:b [:alfred "pomodoro_break_start" "dhth.pomodoro"]] ;; pomodoro: start break
-                 [:o [:tmux-open "wiki:po"]] ;; tmux: switch to punchout
                  ]}
 
         {:des   "r mode"
@@ -532,14 +530,12 @@
                  [:l [:tmux-pane-center "punchout"] :termemul] ;; punchout
                  [:0 [:alfred "get_current_track"  "dhth.spotify"]]
                  [:h :!SCt :slack] ;; slack: threads
-                 [:i [:tmux-open "wiki:h"]] ;; tmux: switch to hours
                  [:m [:tmux-pane-bottom-60 ""] :termemul] ;; tmux: temporary popup
                  [:n [:tmux-pane-bottom-60 "txw"] :termemul] ;; tmux: txw
                  [:s :!OSa :browser] ;; browser: dark mode: toggle current site
                  [:s [:tmux-pane-bottom-60 "tmuxsend -p"] :termemul] ;; tmux: send
                  [:b :!SCf :browser] ;; browser: toolbar visibility
                  ; [:s "~/.cargo/bin/tomo start && tmux display -d 1000 \"start\"" :termemul] ;; tomo: start
-                 [:b "~/.cargo/bin/tomo break && tmux display -d 1000 \"break\"" :termemul] ;; tomo: break
                  [:r [:spacebar :t :r] :termemul] ;; vim: test results
                  [:d [:spacebar :t :d] :termemul] ;; vim: todo telescope
                  [:y [:open "https://monkeytype.com"]]
@@ -694,9 +690,6 @@
                  [:l [:km "mouse: move_right"]]
                  [:hyphen [:alfred "pause" "dhth.spotify"]]
                  [:equal_sign [:alfred "play" "dhth.spotify"]]
-                 [:1 [:tmux-switch "wiki:gcl"] :termemul] ;; tmux: switch to wiki:cl
-                 [:2 [:tmux-switch "wiki:gcx"] :termemul] ;; tmux: switch to wiki:cx
-                 [:3 [:tmux-switch "wiki:goc"] :termemul] ;; tmux: switch to wiki:oc
                  [:1 [:type-secret "praline-jingle"] :duckyo3m]
                  [:2 [:type-secret "haven-barnyard"] :duckyo3m]
                  [:m [:alfred "work_email" "dhth.bookmarks"]] ;; alfred: open work email
@@ -756,7 +749,6 @@
                  [:q [:tmux-pane-bottom-60 "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
                  [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
-                 [:tab [:tmux-edit-and-switch "wiki:w" "~/.tsw" "wiki:w"] :termemul] ;; tsw: edit tsw
                  [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
                  [:r [:alfred "repo_search"  "dhth.workutils"]] ;; work utils: repo search
                  [:c [:alfred "work_company_search"  "dhth.workutils"]] ;; work utils: work company search
