@@ -72,6 +72,7 @@
        :emoji-picker {:key :spacebar :modi :ct} ;!CTspacebar
        :open-dev-tools {:key :i :modi :co}
        :tmux-prefix {:key :a :modi :left_control}
+       :tmux-window-nav {:key :f :modi :left_control}
        :open-anki {:shell [:open "/Applications/Anki.app"]}
        :open-browser {:shell [:open "/Applications/Brave Browser.app"]}
        :open-ghostty {:shell [:open "/Applications/Ghostty.app"]}
@@ -348,12 +349,10 @@
         {:des   "f mode"
          :rules [:f-mode
                  [:spacebar [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
-                 [:h [:tmux-window ":editor"] :termemul] ;; tmux: go to window: editor
-                 [:d [:tmux-window ":2"] :termemul] ;; tmux: go to window: 2
-                 [:j [:tmux-window ":oc"] :termemul] ;; tmux: go to window: oc
-                 [:k [:tmux-window ":pi"] :termemul] ;; tmux: go to window: pi
-                 [:r [:tmux-window ":run"] :termemul] ;; tmux: go to window: run
-                 [:semicolon [:tmux-window ":am"] :termemul] ;; tmux: go to window: am
+                 [:h [:tmux-prefix :tmux-window-nav :e] :termemul] ;; tmux: go to window: editor
+                 [:d [:tmux-prefix :2] :termemul] ;; tmux: go to window: 2
+                 [:j [:tmux-prefix :tmux-window-nav :o] :termemul] ;; tmux: go to window: oc
+                 [:r [:tmux-prefix :tmux-window-nav :r] :termemul] ;; tmux: go to window: run
                  [:m [:tmux-pane-bottom-60 "pth"] :termemul] ;; tmux: run pth
                  [:n [:tmux-pane-bottom-60 "ppth"] :termemul] ;; tmux: run ppth
                  [:s [:spacebar :f :s] :termemul] ;; nvim: filtered search
@@ -741,11 +740,11 @@
          :rules [:semicolon-mode
                  [:a :!SCm :slack] ;; slack: activity view
                  [:t :!CSt :slack] ;; slack: open threads
-                 [:a [:tmux-switch ":1"] :termemul] ;; tmux: switch to window: 1
-                 [:s [:tmux-switch ":2"] :termemul] ;; tmux: switch to window: 2
-                 [:d [:tmux-switch ":3"] :termemul] ;; tmux: switch to window: 3
-                 [:f [:tmux-switch ":4"] :termemul] ;; tmux: switch to window: 4
-                 [:g [:tmux-switch ":5"] :termemul] ;; tmux: switch to window: 5
+                 [:a [:tmux-prefix :1] :termemul] ;; tmux: switch to window: 1
+                 [:s [:tmux-prefix :2] :termemul] ;; tmux: switch to window: 2
+                 [:d [:tmux-prefix :3] :termemul] ;; tmux: switch to window: 3
+                 [:f [:tmux-prefix :4] :termemul] ;; tmux: switch to window: 4
+                 [:g [:tmux-prefix :5] :termemul] ;; tmux: switch to window: 5
                  [:q [:tmux-pane-bottom-60 "shfl -s ~/.tsw"] :termemul] ;; tmux: shfl sessions
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
                  [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
