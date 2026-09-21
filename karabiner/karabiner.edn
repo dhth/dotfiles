@@ -284,7 +284,8 @@
                  [:b [:spacebar :c :b] :termemul] ;; vim: check key binding: verbose nmap <leader>
                  [:p :!SOCj :browser] ;; jupyter: command palette
                  [:a [:spacebar :c :a] :termemul] ;; vim: fugitive: commit --amend
-                 [:h [:open "https://chatgpt.com"]] ;; chatgpt: chat
+                 [:h [:tmux-prefix :tmux-workspace-nav :s] :termemul] ;; tmux: show scratch session
+                 ; [:h [:open "https://chatgpt.com"]] ;; chatgpt: chat
                  [:t [:open "https://chatgpt.com/?temporary-chat=true"]] ;; chatgpt: temporary chat
                  [:l [:spacebar :c :l]] ;; vim: wiki: create link
                  ; [:o [:spacebar :c :o]] ;; vim: copen
