@@ -7,7 +7,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-if ! [[ "$1" =~ ^[1-9]$ ]]; then
+if ! [[ "$1" =~ ^[1-5]$ ]]; then
     echo "Invalid argument. Please provide a number between 1 and 5."
     exit 1
 fi
@@ -19,6 +19,11 @@ if [ -z "$sessions" ]; then
 fi
 
 position=${1}
+client_name=${2:-}
 session=$(echo "$sessions" | sed -n "${position}p")
 
-tmux switch-client -t "$session"
+if [ -n "$client_name" ]; then
+    tmux switch-client -c "$client_name" -t "$session"
+else
+    tmux switch-client -t "$session"
+fi
