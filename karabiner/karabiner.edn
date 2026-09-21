@@ -341,7 +341,6 @@
                  ]}
         {:des   "f mode"
          :rules [:f-mode
-                 [:spacebar [:tmux-prefix :!Tb]] ;; tmux: persistent popup half screen
                  [:h [:tmux-prefix :tmux-window-nav :e] :termemul] ;; tmux: go to window: editor
                  [:d [:tmux-prefix :2] :termemul] ;; tmux: go to window: 2
                  [:j [:tmux-prefix :tmux-window-nav :o] :termemul] ;; tmux: go to window: oc
