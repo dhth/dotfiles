@@ -74,6 +74,7 @@
        :tmux-prefix {:key :a :modi :left_control}
        :tmux-window-nav {:key :f :modi :left_control}
        :tmux-workspace-nav {:key :p :modi :left_control}
+       :tmux-popup-git {:key :g}
        :open-anki {:shell [:open "/Applications/Anki.app"]}
        :open-browser {:shell [:open "/Applications/Brave Browser.app"]}
        :open-ghostty {:shell [:open "/Applications/Ghostty.app"]}
@@ -257,11 +258,11 @@
                  [:c [:tmux-prefix :c] :termemul] ;; tmux prefix + c
                  [:z [:tmux-prefix :z] :termemul] ;; tmux prefix + z
                  ; [:open_bracket [:tmux-switch "scratch"] :termemul] ;; tmux: switch to scratch
-                 [:open_bracket [:tmux-pane-right-30 "lazygit --screen-mode full"] :termemul] ;; tmux: lazygit full screen mode
+                 [:open_bracket [:tmux-prefix :tmux-popup-git :!Sg] :termemul] ;; tmux: lazygit full screen mode
                  [:s [:tmux-prefix :open_bracket] :termemul]
                  ; [:j [:tmux-prefix :!Sj] :termemul] ;; tmux prefix + J
                  [:j [:tmux-pane-center "jl"] :termemul] ;; tmux: show command picker
-                 [:g [:tmux-pane-center "lazygit"] :termemul] ;; tmux: prefix + G
+                 [:g [:tmux-prefix :tmux-popup-git :g] :termemul] ;; tmux: lazygit
                  [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
                  [:spacebar "tmuxarrange" :termemul] ;; tmuxarrange
                  [:semicolon [:tmux-prefix :semicolon] :termemul] ;; tmux prefix + ;
@@ -297,7 +298,7 @@
                  [:t [:open "https://chatgpt.com/?temporary-chat=true"]] ;; chatgpt: temporary chat
                  [:l [:spacebar :c :l]] ;; vim: wiki: create link
                  ; [:o [:spacebar :c :o]] ;; vim: copen
-                 [:o [:tmux-pane-center "lazygit --path \"$PROJECTS_DIR/context\""] :termemul] ;; tmux: lazygit: context
+                 [:o [:tmux-prefix :tmux-popup-git :c] :termemul] ;; tmux: lazygit: context
                  [:j :open_bracket]
                  [:k :close_bracket]
                  [:r [:!Ssemicolon :!Sc :o :c :!Sr :e :s] :termemul] ;; vim: coc restart
@@ -322,11 +323,11 @@
                  [:j :!Td :code] ;; vim <c-d>
                  [:k :!Tu :code] ;; vim <c-d>
                           ; [:o :!TOCd ] ;; toggle dato
-                 [:s [:tmux-pane-full-screen "git diff --staged"] :termemul] ;; tmux: git staged changes
+                 [:s [:tmux-prefix :tmux-popup-git :!Sd] :termemul] ;; tmux: git staged changes
                  [:o [:tmux-prefix :tmux-workspace-nav :d] :termemul] ;; tmux: switch to dotfiles
                  [:l [:tmux-prefix :8] :termemul] ;; tmux prefix + 8
                  [:c [:spacebar :d :c] :termemul] ;; nvim: helpers: diff with commit
-                 [:f [:tmux-pane-full-screen "git diff"] :termemul] ;; tmux: git changes
+                 [:f [:tmux-prefix :tmux-popup-git :d] :termemul] ;; tmux: git changes
                  [:f [:!SCf :!Cn] :code] ;; vscode: foam: new note
                  [:f :!TOCn :jetbrains] ;; new
                  [:b [:spacebar :d :b] :termemul] ;; vim: add println
@@ -377,7 +378,7 @@
                  [:open_bracket [:g :r :i :open_bracket]]
                  [:d [:tmux-prefix :!Td] :termemul] ;; tmux: prefix + ctrl+d: dfft run
                  [:s [:tmux-prefix :s] :termemul] ;; tmux: show git status
-                 [:p [:tmux-pane-bottom-40 "gpp; read -n 1"] :termemul] ;; tmux: git push
+                 [:p [:tmux-prefix :tmux-popup-git :!Tp] :termemul] ;; tmux: git push
                  [:b [:spacebar :g :b] :termemul] ;; vim: telescope: git branches
                  [:quote [:g :r :i :quote] :termemul] ;; vim: replace with regiser: gri"
                  [:l [:tmux-prefix :!Sl] :termemul] ;; tmux prefix + L
@@ -491,7 +492,7 @@
         {:des   "s mode"
          :rules [:s-mode
                  ; [:t [:spacebar :s :t :c] :termemul] ;; vim: search tests for current file
-                 [:f [:tmux-pane-center "lgdiff"] :termemul] ;; tmux: lazygit half screen mode
+                 [:f [:tmux-prefix :tmux-popup-git :l] :termemul] ;; tmux: lazygit half screen mode
                  [:t [:tmux-pane-bottom-60 "txrc"] :termemul] ;; tmux: txrc
                  [:t [:!SCy] :slack] ;; slack: set status
                  [:t [:!SCf] :browser] ;; brower: show/hide toolbar
