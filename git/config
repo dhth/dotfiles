@@ -37,6 +37,8 @@
 	ms = merge --squash
 	s = status -sb
 	sh = show HEAD
+	rb = rebase origin/main
+	rbi = rebase -i origin/main
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore

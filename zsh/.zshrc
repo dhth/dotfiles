@@ -75,6 +75,7 @@ source "$DOT_FILES_DIR/zsh/colors.sh"
 export JUST_SUPPRESS_DOTENV_LOAD_WARNING=1
 
 export DELTA_PAGER='less -R' # so short diffs don't quit
+export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS='1'
 
 # enter vim mode
 bindkey -v

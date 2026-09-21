@@ -2,52 +2,25 @@
 
 set -eu
 
-mkdir -p .plans .references
+mkdir -p .references
 
 if [ -f ".git/info/exclude" ]; then
     cat <<EOF >>.git/info/exclude
-.agents
-.dfftignore
 .fdignore
-.instructions
 .opencode
-.plans
+.context
 .references
-.research
 EOF
 fi
 
 if [ ! -f ".fdignore" ]; then
     touch .fdignore
-    cat <<EOF >.fdignore
-!.agents
-!.dfftignore
-!.fdignore
-!.fdignore
-!.instructions
-!.opencode
-!.plans
-!.references
-!.research
-.plans/**/old
-EOF
-else
-    cat <<EOF >>.fdignore
-!.agents
-!.dfftignore
-!.fdignore
-!.instructions
-!.opencode
-!.plans
-!.references
-!.research
-.plans/**/old
-EOF
 fi
 
-touch .dfftignore
-cat <<EOF >>.dfftignore
-.DS_Store
-.git
-.plans
+cat <<EOF >>.fdignore
+!.fdignore
+!.opencode
+!.context
+!.references
+.context/**/old
 EOF

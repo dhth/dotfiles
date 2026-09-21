@@ -7,5 +7,5 @@ root=${1:-.}
 fd . -ipH -t=f -t=l --base-directory "${root}"
 
 if [ -d "${root}/.context" ]; then
-    fd . -ipHL --max-depth 2 -t=f -t=l --base-directory "${root}" .context
+    fd . -ipHL --max-depth 3 -t=f -t=l --base-directory "${root}" .context
 fi
