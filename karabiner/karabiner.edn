@@ -254,7 +254,7 @@
                  [:j [:tmux-prefix :!Sj] :termemul] ;; tmux: show command picker
                  [:g [:tmux-prefix :tmux-popup-git :g] :termemul] ;; tmux: lazygit
                  [:p [:tmux-prefix :!Sp] :termemul] ;; tmux prefix + P
-                 [:spacebar "tmuxarrange" :termemul] ;; tmuxarrange
+                 [:spacebar [:tmux-prefix :tmux-workspace-nav :q] :termemul] ;; tmux: session picker
                  [:semicolon [:tmux-prefix :semicolon] :termemul] ;; tmux prefix + ;
                  [:h :!SCopen_bracket :browser] ;; chrome previous tab
                  [:l :!SCclose_bracket :browser] ;; chrome next tab
@@ -668,11 +668,11 @@
 
         {:des   "quote mode"
          :rules [:quote-mode
-                 [:a "tswitch 1" :termemul] ;; tsw: go to bookmark 1
-                 [:s "tswitch 2" :termemul] ;; tsw: go to bookmark 2
-                 [:d "tswitch 3" :termemul] ;; tsw: go to bookmark 3
-                 [:f "tswitch 4" :termemul] ;; tsw: go to bookmark 4
-                 [:g "tswitch 5" :termemul] ;; tsw: go to bookmark 5
+                 [:a [:tmux-prefix :tmux-workspace-nav :1] :termemul] ;; tmux: session bookmark 1
+                 [:s [:tmux-prefix :tmux-workspace-nav :2] :termemul] ;; tmux: session bookmark 2
+                 [:d [:tmux-prefix :tmux-workspace-nav :3] :termemul] ;; tmux: session bookmark 3
+                 [:f [:tmux-prefix :tmux-workspace-nav :4] :termemul] ;; tmux: session bookmark 4
+                 [:g [:tmux-prefix :tmux-workspace-nav :5] :termemul] ;; tmux: session bookmark 5
 
                  ; this is mostly for duckyo3m
                  [:b [:alfred "save_tab" "dhth.bookmarks"]] ;; alfred: save browser tab to buku
@@ -737,7 +737,7 @@
                  [:d [:tmux-prefix :3] :termemul] ;; tmux: switch to window: 3
                  [:f [:tmux-prefix :4] :termemul] ;; tmux: switch to window: 4
                  [:g [:tmux-prefix :5] :termemul] ;; tmux: switch to window: 5
-                 [:q [:tmux-prefix :q] :termemul] ;; tmux: shfl sessions
+                 [:q [:tmux-prefix :tmux-workspace-nav :q] :termemul] ;; tmux: session picker
                  [:t [:tmux-prefix :!St] :termemul] ;; tmux: show tash popup
                  [:z [:tmux-prefix :z] :termemul] ;; tmux: prefix + z
                  [:t [:!OSt] :browser] ;; browser: modheader: pause/resume
