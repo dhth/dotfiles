@@ -63,8 +63,8 @@ alias t='ting p $?'
 alias ta='tmux attach'
 alias ticks='jira sprint list --current -q "sprint in openSprints() AND assignee = currentUser()"'
 alias tx='tmuxinator'
-alias v='nvim --cmd "let g:lsp=v:false"'
-alias vv='nvim'
+alias v='nvim'
+alias vv='nvim --cmd "let g:lsp=v:false"'
 alias wl='hours -d "~/.local/share/hours/work.db" -t gruvbox-dark'
 
 export LANG=en_US.UTF-8
