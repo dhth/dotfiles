@@ -33,6 +33,7 @@ tmuxinator = { version = "3.4.1", depends = "ruby" }
 tuicr = "v0.24.0"
 turbolift = "latest"
 uv = "latest"
+workmux = "latest"
 yamlfmt = "latest"
 zls = "0.16.0"
 
