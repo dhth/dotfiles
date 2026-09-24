@@ -3,6 +3,7 @@ min_version = "2026.9.11"
 [tools]
 actionlint = "latest"
 asciinema = "latest"
+aws-cli = { version = "latest", symlink_bins = "true" }
 bat = "latest"
 delta = "latest"
 fd = "latest"

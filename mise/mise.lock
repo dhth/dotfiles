@@ -84,6 +84,30 @@ checksum = "sha256:1b388af0e1566ab19deea663b0ce64730ad46ade2825fadd43cc88f0bd281
 url = "https://github.com/asciinema/asciinema/releases/download/v3.2.1/asciinema-x86_64-apple-darwin"
 url_api = "https://api.github.com/repos/asciinema/asciinema/releases/assets/449290107"
 
+[[tools.aws-cli]]
+version = "2.37.1"
+backend = "aqua:aws/aws-cli"
+specifiers = ["latest"]
+
+[tools.aws-cli."platforms.linux-arm64"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.37.1.zip"
+
+[tools.aws-cli."platforms.linux-arm64-musl"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-aarch64-2.37.1.zip"
+
+[tools.aws-cli."platforms.linux-x64"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.37.1.zip"
+
+[tools.aws-cli."platforms.linux-x64-musl"]
+url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.37.1.zip"
+
+[tools.aws-cli."platforms.macos-arm64"]
+checksum = "blake3:3e93052884b4a2e08f938fcdb04914be33e70524672ad60bbacbcd6a0caec251"
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.37.1.pkg"
+
+[tools.aws-cli."platforms.macos-x64"]
+url = "https://awscli.amazonaws.com/AWSCLIV2-2.37.1.pkg"
+
 [[tools.bat]]
 version = "0.26.1"
 backend = "aqua:sharkdp/bat"
@@ -496,7 +520,7 @@ provenance = "github-attestations"
 [[tools.just]]
 version = "1.58.0"
 backend = "aqua:casey/just"
-specifiers = ["latest" ]
+specifiers = ["latest"]
 
 [tools.just."platforms.linux-arm64"]
 checksum = "sha256:748237128c4c40cbdabc65e841d05ceba13cc23a91eaba395495894c1d9764df"
