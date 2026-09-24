@@ -5,6 +5,7 @@ actionlint = "latest"
 asciinema = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 bat = "latest"
+codex = "latest"
 delta = "latest"
 fd = "latest"
 fzf = "latest"
