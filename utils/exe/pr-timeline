@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if (($# != 2)) || [[ ! ${1:-} =~ ^[^/[:space:]]+/[^/[:space:]]+$ || ! ${2:-} =~ ^[0-9]+$ ]]; then
+    echo "Usage: pr-timeline <owner/repo> <PR number>" >&2
+    exit 1
+fi
+repo="$1"
+pr="$2"
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+
+gh api --paginate "repos/$repo/issues/$pr/comments" | jq -s 'add' >"$tmpdir/comments.json"
+gh api --paginate "repos/$repo/pulls/$pr/reviews" | jq -s 'add' >"$tmpdir/reviews.json"
+gh api --paginate "repos/$repo/pulls/$pr/comments" | jq -s 'add' >"$tmpdir/inline.json"
+gh api --paginate "repos/$repo/issues/$pr/timeline" | jq -s 'add' >"$tmpdir/activity.json"
+
+jq -nr \
+    --slurpfile comments "$tmpdir/comments.json" \
+    --slurpfile reviews "$tmpdir/reviews.json" \
+    --slurpfile inline "$tmpdir/inline.json" \
+    --slurpfile activity "$tmpdir/activity.json" '
+    def location:
+        .path + (if .line != null then ":\(.line)" elif .original_line != null then ":\(.original_line) (original line)" else "" end);
+    def render_body:
+        if (.body // "") != "" then "\n" + .body else "" end;
+    $reviews[0] as $reviews |
+    (reduce $reviews[] as $review ({}; .[$review.id | tostring] = $review)) as $review_by_id |
+    (reduce ($inline[0][] | select(.in_reply_to_id == null)) as $comment
+        ({}; .[$comment.pull_request_review_id | tostring] += [$comment])) as $inline_by_review |
+    [
+        $comments[0][] | {
+            time: .created_at, order: 0, id, author: .user.login,
+            type: "comment", body
+        }
+    ] + [
+        $reviews[] | select(.submitted_at != null) | {
+            time: .submitted_at, order: 1, id, author: .user.login,
+            type: ("review: " + (.state | ascii_downcase | gsub("_"; " "))), body,
+            comments: (($inline_by_review[.id | tostring] // []) | sort_by(.id))
+        }
+    ] + [
+        $inline[0][] |
+        ($review_by_id[.pull_request_review_id | tostring] // null) as $review |
+        select($review == null or $review.submitted_at != null) |
+        select(.in_reply_to_id != null or $review == null) |
+        {
+            time: .created_at,
+            order: 2, id, author: .user.login, type: "inline comment",
+            location: location,
+            body
+        }
+    ] + [
+        $activity[0][] |
+        if .event == "committed" then
+            select(.committer.date != null) | {
+                time: .committer.date, order: 0, id: .sha,
+                author: (.author.name // .committer.name // "unknown"),
+                type: ("commit · " + (.sha[0:7]) + " · " + (.message | split("\n")[0])),
+                body: null
+            }
+        else
+            select(.created_at != null) |
+            (if .event == "assigned" then "assigned " + (.assignee.login // "someone")
+             elif .event == "unassigned" then "unassigned " + (.assignee.login // "someone")
+             elif .event == "review_requested" then "requested review from " + (.requested_reviewer.login // .requested_team.name // "someone")
+             elif .event == "review_request_removed" then "removed review request for " + (.requested_reviewer.login // .requested_team.name // "someone")
+             elif .event == "labeled" then "added label " + (.label.name // "unknown")
+             elif .event == "unlabeled" then "removed label " + (.label.name // "unknown")
+             elif .event == "closed" or .event == "reopened" or .event == "merged" or .event == "ready_for_review" or .event == "convert_to_draft" then .event | gsub("_"; " ")
+             else null end) as $description |
+            select($description != null) | {
+                time: .created_at, order: 0, id: (.id // .node_id),
+                author: (.actor.login // "unknown"), type: $description, body: null
+            }
+        end
+    ] |
+    sort_by(.time, .order, .id) |
+    (if any(.[]; .type | startswith("commit · ")) then
+        "Commit entries use committer dates; these may differ from push times.\n"
+    else empty end),
+    (group_by(.time[0:10])[] |
+     "\(.[0].time[0:10]) (UTC)\n\(map(
+         "\(.time[11:19]) - \(.author) · \(.type)"
+         + (if .location then "\n→ " + .location else "" end)
+         + render_body
+         + ([.comments[]? | "\n\n→ " + location + render_body] | join(""))
+     ) | . as $entries |
+     [range(0; length) as $i |
+         (if $i == 0 then ""
+          elif ($entries[$i - 1] | contains("\n")) or ($entries[$i] | contains("\n")) then "\n\n"
+          else "\n" end) + $entries[$i]
+     ] | join(""))\n")
+'
