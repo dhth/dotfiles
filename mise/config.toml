@@ -2,9 +2,11 @@ min_version = "2026.9.11"
 
 [tools]
 actionlint = "latest"
+amp = { version = "latest", allow_builds = ["@ampcode/cli"] }
 asciinema = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 bat = "latest"
+claude = "latest"
 codex = "latest"
 delta = "latest"
 fd = "latest"
