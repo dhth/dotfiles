@@ -4,22 +4,27 @@ min_version = "2026.9.11"
 run_auto_install = false
 
 [tasks."global-tools:install"]
+alias = "i"
 description = "Install global tools from the committed lockfile"
 run = 'mise -C "$HOME" install --locked'
 
 [tasks."global-tools:lock"]
+alias = "l"
 description = "Update the global lockfile without bumping existing versions"
 run = "mise lock --global"
 
 [tasks."global-tools:bump-lock"]
+alias = "bl"
 description = "Bump fuzzy global tool versions in the lockfile"
 run = "mise lock --global --bump"
 
 [tasks."global-tools:bump-agents"]
+alias = "ba"
 description = "Bump versions for agents in the lockfile"
 run = "mise lock --global --bump amp claude codex opencode pi"
 
 [tasks."global-tools:bump-agents-no-delay"]
+alias = "band"
 description = "Bump agents without any release-age delay"
 run = "mise lock --global --bump --minimum-release-age 0s amp claude codex opencode pi"
 
