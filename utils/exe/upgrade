@@ -3,5 +3,3 @@
 set -euxo pipefail
 
 brew update && brew upgrade --yes
-
-claude update
