@@ -1,5 +1,8 @@
 min_version = "2026.9.11"
 
+[settings.task]
+run_auto_install = false
+
 [tasks."global-tools:install"]
 description = "Install global tools from the committed lockfile"
 run = 'mise -C "$HOME" install --locked'

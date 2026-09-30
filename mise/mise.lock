@@ -51,6 +51,7 @@ provenance = "github-attestations"
 
 [[tools.amp]]
 version = "0.0.1790755245-ga63d10"
+aube = { path = ".mise/locks/amp/0.0.1790755245-ga63d10~23fc35d7", digest = "sha256:a69053a0a86ae8727279b32b64777187f946545a12611b9b0ef522d1134e5b39" }
 backend = "npm:@ampcode/cli"
 specifiers = ["latest"]
 
