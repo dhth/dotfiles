@@ -2,12 +2,24 @@
 
 set -euo pipefail
 
+status=0
 path=$(
-    project-files | fzf --layout=reverse --multi
-)
+    project-files | fzf \
+        --layout=reverse \
+        --multi \
+        --preview 'bat --color=always --paging=never -- {}' \
+        --preview-window 'right:60%' \
+        --bind 'ctrl-o:execute(bat --color=always --paging=always -- {})'
+) || status=$?
+
+case "${status}" in
+0) ;;
+1 | 130) exit 0 ;;
+*) exit "${status}" ;;
+esac
 
 if [ -z "${path}" ]; then
     exit 0
 fi
 
-echo -n "${path}" | pbcopy
+printf '%s' "${path}" | pbcopy

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+fd . --max-depth=1 -t=d \
+    ${PROJECTS_DIR:+"$PROJECTS_DIR"} \
+    ${WORK_DIR:+"$WORK_DIR"} \
+    ${WORK_DIR_2:+"$WORK_DIR_2"} \
+    ${REFERENCES_DIR:+"$REFERENCES_DIR"}

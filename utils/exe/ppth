@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 
-dir=$(fd . --max-depth=1 $PROJECTS_DIR $WORK_DIR $WORK_DIR_2 $REFERENCES_DIR | fzf --layout=reverse)
+set -euo pipefail
+
+if ! dir=$(project-dirs | fzf --layout=reverse --no-multi); then
+    exit 0
+fi
+
 if [ -z "${dir}" ]; then
     exit 0
 fi
 
-path=$(
-    project-files "${dir}" | fzf --layout=reverse --multi
-)
-
-if [ -z "${path}" ]; then
-    exit 0
-fi
-
-echo -n "${path}" | pbcopy
+cd -- "${dir}"
+exec pth
