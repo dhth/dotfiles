@@ -2,10 +2,26 @@
 
 set -euo pipefail
 
-title_filter='#{m|ri:^(cl|cx|oc|am)([[:space:]]*\||$),#{pane_title}}'
+title_filter='#{m|ri:^(cl|cx|oc|am|ag2)([[:space:]]*\||$),#{pane_title}}'
+window_filter='#{m|ri:^(cl|cx|oc|am|ag2)$,#{window_name}}'
 command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
 
-pane_rows=$(tmux list-panes -a -f "#{&&:${title_filter},${command_filter}}" -F '#{pane_id}	#{window_activity}	#{session_name}	#{pane_current_command}	#{pane_title}' | sort -t $'\t' -k2,2nr)
+pane_rows=$(
+    tmux list-panes -a -f "#{&&:#{||:${title_filter},${window_filter}},${command_filter}}" -F '#{pane_id}	#{session_name}	#{pane_title}	#{window_activity}' |
+        sort -t $'\t' -k4,4nr |
+        awk -F '\t' '
+            {
+                title = $3
+                task = ""
+                separator = index(title, "|")
+                if (separator) {
+                    task = substr(title, separator + 1)
+                }
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", task)
+                printf "%s\t%-30.30s%s\n", $1, $2, (task == "" ? "" : "  " task)
+            }
+        '
+)
 
 if [ -z "$pane_rows" ]; then
     exit 0
@@ -17,10 +33,9 @@ selected=$(
             --reverse \
             --style=minimal \
             --no-info \
+            --no-sort \
             --delimiter '\t' \
-            --with-nth=3.. \
-            --header=$'SESSION\tCOMMAND\tTITLE' \
-            --tabstop=16
+            --with-nth=2
 ) || {
     status=$?
     case "$status" in

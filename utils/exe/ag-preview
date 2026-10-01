@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
 
-title_filter='#{m|ri:^(cl|cx|oc|am)([[:space:]]*\||$),#{pane_title}}'
+title_filter='#{m|ri:^(cl|cx|oc|am|ag2)([[:space:]]*\||$),#{pane_title}}'
+window_filter='#{m|ri:^(cl|cx|oc|am|ag2)$,#{window_name}}'
 command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
 
-pane_rows=$(tmux list-panes -a -f "#{&&:${title_filter},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}:#{pane_title}	#{pane_current_command}	#{window_activity}' | sort -t $'\t' -k4,4nr)
+pane_rows=$(
+    tmux list-panes -a -f "#{&&:#{||:${title_filter},${window_filter}},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}	#{pane_title}	#{window_activity}' |
+        sort -t $'\t' -k4,4nr |
+        awk -F '\t' '
+            {
+                title = $3
+                task = ""
+                separator = index(title, "|")
+                if (separator) {
+                    task = substr(title, separator + 1)
+                }
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", task)
+                printf "%s\t%-12.12s%s\n", $1, $2, (task == "" ? "" : "  " task)
+            }
+        '
+)
 
 if [ -z "$pane_rows" ]; then
     exit 0
@@ -13,12 +29,15 @@ selected=$(
     printf '%s\n' "$pane_rows" |
         fzf \
             --reverse \
+            --height=100% \
             --style=minimal \
             --no-info \
+            --no-sort \
             --delimiter '\t' \
             --with-nth=2 \
-            --preview 'tmux capture-pane -e -p -t {1} | tail -n "${FZF_PREVIEW_LINES:-30}"' \
-            --preview-window='up:75%'
+            --bind 'every(1):refresh-preview' \
+            --preview 'tmux capture-pane -e -p -t {1}' \
+            --preview-window='right:80%:border-none:noinfo'
 )
 
 if [ -z "$selected" ]; then
