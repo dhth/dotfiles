@@ -14,6 +14,7 @@ fzf = "latest"
 gh = "latest"
 go = "latest"
 gopls = { version = "latest", depends = "go" }
+granted = "0.38.0"
 hunk = "latest"
 hyperfine = "latest"
 jira = "latest"

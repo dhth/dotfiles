@@ -444,6 +444,46 @@ version = "0.23.0"
 backend = "go:golang.org/x/tools/gopls"
 specifiers = ["latest"]
 
+[[tools.granted]]
+version = "0.38.0"
+backend = "aqua:fwdcloudsec/granted"
+specifiers = ["0.38.0"]
+
+[tools.granted."platforms.linux-arm64"]
+checksum = "sha256:3c27a5740cdcd2b414a70b90cc381eb57323128401e9705ae8587f6df8f8e633"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275666"
+
+[tools.granted."platforms.linux-arm64-musl"]
+checksum = "sha256:3c27a5740cdcd2b414a70b90cc381eb57323128401e9705ae8587f6df8f8e633"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275666"
+
+[tools.granted."platforms.linux-x64"]
+checksum = "sha256:2547cc521f1c932b32d0132b8fd82f43d1880f53a457b17b58b2f27711ed20bc"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275667"
+
+[tools.granted."platforms.linux-x64-musl"]
+checksum = "sha256:2547cc521f1c932b32d0132b8fd82f43d1880f53a457b17b58b2f27711ed20bc"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275667"
+
+[tools.granted."platforms.macos-arm64"]
+checksum = "sha256:cfab086d85baa4177060391d94b6d61ae141dc67659eb7e803ecee4ae4789cf6"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275732"
+
+[tools.granted."platforms.macos-x64"]
+checksum = "sha256:3f7a4649ad3ac6636555a3902eb5876acdc6c93be8be14a5a3a2368e2384f8c9"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275665"
+
+[tools.granted."platforms.windows-x64"]
+checksum = "sha256:0d8be12106ff1de11aa1740a795f060f172ccee04934b21ba44773f274905d2d"
+url = "https://github.com/fwdcloudsec/granted/releases/download/v0.38.0/granted_0.38.0_windows_x86_64.zip"
+url_api = "https://api.github.com/repos/fwdcloudsec/granted/releases/assets/233275659"
+
 [[tools.hunk]]
 version = "0.21.0"
 backend = "aqua:modem-dev/hunk"
