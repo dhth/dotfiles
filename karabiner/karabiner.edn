@@ -442,8 +442,10 @@
                  ; [:u [:alfred "add_quick_url"  "dhth.bookmarks"]]
                  [:u [:tmux-prefix :tmux-popup-tools :q] :termemul] ;; tmux: agent questions
                  [:l [:alfred "quick_url_list"  "dhth.bookmarks"]]
-                 [:k [:!Tx :7] :termemul] ;; opencode: half page up
-                 [:j [:!Tx :8] :termemul] ;; opencode: half page down
+                 ; [:k [:!Tx :7] :termemul] ;; opencode: half page up
+                 ; [:j [:!Tx :8] :termemul] ;; opencode: half page down
+                 [:k :page_up :termemul] ;; termemul: half page up
+                 [:j :page_down :termemul] ;; termemul: half page down
                  ]}
         {:des   "p mode"
          :rules [:p-mode
