@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -ex
+
+tmuxsend --target nvim ':qa'
+tmuxsend --target opencode 'C-c'
