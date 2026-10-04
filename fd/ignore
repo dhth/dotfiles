@@ -1,7 +1,8 @@
-.git
-!local_only*
-node_modules
-!*.env
-!justfile
-!.air.toml
+!.cmds
+!.fdignore
 !.quickrun
+!*.env
+!local_only*
+.context/**/old
+.git
+node_modules

@@ -12,15 +12,3 @@ if [ -f ".git/info/exclude" ]; then
 .references
 EOF
 fi
-
-if [ ! -f ".fdignore" ]; then
-    touch .fdignore
-fi
-
-cat <<EOF >>.fdignore
-!.fdignore
-!.opencode
-!.context
-!.references
-.context/**/old
-EOF
