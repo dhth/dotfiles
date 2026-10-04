@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+set +x
+set -euo pipefail
+
+usage() {
+    printf 'Usage: %s [--json | --help]\n\n' "${0##*/}"
+    printf 'Show an OpenAI usage dashboard, or the original response with --json.\n'
+}
+
+mode=dashboard
+if (($# > 1)); then
+    usage >&2
+    exit 1
+fi
+case "${1:-}" in
+'') ;;
+--json) mode=json ;;
+--help | -h)
+    usage
+    exit 0
+    ;;
+*)
+    usage >&2
+    exit 1
+    ;;
+esac
+
+if ! access_token=$(jq -er '.openai.access | select(type == "string" and length > 0)' \
+    "$HOME/.local/share/opencode/auth.json" 2>/dev/null); then
+    printf "Unable to read the OpenAI access token from opencode's local data.\n" >&2
+    exit 1
+fi
+
+# Pass the header through stdin so the token is not exposed in process arguments.
+response=$(printf 'authorization: Bearer %s\n' "$access_token" |
+    curl -sS --fail --connect-timeout 10 --max-time 30 \
+        'https://chatgpt.com/backend-api/wham/usage' -H @-)
+unset access_token
+
+if [[ "$mode" == json ]]; then
+    jq . <<<"$response"
+    exit 0
+fi
+
+jq -r '
+    def duration:
+        ([., 0] | max | floor) as $seconds
+        | [
+            (if $seconds >= 86400 then "\($seconds / 86400 | floor)d" else empty end),
+            (if ($seconds % 86400 / 3600 | floor) > 0
+             then "\($seconds % 86400 / 3600 | floor)h" else empty end),
+            (if ($seconds % 3600 / 60 | floor) > 0
+             then "\($seconds % 3600 / 60 | floor)m" else empty end)
+        ]
+        | if length == 0 then "<1m" else join(" ") end;
+
+    def window_name:
+        if . == null then "Unknown window"
+        elif . == 604800 then "Weekly"
+        elif . % 3600 == 0 then "\(. / 3600)-hour"
+        else duration
+        end;
+
+    def status:
+        if .limit_reached == true then "LIMIT REACHED"
+        elif .allowed == false then "Usage blocked"
+        elif .allowed == true then "Usage allowed"
+        else "Status unknown"
+        end;
+
+    def bar:
+        ([., 0] | max | [., 100] | min | . / 5 | floor) as $filled
+        | ("█" * $filled) + ("░" * (20 - $filled));
+
+    def usage_summary:
+        if (.used_percent | type) == "number" then
+            "\(.used_percent | bar)  \(.used_percent)% used"
+        else
+            "Usage unknown"
+        end;
+
+    def reset_summary:
+        if .reset_after_seconds == null then "Reset time unknown"
+        else "Resets in \(.reset_after_seconds | duration)"
+        end;
+
+    def windows($prefix):
+        . as $limit
+        | ($limit | status) as $status
+        | [.primary_window, .secondary_window][]
+        | select(. != null)
+        | "\($prefix)\(.limit_window_seconds | window_name)  \(usage_summary)",
+          ("  \(reset_summary)"
+           + (if $status == "LIMIT REACHED" or $status == "Usage blocked"
+              then " · \($status)" else "" end)),
+          "";
+
+    "OpenAI \((.plan_type // "unknown") | ascii_upcase) · \(.rate_limit | status)",
+    "",
+    (.rate_limit | windows("")),
+    (.code_review_rate_limit | select(. != null) | windows("Code review · ")),
+    (.additional_rate_limits[]?
+        | .limit_name as $name
+        | .rate_limit | windows("\($name) · ")),
+    ((.model_usage // {}) | to_entries[]
+        | "\(.key) " + (if .value.available == true then "available"
+                         else "unavailable" end))
+' <<<"$response"
