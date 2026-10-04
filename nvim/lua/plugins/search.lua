@@ -9,59 +9,58 @@ return {
             },
             {
                 "nvim-telescope/telescope-live-grep-args.nvim",
-                -- This will not install any breaking changes.
-                -- For major updates, this must be adjusted manually.
-                version = "^1.0.0",
             },
         },
-        opts = {
-            defaults = {
-                cache_picker = {
-                    num_pickers = 5,
-                    limit_entries = 50,
-                },
-                vimgrep_arguments = {
-                    "rg",
-                    "--hidden",
-                    "--color=never",
-                    "--no-heading",
-                    "--with-filename",
-                    "--line-number",
-                    "--column",
-                    "--smart-case",
-                },
-                prompt_prefix = "> ",
-                selection_caret = "> ",
-                entry_prefix = "  ",
-                initial_mode = "insert",
-                selection_strategy = "reset",
-                sorting_strategy = "descending",
-                layout_strategy = "horizontal",
-                layout_config = {
-                    horizontal = {
-                        mirror = false,
+        opts = function()
+            return {
+                defaults = {
+                    cache_picker = {
+                        num_pickers = 5,
+                        limit_entries = 50,
                     },
-                    vertical = {
-                        mirror = false,
+                    vimgrep_arguments = {
+                        "rg",
+                        "--hidden",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
                     },
-                },
-                file_sorter = require("telescope.sorters").get_fuzzy_file,
-                file_ignore_patterns = {},
-                generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-                winblend = 0,
-                border = {},
-                color_devicons = true,
-                use_less = true,
-                path_display = {},
-                set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-                file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-                grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-                qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+                    prompt_prefix = "> ",
+                    selection_caret = "> ",
+                    entry_prefix = "  ",
+                    initial_mode = "insert",
+                    selection_strategy = "reset",
+                    sorting_strategy = "descending",
+                    layout_strategy = "horizontal",
+                    layout_config = {
+                        horizontal = {
+                            mirror = false,
+                        },
+                        vertical = {
+                            mirror = false,
+                        },
+                    },
+                    file_sorter = require("telescope.sorters").get_fuzzy_file,
+                    file_ignore_patterns = {},
+                    generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+                    winblend = 0,
+                    border = {},
+                    color_devicons = true,
+                    use_less = true,
+                    path_display = {},
+                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+                    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+                    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+                    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 
-                -- Developer configurations: Not meant for general override
-                buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-            },
-        },
+                    -- Developer configurations: Not meant for general override
+                    buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+                },
+            }
+        end,
 
         config = function(_, opts)
             local telescope = require "telescope"
@@ -86,7 +85,7 @@ return {
                 },
             }
 
-            telescope.setup { opts }
+            telescope.setup(opts)
             telescope.load_extension "live_grep_args"
             telescope.load_extension "fzf"
 
