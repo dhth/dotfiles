@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+while true; do
+    clear
+    oai-usage 2>&1 || true
+    # printf '\n────────────────────────────────────────────────────────────\n\n'
+    # ant-usage 2>&1 || true
+    printf '\nr: refresh · q: close\n'
+
+    while true; do
+        IFS= read -rsn 1 key || exit 0
+        case "$key" in
+        r) break ;;
+        q) exit 0 ;;
+        esac
+    done
+done
