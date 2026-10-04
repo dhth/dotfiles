@@ -1,0 +1,2 @@
+# Keep mise/config.toml as machine configuration, not repository configuration.
+override_config_filenames = ["mise.toml"]
