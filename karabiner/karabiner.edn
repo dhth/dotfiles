@@ -235,6 +235,7 @@
         {:des   "a mode"
          :rules [:a-mode
                  [:u [:tmux-prefix :tmux-popup-tools :!Su] :termemul] ;; tmux: AI usage
+                 [:u [:alfred "usage"  "dhth.ai"] :!termemul]  ;; alfred: AI usage
                  [:i [:alfred "open_chatgpt"  "dhth.bookmarks"]]  ;; alfred: bookmarks: open chatgpt
                  [:r [:tmux-prefix :!Sr] :termemul] ;; tmux prefix + R: cmds
                  [:t [:tmux-prefix :!Tf] :termemul] ;; tmux: temporary popup
