@@ -1,0 +1,17 @@
+{
+    "main": {
+        "prefix": ["main"],
+        "body": [
+            "def main(args: Array[String]): Unit = {",
+            "}"
+        ],
+        "description": "Scala main method"
+    },
+    "ec": {
+        "prefix": ["ec"],
+        "body": [
+            "implicit val ec: ExecutionContext = ExecutionContext.global"
+        ],
+        "description": "Global Execution Context"
+    }
+}

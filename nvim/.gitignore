@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+.netrwhist
+plug.vim
+plug.vim.old
+.luarc.json

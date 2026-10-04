@@ -1,7 +1,13 @@
-min_version = "2026.9.11"
+min_version = "2026.10.1"
+monorepo_root = true
 
-[settings.task]
-run_auto_install = false
+[monorepo]
+config_roots = ["nvim"]
+lockfile = true
+
+[settings]
+exec_auto_install = false
+task.run_auto_install = false
 
 [tasks."global-tools:install"]
 alias = "i"

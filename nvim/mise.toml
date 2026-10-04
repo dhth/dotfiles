@@ -1,0 +1,12 @@
+[tools]
+lua-language-server = "latest"
+stylua = "latest"
+
+[tasks.format]
+alias = "f"
+description = "Format Lua files"
+run = "stylua init.lua lua"
+
+[tasks.check]
+description = "Check Lua formatting without changing files"
+run = "stylua --check init.lua lua"
