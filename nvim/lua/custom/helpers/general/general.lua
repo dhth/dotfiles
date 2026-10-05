@@ -1,10 +1,10 @@
 local M = {}
 
 function M.new_scratch_buffer()
-    vim.cmd "execute 'vnew '"
-    vim.cmd "setlocal buftype=nofile"
-    vim.cmd "setlocal bufhidden=hide"
-    vim.cmd "setlocal noswapfile"
+    vim.cmd.vnew()
+    vim.bo.buftype = "nofile"
+    vim.bo.bufhidden = "hide"
+    vim.bo.swapfile = false
 end
 
 function M.quit_vim()

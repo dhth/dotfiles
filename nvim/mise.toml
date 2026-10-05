@@ -5,8 +5,8 @@ stylua = "latest"
 [tasks.format]
 alias = "f"
 description = "Format Lua files"
-run = "stylua init.lua lua"
+run = "stylua init.lua lua ftplugin"
 
 [tasks.check]
 description = "Check Lua formatting without changing files"
-run = "stylua --check init.lua lua"
+run = "stylua --check init.lua lua ftplugin"

@@ -3,11 +3,11 @@ NOREMAP_SILENT("n", "<esc>", "<NOP>")
 --- inserts a date using external command completion
 NOREMAP_SILENT("n", "<Leader>da", [[idate +%Y-%m-%d!!bash<CR>]])
 
-NOREMAP_SILENT(
-    "n",
-    "<Leader>vn",
-    ":vnew | setlocal buftype=nofile | setlocal nobuflisted<CR>"
-)
+NOREMAP_SILENT("n", "<Leader>vn", function()
+    vim.cmd.vnew()
+    vim.bo.buftype = "nofile"
+    vim.bo.buflisted = false
+end)
 
 NOREMAP_SILENT("n", "<Leader>vs", ":vsplit<CR>")
 
@@ -66,22 +66,17 @@ NOREMAP_SILENT("t", "<c-e>", [[<C-\><C-n>:bd!<CR>]])
 
 NOREMAP_SILENT("n", "<leader>d", '"_d')
 NOREMAP_SILENT("v", "<leader>d", '"_d')
-NOREMAP_SILENT("n", "<leader>js", ":set ft=json<CR>")
-NOREMAP_SILENT(
-    "n",
-    "<leader>gi",
-    ":vsplit .git/info/exclude | setlocal bufhidden=wipe<CR>"
-)
+NOREMAP_SILENT("n", "<leader>js", function()
+    vim.bo.filetype = "json"
+end)
+NOREMAP_SILENT("n", "<leader>gi", function()
+    vim.cmd.vsplit ".git/info/exclude"
+    vim.bo.bufhidden = "wipe"
+end)
 
-vim.api.nvim_set_keymap(
-    "n",
-    "j",
-    'v:count == 0 ? "gj" : "j"',
-    { noremap = true, expr = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "k",
-    'v:count == 0 ? "gk" : "k"',
-    { noremap = true, expr = true, silent = true }
-)
+vim.keymap.set("n", "j", function()
+    return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, silent = true })
+vim.keymap.set("n", "k", function()
+    return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, silent = true })

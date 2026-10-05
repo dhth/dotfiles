@@ -2,26 +2,19 @@ return {
     {
         "mcchrish/nnn.vim",
         init = function()
-            vim.cmd [[
-" Disable default mappings
-let g:nnn#set_default_mappings = 0
+            vim.g["nnn#set_default_mappings"] = 0
+            vim.g["nnn#layout"] = "vnew"
+            vim.g["nnn#action"] = {
+                ["<c-t>"] = "tab split",
+                ["<c-x>"] = "split",
+                ["<c-v>"] = "vsplit",
+            }
+            vim.g["nnn#command"] = 'VISUAL="vi -u NONE" nnn'
 
-" Floating window (neovim latest and vim with patch 8.2.191)
-" let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Comment' } }
-let g:nnn#layout = 'vnew'
-" let g:nnn#explorer_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Comment' } }
-
-let g:nnn#action = {
-      \ '<c-t>': 'tab split',
-      \ '<c-x>': 'split',
-      \ '<c-v>': 'vsplit' }
-
-nnoremap <silent> <C-e> :NnnPicker %:p:h<CR>
-nnoremap <silent> e<C-e> :NnnPicker<CR>
-
-let g:nnn#command = 'VISUAL="vi -u NONE" nnn'
-
-]]
+            vim.keymap.set("n", "<C-e>", ":NnnPicker %:p:h<CR>", {
+                silent = true,
+            })
+            vim.keymap.set("n", "e<C-e>", ":NnnPicker<CR>", { silent = true })
         end,
     },
 }

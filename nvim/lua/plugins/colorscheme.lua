@@ -21,15 +21,23 @@ return {
             }
             vim.cmd [[colorscheme gruvbox]]
 
-            vim.api.nvim_exec(
-                [[
-  hi DiffAdd      gui=none    guifg=#1F2F38          guibg=#84B97C
-  hi DiffChange   gui=none    guifg=none             guibg=none
-  hi DiffDelete   gui=bold    guifg=#1F2F38          guibg=#DC657D
-  hi DiffText     gui=bold    guifg=#1F2F38          guibg=#D4B261
-]],
-                false
-            )
+            vim.api.nvim_set_hl(0, "DiffAdd", {
+                fg = "#1F2F38",
+                bg = "#84B97C",
+            })
+            vim.api.nvim_set_hl(0, "DiffChange", {})
+            vim.api.nvim_set_hl(0, "DiffDelete", {
+                bold = true,
+                cterm = {},
+                fg = "#1F2F38",
+                bg = "#DC657D",
+            })
+            vim.api.nvim_set_hl(0, "DiffText", {
+                bold = true,
+                cterm = {},
+                fg = "#1F2F38",
+                bg = "#D4B261",
+            })
         end,
     },
 }

@@ -246,7 +246,7 @@ function M.reload_module()
 
     local module_name = SPLIT_STRING(module_name_till_end, ".lua")[1]
 
-    vim.cmd('lua R("' .. module_name .. '")')
+    R(module_name)
     print("reloaded " .. module_name .. " ⚡️")
 end
 
@@ -276,7 +276,7 @@ function M.reload_selected_module()
                 actions.select_default:replace(function()
                     actions.close(prompt_bufnr)
                     local selection = action_state.get_selected_entry()
-                    vim.cmd('lua R("dhth.' .. selection.value .. '")')
+                    R("dhth." .. selection.value)
                     print("reloaded dhth." .. selection.value .. " ⚡️")
                 end)
                 return true
@@ -313,7 +313,7 @@ end
 -- and formats its using an external formatting tool (eg. jq). It then
 -- highlights the newly formatted code block for a short duration (using
 -- M.highlight_range).
--- Highlight defined here: ../../../general/highlights.vim
+-- Highlight defined here: ../../../config/settings.lua
 function M.format_code_block()
     local filetype = vim.bo.filetype
     local current_line = vim.fn.line "."
@@ -389,7 +389,7 @@ function M.format_code_block()
 end
 
 function M.add_link_to_md()
-    local clipboard_contents = vim.api.nvim_exec("echo getreg('*')", true)
+    local clipboard_contents = vim.fn.getreg "*"
 
     if string.find(clipboard_contents, "\n") then
         print "Clipboard contains multiple lines"
@@ -439,9 +439,9 @@ function M.dstll()
     local file_type = vim.bo.filetype
 
     vim.cmd "vnew"
-    vim.cmd "setlocal buftype=nofile"
-    vim.cmd("setlocal filetype=" .. file_type)
-    vim.cmd "setlocal nobuflisted"
+    vim.bo.buftype = "nofile"
+    vim.bo.filetype = file_type
+    vim.bo.buflisted = false
 
     local bufnr = vim.fn.bufnr "%"
 
