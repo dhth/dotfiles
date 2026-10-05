@@ -1,0 +1,28 @@
+[push]
+	default = simple
+    autosetupremote = true
+[pull]
+	ff = only
+	default = current
+[alias]
+    l = log  \
+        --color \
+        --graph \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+        --abbrev-commit
+    la = l  \
+        --all
+    lnb = l \
+        --perl-regexp --author='^(?!.*dependabot\\[bot\\])'
+	d = diff
+	f = fetch
+	ds = diff --staged
+	p = pull
+	c = clone
+	cb = checkout -b
+	cp = cherry-pick
+	ms = merge --squash
+	s = status -sb
+	sh = show HEAD
+	rb = rebase origin/main
+	rbi = rebase -i origin/main

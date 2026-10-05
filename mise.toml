@@ -9,6 +9,30 @@ lockfile = true
 exec_auto_install = false
 task.run_auto_install = false
 
+[tools]
+shfmt = "latest"
+cljfmt = "latest"
+
+[tool_alias]
+cljfmt = "github:weavejester/cljfmt"
+
+[tasks."fmt"]
+alias = "f"
+description = "Format files"
+run = [
+    { tasks = ["fmt:sh", "fmt:edn", "//nvim:fmt"] },
+]
+
+[tasks."fmt:sh"]
+description = "Format sh files"
+run = "shfmt -i 4 -w $(git ls-files '*.sh') utils/exe"
+
+[tasks."fmt:edn"]
+description = "Format karabiner.edn"
+run = '''
+cljfmt fix karabiner/karabiner.edn
+'''
+
 [tasks."global-tools:install"]
 alias = "i"
 description = "Install global tools from the committed lockfile"
