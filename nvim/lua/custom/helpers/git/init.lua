@@ -388,7 +388,7 @@ function M.show_diff_in_window()
                 actions.select_default:replace(function()
                     actions.close(prompt_bufnr)
                     local selection = action_state.get_selected_entry()
-                    vim.opt.filetype = selection.value
+                    vim.bo.filetype = selection.value
                     vim.cmd "windo diffthis"
                 end)
                 return true

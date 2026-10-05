@@ -67,7 +67,7 @@ NOREMAP_SILENT("t", "<c-e>", [[<C-\><C-n>:bd!<CR>]])
 NOREMAP_SILENT("n", "<leader>d", '"_d')
 NOREMAP_SILENT("v", "<leader>d", '"_d')
 NOREMAP_SILENT("n", "<leader>js", function()
-    vim.opt.filetype = "json"
+    vim.bo.filetype = "json"
 end)
 NOREMAP_SILENT("n", "<leader>gi", function()
     vim.cmd.vsplit ".git/info/exclude"
