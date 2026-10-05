@@ -1,4 +1,9 @@
 [dotfiles]
 "~/.config/mise" = { source = ".", mode = "symlink" }
-"~/.config/git" = { source = "../git", mode = "symlink" }
+"~/.config/git" = { source = "../git-orb", mode = "symlink" }
 "~/.config/lazygit" = { source = "../lazygit", mode = "symlink" }
+
+[shell_alias]
+g = "git"
+lg = "lazygit"
+v = "vim"
