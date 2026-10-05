@@ -73,15 +73,9 @@ NOREMAP_SILENT(
     ":vsplit .git/info/exclude | setlocal bufhidden=wipe<CR>"
 )
 
-vim.api.nvim_set_keymap(
-    "n",
-    "j",
-    'v:count == 0 ? "gj" : "j"',
-    { noremap = true, expr = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "k",
-    'v:count == 0 ? "gk" : "k"',
-    { noremap = true, expr = true, silent = true }
-)
+vim.keymap.set("n", "j", function()
+    return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, silent = true })
+vim.keymap.set("n", "k", function()
+    return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, silent = true })

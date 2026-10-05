@@ -7,25 +7,19 @@ return {
                 local function map(mode, lhs, rhs, opts)
                     opts = vim.tbl_extend(
                         "force",
-                        { noremap = true, silent = true },
+                        { buffer = bufnr, silent = true },
                         opts or {}
                     )
-                    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+                    vim.keymap.set(mode, lhs, rhs, opts)
                 end
 
                 -- Navigation
-                map(
-                    "n",
-                    "]c",
-                    "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-                    { expr = true }
-                )
-                map(
-                    "n",
-                    "[c",
-                    "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-                    { expr = true }
-                )
+                map("n", "]c", function()
+                    return vim.wo.diff and "]c" or "<cmd>Gitsigns next_hunk<CR>"
+                end, { expr = true })
+                map("n", "[c", function()
+                    return vim.wo.diff and "[c" or "<cmd>Gitsigns prev_hunk<CR>"
+                end, { expr = true })
 
                 -- Actions
                 map("n", "<leader>rh", ":Gitsigns reset_hunk<CR>")

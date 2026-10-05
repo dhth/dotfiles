@@ -8,7 +8,7 @@ return {
         "azabiong/vim-highlighter",
         event = "InsertEnter",
         init = function()
-            vim.cmd [[let HiClear = 'ff<BS>']]
+            vim.g.HiClear = "ff<BS>"
         end,
     },
     {
@@ -63,7 +63,7 @@ return {
             { "godlygeek/tabular" },
         },
         init = function()
-            vim.cmd [[let g:vim_markdown_folding_disabled = 1]]
+            vim.g.vim_markdown_folding_disabled = 1
         end,
     },
     {

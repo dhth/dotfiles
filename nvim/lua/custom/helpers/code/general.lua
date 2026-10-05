@@ -313,7 +313,7 @@ end
 -- and formats its using an external formatting tool (eg. jq). It then
 -- highlights the newly formatted code block for a short duration (using
 -- M.highlight_range).
--- Highlight defined here: ../../../general/highlights.vim
+-- Highlight defined here: ../../../config/settings.lua
 function M.format_code_block()
     local filetype = vim.bo.filetype
     local current_line = vim.fn.line "."
