@@ -1199,7 +1199,7 @@ url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/534119909"
 
 [[tools.terminal-control-darwin]]
 version = "1.2.1"
-aube = { path = "locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
+aube = { path = ".mise/locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
 backend = "npm:@kitlangton/terminal-control-darwin-arm64"
 specifiers = ["1.2.1"]
 
