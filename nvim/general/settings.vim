@@ -17,7 +17,6 @@ set smartindent
 set number relativenumber
 set wrap
 set linebreak
-set textwidth=120
 set wrapmargin=0
 set smartcase
 set noswapfile
@@ -69,23 +68,9 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 5000)
 augroup END
 
-autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
-" there are some defaults for image directory and image name, you can change them
-let g:mdip_imgdir = 'assets'
-let g:mdip_imgname = 'img'
-
 " https://salferrarello.com/vim-close-all-buffers-except-the-current-one/
 "command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " auto clean fugitive buffers
 " from http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 "autocmd BufReadPost fugitive://* set bufhidden=delete
-
-set rtp+=/usr/local/opt/fzf
-
-let g:markdown_fenced_languages = ['javascript', 'js=javascript', 'json=javascript']
-
-" enables list items to be used with gq
-autocmd FileType markdown set formatoptions-=q
-
-autocmd BufRead,BufNewFile *.purs set filetype=purescript
