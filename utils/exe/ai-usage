@@ -5,8 +5,8 @@ set -euo pipefail
 while true; do
     clear
     oai-usage 2>&1 || true
-    # printf '\n────────────────────────────────────────────────────────────\n\n'
-    # ant-usage 2>&1 || true
+    printf '\n────────────────────────────────────────────────────────────\n\n'
+    ant-usage 2>&1 || true
     printf '\nr: refresh · q: close\n'
 
     while true; do
