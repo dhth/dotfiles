@@ -1,6 +1,7 @@
 [tools]
 lua-language-server = "latest"
 stylua = "latest"
+tree-sitter = "latest"
 
 [tasks.fmt]
 alias = "f"
