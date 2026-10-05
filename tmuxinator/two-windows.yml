@@ -25,6 +25,4 @@ windows:
         - sh:
   - oc:
       panes:
-        - main:
-          - sleep 1 && tmux resize-pane -Z && clear
-        - spare:
+        - sh:
