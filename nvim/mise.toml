@@ -2,11 +2,11 @@
 lua-language-server = "latest"
 stylua = "latest"
 
-[tasks.format]
+[tasks.fmt]
 alias = "f"
 description = "Format Lua files"
 run = "stylua init.lua lua"
 
-[tasks.check]
+[tasks."fmt:check"]
 description = "Check Lua formatting without changing files"
 run = "stylua --check init.lua lua"

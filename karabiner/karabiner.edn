@@ -639,8 +639,7 @@
                  [:##k :!TOCup_arrow]
                  ; [:left_shift [:spacebar :equal_sign :spacebar]]]}
                  [:left_shift [:tmux-prefix :tmux-popup-tools :k] :termemul] ;; tmux: bookmark switch
-                ]
-        }
+                 ]}
         {:des   "caps_lock mode"
          :rules [:caps-lock-mode
                  [:##h :left_arrow]
@@ -848,11 +847,9 @@
                  [:##right_shift :##right_shift nil {:alone :!TSCm}]  ;; jetbrains: open context menu
                  ]}
         {:des "right-option"
-         :rules [
-         [:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
-         [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
-                 ]
-         }
+         :rules [[:##right_control :right_control :!apple {:alone [:open-a "Slack"]}] ;; replaceable-right-control-app-non-apple
+                 [:##right_option :right_option :apple {:alone [:open-a "Slack"]}] ;; replaceable-right-option-app-apple
+                 ]}
         {:des "slack"
          :rules [:slack
                  [:##left_shift :##left_shift nil {:alone [:km "slack: messages sent to me"]}] ;; slack: message sent to me

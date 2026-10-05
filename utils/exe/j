@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ -f mise.toml ]]; then
-    if (( $# > 0 )); then
+    if (($# > 0)); then
         exec mise run "$@"
     fi
 
