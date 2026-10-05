@@ -2,6 +2,46 @@
 
 lockfile_version = 3
 
+[[tools.cljfmt]]
+version = "0.16.6"
+backend = "github:weavejester/cljfmt"
+specifiers = ["latest"]
+
+[tools.cljfmt."platforms.linux-arm64"]
+checksum = "sha256:ecda99b7270daa649ef0bfc01f15e73201e87917940642fde132ce8fc589bace"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-linux-aarch64.tar.gz"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873434"
+
+[tools.cljfmt."platforms.linux-arm64-musl"]
+checksum = "sha256:ecda99b7270daa649ef0bfc01f15e73201e87917940642fde132ce8fc589bace"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-linux-aarch64.tar.gz"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873434"
+
+[tools.cljfmt."platforms.linux-x64"]
+checksum = "sha256:39db2aaa1eacdbae6a555d29df9b499727717c9e000c12403d70c5d8b3f34237"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873431"
+
+[tools.cljfmt."platforms.linux-x64-musl"]
+checksum = "sha256:39db2aaa1eacdbae6a555d29df9b499727717c9e000c12403d70c5d8b3f34237"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-linux-amd64.tar.gz"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873431"
+
+[tools.cljfmt."platforms.macos-arm64"]
+checksum = "sha256:6c357434d2c1f4d46e1f54d1c2954cb3d2f65cc158fcd3df91bc4f0231fa19bf"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-darwin-aarch64.tar.gz"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873425"
+
+[tools.cljfmt."platforms.macos-x64"]
+checksum = "sha256:8b25e8b1b510b39a596ab5c71dd576c592d3b0553e5cfd42a91ae775410bb6f9"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-standalone.jar"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873439"
+
+[tools.cljfmt."platforms.windows-x64"]
+checksum = "sha256:af1683de8de986d118677be775f8317f36ce435910fb555e69c33381dcbdcd80"
+url = "https://github.com/weavejester/cljfmt/releases/download/0.16.6/cljfmt-0.16.6-win-amd64.zip"
+url_api = "https://api.github.com/repos/weavejester/cljfmt/releases/assets/586873432"
+
 [[tools.lua-language-server]]
 version = "3.19.1"
 backend = "aqua:LuaLS/lua-language-server"
@@ -41,6 +81,46 @@ url_api = "https://api.github.com/repos/LuaLS/lua-language-server/releases/asset
 checksum = "sha256:fdb9a59108cf62517813c97fa5549b0e16d1ef0688306bac728b08434db7e4cd"
 url = "https://github.com/LuaLS/lua-language-server/releases/download/3.19.1/lua-language-server-3.19.1-win32-x64.zip"
 url_api = "https://api.github.com/repos/LuaLS/lua-language-server/releases/assets/513572668"
+
+[[tools.shfmt]]
+version = "3.14.1"
+backend = "aqua:mvdan/sh"
+specifiers = ["latest"]
+
+[tools.shfmt."platforms.linux-arm64"]
+checksum = "sha256:5f2db09dae91fca848f7adbdd014632e921a383863a2ad7e0450ad3aba0c6489"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_linux_arm64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320869"
+
+[tools.shfmt."platforms.linux-arm64-musl"]
+checksum = "sha256:5f2db09dae91fca848f7adbdd014632e921a383863a2ad7e0450ad3aba0c6489"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_linux_arm64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320869"
+
+[tools.shfmt."platforms.linux-x64"]
+checksum = "sha256:76e77641faa025814b77f153b29796b8e6fa2fca03e0c76a691608b86c7ea7bf"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_linux_amd64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320883"
+
+[tools.shfmt."platforms.linux-x64-musl"]
+checksum = "sha256:76e77641faa025814b77f153b29796b8e6fa2fca03e0c76a691608b86c7ea7bf"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_linux_amd64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320883"
+
+[tools.shfmt."platforms.macos-arm64"]
+checksum = "sha256:b7c872db63553ccffc7253aba3ed7d4885a27d83f1ba567b1138c6315a5847e5"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_darwin_arm64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320930"
+
+[tools.shfmt."platforms.macos-x64"]
+checksum = "sha256:d33eee0da0f92835b3562e9767a05cee7e4eaeef47daa03bfd09da17b4b590a6"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_darwin_amd64"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320946"
+
+[tools.shfmt."platforms.windows-x64"]
+checksum = "sha256:13629ce28442ca80b6b5a819f7574ab39e1c28c6e26734ca816c9714e04851df"
+url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_windows_amd64.exe"
+url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320827"
 
 [[tools.stylua]]
 version = "2.5.2"

@@ -1,0 +1,4 @@
+[dotfiles]
+"~/.config/mise" = { source = ".", mode = "symlink" }
+"~/.config/git" = { source = "../git", mode = "symlink" }
+"~/.config/lazygit" = { source = "../lazygit", mode = "symlink" }
