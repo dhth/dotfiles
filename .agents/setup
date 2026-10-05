@@ -6,5 +6,7 @@ curl -fsSL https://mise.run/bash | sh
 
 "$HOME/.local/bin/mise" trust
 "$HOME/.local/bin/mise" -E orb bootstrap --only dotfiles --yes
+git config --global --fixed-value --replace-all \
+    include.path '~/.config/git/preferences' '~/.config/git/preferences'
 "$HOME/.local/bin/mise" -C "$HOME" install --locked jq lazygit shfmt
 "$HOME/.local/bin/mise" install --locked shfmt cljfmt
