@@ -10,8 +10,10 @@ exec_auto_install = false
 task.run_auto_install = false
 
 [tools]
+actionlint = "latest"
 shfmt = "latest"
 cljfmt = "latest"
+yamlfmt = "latest"
 
 [tool_alias]
 cljfmt = "github:weavejester/cljfmt"
@@ -23,14 +25,46 @@ run = [
     { tasks = ["fmt:sh", "fmt:edn", "//nvim:fmt"] },
 ]
 
+[tasks."fmt:check"]
+alias = "fc"
+description = "Check file formatting without changing files"
+run = [
+    { tasks = ["fmt:check:sh", "fmt:check:edn", "//nvim:fmt:check"] },
+]
+
 [tasks."fmt:sh"]
 description = "Format sh files"
 run = "shfmt -i 4 -w $(git ls-files '*.sh') utils/exe"
+
+[tasks."fmt:check:sh"]
+description = "Check sh formatting without changing files"
+run = "shfmt -i 4 -d $(git ls-files '*.sh') utils/exe"
 
 [tasks."fmt:edn"]
 description = "Format karabiner.edn"
 run = '''
 cljfmt fix karabiner/karabiner.edn
+'''
+
+[tasks."fmt:check:edn"]
+description = "Check karabiner.edn formatting without changing files"
+run = "cljfmt check karabiner/karabiner.edn"
+
+[tasks."lint:actions"]
+description = "Lint GitHub Actions workflows"
+run = "actionlint"
+
+[tasks."lint:yaml"]
+description = "Lint YAML files"
+run = '''
+# These tmuxinator templates contain Ruby ERB control blocks, not plain YAML.
+yamlfmt \
+    -lint \
+    -quiet \
+    -formatter 'retain_line_breaks_single=true' \
+    -exclude tmuxinator/scala-proj.yml \
+    -exclude tmuxinator/two-windows.yml \
+    $(git ls-files '*.yml' '*.yaml')
 '''
 
 [tasks."global-tools:install"]
