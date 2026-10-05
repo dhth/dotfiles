@@ -4,9 +4,9 @@ gui:
   language: 'auto' # one of 'auto' | 'en' | 'pl' | 'nl' | 'de' | 'tr'
   theme:
     activeBorderColor:
-    - green
-    - bold
+      - green
+      - bold
     inactiveBorderColor:
-    - white
+      - white
     optionsTextColor:
-    - blue
+      - blue
