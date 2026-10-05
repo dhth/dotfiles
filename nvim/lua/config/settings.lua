@@ -45,9 +45,6 @@ vim.opt.fillchars:append { vert = " " }
 vim.opt.foldlevelstart = 99
 vim.opt.hlsearch = false
 
--- The legacy yank callback is deferred from this partial migration.
-vim.cmd "source $HOME/.config/nvim/general/settings.vim"
-
 vim.api.nvim_set_hl(0, "FlashRangeHighlight", {
     fg = "white",
     bg = "red",

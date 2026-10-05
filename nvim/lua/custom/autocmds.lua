@@ -5,6 +5,15 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     end,
 })
 
+local highlight_yank_group =
+    vim.api.nvim_create_augroup("highlight_yank", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = highlight_yank_group,
+    callback = function()
+        vim.hl.on_yank { higroup = "IncSearch", timeout = 5000 }
+    end,
+})
+
 -- HOCON support for scala conf files
 -- https://github.com/antosha417/tree-sitter-hocon
 -- https://github.com/lightbend/config/blob/main/HOCON.md
