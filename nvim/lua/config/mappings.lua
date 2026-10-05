@@ -44,7 +44,6 @@ map("n", "<Down>", ":resize -2<CR>")
 map("i", "<C-l>", "<C-o>a")
 
 map("n", "<leader>ct", ":silent !cat % | pbcopy<CR>", { silent = true })
-map("n", "<leader>dc", ":call helpers#DiffWithCommit()<CR>")
 map("n", "<leader><leader>", ":noh<CR>", { silent = true })
 map("n", "<leader>cb", ":verbose nmap <lt>leader>")
 map("n", "gp", "`[v`]")
