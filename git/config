@@ -1,61 +1,20 @@
 # Resources
 # - https://micahkepe.com/blog/gitconfig/
 
+[include]
+    path = ~/.config/git/preferences
 [user]
 	name = Dhruv Thakur
 	email = dhruvt93@gmail.com
-[push]
-	default = simple
-    autosetupremote = true
-[pull]
-	ff = only
-	default = current
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[init]
-	defaultBranch = main
-[alias]
-    l = log  \
-        --color \
-        --graph \
-        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
-        --abbrev-commit
-    la = l  \
-        --all
-    lnb = l \
-        --perl-regexp --author='^(?!.*dependabot\\[bot\\])'
-	d = diff
-	f = fetch
-	ds = diff --staged
-	p = pull
-	c = clone
-	cb = checkout -b
-	cp = cherry-pick
-	ms = merge --squash
-	s = status -sb
-	sh = show HEAD
-	rb = rebase origin/main
-	rbi = rebase -i origin/main
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
     pager = delta
-    whitespace = trailing-space
-[color]
-	ui = true
-[diff]
-	renames = copies
-    colorMoved = default
-	algorithm = histogram
-	context = 10
-[help]
-	autocorrect = prompt
-[merge]
-	log = true
-	conflictStyle = zdiff3
 [interactive]
     diffFilter = delta --color-only
 [delta]
@@ -81,17 +40,9 @@
 [split-diffs]
 	min-line-width = 0
 	theme-name = light
-[rebase]
-	autostash = true
 [commit]
-	verbose = true
 	gpgsign = true
-[branch]
-	sort = -committerdate
-[tag]
-	sort = -version:refname
 [fetch]
-	prune = true
 	prunetags = true
 [maintenance]
     auto = true

@@ -1,9 +1,11 @@
 [push]
 	default = simple
-    autosetupremote = true
+	autosetupremote = true
 [pull]
 	ff = only
 	default = current
+[init]
+	defaultBranch = main
 [alias]
     l = log  \
         --color \
@@ -26,3 +28,27 @@
 	sh = show HEAD
 	rb = rebase origin/main
 	rbi = rebase -i origin/main
+[core]
+	whitespace = trailing-space
+[color]
+	ui = true
+[diff]
+	renames = copies
+	colorMoved = default
+	algorithm = histogram
+	context = 10
+[help]
+	autocorrect = prompt
+[merge]
+	log = true
+	conflictStyle = zdiff3
+[rebase]
+	autostash = true
+[commit]
+	verbose = true
+[branch]
+	sort = -committerdate
+[tag]
+	sort = -version:refname
+[fetch]
+	prune = true
