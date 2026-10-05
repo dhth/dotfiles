@@ -1197,6 +1197,30 @@ checksum = "sha256:6738a3e155fbfec3bedc70962f9cd1610197587a43b5d7100f405239d8e11
 url = "https://github.com/mvdan/sh/releases/download/v3.14.0/shfmt_v3.14.0_windows_amd64.exe"
 url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/534119909"
 
+[[tools.terminal-control-darwin]]
+version = "1.2.1"
+aube = { path = "locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
+backend = "npm:@kitlangton/terminal-control-darwin-arm64"
+specifiers = ["1.2.1"]
+
+[[tools.terminal-control-linux]]
+version = "1.2.1-r1"
+backend = "github:dhth/terminal-control"
+specifiers = ["1.2.1-r1"]
+
+[tools.terminal-control-linux.options]
+version_prefix = "musl-v"
+
+[tools.terminal-control-linux."platforms.linux-x64"]
+checksum = "sha256:729a1b1637901ba52504ce31d88b7676ca0a6770acb0a5b77cd913c1cc58ad4b"
+url = "https://github.com/dhth/terminal-control/releases/download/musl-v1.2.1-r1/termctrl-1.2.1-linux-x86_64-musl.tar.gz"
+url_api = "https://api.github.com/repos/dhth/terminal-control/releases/assets/613152665"
+
+[tools.terminal-control-linux."platforms.linux-x64-musl"]
+checksum = "sha256:729a1b1637901ba52504ce31d88b7676ca0a6770acb0a5b77cd913c1cc58ad4b"
+url = "https://github.com/dhth/terminal-control/releases/download/musl-v1.2.1-r1/termctrl-1.2.1-linux-x86_64-musl.tar.gz"
+url_api = "https://api.github.com/repos/dhth/terminal-control/releases/assets/613152665"
+
 [[tools.tmux]]
 version = "3.6b"
 backend = "aqua:tmux/tmux-builds"

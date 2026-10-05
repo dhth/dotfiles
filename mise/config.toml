@@ -87,6 +87,8 @@ ripgrep = "latest"
 ruby = "4.0.6"
 shellcheck = "latest"
 shfmt = "latest"
+terminal-control-darwin = { version = "1.2.1", os = ["macos/arm64"] }
+terminal-control-linux = { version = "1.2.1-r1", version_prefix = "musl-v", os = ["linux/x64"] }
 tmux = "3.6b"
 tmuxinator = { version = "3.4.1", depends = "ruby" }
 tuicr = "v0.24.0"
@@ -115,6 +117,8 @@ goku = "http:goku"
 gopls = "go:golang.org/x/tools/gopls"
 jira = "github:ankitpokhrel/jira-cli"
 mdserve = "github:jfernandez/mdserve"
+terminal-control-darwin = "npm:@kitlangton/terminal-control-darwin-arm64"
+terminal-control-linux = "github:dhth/terminal-control"
 tmuxinator = "gem:tmuxinator"
 tuicr = "github:agavra/tuicr"
 turbolift = "github:Skyscanner/turbolift"
