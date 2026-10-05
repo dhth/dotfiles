@@ -25,10 +25,7 @@ run = [
 
 [tasks."fmt:sh"]
 description = "Format sh files"
-run = '''
-shfmt -i 4 -w $(git ls-files '**.sh')
-shfmt -i 4 -w utils/exe/**
-'''
+run = "shfmt -i 4 -w $(git ls-files '*.sh') utils/exe"
 
 [tasks."fmt:edn"]
 description = "Format karabiner.edn"
