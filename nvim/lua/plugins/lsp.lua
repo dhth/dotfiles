@@ -1,5 +1,5 @@
-if vim.g.lsp ~= true then
-    return {}
+local function lsp_enabled()
+    return vim.g.lsp == true
 end
 
 local function lsp_on_attach(args)
@@ -121,6 +121,7 @@ end
 return {
     {
         "folke/lazydev.nvim",
+        cond = lsp_enabled,
         ft = "lua",
         opts = {
             library = {
@@ -130,6 +131,7 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        cond = lsp_enabled,
         config = function()
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
@@ -252,9 +254,11 @@ return {
     },
     {
         "scalameta/nvim-metals",
+        cond = lsp_enabled,
         dependencies = {
             {
                 "j-hui/fidget.nvim",
+                cond = lsp_enabled,
                 opts = {},
             },
         },
@@ -403,6 +407,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        cond = lsp_enabled,
         dependencies = {
             "neovim/nvim-lspconfig",
         },
@@ -412,6 +417,7 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
+        cond = lsp_enabled,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
