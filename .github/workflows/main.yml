@@ -23,7 +23,7 @@ jobs:
           filters: |
             formatting:
               - "**/*.sh"
-              - "utils/exe"
+              - "utils/exe/**"
               - "karabiner/karabiner.edn"
               - "nvim/**"
               - "mise.toml"
