@@ -62,6 +62,9 @@ fi
 AG_PREVIEW_ORDER=$(printf '%s\n' "$pane_rows" | cut -f1 | tr '\n' ' ')
 export AG_PREVIEW_ORDER
 
+# X sends a Ctrl-C keypress to the agent rather than a signal: agents shut
+# down cleanly through their own keyboard handling, but not reliably when
+# sent SIGTERM or SIGINT. Some agents need a second press to exit.
 selected=$(
     printf '%s\n' "$pane_rows" |
         fzf \
@@ -72,6 +75,7 @@ selected=$(
             --no-sort \
             --no-input \
             --bind 'j:down,k:up,g:first,G:last,q:abort' \
+            --bind 'X:execute-silent(tmux send-keys -t {1} C-c)+refresh-preview' \
             --delimiter '\t' \
             --with-nth=2 \
             --bind "every(1):reload-sync($(printf '%q' "$0") --list)+refresh-preview" \
