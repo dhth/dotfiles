@@ -5,9 +5,9 @@ window_filter='#{m|ri:^(cl|cx|oc|am|ag2)$,#{window_name}}'
 command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
 
 # Agent adapters write @agent_state through ag-state; see docs/agent-state.md.
+# Rows are ordered waiting, busy, idle, then the rest, most recently active first within each.
 list_panes() {
     tmux list-panes -a -f "#{&&:#{||:${title_filter},${window_filter}},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}	#{pane_title}	#{window_activity}	#{@agent_state}' |
-        sort -t $'\t' -k4,4nr |
         awk -F '\t' '
             {
                 title = $3
@@ -17,14 +17,39 @@ list_panes() {
                     task = substr(title, separator + 1)
                 }
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", task)
-                marker = ($5 == "busy") ? "●" : ($5 == "idle") ? "○" : ($5 == "waiting") ? "!" : ($5 == "") ? " " : "?"
-                printf "%s\t%s %-12.12s%s\n", $1, marker, $2, (task == "" ? "" : "  " task)
+                if ($5 == "waiting") {
+                    marker = "!"; rank = 1
+                } else if ($5 == "busy") {
+                    marker = "●"; rank = 2
+                } else if ($5 == "idle") {
+                    marker = "○"; rank = 3
+                } else {
+                    marker = ($5 == "") ? " " : "?"; rank = 4
+                }
+                printf "%d\t%s\t%s\t%s %-12.12s%s\n", rank, $4, $1, marker, $2, (task == "" ? "" : "  " task)
             }
-        '
+        ' |
+        sort -t $'\t' -k1,1n -k2,2nr |
+        cut -f3-
 }
 
+# Reloads keep the order from when the picker opened, so rows stay in place
+# while their markers update.
 if [ "${1:-}" = "--list" ]; then
-    list_panes
+    list_panes |
+        awk -F '\t' -v order="${AG_PREVIEW_ORDER:-}" '
+            BEGIN {
+                count = split(order, targets, " ")
+                for (i = 1; i <= count; i++) {
+                    position[targets[i]] = i
+                }
+            }
+            {
+                print (($1 in position) ? position[$1] : count + 1) "\t" $0
+            }
+        ' |
+        sort -s -t $'\t' -k1,1n |
+        cut -f2-
     exit 0
 fi
 
@@ -34,6 +59,9 @@ if [ -z "$pane_rows" ]; then
     exit 0
 fi
 
+AG_PREVIEW_ORDER=$(printf '%s\n' "$pane_rows" | cut -f1 | tr '\n' ' ')
+export AG_PREVIEW_ORDER
+
 selected=$(
     printf '%s\n' "$pane_rows" |
         fzf \
@@ -42,8 +70,6 @@ selected=$(
             --style=minimal \
             --no-info \
             --no-sort \
-            --track \
-            --id-nth=1 \
             --delimiter '\t' \
             --with-nth=2 \
             --bind "every(1):reload-sync($(printf '%q' "$0") --list)+refresh-preview" \

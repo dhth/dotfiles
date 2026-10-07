@@ -46,7 +46,7 @@ The setup has three parts, each with one job.
 
 - Agent adapters decide what state the agent is in. They know about one agent's events and nothing about tmux. They live with each agent's own configuration, outside this repository.
 - `utils/exe/ag-state` is the only code that writes the state. It takes `busy`, `idle`, `waiting`, or `clear`, and writes to the pane in `$TMUX_PANE`. It does nothing outside tmux and rejects unknown values with exit code 2.
-- `utils/exe/ag-preview` reads the state. It adds `#{@agent_state}` to its `tmux list-panes` format, so reading costs no extra tmux calls. It maps each value to a marker and reloads the list every second through `ag-preview --list`.
+- `utils/exe/ag-preview` reads the state. It adds `#{@agent_state}` to its `tmux list-panes` format, so reading costs no extra tmux calls. It maps each value to a marker and reloads the list every second through `ag-preview --list`. When the picker opens, it orders rows by state (waiting, busy, idle, then the rest), most recently active first within each state. Reloads keep that order and only refresh the markers, so rows stay in place while the picker is open.
 
 Values describe meaning, never presentation. Adapters write `busy`, not `●`, so the markers can change without touching any adapter.
 
@@ -75,7 +75,7 @@ The data reads (`session.root`, `session.status`, `session.family`, `session.per
 
 When adding an adapter for another agent, keep these points in mind.
 
-- Write state only through `ag-state`. Don't call `tmux set-option` from an adapter. To add a state, change `ag-state` and the marker mapping in `ag-preview` together, then update the table at the top of this guide.
+- Write state only through `ag-state`. Don't call `tmux set-option` from an adapter. To add a state, change `ag-state` and the marker and sort rank in `ag-preview` together, then update the table at the top of this guide.
 - Make sure the hook runs inside the pane's process tree, so `$TMUX_PANE` points at the right pane. Check where the agent runs its hooks before relying on the variable. OpenCode's server plugins are an example of hooks that run somewhere else.
 - Report only the session shown in this pane. Check whether the agent delivers events for other sessions, as OpenCode does.
 - Count subagents as part of their parent. A subagent's permission prompt should show `waiting` on the parent's pane.
