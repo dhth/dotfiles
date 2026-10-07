@@ -26,8 +26,12 @@ case "${1:-}" in
     ;;
 esac
 
-if ! access_token=$(jq -er '.openai.access | select(type == "string" and length > 0)' \
-    "$HOME/.local/share/opencode/auth.json" 2>/dev/null); then
+if ! access_token=$(opencode api get /api/credential | jq -er '
+    .data[]
+    | select(.integrationID == "openai" and .active and .value.type == "oauth")
+    | .value.access
+    | select(type == "string" and length > 0)
+' 2>/dev/null); then
     printf "Unable to read the OpenAI access token from opencode's local data.\n" >&2
     exit 1
 fi
