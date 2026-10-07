@@ -70,6 +70,8 @@ selected=$(
             --style=minimal \
             --no-info \
             --no-sort \
+            --no-input \
+            --bind 'j:down,k:up,g:first,G:last,q:abort' \
             --delimiter '\t' \
             --with-nth=2 \
             --bind "every(1):reload-sync($(printf '%q' "$0") --list)+refresh-preview" \
