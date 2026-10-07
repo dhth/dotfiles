@@ -13,7 +13,7 @@ themes=(
     "gruvbox-light-hard"
 )
 
-selected_theme=$(printf '%s\n' "${themes[@]}" | fzf --layout=reverse --height=12 --prompt="theme? ") || exit 0
+selected_theme=$(printf '%s\n' "${themes[@]}" | fzf --layout=reverse --height=12 --no-input --bind 'j:down,k:up,g:first,G:last,q:abort') || exit 0
 
 if [[ -z $selected_theme ]]; then
     exit 0

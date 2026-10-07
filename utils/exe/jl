@@ -7,7 +7,7 @@ fi
 while true; do
     recipes=$(just --list --list-heading='' --list-prefix='' --no-aliases) || exit $?
 
-    recipe=$(printf '%s\n' "$recipes" | awk 'NF { print $1 }' | fzf --height=15 --layout=reverse --style=minimal)
+    recipe=$(printf '%s\n' "$recipes" | awk 'NF { print $1 }' | fzf --height=15 --layout=reverse --style=minimal --no-input --bind 'j:down,k:up,g:first,G:last,q:abort')
     exit_code=$?
 
     # Treat cancelling the fzf picker as a clean exit.

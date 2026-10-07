@@ -13,7 +13,7 @@ if [ "$#" -eq 1 ]; then
     command=$1
 else
     commands=$(printf '%s\n' "$panes" | cut -f2 | sort -u)
-    command=$(printf '%s\n' "$commands" | fzf --height=10 --layout=reverse) || {
+    command=$(printf '%s\n' "$commands" | fzf --height=10 --layout=reverse --no-input --bind 'j:down,k:up,g:first,G:last,q:abort') || {
         status=$?
         case "$status" in
         1 | 130) exit 0 ;;

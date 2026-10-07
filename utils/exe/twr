@@ -16,7 +16,7 @@ current_session=$(tmux display-message -p '#{session_id}')
 window_target=$(tmux list-windows \
     -t "$current_session" \
     -F '#{window_index}: #{window_name} #{window_id}' |
-    fzf --height=10 --layout=reverse |
+    fzf --height=10 --layout=reverse --no-input --bind 'j:down,k:up,g:first,G:last,q:abort' |
     awk '{print $NF}' |
     xargs)
 
