@@ -822,7 +822,7 @@
                  [:##left_option :##left_command :!apple {:alone [:!Ts]}]
                  [:##left_shift :##left_shift nil {:alone [:!Tf]}]         ;; fzf :Buffers
                  [:##right_command :##right_command :apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
-                 [:##right_option :##right_option :!apple {:alone [:tmux-prefix :semicolon]}] ;; tmux prefix + ;
+                 [:##right_option :##right_option :!apple {:alone [:tmux-prefix :tmux-popup-tools :!Sa]}] ;; tmux: agents with preview
                  ]}
 
         {:des "alones"
