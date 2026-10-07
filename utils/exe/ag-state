@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Records an agent's state on its tmux pane for ag-preview to display.
+# Usage: ag-state busy|idle|waiting|clear
+
+set -euo pipefail
+
+[ -n "${TMUX_PANE:-}" ] || exit 0
+
+case "${1:-}" in
+busy | idle | waiting) tmux set-option -p -t "$TMUX_PANE" @agent_state "$1" ;;
+clear) tmux set-option -p -u -t "$TMUX_PANE" @agent_state ;;
+*)
+    echo "usage: ag-state busy|idle|waiting|clear" >&2
+    exit 2
+    ;;
+esac

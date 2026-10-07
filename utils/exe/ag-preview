@@ -4,8 +4,9 @@ title_filter='#{m|ri:^(cl|cx|oc|am|ag2)([[:space:]]*\||$),#{pane_title}}'
 window_filter='#{m|ri:^(cl|cx|oc|am|ag2)$,#{window_name}}'
 command_filter='#{&&:#{&&:#{!=:#{pane_current_command},bash},#{!=:#{pane_current_command},zsh}},#{&&:#{!=:#{pane_current_command},fish},#{!=:#{pane_current_command},sh}}}'
 
-pane_rows=$(
-    tmux list-panes -a -f "#{&&:#{||:${title_filter},${window_filter}},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}	#{pane_title}	#{window_activity}' |
+# Agent adapters write @agent_state through ag-state; see docs/agent-state.md.
+list_panes() {
+    tmux list-panes -a -f "#{&&:#{||:${title_filter},${window_filter}},${command_filter}}" -F '#{session_id}:#{window_id}.#{pane_id}	#{session_name}	#{pane_title}	#{window_activity}	#{@agent_state}' |
         sort -t $'\t' -k4,4nr |
         awk -F '\t' '
             {
@@ -16,10 +17,18 @@ pane_rows=$(
                     task = substr(title, separator + 1)
                 }
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", task)
-                printf "%s\t%-12.12s%s\n", $1, $2, (task == "" ? "" : "  " task)
+                marker = ($5 == "busy") ? "●" : ($5 == "idle") ? "○" : ($5 == "waiting") ? "!" : ($5 == "") ? " " : "?"
+                printf "%s\t%s %-12.12s%s\n", $1, marker, $2, (task == "" ? "" : "  " task)
             }
         '
-)
+}
+
+if [ "${1:-}" = "--list" ]; then
+    list_panes
+    exit 0
+fi
+
+pane_rows=$(list_panes)
 
 if [ -z "$pane_rows" ]; then
     exit 0
@@ -33,9 +42,11 @@ selected=$(
             --style=minimal \
             --no-info \
             --no-sort \
+            --track \
+            --id-nth=1 \
             --delimiter '\t' \
             --with-nth=2 \
-            --bind 'every(1):refresh-preview' \
+            --bind "every(1):reload-sync($(printf '%q' "$0") --list)+refresh-preview" \
             --preview 'tmux capture-pane -e -p -t {1}' \
             --preview-window='right:80%:border-none:noinfo'
 )
