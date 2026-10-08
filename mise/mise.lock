@@ -950,6 +950,12 @@ url = "https://nodejs.org/dist/v24.13.0/node-v24.13.0-darwin-x64.tar.gz"
 checksum = "sha256:ca2742695be8de44027d71b3f53a4bdb36009b95575fe1ae6f7f0b5ce091cb88"
 url = "https://nodejs.org/dist/v24.13.0/node-v24.13.0-win-x64.zip"
 
+[[tools.openchamber]]
+version = "2.1.0"
+aube = { path = ".mise/locks/openchamber/2.1.0", digest = "sha256:7c6dbb81702c53514f6522277991baa8ae36380039391454241cc4aa48516d82" }
+backend = "npm:@openchamber/web"
+specifiers = ["latest"]
+
 [[tools.opencode]]
 version = "2.0.22"
 aube = { path = ".mise/locks/opencode/2.0.22~009061c2", digest = "sha256:ee9e1c2e66d9e59b120bdd976c7d6946e67eb0877ec453ce69deefef2f53619c" }
