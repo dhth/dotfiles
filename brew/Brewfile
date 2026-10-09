@@ -1,7 +1,6 @@
 brew "ampcode/tap/ampcode"
 brew "btop"
 brew "ffmpeg"
-brew "fwdcloudsec/granted/granted"
 brew "nnn"
 brew "tree"
 
