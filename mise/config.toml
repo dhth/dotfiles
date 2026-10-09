@@ -37,6 +37,7 @@ ripgrep = "latest"
 ruby = "4.0.6"
 shellcheck = "latest"
 shfmt = "latest"
+t3code = { version = "latest", os = ["macos/arm64"] }
 terminal-control-darwin = { version = "1.2.1", os = ["macos/arm64"] }
 terminal-control-linux = { version = "1.2.1-r1", version_prefix = "musl-v", os = ["linux/x64"] }
 tmux = "3.6b"
@@ -69,6 +70,7 @@ jira = "github:ankitpokhrel/jira-cli"
 mdserve = "github:jfernandez/mdserve"
 openchamber = "npm:@openchamber/web"
 opencode = "npm:@opencode/cli"
+t3code = "github:pingdotgg/t3code"
 terminal-control-darwin = "npm:@kitlangton/terminal-control-darwin-arm64"
 terminal-control-linux = "github:dhth/terminal-control"
 tmuxinator = "gem:tmuxinator"

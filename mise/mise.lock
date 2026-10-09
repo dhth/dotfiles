@@ -1132,6 +1132,46 @@ checksum = "sha256:13629ce28442ca80b6b5a819f7574ab39e1c28c6e26734ca816c9714e0485
 url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_windows_amd64.exe"
 url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320827"
 
+[[tools.t3code]]
+version = "0.0.45"
+backend = "github:pingdotgg/t3code"
+specifiers = ["latest"]
+
+[tools.t3code."platforms.linux-arm64"]
+checksum = "sha256:9133591017e7d477525fda661a46cc9528fd62a0c42268079e435ffb35b95ac9"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203116"
+
+[tools.t3code."platforms.linux-arm64-musl"]
+checksum = "sha256:9133591017e7d477525fda661a46cc9528fd62a0c42268079e435ffb35b95ac9"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-linux-arm64.tar.gz"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203116"
+
+[tools.t3code."platforms.linux-x64"]
+checksum = "sha256:10505ae74bc6a43cfab0fde0bf06a0e0d6862f74030591be994a640d48a0d6bd"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203108"
+
+[tools.t3code."platforms.linux-x64-musl"]
+checksum = "sha256:10505ae74bc6a43cfab0fde0bf06a0e0d6862f74030591be994a640d48a0d6bd"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-linux-x64.tar.gz"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203108"
+
+[tools.t3code."platforms.macos-arm64"]
+checksum = "sha256:330a2431619b9b225a3d4f4e555bb165bbf83d57b72d6106e75cd2aabc70c8d6"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-darwin-arm64.tar.gz"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203124"
+
+[tools.t3code."platforms.macos-x64"]
+checksum = "sha256:5439ed1525790c415ca5b451dac74208617f474f046274c37c05edc56199538d"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/latest-mac.yml"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203104"
+
+[tools.t3code."platforms.windows-x64"]
+checksum = "sha256:c57f4ecc50c54c7335d64e1949019ed695d2ad9dd0282eac10a6087b63705683"
+url = "https://github.com/pingdotgg/t3code/releases/download/v0.0.45/t3-0.0.45-win32-x64.zip"
+url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/606203109"
+
 [[tools.terminal-control-darwin]]
 version = "1.2.1"
 aube = { path = ".mise/locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
