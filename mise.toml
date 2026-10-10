@@ -85,12 +85,12 @@ run = "mise lock --global --bump"
 [tasks."global-tools:bump-agents"]
 alias = "ba"
 description = "Bump versions for agents in the lockfile"
-run = "mise lock --global --bump amp claude codex opencode pi"
+run = "mise lock --global --bump amp claude codex opencode openchamber pi"
 
 [tasks."global-tools:bump-agents-no-delay"]
 alias = "band"
 description = "Bump agents without any release-age delay"
-run = "mise lock --global --bump --minimum-release-age 0s amp claude codex opencode pi"
+run = "mise lock --global --bump --minimum-release-age 0s amp claude codex opencode openchamber pi"
 
 [tasks."karabiner:update-environment"]
 description = "Update Karabiner's environment for required tools"
