@@ -695,6 +695,46 @@ checksum = "sha256:bba299f1877913979831543a008f2e104995d2ea4ac8f23d7f49c0444857d
 url = "https://github.com/derailed/k9s/releases/download/v0.51.0/k9s_Windows_amd64.zip"
 url_api = "https://api.github.com/repos/derailed/k9s/releases/assets/440224317"
 
+[[tools.kondo]]
+version = "0.9"
+backend = "github:tbillington/kondo"
+specifiers = ["latest"]
+
+[tools.kondo."platforms.linux-arm64"]
+checksum = "sha256:531cfc381e851300878e20f77ebd58724ddc28ecf5e48bec654f630f0bfc7fb0"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632402"
+
+[tools.kondo."platforms.linux-arm64-musl"]
+checksum = "sha256:531cfc381e851300878e20f77ebd58724ddc28ecf5e48bec654f630f0bfc7fb0"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632402"
+
+[tools.kondo."platforms.linux-x64"]
+checksum = "sha256:56f89890fd4e16cf5e11bb212bb812b60a8319dabfb05fabaf80c6c8b5133b65"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632388"
+
+[tools.kondo."platforms.linux-x64-musl"]
+checksum = "sha256:b8855f3ba710661d9d2fb37a32919531697e020b2c0973dc46b1ac52a38048bc"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-x86_64-unknown-linux-musl.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632450"
+
+[tools.kondo."platforms.macos-arm64"]
+checksum = "sha256:847d2f5d8fb242d8fc1eb64b08fba4b8ed9567bef7fb7ff23a7b8c7fd11fc3bc"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632608"
+
+[tools.kondo."platforms.macos-x64"]
+checksum = "sha256:aa1500e275cefe8d8a7c84ef17367c00fcff5de2b2e595d4be91db940d69ff1d"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-x86_64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632630"
+
+[tools.kondo."platforms.windows-x64"]
+checksum = "sha256:4c70e7de85bfaf1b66de931654e9943681af42b093cd591530fc0dd4cc4a0f88"
+url = "https://github.com/tbillington/kondo/releases/download/v0.9/kondo-x86_64-pc-windows-msvc.zip"
+url_api = "https://api.github.com/repos/tbillington/kondo/releases/assets/344632458"
+
 [[tools.kubectl]]
 version = "1.37.1"
 backend = "aqua:kubernetes/kubernetes/kubectl"
