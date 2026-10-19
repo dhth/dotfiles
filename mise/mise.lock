@@ -950,14 +950,14 @@ checksum = "sha256:ca2742695be8de44027d71b3f53a4bdb36009b95575fe1ae6f7f0b5ce091c
 url = "https://nodejs.org/dist/v24.13.0/node-v24.13.0-win-x64.zip"
 
 [[tools.openchamber]]
-version = "2.3.0"
-aube = { path = ".mise/locks/openchamber/2.3.0", digest = "sha256:327cb5decb535df5a179ea77c9797faf71220132ea33db268ada6740ea7eaf47" }
+version = "2.4.0"
+aube = { path = ".mise/locks/openchamber/2.4.0", digest = "sha256:c377b113160affb6bbc406836ba75110ad050fb4dbc1f8684f2d12e42f5e8524" }
 backend = "npm:@openchamber/web"
 specifiers = ["latest"]
 
 [[tools.opencode]]
-version = "2.0.27"
-aube = { path = ".mise/locks/opencode/2.0.27~009061c2", digest = "sha256:aad0cd46871ca868f21367bf6096a0b15ec87e61abb1b144a0f9602e7aa39b1a" }
+version = "2.0.32"
+aube = { path = ".mise/locks/opencode/2.0.32~009061c2", digest = "sha256:1d53710ca0ba6bede240bd9f7d0c32d6fae76ecdf53f8bc9b15dbf9e9a6fadd0" }
 backend = "npm:@opencode/cli"
 specifiers = ["latest"]
 
