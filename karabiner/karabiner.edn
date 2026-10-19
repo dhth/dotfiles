@@ -405,6 +405,7 @@
 
         {:des   "m mode"
          :rules [:m-mode
+                 [:d [:alfred "models" "dhth.ai"]] ;; alfred: AI model picker
                  [:f :!OSk] ;; amethyst: move focus clockwise
                  [:j :!TOCj] ;; dato join meeting
                  [:l [:alfred "means_like"  "dhth.vocabulary"]]
