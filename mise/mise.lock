@@ -1171,6 +1171,12 @@ checksum = "sha256:13629ce28442ca80b6b5a819f7574ab39e1c28c6e26734ca816c9714e0485
 url = "https://github.com/mvdan/sh/releases/download/v3.14.1/shfmt_v3.14.1_windows_amd64.exe"
 url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320827"
 
+[[tools.skepsis]]
+version = "0.4.1"
+aube = { path = ".mise/locks/skepsis/0.4.1", digest = "sha256:473328eae8f568e0ffb4e23ca8517987193242995e3015f2e0ec22c73b500d86" }
+backend = "npm:@oxide/skepsis"
+specifiers = ["latest"]
+
 [[tools.t3code]]
 version = "0.0.45"
 backend = "github:pingdotgg/t3code"

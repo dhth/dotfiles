@@ -1,0 +1,24 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@oxide/skepsis':
+        specifier: 0.4.1
+        version: 0.4.1
+
+packages:
+
+  '@oxide/skepsis@0.4.1':
+    resolution: {integrity: sha512-CTUBR7BIzoVZlj/kcsOk3FEutpQdH8ERhAmZryF8TOHTu3L5R+T8DCrz7836t5vE6VBQRZO1yADDWIhgh6ThuA==}
+    engines: {node: '>=22'}
+    hasBin: true
+
+snapshots:
+
+  '@oxide/skepsis@0.4.1': {}
