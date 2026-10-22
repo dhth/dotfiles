@@ -6,7 +6,7 @@ task.run_auto_install = false
 
 [tools]
 actionlint = "latest"
-amp = { version = "latest", allow_builds = ["@ampcode/cli"] }
+amp = { version = "0.0.1792699242-g1cbc87", allow_builds = ["@ampcode/cli"] }
 asciinema = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 bat = "latest"

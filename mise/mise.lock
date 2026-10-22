@@ -50,10 +50,10 @@ url_api = "https://api.github.com/repos/rhysd/actionlint/releases/assets/3849249
 provenance = "github-attestations"
 
 [[tools.amp]]
-version = "0.0.1791216048-g3f2cac"
-aube = { path = ".mise/locks/amp/0.0.1791216048-g3f2cac~23fc35d7", digest = "sha256:f807160cb2defe528b026328bb0978aa7200098a8996393b3083ab8fc3712a15" }
+version = "0.0.1792699242-g1cbc87"
+aube = { path = ".mise/locks/amp/0.0.1792699242-g1cbc87~23fc35d7", digest = "sha256:58ccaf434131daec0097f38ad4d8da97f94dd9604a16a6c3d1bba97843bf2466" }
 backend = "npm:@ampcode/cli"
-specifiers = ["latest"]
+specifiers = ["0.0.1792699242-g1cbc87"]
 
 [tools.amp.options]
 allow_builds = '["@ampcode/cli"]'
