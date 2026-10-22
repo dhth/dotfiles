@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@openchamber/web':
-        specifier: 2.4.0
-        version: 2.4.0
+        specifier: 2.5.0
+        version: 2.5.0
 
 packages:
 
@@ -104,12 +104,12 @@ packages:
   '@octokit/types@18.0.0':
     resolution: {integrity: sha512-l6bAF43PNxkJp6g+W4PjoUSSkxHomXw2nOum5CTftJz1NlV3vu93NImgOYtLf6CbBUb5j+fiuzW0PPQ5JTSvZA==}
 
-  '@openchamber/sdk@2.4.0':
-    resolution: {integrity: sha512-TSL0DI5o4+pOHSpJ8fMP/fU4E/LTRd3hWHIIiaBHoSjpFNYzxaC91d2SCEUq4uj+OYRk/SMe6KiUPtr5Q0rwHA==}
+  '@openchamber/sdk@2.5.0':
+    resolution: {integrity: sha512-5gigGSmIIonZB0ZAfOFziKVZ6NpLt5HjUtrlMDnk4igQdgn++VvOL3gPdW5M6Ht7ldHceNKVU1Rsy+zxd9nzWA==}
     hasBin: true
 
-  '@openchamber/web@2.4.0':
-    resolution: {integrity: sha512-iKRDqLIu7/Y60sdzXHg2RP2P3w61Yb77flIrjWWGWTK0jcRhhRLX93BAHgvubSM7ecPnOh7Sl92oQIi2dQvi8w==}
+  '@openchamber/web@2.5.0':
+    resolution: {integrity: sha512-9w/kJamnn+8DXzFPu0ZrqJfEHzpV7p2DNqcbsfw0lE5bmRIivoML1y/rsD3Ns4rp6WpvP8e/UGqCTzHqE5drTA==}
     engines: {node: '>=24.14.0'}
     hasBin: true
 
@@ -295,8 +295,8 @@ packages:
   buffer-equal-constant-time@1.0.1:
     resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
 
-  bun-pty@0.4.11:
-    resolution: {integrity: sha512-DpBfXCoWbcDziqL4gT3sFw/O6vfe2Gm1LmsnjfGjpqNhmsPjBcVorTrRv7OVATsy88PiXfn486vp0w4x3/Q84g==}
+  bun-pty@0.5.1:
+    resolution: {integrity: sha512-YkC0pnw15fTpvDaPu8wEhzoBqUPDh6X83Oft6GJv4JVl9fFEOqQiGyGqXP80n/tDX93ufe+OBEq3NRgjRNyinA==}
     engines: {bun: '>=1.0.0'}
 
   bytes@3.1.2:
@@ -513,8 +513,8 @@ packages:
   is-promise@4.0.0:
     resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
 
-  jose@6.2.12:
-    resolution: {integrity: sha512-9NiFmJEex0sy2Dk58j2UGBSHgUs2ypF9eZSu4L6vjOX3Dp96Sw1F3uL+H+D1sx02jZZdzUT0HgvCy59CuvXcWw==}
+  jose@6.2.13:
+    resolution: {integrity: sha512-7TIg10ZE1x82YediN+lcrPNvGMKge9yFHQD+Qho/b8y2adfugU3AsvvHfxV0fzyFllT6l9xCjf4RWY9g/Z9PJQ==}
 
   json-with-bigint@3.5.12:
     resolution: {integrity: sha512-uwbF/wSSuOgC7qqlq27Xp5B6a2MHVug3t0idZdTqu0JnlFvgJuH7ju+KAk/J06C7GfhoYy2gnb9wz2INqcne7w==}
@@ -597,13 +597,14 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
-  openai@7.38.0:
-    resolution: {integrity: sha512-Ef+YyIeoiisZLP/tV4F4/RieJAl4OEJTyJg6gV0AXOb0T9CDkvYJoU224OY5CTmQ4zDJeku4jEHjz2b3/6Ndhw==}
+  openai@7.41.0:
+    resolution: {integrity: sha512-k8dr5CXaK8+3f6iOrjQQz7rw7zT3QQZZtI28KOnVmU5Q10vX+Iyik4cE20ohMmZ7EnumUVC7S6nmjEBd/wdlLg==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
       '@smithy/hash-node': '>=4.3.0 <5'
       '@smithy/signature-v4': '>=5.4.0 <6'
+      google-auth-library: '>=9.15.1 <11'
       undici: '>=5 <9'
       ws: ^8.21.0
       zod: ^3.25 || ^4.0
@@ -613,6 +614,8 @@ packages:
       '@smithy/hash-node':
         optional: true
       '@smithy/signature-v4':
+        optional: true
+      google-auth-library:
         optional: true
       undici:
         optional: true
@@ -932,30 +935,30 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 29.0.1
 
-  '@openchamber/sdk@2.4.0':
+  '@openchamber/sdk@2.5.0':
     dependencies:
       zod: 4.6.7
 
-  '@openchamber/web@2.4.0':
+  '@openchamber/web@2.5.0':
     dependencies:
       '@clack/prompts': 1.8.1
       '@gitbeaker/rest': 43.8.0
       '@octokit/rest': 22.0.1
-      '@openchamber/sdk': 2.4.0
+      '@openchamber/sdk': 2.5.0
       '@opencode/client': 2.0.32
       '@opencode/schema': 2.0.32
       '@simplewebauthn/server': 13.3.3
       '@vscode/ripgrep': 1.18.0
-      bun-pty: 0.4.11
+      bun-pty: 0.5.1
       compression: 1.8.2
       cron-parser: 5.10.2
       express: 5.3.0
       http-proxy-middleware: 3.0.7
-      jose: 6.2.12
+      jose: 6.2.13
       jsonc-parser: 3.3.1
       luxon: 3.7.2
       node-pty: 1.2.0-beta.15
-      openai: 7.38.0(ws@8.22.0)(zod@4.6.7)
+      openai: 7.41.0(ws@8.22.0)(zod@4.6.7)
       qrcode-terminal: 0.12.0
       reflect-metadata: 0.2.2
       sherpa-onnx-node: 1.13.8
@@ -970,6 +973,7 @@ snapshots:
       - '@smithy/signature-v4'
       - bufferutil
       - effect
+      - google-auth-library
       - solid-js
       - supports-color
       - undici
@@ -1212,7 +1216,7 @@ snapshots:
 
   buffer-equal-constant-time@1.0.1: {}
 
-  bun-pty@0.4.11: {}
+  bun-pty@0.5.1: {}
 
   bytes@3.1.2: {}
 
@@ -1445,7 +1449,7 @@ snapshots:
 
   is-promise@4.0.0: {}
 
-  jose@6.2.12: {}
+  jose@6.2.13: {}
 
   json-with-bigint@3.5.12: {}
 
@@ -1513,7 +1517,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  openai@7.38.0(ws@8.22.0)(zod@4.6.7):
+  openai@7.41.0(ws@8.22.0)(zod@4.6.7):
     dependencies:
       ws: 8.22.0
       zod: 4.6.7
