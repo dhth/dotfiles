@@ -1,5 +1,5 @@
 [dotfiles]
-"~/.config/mise" = { source = ".", mode = "symlink" }
+"~/.config/mise" = { source = ".", mode = "symlink-each" }
 "~/.config/git/preferences" = { source = "../git/preferences", mode = "symlink" }
 "~/.config/lazygit" = { source = "../lazygit", mode = "symlink" }
 "~/.local/bin" = { source = "../utils/exe", mode = "symlink-each" }
