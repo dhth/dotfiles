@@ -1,4 +1,4 @@
-min_version = "2026.10.0"
+min_version = "2026.10.17"
 
 [settings]
 exec_auto_install = false
