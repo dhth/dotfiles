@@ -51,7 +51,7 @@ provenance = "github-attestations"
 
 [[tools.amp]]
 version = "0.0.1792699242-g1cbc87"
-aube = { path = "locks/amp/0.0.1792699242-g1cbc87~23fc35d7", digest = "sha256:58ccaf434131daec0097f38ad4d8da97f94dd9604a16a6c3d1bba97843bf2466" }
+aube = { path = ".mise/locks/amp/0.0.1792699242-g1cbc87~23fc35d7", digest = "sha256:58ccaf434131daec0097f38ad4d8da97f94dd9604a16a6c3d1bba97843bf2466" }
 backend = "npm:@ampcode/cli"
 specifiers = ["0.0.1792699242-g1cbc87"]
 
@@ -951,13 +951,13 @@ url = "https://nodejs.org/dist/v24.22.1/node-v24.22.1-win-x64.zip"
 
 [[tools.openchamber]]
 version = "2.5.0"
-aube = { path = "locks/openchamber/2.5.0", digest = "sha256:a63eb5e91fee339f74abd7ba51db7b5e4b3ab17679fc3fee229420002382830a" }
+aube = { path = ".mise/locks/openchamber/2.5.0", digest = "sha256:a63eb5e91fee339f74abd7ba51db7b5e4b3ab17679fc3fee229420002382830a" }
 backend = "npm:@openchamber/web"
 specifiers = ["latest"]
 
 [[tools.opencode]]
 version = "2.1.4"
-aube = { path = "locks/opencode/2.1.4~009061c2", digest = "sha256:187c80319242b8bff1621fad922121343f6287db16e5902b35571868a17e9fe5" }
+aube = { path = ".mise/locks/opencode/2.1.4~009061c2", digest = "sha256:187c80319242b8bff1621fad922121343f6287db16e5902b35571868a17e9fe5" }
 backend = "npm:@opencode/cli"
 specifiers = ["latest"]
 
@@ -1173,7 +1173,7 @@ url_api = "https://api.github.com/repos/mvdan/sh/releases/assets/547320827"
 
 [[tools.skepsis]]
 version = "0.4.1"
-aube = { path = "locks/skepsis/0.4.1", digest = "sha256:473328eae8f568e0ffb4e23ca8517987193242995e3015f2e0ec22c73b500d86" }
+aube = { path = ".mise/locks/skepsis/0.4.1", digest = "sha256:473328eae8f568e0ffb4e23ca8517987193242995e3015f2e0ec22c73b500d86" }
 backend = "npm:@oxide/skepsis"
 specifiers = ["latest"]
 
@@ -1219,7 +1219,7 @@ url_api = "https://api.github.com/repos/pingdotgg/t3code/releases/assets/6670387
 
 [[tools.terminal-control-darwin]]
 version = "1.2.1"
-aube = { path = "locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
+aube = { path = ".mise/locks/terminal-control-darwin/1.2.1", digest = "sha256:699239ac1fec42ec474b6141edae72da8e2386ade2a5ebcc3eda5507d094d73d" }
 backend = "npm:@kitlangton/terminal-control-darwin-arm64"
 specifiers = ["1.2.1"]
 
