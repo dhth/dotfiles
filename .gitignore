@@ -3,6 +3,3 @@
 .netrwhist
 autoload
 .mise
-!/mise/.mise/
-/mise/.mise/*
-!/mise/.mise/locks/
