@@ -916,6 +916,15 @@ url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-macos-x86
 [tools.neovim."platforms.windows-x64"]
 url = "https://github.com/neovim/neovim/releases/download/v0.12.6/nvim-win64.zip"
 
+[[tools.netlify]]
+version = "27.14.2"
+aube = { path = ".mise/locks/netlify/27.14.2~201f0d3f", digest = "sha256:9d332e85eefd935136d7fe26902bf969c34e77c3209a2b89f06614d187259854" }
+backend = "npm:netlify-cli"
+specifiers = ["latest"]
+
+[tools.netlify.options]
+trust_policy_excludes = '["@netlify/serverless-functions-api"]'
+
 [[tools.node]]
 version = "24.22.1"
 backend = "core:node"
