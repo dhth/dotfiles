@@ -5,6 +5,10 @@
 - Read `docs/keymaps.md` before changing shortcuts that connect Karabiner, tmux, and repository utilities.
 - Read `docs/agent-state.md` before changing how agents report their state or how the agent picker shows it.
 
+## Global tools
+
+- After adding a tool to `mise/config.toml`, lock only that tool with `mise run global-tools:lock <tool>`. Without arguments, the task re-resolves every global tool.
+
 ## Tool installation in orbs
 
 - Install global tools with `mise run global-tools:install <tool-1> <tool-2>`. Install repository tools with `mise install --locked <tool>` from the repository root.

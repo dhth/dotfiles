@@ -70,17 +70,20 @@ yamlfmt \
 [tasks."global-tools:install"]
 alias = "i"
 description = "Install global tools from the committed lockfile"
-run = 'mise -C "$HOME" install --locked'
+usage = 'arg "[tools]" var=#true help="Tools to install; defaults to every global tool"'
+run = 'mise -C "$HOME" install --locked ${usage_tools:-}'
 
 [tasks."global-tools:lock"]
 alias = "l"
 description = "Update the global lockfile without bumping existing versions"
-run = "mise lock --global"
+usage = 'arg "[tools]" var=#true help="Tools to lock; defaults to every global tool"'
+run = "mise lock --global ${usage_tools:-}"
 
 [tasks."global-tools:bump-lock"]
 alias = "bl"
 description = "Bump fuzzy global tool versions in the lockfile"
-run = "mise lock --global --bump"
+usage = 'arg "[tools]" var=#true help="Tools to bump; defaults to every global tool"'
+run = "mise lock --global --bump ${usage_tools:-}"
 
 [tasks."global-tools:bump-agents"]
 alias = "ba"
